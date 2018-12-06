@@ -10,8 +10,7 @@
 
 #include <SFML/Graphics.hpp>
 
-class Pickup
-{
+class Pickup {
 private:
 	//Start value for health pickups
 	const int HEALTH_START_VALUE = 50;
@@ -41,8 +40,7 @@ private:
 
 	// Public prototypes go here
 public:
-
-	Pickup::Pickup(int type);
+	/*Pickup::*/Pickup(int type);
 
 	// Prepare a new pickup
 	void setArena(sf::IntRect arena);
@@ -66,7 +64,6 @@ public:
 
 	// Upgrade the value of each pickup
 	void upgrade();
-
 };
 
 #endif // PICKUP_H

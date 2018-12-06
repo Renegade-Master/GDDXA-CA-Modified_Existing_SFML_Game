@@ -10,8 +10,7 @@
 
 #include <SFML/Graphics.hpp>
 
-class Player
-{
+class Player {
 private:
 	const float START_SPEED = 200;
 	const float START_HEALTH = 100;
@@ -52,10 +51,8 @@ private:
 	// Speed in pixels per second
 	float m_Speed;
 
-
-	// All our public functions will come next
+// All our public functions will come next
 public:
-
 	Player();
 
 	// Call this at the end of every game
@@ -113,8 +110,6 @@ public:
 
 	// Increase the maximum amount of health the player can have
 	void increaseHealthLevel(int amount);
-
-
 };
 
 #endif // PLAYER_H

@@ -10,8 +10,7 @@
 
 #include <SFML/Graphics.hpp>
 
-class Bullet
-{
+class Bullet {
 private:
 	// Where is the bullet?
 	sf::Vector2f m_Position;
@@ -64,7 +63,6 @@ public:
 
 	// Update the bullet each frame
 	void update(float elapsedTime);
-
 };
 
 #endif // BULLET_H

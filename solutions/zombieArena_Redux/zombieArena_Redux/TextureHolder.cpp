@@ -9,14 +9,12 @@
 
 TextureHolder* TextureHolder::m_s_Instance = nullptr;
 
-TextureHolder::TextureHolder()
-{
+TextureHolder::TextureHolder() {
 	assert(m_s_Instance == nullptr);
 	m_s_Instance = this;
 }
 
-sf::Texture& TextureHolder::GetTexture(std::string const& filename)
-{
+sf::Texture& TextureHolder::GetTexture(std::string const& filename) {
 	// Get a reference to m_Textures using m_S_Instance
 	auto& m = m_s_Instance->m_Textures;
 	// auto is the equivalent of map<string, Texture>
@@ -29,15 +27,13 @@ sf::Texture& TextureHolder::GetTexture(std::string const& filename)
 	
 		
 	// Did we find a match?
-	if (keyValuePair != m.end())
-	{
+	if (keyValuePair != m.end()) {
 		// Yes
 		// Return the texture,
 		// the second part of the kvp, the texture
 		return keyValuePair->second;
 	}
-	else
-	{
+	else {
 		// File name not found
 		// Create a new key value pair using the filename
 		auto& texture = m[filename];

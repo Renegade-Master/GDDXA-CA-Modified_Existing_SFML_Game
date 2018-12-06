@@ -14,8 +14,7 @@
 #include "Bullet.h"
 #include "Pickup.h"
 
-int main()
-{
+int main() {
 	// Here is the instabce of TextureHolder
 	TextureHolder holder;
 
@@ -23,7 +22,6 @@ int main()
 	enum class State { PAUSED, LEVELING_UP, GAME_OVER, PLAYING };
 	// Start with the GAME_OVER state
 	State state = State::GAME_OVER;
-
 
 	// Get the screen resolution and create an SFML window
 	sf::Vector2f resolution;
@@ -243,8 +241,7 @@ int main()
 	pickup.setBuffer(pickupBuffer);
 
 	// The main game loop
-	while (window.isOpen())
-	{
+	while (window.isOpen())	{
 		/*
 		************
 		Handle input
@@ -253,21 +250,17 @@ int main()
 
 		// Handle events
 		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::KeyPressed)
-			{
+		while (window.pollEvent(event))	{
+			if (event.type == sf::Event::KeyPressed) {
 				// Pause a game while playing
 				if (event.key.code == sf::Keyboard::Return &&
-					state == State::PLAYING)
-				{
+					state == State::PLAYING) {
 					state = State::PAUSED;
 				}
 
 				// Restart while paused
 				else if (event.key.code == sf::Keyboard::Return &&
-					state == State::PAUSED)
-				{
+					state == State::PAUSED)	{
 					state = State::PLAYING;
 					// Reset the clock so there isn't a frame jump
 					clock.restart();
@@ -275,8 +268,7 @@ int main()
 
 				// Start a new game while in GAME_OVER state
 				else if (event.key.code == sf::Keyboard::Return &&
-					state == State::GAME_OVER)
-				{
+					state == State::GAME_OVER) {
 					state = State::LEVELING_UP;
 					wave = 0;
 					score = 0;
@@ -293,48 +285,39 @@ int main()
 				}
 				// Spin and zoom the world
 				
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-				{
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))	{
 					mainView.rotate(.5f);
 				}
 
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-				{
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 					mainView.rotate(-.5f);
 				}
 
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-				{
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 					mainView.zoom(.99f);
 				}
 
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-				{
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))	{
 					mainView.zoom(1.01f);
 				}
 				// End spinning and zooming
 
-				if (state == State::PLAYING)
-				{
+				if (state == State::PLAYING) {
 					// Reloading
-					if (event.key.code == sf::Keyboard::R)
-					{
-						if (bulletsSpare >= clipSize)
-						{
+					if (event.key.code == sf::Keyboard::R) {
+						if (bulletsSpare >= clipSize) {
 							// Plenty of bullets. Reload.
 							bulletsInClip = clipSize;
 							bulletsSpare -= clipSize;		
 							reload.play();
 						}
-						else if (bulletsSpare > 0)
-						{
+						else if (bulletsSpare > 0) {
 							// Only few bullets left
 							bulletsInClip = bulletsSpare;
 							bulletsSpare = 0;				
 							reload.play();
 						}
-						else
-						{
+						else {
 							// More here soon?!
 							reloadFailed.play();
 						}
@@ -346,59 +329,47 @@ int main()
 
 
 		 // Handle the player quitting
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-		{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
 			window.close();
 		}
 
 		// Handle controls while playing
-		if (state == State::PLAYING)
-		{
+		if (state == State::PLAYING) {
 			// Handle the pressing and releasing of the WASD keys
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-			{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 				player.moveUp();
 			}
-			else
-			{
+			else {
 				player.stopUp();
 			}
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-			{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 				player.moveDown();
 			}
-			else
-			{
+			else {
 				player.stopDown();
 			}
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-			{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 				player.moveLeft();
 			}
-			else
-			{
+			else {
 				player.stopLeft();
 			}
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-			{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 				player.moveRight();
 			}
-			else
-			{
+			else {
 				player.stopRight();
 			}
 
 			// Fire a bullet
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			{
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 
 				if (gameTimeTotal.asMilliseconds()
 					- lastPressed.asMilliseconds()
-					> 1000 / fireRate && bulletsInClip > 0)
-				{
+					> 1000 / fireRate && bulletsInClip > 0)	{
 
 					// Pass the centre of the player and the centre of the crosshair
 					// to the shoot function
@@ -407,65 +378,54 @@ int main()
 						mouseWorldPosition.x, mouseWorldPosition.y);
 
 					currentBullet++;
-					if (currentBullet > 99)
-					{
+					if (currentBullet > 99) {
 						currentBullet = 0;
 					}
 					lastPressed = gameTimeTotal;
 					shoot.play();
 					bulletsInClip--;
 				}
-
 			}// End fire a bullet
-
 		}// End WASD while playing
 
 		// Handle the levelling up state
-		if (state == State::LEVELING_UP)
-		{
+		if (state == State::LEVELING_UP) {
 			// Handle the player levelling up
-			if (event.key.code == sf::Keyboard::Num1)
-			{
+			if (event.key.code == sf::Keyboard::Num1) {
 				// Increase fire rate
 				fireRate++;
 				state = State::PLAYING;
 			}
 
-			if (event.key.code == sf::Keyboard::Num2)
-			{
+			if (event.key.code == sf::Keyboard::Num2) {
 				// Increase clip size
 				clipSize += clipSize;
 				state = State::PLAYING;
 			}
 
-			if (event.key.code == sf::Keyboard::Num3)
-			{
+			if (event.key.code == sf::Keyboard::Num3) {
 				// Increase health
 				player.upgradeHealth();
 				state = State::PLAYING;
 			}
 
-			if (event.key.code == sf::Keyboard::Num4)
-			{
+			if (event.key.code == sf::Keyboard::Num4) {
 				// Increase speed
 				player.upgradeSpeed();
 				state = State::PLAYING;
 			}
 
-			if (event.key.code == sf::Keyboard::Num5)
-			{
+			if (event.key.code == sf::Keyboard::Num5) {
 				healthPickup.upgrade();
 				state = State::PLAYING;
 			}
 
-			if (event.key.code == sf::Keyboard::Num6)
-			{
+			if (event.key.code == sf::Keyboard::Num6) {
 				ammoPickup.upgrade();
 				state = State::PLAYING;
 			}
 
-			if (state == State::PLAYING)
-			{
+			if (state == State::PLAYING) {
 				// Increase the wave number
 				wave++;
 
@@ -508,8 +468,7 @@ int main()
 		 UPDATE THE FRAME
 		 ****************
 		 */
-		if (state == State::PLAYING)
-		{
+		if (state == State::PLAYING) {
 			// Update the delta time
 			sf::Time dt = clock.restart();
 			// Update the total game time
@@ -537,19 +496,15 @@ int main()
 			mainView.setCenter(player.getCenter());
 
 			// Loop through each Zombie and update them
-			for (int i = 0; i < numZombies; i++)
-			{
-				if (zombies[i].isAlive())
-				{
+			for (int i = 0; i < numZombies; i++) {
+				if (zombies[i].isAlive()) {
 					zombies[i].update(dt.asSeconds(), playerPosition);
 				}
 			}
 
 			// Update any bullets that are in-flight
-			for (int i = 0; i < 100; i++)
-			{
-				if (bullets[i].isInFlight())
-				{
+			for (int i = 0; i < 100; i++) {
+				if (bullets[i].isInFlight()) {
 					bullets[i].update(dtAsSeconds);
 				}
 			}
@@ -560,16 +515,12 @@ int main()
 
 			// Collision detection
 			// Have any zombies been shot?
-			for (int i = 0; i < 100; i++)
-			{
-				for (int j = 0; j < numZombies; j++)
-				{
+			for (int i = 0; i < 100; i++) {
+				for (int j = 0; j < numZombies; j++) {
 					if (bullets[i].isInFlight() && 
-						zombies[j].isAlive())
-					{
+						zombies[j].isAlive()) {
 						if (bullets[i].getPosition().intersects
-							(zombies[j].getPosition()))
-						{
+							(zombies[j].getPosition())) {
 							// Stop the bullet
 							bullets[i].stop();
 
@@ -577,8 +528,7 @@ int main()
 							if (zombies[j].hit()) {
 								// Not just a hit but a kill too
 								score += 10;
-								if (score >= hiScore)
-								{
+								if (score >= hiScore) {
 									hiScore = score;
 								}
 
@@ -591,57 +541,46 @@ int main()
 							}	
 
 							// Make a splat sound
-							splat.play();
-							
+							splat.play();							
 						}
 					}
-
 				}
 			}// End zombie being shot
 
 			// Have any zombies touched the player			
-			for (int i = 0; i < numZombies; i++)
-			{
+			for (int i = 0; i < numZombies; i++) {
 				if (player.getPosition().intersects
-					(zombies[i].getPosition()) && zombies[i].isAlive())
-				{
+					(zombies[i].getPosition()) && zombies[i].isAlive())	{
 
-					if (player.hit(gameTimeTotal))
-					{
+					if (player.hit(gameTimeTotal)) {
 						// More here later
 						hit.play();
 					}
 
-					if (player.getHealth() <= 0)
-					{
+					if (player.getHealth() <= 0) {
 						state = State::GAME_OVER;
 
 						std::ofstream outputFile("gamedata/scores.txt");
 						outputFile << hiScore;
-						outputFile.close();
-						
+						outputFile.close();						
 					}
 				}
 			}// End player touched
 
 			// Has the player touched health pickup
 			if (player.getPosition().intersects
-				(healthPickup.getPosition()) && healthPickup.isSpawned())
-			{
+				(healthPickup.getPosition()) && healthPickup.isSpawned()) {
 				player.increaseHealthLevel(healthPickup.gotIt());
 				// Play a sound
-				pickup.play();
-				
+				pickup.play();				
 			}
 
 			// Has the player touched ammo pickup
 			if (player.getPosition().intersects
-				(ammoPickup.getPosition()) && ammoPickup.isSpawned())
-			{
+				(ammoPickup.getPosition()) && ammoPickup.isSpawned()) {
 				bulletsSpare += ammoPickup.gotIt();
 				// Play a sound
-				reload.play();
-				
+				reload.play();				
 			}
 
 			// size up the health bar
@@ -652,8 +591,7 @@ int main()
 			// Increment the number of frames since the last HUD calculation
 			framesSinceLastHUDUpdate++;
 			// Calculate FPS every fpsMeasurementFrameInterval frames
-			if (framesSinceLastHUDUpdate > fpsMeasurementFrameInterval)
-			{
+			if (framesSinceLastHUDUpdate > fpsMeasurementFrameInterval) {
 
 				// Update game HUD text
 				std::stringstream ssAmmo;
@@ -694,8 +632,7 @@ int main()
 		 **************
 		 */
 
-		if (state == State::PLAYING)
-		{
+		if (state == State::PLAYING) {
 			window.clear();
 
 			// set the mainView to be displayed in the window
@@ -706,15 +643,12 @@ int main()
 			window.draw(background, &textureBackground);
 
 			// Draw the zombies
-			for (int i = 0; i < numZombies; i++)
-			{
+			for (int i = 0; i < numZombies; i++) {
 				window.draw(zombies[i].getSprite());
 			}
 
-			for (int i = 0; i < 100; i++)
-			{
-				if (bullets[i].isInFlight())
-				{
+			for (int i = 0; i < 100; i++) {
+				if (bullets[i].isInFlight()) {
 					window.draw(bullets[i].getShape());
 				}
 			}
@@ -723,12 +657,10 @@ int main()
 			window.draw(player.getSprite());
 
 			// Draw the pickups is currently spawned
-			if (ammoPickup.isSpawned())
-			{
+			if (ammoPickup.isSpawned()) {
 				window.draw(ammoPickup.getSprite());
 			}
-			if (healthPickup.isSpawned())
-			{
+			if (healthPickup.isSpawned()) {
 				window.draw(healthPickup.getSprite());
 			}
 
@@ -748,19 +680,16 @@ int main()
 			window.draw(zombiesRemainingText);
 		}
 
-		if (state == State::LEVELING_UP)
-		{
+		if (state == State::LEVELING_UP) {
 			window.draw(spriteGameOver);
 			window.draw(levelUpText);
 		}
 
-		if (state == State::PAUSED)
-		{
+		if (state == State::PAUSED) {
 			window.draw(pausedText);
 		}
 
-		if (state == State::GAME_OVER)
-		{
+		if (state == State::GAME_OVER) {
 			window.draw(spriteGameOver);
 			window.draw(gameOverText);
 			window.draw(scoreText);
@@ -768,8 +697,7 @@ int main()
 		}
 
 		window.display();
-
 	}// End game loop
 
-	return 0;
+	return(0);
 }

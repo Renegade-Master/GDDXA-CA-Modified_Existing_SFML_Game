@@ -11,8 +11,7 @@
 #include <SFML/Graphics.hpp>
 #include <map>
 
-class TextureHolder
-{
+class TextureHolder {
 public:
 	TextureHolder();
 	static sf::Texture& GetTexture(std::string const& filename);

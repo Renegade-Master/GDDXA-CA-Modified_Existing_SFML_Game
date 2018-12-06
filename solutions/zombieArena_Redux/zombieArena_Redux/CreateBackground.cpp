@@ -7,8 +7,7 @@
 #include <SFML/Graphics.hpp>
 #include "ZombieArena.h"
 
-int createBackground(sf::VertexArray& rVA, sf::IntRect arena)
-{
+int createBackground(sf::VertexArray& rVA, sf::IntRect arena) {
 	// Anything we do to rVA we are actually doing to background (in the main function)
 
 	// How big is each tile/texture
@@ -28,10 +27,8 @@ int createBackground(sf::VertexArray& rVA, sf::IntRect arena)
 	// Start at the beginning of the vertex array
 	int currentVertex = 0;
 
-	for (int w = 0; w < worldWidth; w++)
-	{
-		for (int h = 0; h < worldHeight; h++)
-		{
+	for (int w = 0; w < worldWidth; w++) {
+		for (int h = 0; h < worldHeight; h++) {
 			// Position each vertex in the current quad
 			rVA[currentVertex + 0].position = sf::Vector2f(w * TILE_SIZE, h * TILE_SIZE);
 			rVA[currentVertex + 1].position = sf::Vector2f((w * TILE_SIZE) + TILE_SIZE, h * TILE_SIZE);
@@ -40,16 +37,14 @@ int createBackground(sf::VertexArray& rVA, sf::IntRect arena)
 
 			// Define the position in the Texture to draw for current quad
 			// Either mud, stone, grass or wall
-			if (h == 0 || h == worldHeight - 1 || w == 0 || w == worldWidth - 1)
-			{
+			if (h == 0 || h == worldHeight - 1 || w == 0 || w == worldWidth - 1) {
 				// Use the wall texture
 				rVA[currentVertex + 0].texCoords = sf::Vector2f(0, 0 + TILE_TYPES * TILE_SIZE);
 				rVA[currentVertex + 1].texCoords = sf::Vector2f(TILE_SIZE, 0 + TILE_TYPES * TILE_SIZE);
 				rVA[currentVertex + 2].texCoords = sf::Vector2f(TILE_SIZE, TILE_SIZE + TILE_TYPES * TILE_SIZE);
 				rVA[currentVertex + 3].texCoords = sf::Vector2f(0, TILE_SIZE + TILE_TYPES * TILE_SIZE);
 			}
-			else
-			{
+			else {
 				// Use a random floor texture
 				srand((int)time(0) + h * w - h);
 				int mOrG = (rand() % TILE_TYPES);

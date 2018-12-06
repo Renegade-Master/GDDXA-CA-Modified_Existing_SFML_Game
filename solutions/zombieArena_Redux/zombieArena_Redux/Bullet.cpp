@@ -7,14 +7,12 @@
 #include "bullet.h"
 
 // The constructor
-Bullet::Bullet()
-{
+Bullet::Bullet() {
 	m_BulletShape.setSize(sf::Vector2f(2, 2));
 }
 
 void Bullet::shoot(float startX, float startY,
-	float targetX, float targetY)
-{
+	float targetX, float targetY) {
 	// Keep track of the bullet
 	m_InFlight = true;
 	m_Position.x = startX;
@@ -24,8 +22,7 @@ void Bullet::shoot(float startX, float startY,
 	float gradient = (startX - targetX) / (startY - targetY);
 
 	// Any gradient less than zero needs to be negative
-	if (gradient < 0)
-	{
+	if (gradient < 0) {
 		gradient *= -1;
 	}
 
@@ -37,13 +34,11 @@ void Bullet::shoot(float startX, float startY,
 	m_BulletDistanceX = ratioXY * gradient;
 	
 	// Point the bullet in the right direction
-	if (targetX < startX)
-	{
+	if (targetX < startX) {
 		m_BulletDistanceX *= -1;
 	}
 
-	if (targetY < startY)
-	{
+	if (targetY < startY) {
 		m_BulletDistanceY *= -1;
 	}
 
@@ -63,29 +58,23 @@ void Bullet::shoot(float startX, float startY,
 	m_BulletShape.setPosition(m_Position);
 }
 
-void Bullet::stop()
-{
+void Bullet::stop() {
 	m_InFlight = false;
 }
 
-bool Bullet::isInFlight()
-{
+bool Bullet::isInFlight() {
 	return m_InFlight;
 }
 
-sf::FloatRect Bullet::getPosition()
-{
+sf::FloatRect Bullet::getPosition() {
 	return m_BulletShape.getGlobalBounds();
 }
 
-sf::RectangleShape Bullet::getShape()
-{
+sf::RectangleShape Bullet::getShape() {
 	return m_BulletShape;
 }
 
-
-void Bullet::update(float elapsedTime)
-{
+void Bullet::update(float elapsedTime) {
 	// Update the bullet position variables
 	m_Position.x += m_BulletDistanceX * elapsedTime;
 	m_Position.y += m_BulletDistanceY * elapsedTime;
@@ -95,9 +84,7 @@ void Bullet::update(float elapsedTime)
 
 	// Has the bullet gone out of range?
 	if (m_Position.x < m_MinX || m_Position.x > m_MaxX ||
-		m_Position.y < m_MinY || m_Position.y > m_MaxY)
-	{
+		m_Position.y < m_MinY || m_Position.y > m_MaxY)	{
 		m_InFlight = false;
 	}
-
 }

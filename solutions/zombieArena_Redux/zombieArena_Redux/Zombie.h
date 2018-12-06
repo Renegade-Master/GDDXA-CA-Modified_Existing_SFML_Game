@@ -10,8 +10,7 @@
 
 #include <SFML/Graphics.hpp>
 
-class Zombie
-{
+class Zombie {
 private:
 	// How fast is each zombie type?
 	const float BLOATER_SPEED = 40;
