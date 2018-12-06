@@ -6,8 +6,10 @@
 
 #include <sstream>
 #include <fstream>
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+
 #include "ZombieArena.h"
 #include "Player.h"
 #include "TextureHolder.h"
@@ -25,11 +27,13 @@ int main() {
 
 	// Get the screen resolution and create an SFML window
 	sf::Vector2f resolution;
-	resolution.x = sf::VideoMode::getDesktopMode().width;
-	resolution.y = sf::VideoMode::getDesktopMode().height;
+	/*resolution.x = sf::VideoMode::getDesktopMode().width;
+	resolution.y = sf::VideoMode::getDesktopMode().height;*/
+	resolution.x = 1280;
+	resolution.y = 720;
 
 	sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y),
-		"Zombie Arena", sf::Style::Fullscreen);
+		"Zombie Arena", sf::Style::Default);
 
 	// Create a an SFML View for the main action
 	sf::View mainView(sf::FloatRect(0, 0, resolution.x, resolution.y));
@@ -54,7 +58,7 @@ int main() {
 	sf::VertexArray background;
 	// Load the texture for our background vertex array
 	sf::Texture textureBackground = TextureHolder::GetTexture(
-		"graphics/background_sheet.png");
+		"Graphics/background_sheet.png");
 
 	// Prepare for a horde of zombies
 	int numZombies;
@@ -74,7 +78,7 @@ int main() {
 	// Hide the mouse pointer and replace it with crosshair
 	window.setMouseCursorVisible(true);
 	sf::Sprite spriteCrosshair;
-	sf::Texture textureCrosshair = TextureHolder::GetTexture("graphics/crosshair.png");
+	sf::Texture textureCrosshair = TextureHolder::GetTexture("Graphics/crosshair.png");
 	spriteCrosshair.setTexture(textureCrosshair);
 	spriteCrosshair.setOrigin(25, 25);
 
@@ -88,7 +92,7 @@ int main() {
 
 	// For the home/game over screen
 	sf::Sprite spriteGameOver;
-	sf::Texture textureGameOver = TextureHolder::GetTexture("graphics/background.png");
+	sf::Texture textureGameOver = TextureHolder::GetTexture("Graphics/background.png");
 	spriteGameOver.setTexture(textureGameOver);
 	spriteGameOver.setPosition(0, 0);
 
@@ -97,13 +101,13 @@ int main() {
 
 	// Create a sprite for the ammo icon
 	sf::Sprite spriteAmmoIcon;
-	sf::Texture textureAmmoIcon = TextureHolder::GetTexture("graphics/ammo_icon.png");
+	sf::Texture textureAmmoIcon = TextureHolder::GetTexture("Graphics/ammo_icon.png");
 	spriteAmmoIcon.setTexture(textureAmmoIcon);
-	spriteAmmoIcon.setPosition(20, 980);
+	spriteAmmoIcon.setPosition(20, resolution.y - 60);
 
 	// Load the font
 	sf::Font font;
-	font.loadFromFile("fonts/zombiecontrol.ttf");
+	font.loadFromFile("Fonts/zombiecontrol.ttf");
 
 	// Paused
 	sf::Text pausedText;
@@ -116,17 +120,17 @@ int main() {
 	// Game Over
 	sf::Text gameOverText;
 	gameOverText.setFont(font);
-	gameOverText.setCharacterSize(125);
+	gameOverText.setCharacterSize(100);
 	gameOverText.setFillColor(sf::Color::White);
-	gameOverText.setPosition(250, 850);
-	gameOverText.setString("Press Enter to play");
+	gameOverText.setPosition(resolution.x / 6, resolution.y / 3);
+	gameOverText.setString("Press Enter to Play");
 
 	// Levelling up
 	sf::Text levelUpText;
 	levelUpText.setFont(font);
-	levelUpText.setCharacterSize(80);
+	levelUpText.setCharacterSize(70);
 	levelUpText.setFillColor(sf::Color::White);
-	levelUpText.setPosition(150, 250);
+	levelUpText.setPosition(50, 100);
 	std::stringstream levelUpStream;
 	levelUpStream <<
 		"1- Increased rate of fire" <<
@@ -142,7 +146,7 @@ int main() {
 	ammoText.setFont(font);
 	ammoText.setCharacterSize(55);
 	ammoText.setFillColor(sf::Color::White);
-	ammoText.setPosition(200, 980);
+	ammoText.setPosition(75, resolution.y - 60);
 
 	// Score
 	sf::Text scoreText;
@@ -164,7 +168,7 @@ int main() {
 	hiScoreText.setFont(font);
 	hiScoreText.setCharacterSize(55);
 	hiScoreText.setFillColor(sf::Color::White);
-	hiScoreText.setPosition(1400, 0);
+	hiScoreText.setPosition(resolution.x - 275, 0);
 	std::stringstream s;
 	s << "Hi Score:" << hiScore;
 	hiScoreText.setString(s.str());
@@ -174,8 +178,8 @@ int main() {
 	zombiesRemainingText.setFont(font);
 	zombiesRemainingText.setCharacterSize(55);
 	zombiesRemainingText.setFillColor(sf::Color::White);
-	zombiesRemainingText.setPosition(1500, 980);
-	zombiesRemainingText.setString("Zombies: 100");
+	zombiesRemainingText.setPosition(resolution.x - 275, resolution.y - 60);
+	zombiesRemainingText.setString("Zombies: 0");
 
 	// Wave number
 	int wave = 0;
@@ -183,20 +187,20 @@ int main() {
 	waveNumberText.setFont(font);
 	waveNumberText.setCharacterSize(55);
 	waveNumberText.setFillColor(sf::Color::White);
-	waveNumberText.setPosition(1250, 980);
+	waveNumberText.setPosition(resolution.x - 275, resolution.y - 120);
 	waveNumberText.setString("Wave: 0");
 
 	// Health bar
 	sf::RectangleShape healthBar;
 	healthBar.setFillColor(sf::Color::Red);
-	healthBar.setPosition(450, 980);
+	healthBar.setPosition(resolution.x / 2, resolution.y - 60);
 		
 	// When did we last update the HUD?
 	int framesSinceLastHUDUpdate = 0;
 	// What time was the last update
 	sf::Time timeSinceLastUpdate;
 	// How often (in frames) should we update the HUD
-	int fpsMeasurementFrameInterval = 1000;
+	int fpsMeasurementFrameInterval = 500;
 
 	// Prepare the hit sound
 	sf::SoundBuffer hitBuffer;
@@ -585,6 +589,7 @@ int main() {
 
 			// size up the health bar
 			healthBar.setSize(sf::Vector2f(player.getHealth() * 3, 70));
+			healthBar.setOrigin(healthBar.getSize().x / 2, healthBar.getSize().y / 2);
 
 			// Increment the amount of time since the last HUD update
 			timeSinceLastUpdate += dt;
