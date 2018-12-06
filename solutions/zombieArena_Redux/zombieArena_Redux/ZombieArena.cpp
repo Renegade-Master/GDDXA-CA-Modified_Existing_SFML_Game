@@ -200,43 +200,43 @@ int main() {
 
 	// Prepare the hit sound
 	sf::SoundBuffer hitBuffer;
-	hitBuffer.loadFromFile("sound/hit.wav");
+	hitBuffer.loadFromFile("Audio/hit.wav");
 	sf::Sound hit;
 	hit.setBuffer(hitBuffer);
 
 	// Prepare the splat sound
 	sf::SoundBuffer splatBuffer;
-	splatBuffer.loadFromFile("sound/splat.wav");
+	splatBuffer.loadFromFile("Audio/splat.wav");
 	sf::Sound splat;
 	splat.setBuffer(splatBuffer);
 
 	// Prepare the shoot sound
 	sf::SoundBuffer shootBuffer;
-	shootBuffer.loadFromFile("sound/shoot.wav");
+	shootBuffer.loadFromFile("Audio/shoot.wav");
 	sf::Sound shoot;
 	shoot.setBuffer(shootBuffer);
 
 	// Prepare the reload sound
 	sf::SoundBuffer reloadBuffer;
-	reloadBuffer.loadFromFile("sound/reload.wav");
+	reloadBuffer.loadFromFile("Audio/reload.wav");
 	sf::Sound reload;
 	reload.setBuffer(reloadBuffer);
 
 	// Prepare the failed sound
 	sf::SoundBuffer reloadFailedBuffer;
-	reloadFailedBuffer.loadFromFile("sound/reload_failed.wav");
+	reloadFailedBuffer.loadFromFile("Audio/reload_failed.wav");
 	sf::Sound reloadFailed;
 	reloadFailed.setBuffer(reloadFailedBuffer);
 
 	// Prepare the powerup sound
 	sf::SoundBuffer powerupBuffer;
-	powerupBuffer.loadFromFile("sound/powerup.wav");
+	powerupBuffer.loadFromFile("Audio/powerup.wav");
 	sf::Sound powerup;
 	powerup.setBuffer(powerupBuffer);
 
 	// Prepare the pickup sound
 	sf::SoundBuffer pickupBuffer;
-	pickupBuffer.loadFromFile("sound/pickup.wav");
+	pickupBuffer.loadFromFile("Audio/pickup.wav");
 	sf::Sound pickup;
 	pickup.setBuffer(pickupBuffer);
 

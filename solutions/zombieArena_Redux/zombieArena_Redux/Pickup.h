@@ -38,7 +38,7 @@ private:
 	float m_SecondsToLive;
 	float m_SecondsToWait;
 
-	// Public prototypes go here
+// Public prototypes go here
 public:
 	/*Pickup::*/Pickup(int type);
 
