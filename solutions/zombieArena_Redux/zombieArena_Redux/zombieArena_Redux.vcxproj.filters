@@ -24,9 +24,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -135,5 +132,10 @@
     <Media Include="Audio\splat.wav">
       <Filter>Resource Files\Audio</Filter>
     </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Fonts\zombiecontrol.ttf">
+      <Filter>Resource Files\Fonts</Filter>
+    </Font>
   </ItemGroup>
 </Project>

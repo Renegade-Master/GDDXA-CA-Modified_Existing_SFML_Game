@@ -1,9 +1,11 @@
-#include "stdafx.h"
+/**
+*	@author			Ciaran Bent	[K00221230]
+*	@creationDate	2018/12/06	YYYY/MM/DD
+*	@description	...
+*/
+
 #include "TextureHolder.h"
 #include <assert.h>
-
-using namespace sf;
-using namespace std;
 
 TextureHolder* TextureHolder::m_s_Instance = nullptr;
 

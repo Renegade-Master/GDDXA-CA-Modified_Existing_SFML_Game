@@ -1,16 +1,23 @@
-#pragma once
-#include <SFML/Graphics.hpp>
+/**
+*	@author			Ciaran Bent	[K00221230]
+*	@creationDate	2018/12/06	YYYY/MM/DD
+*	@description	...
+*/
 
-using namespace sf;
+#pragma once
+#ifndef BULLET_H
+#define BULLET_H
+
+#include <SFML/Graphics.hpp>
 
 class Bullet
 {
 private:
 	// Where is the bullet?
-	Vector2f m_Position;
+	sf::Vector2f m_Position;
 
 	// What each bullet looks like
-	RectangleShape m_BulletShape;
+	sf::RectangleShape m_BulletShape;
 
 	// Is this bullet currently whizzing through the air
 	bool m_InFlight = false;
@@ -50,12 +57,14 @@ public:
 		float xTarget, float yTarget);
 
 	// Tell the calling code where the bullet is in the world
-	FloatRect getPosition();
+	sf::FloatRect getPosition();
 
 	// Return the actual shape (for drawing)
-	RectangleShape getShape();
+	sf::RectangleShape getShape();
 
 	// Update the bullet each frame
 	void update(float elapsedTime);
 
 };
+
+#endif // BULLET_H

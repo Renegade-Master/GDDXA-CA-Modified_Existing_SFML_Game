@@ -1,4 +1,9 @@
-#include "stdafx.h"
+/**
+*	@author			Ciaran Bent	[K00221230]
+*	@creationDate	2018/12/06	YYYY/MM/DD
+*	@description	...
+*/
+
 #include <sstream>
 #include <fstream>
 #include <SFML/Graphics.hpp>
@@ -8,8 +13,6 @@
 #include "TextureHolder.h"
 #include "Bullet.h"
 #include "Pickup.h"
-
-using namespace sf;
 
 int main()
 {
@@ -23,36 +26,36 @@ int main()
 
 
 	// Get the screen resolution and create an SFML window
-	Vector2f resolution;
-	resolution.x = VideoMode::getDesktopMode().width;
-	resolution.y = VideoMode::getDesktopMode().height;
+	sf::Vector2f resolution;
+	resolution.x = sf::VideoMode::getDesktopMode().width;
+	resolution.y = sf::VideoMode::getDesktopMode().height;
 
-	RenderWindow window(VideoMode(resolution.x, resolution.y),
-		"Zombie Arena", Style::Fullscreen);
+	sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y),
+		"Zombie Arena", sf::Style::Fullscreen);
 
 	// Create a an SFML View for the main action
-	View mainView(sf::FloatRect(0, 0, resolution.x, resolution.y));
+	sf::View mainView(sf::FloatRect(0, 0, resolution.x, resolution.y));
 
 	// Here is our clock for timing everything
-	Clock clock;
+	sf::Clock clock;
 	// How long has the PLAYING state been active
-	Time gameTimeTotal;
+	sf::Time gameTimeTotal;
 
 	// Where is the mouse in relation to world coordinates
-	Vector2f mouseWorldPosition;
+	sf::Vector2f mouseWorldPosition;
 	// Where is the mouse in relation to screen coordinates
-	Vector2i mouseScreenPosition;
+	sf::Vector2i mouseScreenPosition;
 
 	// Create an instance of the Player class
 	Player player;
 
 	// The boundaries of the arena
-	IntRect arena;
+	sf::IntRect arena;
 
 	// Create the background
-	VertexArray background;
+	sf::VertexArray background;
 	// Load the texture for our background vertex array
-	Texture textureBackground = TextureHolder::GetTexture(
+	sf::Texture textureBackground = TextureHolder::GetTexture(
 		"graphics/background_sheet.png");
 
 	// Prepare for a horde of zombies
@@ -68,12 +71,12 @@ int main()
 	int clipSize = 6;
 	float fireRate = 1;
 	// When was the fire button last pressed?
-	Time lastPressed;
+	sf::Time lastPressed;
 
 	// Hide the mouse pointer and replace it with crosshair
 	window.setMouseCursorVisible(true);
-	Sprite spriteCrosshair;
-	Texture textureCrosshair = TextureHolder::GetTexture("graphics/crosshair.png");
+	sf::Sprite spriteCrosshair;
+	sf::Texture textureCrosshair = TextureHolder::GetTexture("graphics/crosshair.png");
 	spriteCrosshair.setTexture(textureCrosshair);
 	spriteCrosshair.setOrigin(25, 25);
 
@@ -86,45 +89,45 @@ int main()
 	int hiScore = 0;
 
 	// For the home/game over screen
-	Sprite spriteGameOver;
-	Texture textureGameOver = TextureHolder::GetTexture("graphics/background.png");
+	sf::Sprite spriteGameOver;
+	sf::Texture textureGameOver = TextureHolder::GetTexture("graphics/background.png");
 	spriteGameOver.setTexture(textureGameOver);
 	spriteGameOver.setPosition(0, 0);
 
 	// Create a view for the HUD
-	View hudView(sf::FloatRect(0, 0, resolution.x, resolution.y));
+	sf::View hudView(sf::FloatRect(0, 0, resolution.x, resolution.y));
 
 	// Create a sprite for the ammo icon
-	Sprite spriteAmmoIcon;
-	Texture textureAmmoIcon = TextureHolder::GetTexture("graphics/ammo_icon.png");
+	sf::Sprite spriteAmmoIcon;
+	sf::Texture textureAmmoIcon = TextureHolder::GetTexture("graphics/ammo_icon.png");
 	spriteAmmoIcon.setTexture(textureAmmoIcon);
 	spriteAmmoIcon.setPosition(20, 980);
 
 	// Load the font
-	Font font;
+	sf::Font font;
 	font.loadFromFile("fonts/zombiecontrol.ttf");
 
 	// Paused
-	Text pausedText;
+	sf::Text pausedText;
 	pausedText.setFont(font);
 	pausedText.setCharacterSize(155);
-	pausedText.setFillColor(Color::White);
+	pausedText.setFillColor(sf::Color::White);
 	pausedText.setPosition(400, 400);
 	pausedText.setString("Press Enter \nto continue");
 
 	// Game Over
-	Text gameOverText;
+	sf::Text gameOverText;
 	gameOverText.setFont(font);
 	gameOverText.setCharacterSize(125);
-	gameOverText.setFillColor(Color::White);
+	gameOverText.setFillColor(sf::Color::White);
 	gameOverText.setPosition(250, 850);
 	gameOverText.setString("Press Enter to play");
 
 	// Levelling up
-	Text levelUpText;
+	sf::Text levelUpText;
 	levelUpText.setFont(font);
 	levelUpText.setCharacterSize(80);
-	levelUpText.setFillColor(Color::White);
+	levelUpText.setFillColor(sf::Color::White);
 	levelUpText.setPosition(150, 250);
 	std::stringstream levelUpStream;
 	levelUpStream <<
@@ -137,17 +140,17 @@ int main()
 	levelUpText.setString(levelUpStream.str());
 
 	// Ammo
-	Text ammoText;
+	sf::Text ammoText;
 	ammoText.setFont(font);
 	ammoText.setCharacterSize(55);
-	ammoText.setFillColor(Color::White);
+	ammoText.setFillColor(sf::Color::White);
 	ammoText.setPosition(200, 980);
 
 	// Score
-	Text scoreText;
+	sf::Text scoreText;
 	scoreText.setFont(font);
 	scoreText.setCharacterSize(55);
-	scoreText.setFillColor(Color::White);
+	scoreText.setFillColor(sf::Color::White);
 	scoreText.setPosition(20, 0);
 
 	// Load the high score from a text file/
@@ -159,84 +162,84 @@ int main()
 	}
 
 	// Hi Score
-	Text hiScoreText;
+	sf::Text hiScoreText;
 	hiScoreText.setFont(font);
 	hiScoreText.setCharacterSize(55);
-	hiScoreText.setFillColor(Color::White);
+	hiScoreText.setFillColor(sf::Color::White);
 	hiScoreText.setPosition(1400, 0);
 	std::stringstream s;
 	s << "Hi Score:" << hiScore;
 	hiScoreText.setString(s.str());
 
 	// Zombies remaining
-	Text zombiesRemainingText;
+	sf::Text zombiesRemainingText;
 	zombiesRemainingText.setFont(font);
 	zombiesRemainingText.setCharacterSize(55);
-	zombiesRemainingText.setFillColor(Color::White);
+	zombiesRemainingText.setFillColor(sf::Color::White);
 	zombiesRemainingText.setPosition(1500, 980);
 	zombiesRemainingText.setString("Zombies: 100");
 
 	// Wave number
 	int wave = 0;
-	Text waveNumberText;
+	sf::Text waveNumberText;
 	waveNumberText.setFont(font);
 	waveNumberText.setCharacterSize(55);
-	waveNumberText.setFillColor(Color::White);
+	waveNumberText.setFillColor(sf::Color::White);
 	waveNumberText.setPosition(1250, 980);
 	waveNumberText.setString("Wave: 0");
 
 	// Health bar
-	RectangleShape healthBar;
-	healthBar.setFillColor(Color::Red);
+	sf::RectangleShape healthBar;
+	healthBar.setFillColor(sf::Color::Red);
 	healthBar.setPosition(450, 980);
 		
 	// When did we last update the HUD?
 	int framesSinceLastHUDUpdate = 0;
 	// What time was the last update
-	Time timeSinceLastUpdate;
+	sf::Time timeSinceLastUpdate;
 	// How often (in frames) should we update the HUD
 	int fpsMeasurementFrameInterval = 1000;
 
 	// Prepare the hit sound
-	SoundBuffer hitBuffer;
+	sf::SoundBuffer hitBuffer;
 	hitBuffer.loadFromFile("sound/hit.wav");
-	Sound hit;
+	sf::Sound hit;
 	hit.setBuffer(hitBuffer);
 
 	// Prepare the splat sound
-	SoundBuffer splatBuffer;
+	sf::SoundBuffer splatBuffer;
 	splatBuffer.loadFromFile("sound/splat.wav");
 	sf::Sound splat;
 	splat.setBuffer(splatBuffer);
 
 	// Prepare the shoot sound
-	SoundBuffer shootBuffer;
+	sf::SoundBuffer shootBuffer;
 	shootBuffer.loadFromFile("sound/shoot.wav");
-	Sound shoot;
+	sf::Sound shoot;
 	shoot.setBuffer(shootBuffer);
 
 	// Prepare the reload sound
-	SoundBuffer reloadBuffer;
+	sf::SoundBuffer reloadBuffer;
 	reloadBuffer.loadFromFile("sound/reload.wav");
-	Sound reload;
+	sf::Sound reload;
 	reload.setBuffer(reloadBuffer);
 
 	// Prepare the failed sound
-	SoundBuffer reloadFailedBuffer;
+	sf::SoundBuffer reloadFailedBuffer;
 	reloadFailedBuffer.loadFromFile("sound/reload_failed.wav");
-	Sound reloadFailed;
+	sf::Sound reloadFailed;
 	reloadFailed.setBuffer(reloadFailedBuffer);
 
 	// Prepare the powerup sound
-	SoundBuffer powerupBuffer;
+	sf::SoundBuffer powerupBuffer;
 	powerupBuffer.loadFromFile("sound/powerup.wav");
-	Sound powerup;
+	sf::Sound powerup;
 	powerup.setBuffer(powerupBuffer);
 
 	// Prepare the pickup sound
-	SoundBuffer pickupBuffer;
+	sf::SoundBuffer pickupBuffer;
 	pickupBuffer.loadFromFile("sound/pickup.wav");
-	Sound pickup;
+	sf::Sound pickup;
 	pickup.setBuffer(pickupBuffer);
 
 	// The main game loop
@@ -249,20 +252,20 @@ int main()
 		*/
 
 		// Handle events
-		Event event;
+		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			if (event.type == Event::KeyPressed)
+			if (event.type == sf::Event::KeyPressed)
 			{
 				// Pause a game while playing
-				if (event.key.code == Keyboard::Return &&
+				if (event.key.code == sf::Keyboard::Return &&
 					state == State::PLAYING)
 				{
 					state = State::PAUSED;
 				}
 
 				// Restart while paused
-				else if (event.key.code == Keyboard::Return &&
+				else if (event.key.code == sf::Keyboard::Return &&
 					state == State::PAUSED)
 				{
 					state = State::PLAYING;
@@ -271,7 +274,7 @@ int main()
 				}
 
 				// Start a new game while in GAME_OVER state
-				else if (event.key.code == Keyboard::Return &&
+				else if (event.key.code == sf::Keyboard::Return &&
 					state == State::GAME_OVER)
 				{
 					state = State::LEVELING_UP;
@@ -290,22 +293,22 @@ int main()
 				}
 				// Spin and zoom the world
 				
-				if (Keyboard::isKeyPressed(Keyboard::Left))
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 				{
 					mainView.rotate(.5f);
 				}
 
-				if (Keyboard::isKeyPressed(Keyboard::Right))
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 				{
 					mainView.rotate(-.5f);
 				}
 
-				if (Keyboard::isKeyPressed(Keyboard::Up))
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 				{
 					mainView.zoom(.99f);
 				}
 
-				if (Keyboard::isKeyPressed(Keyboard::Down))
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 				{
 					mainView.zoom(1.01f);
 				}
@@ -314,7 +317,7 @@ int main()
 				if (state == State::PLAYING)
 				{
 					// Reloading
-					if (event.key.code == Keyboard::R)
+					if (event.key.code == sf::Keyboard::R)
 					{
 						if (bulletsSpare >= clipSize)
 						{
@@ -343,7 +346,7 @@ int main()
 
 
 		 // Handle the player quitting
-		if (Keyboard::isKeyPressed(Keyboard::Escape))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 		{
 			window.close();
 		}
@@ -352,7 +355,7 @@ int main()
 		if (state == State::PLAYING)
 		{
 			// Handle the pressing and releasing of the WASD keys
-			if (Keyboard::isKeyPressed(Keyboard::W))
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 			{
 				player.moveUp();
 			}
@@ -361,7 +364,7 @@ int main()
 				player.stopUp();
 			}
 
-			if (Keyboard::isKeyPressed(Keyboard::S))
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 			{
 				player.moveDown();
 			}
@@ -370,7 +373,7 @@ int main()
 				player.stopDown();
 			}
 
-			if (Keyboard::isKeyPressed(Keyboard::A))
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			{
 				player.moveLeft();
 			}
@@ -379,7 +382,7 @@ int main()
 				player.stopLeft();
 			}
 
-			if (Keyboard::isKeyPressed(Keyboard::D))
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 			{
 				player.moveRight();
 			}
@@ -421,41 +424,41 @@ int main()
 		if (state == State::LEVELING_UP)
 		{
 			// Handle the player levelling up
-			if (event.key.code == Keyboard::Num1)
+			if (event.key.code == sf::Keyboard::Num1)
 			{
 				// Increase fire rate
 				fireRate++;
 				state = State::PLAYING;
 			}
 
-			if (event.key.code == Keyboard::Num2)
+			if (event.key.code == sf::Keyboard::Num2)
 			{
 				// Increase clip size
 				clipSize += clipSize;
 				state = State::PLAYING;
 			}
 
-			if (event.key.code == Keyboard::Num3)
+			if (event.key.code == sf::Keyboard::Num3)
 			{
 				// Increase health
 				player.upgradeHealth();
 				state = State::PLAYING;
 			}
 
-			if (event.key.code == Keyboard::Num4)
+			if (event.key.code == sf::Keyboard::Num4)
 			{
 				// Increase speed
 				player.upgradeSpeed();
 				state = State::PLAYING;
 			}
 
-			if (event.key.code == Keyboard::Num5)
+			if (event.key.code == sf::Keyboard::Num5)
 			{
 				healthPickup.upgrade();
 				state = State::PLAYING;
 			}
 
-			if (event.key.code == Keyboard::Num6)
+			if (event.key.code == sf::Keyboard::Num6)
 			{
 				ammoPickup.upgrade();
 				state = State::PLAYING;
@@ -508,27 +511,27 @@ int main()
 		if (state == State::PLAYING)
 		{
 			// Update the delta time
-			Time dt = clock.restart();
+			sf::Time dt = clock.restart();
 			// Update the total game time
 			gameTimeTotal += dt;
 			// Make a decimal fraction of 1 from the delta time
 			float dtAsSeconds = dt.asSeconds();
 
 			// Where is the mouse pointer
-			mouseScreenPosition = Mouse::getPosition();
+			mouseScreenPosition = sf::Mouse::getPosition();
 
 			// Convert mouse position to world coordinates of mainView
 			mouseWorldPosition = window.mapPixelToCoords(
-				Mouse::getPosition(), mainView);
+				sf::Mouse::getPosition(), mainView);
 
 			// Set the crosshair to the mouse world location
 			spriteCrosshair.setPosition(mouseWorldPosition);
 
 			// Update the player
-			player.update(dtAsSeconds, Mouse::getPosition());
+			player.update(dtAsSeconds, sf::Mouse::getPosition());
 
 			// Make a note of the players new position
-			Vector2f playerPosition(player.getCenter());
+			sf::Vector2f playerPosition(player.getCenter());
 
 			// Make the view centre around the player				
 			mainView.setCenter(player.getCenter());
@@ -642,7 +645,7 @@ int main()
 			}
 
 			// size up the health bar
-			healthBar.setSize(Vector2f(player.getHealth() * 3, 70));
+			healthBar.setSize(sf::Vector2f(player.getHealth() * 3, 70));
 
 			// Increment the amount of time since the last HUD update
 			timeSinceLastUpdate += dt;
@@ -680,7 +683,7 @@ int main()
 				zombiesRemainingText.setString(ssZombiesAlive.str());
 
 				framesSinceLastHUDUpdate = 0;
-				timeSinceLastUpdate = Time::Zero;
+				timeSinceLastUpdate = sf::Time::Zero;
 			}// End HUD update
 
 		}// End updating the scene

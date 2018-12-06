@@ -1,11 +1,13 @@
-#include "stdafx.h"
+/**
+*	@author			Ciaran Bent	[K00221230]
+*	@creationDate	2018/12/06	YYYY/MM/DD
+*	@description	...
+*/
+
 #include "zombie.h"
 #include "TextureHolder.h"
 #include <cstdlib>
 #include <ctime>
-
-using namespace std;
-
 
 void Zombie::spawn(float startX, float startY, int type, int seed)
 {
@@ -14,7 +16,7 @@ void Zombie::spawn(float startX, float startY, int type, int seed)
 	{
 	case 0:
 		// Bloater
-		m_Sprite = Sprite(TextureHolder::GetTexture(
+		m_Sprite = sf::Sprite(TextureHolder::GetTexture(
 			"graphics/bloater.png"));
 
 		m_Speed = 40;
@@ -23,7 +25,7 @@ void Zombie::spawn(float startX, float startY, int type, int seed)
 
 	case 1:
 		// Chaser
-		m_Sprite = Sprite(TextureHolder::GetTexture(
+		m_Sprite = sf::Sprite(TextureHolder::GetTexture(
 			"graphics/chaser.png"));
 
 		m_Speed = 70;
@@ -32,7 +34,7 @@ void Zombie::spawn(float startX, float startY, int type, int seed)
 
 	case 2:
 		// Crawler
-		m_Sprite = Sprite(TextureHolder::GetTexture(
+		m_Sprite = sf::Sprite(TextureHolder::GetTexture(
 			"graphics/crawler.png"));
 
 		m_Speed = 20;
@@ -79,19 +81,19 @@ bool Zombie::isAlive()
 	return m_Alive;
 }
 
-FloatRect Zombie::getPosition()
+sf::FloatRect Zombie::getPosition()
 {
 	return m_Sprite.getGlobalBounds();
 }
 
 
-Sprite Zombie::getSprite()
+sf::Sprite Zombie::getSprite()
 {
 	return m_Sprite;
 }
 
 void Zombie::update(float elapsedTime,
-	Vector2f playerLocation)
+	sf::Vector2f playerLocation)
 {
 	float playerX = playerLocation.x;
 	float playerY = playerLocation.y;

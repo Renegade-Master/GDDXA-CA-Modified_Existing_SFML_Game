@@ -1,8 +1,13 @@
-#include "stdafx.h"
+/**
+*	@author			Ciaran Bent	[K00221230]
+*	@creationDate	2018/12/06	YYYY/MM/DD
+*	@description	...
+*/
+
 #include <SFML/Graphics.hpp>
 #include "ZombieArena.h"
 
-int createBackground(VertexArray& rVA, IntRect arena)
+int createBackground(sf::VertexArray& rVA, sf::IntRect arena)
 {
 	// Anything we do to rVA we are actually doing to background (in the main function)
 
@@ -15,7 +20,7 @@ int createBackground(VertexArray& rVA, IntRect arena)
 	int worldHeight = arena.height / TILE_SIZE;
 
 	// What type of primitive are we using?
-	rVA.setPrimitiveType(Quads);
+	rVA.setPrimitiveType(sf::Quads);
 
 	// Set the size of the vertex array
 	rVA.resize(worldWidth * worldHeight * VERTS_IN_QUAD);
@@ -28,20 +33,20 @@ int createBackground(VertexArray& rVA, IntRect arena)
 		for (int h = 0; h < worldHeight; h++)
 		{
 			// Position each vertex in the current quad
-			rVA[currentVertex + 0].position = Vector2f(w * TILE_SIZE, h * TILE_SIZE);
-			rVA[currentVertex + 1].position = Vector2f((w * TILE_SIZE) + TILE_SIZE, h * TILE_SIZE);
-			rVA[currentVertex + 2].position = Vector2f((w * TILE_SIZE) + TILE_SIZE, (h * TILE_SIZE) + TILE_SIZE);
-			rVA[currentVertex + 3].position = Vector2f((w * TILE_SIZE), (h * TILE_SIZE) + TILE_SIZE);
+			rVA[currentVertex + 0].position = sf::Vector2f(w * TILE_SIZE, h * TILE_SIZE);
+			rVA[currentVertex + 1].position = sf::Vector2f((w * TILE_SIZE) + TILE_SIZE, h * TILE_SIZE);
+			rVA[currentVertex + 2].position = sf::Vector2f((w * TILE_SIZE) + TILE_SIZE, (h * TILE_SIZE) + TILE_SIZE);
+			rVA[currentVertex + 3].position = sf::Vector2f((w * TILE_SIZE), (h * TILE_SIZE) + TILE_SIZE);
 
 			// Define the position in the Texture to draw for current quad
 			// Either mud, stone, grass or wall
 			if (h == 0 || h == worldHeight - 1 || w == 0 || w == worldWidth - 1)
 			{
 				// Use the wall texture
-				rVA[currentVertex + 0].texCoords = Vector2f(0, 0 + TILE_TYPES * TILE_SIZE);
-				rVA[currentVertex + 1].texCoords = Vector2f(TILE_SIZE, 0 + TILE_TYPES * TILE_SIZE);
-				rVA[currentVertex + 2].texCoords = Vector2f(TILE_SIZE, TILE_SIZE + TILE_TYPES * TILE_SIZE);
-				rVA[currentVertex + 3].texCoords = Vector2f(0, TILE_SIZE + TILE_TYPES * TILE_SIZE);
+				rVA[currentVertex + 0].texCoords = sf::Vector2f(0, 0 + TILE_TYPES * TILE_SIZE);
+				rVA[currentVertex + 1].texCoords = sf::Vector2f(TILE_SIZE, 0 + TILE_TYPES * TILE_SIZE);
+				rVA[currentVertex + 2].texCoords = sf::Vector2f(TILE_SIZE, TILE_SIZE + TILE_TYPES * TILE_SIZE);
+				rVA[currentVertex + 3].texCoords = sf::Vector2f(0, TILE_SIZE + TILE_TYPES * TILE_SIZE);
 			}
 			else
 			{
@@ -50,10 +55,10 @@ int createBackground(VertexArray& rVA, IntRect arena)
 				int mOrG = (rand() % TILE_TYPES);
 				int verticalOffset = mOrG * TILE_SIZE;
 
-				rVA[currentVertex + 0].texCoords = Vector2f(0, 0 + verticalOffset);
-				rVA[currentVertex + 1].texCoords = Vector2f(TILE_SIZE, 0 + verticalOffset);
-				rVA[currentVertex + 2].texCoords = Vector2f(TILE_SIZE, TILE_SIZE + verticalOffset);
-				rVA[currentVertex + 3].texCoords = Vector2f(0, TILE_SIZE + verticalOffset);
+				rVA[currentVertex + 0].texCoords = sf::Vector2f(0, 0 + verticalOffset);
+				rVA[currentVertex + 1].texCoords = sf::Vector2f(TILE_SIZE, 0 + verticalOffset);
+				rVA[currentVertex + 2].texCoords = sf::Vector2f(TILE_SIZE, TILE_SIZE + verticalOffset);
+				rVA[currentVertex + 3].texCoords = sf::Vector2f(0, TILE_SIZE + verticalOffset);
 
 			}
 

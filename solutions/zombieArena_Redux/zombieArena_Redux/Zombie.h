@@ -1,7 +1,14 @@
-#pragma once
-#include <SFML/Graphics.hpp>
+/**
+*	@author			Ciaran Bent	[K00221230]
+*	@creationDate	2018/12/06	YYYY/MM/DD
+*	@description	...
+*/
 
-using namespace sf;
+#pragma once
+#ifndef ZOMBIE_H
+#define ZOMBIE_H
+
+#include <SFML/Graphics.hpp>
 
 class Zombie
 {
@@ -21,10 +28,10 @@ private:
 	const int OFFSET = 101 - MAX_VARRIANCE;
 
 	// Where is this zombie?
-	Vector2f m_Position;
+	sf::Vector2f m_Position;
 
 	// A sprite for the zombie
-	Sprite m_Sprite;
+	sf::Sprite m_Sprite;
 
 	// How fast can this one run/crawl?
 	float m_Speed;
@@ -48,13 +55,13 @@ public:
 	void spawn(float startX, float startY, int type, int seed);
 
 	// Return a rectangle that is the position in the world
-	FloatRect getPosition();
+	sf::FloatRect getPosition();
 
 	// Get a copy of the sprite to draw
-	Sprite getSprite();
+	sf::Sprite getSprite();
 
 	// Update the zombie each frame
-	void update(float elapsedTime, Vector2f playerLocation);
+	void update(float elapsedTime, sf::Vector2f playerLocation);
 };
 
-
+#endif // ZOMBIE_H

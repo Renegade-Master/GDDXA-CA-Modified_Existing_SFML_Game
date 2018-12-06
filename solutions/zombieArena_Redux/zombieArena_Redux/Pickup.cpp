@@ -1,4 +1,9 @@
-#include "stdafx.h"
+/**
+*	@author			Ciaran Bent	[K00221230]
+*	@creationDate	2018/12/06	YYYY/MM/DD
+*	@description	...
+*/
+
 #include "Pickup.h"
 #include "TextureHolder.h"
 
@@ -10,7 +15,7 @@ Pickup::Pickup(int type)
 	// Associate the texture with the sprite
 	if (m_Type == 1)
 	{
-		m_Sprite = Sprite(TextureHolder::GetTexture(
+		m_Sprite = sf::Sprite(TextureHolder::GetTexture(
 			"graphics/health_pickup.png"));
 
 		// How much is pickup worth
@@ -19,7 +24,7 @@ Pickup::Pickup(int type)
 	}
 	else
 	{
-		m_Sprite = Sprite(TextureHolder::GetTexture(
+		m_Sprite = sf::Sprite(TextureHolder::GetTexture(
 			"graphics/ammo_pickup.png"));
 
 		// How much is pickup worth
@@ -32,7 +37,7 @@ Pickup::Pickup(int type)
 	m_SecondsToWait = START_WAIT_TIME;
 }
 
-void Pickup::setArena(IntRect arena)
+void Pickup::setArena(sf::IntRect arena)
 {
 
 	// Copy the details of the arena to the pickup's m_Arena
@@ -60,12 +65,12 @@ void Pickup::spawn()
 	m_Sprite.setPosition(x, y);
 }
 
-FloatRect Pickup::getPosition()
+sf::FloatRect Pickup::getPosition()
 {
 	return m_Sprite.getGlobalBounds();
 }
 
-Sprite Pickup::getSprite()
+sf::Sprite Pickup::getSprite()
 {
 	return m_Sprite;
 }

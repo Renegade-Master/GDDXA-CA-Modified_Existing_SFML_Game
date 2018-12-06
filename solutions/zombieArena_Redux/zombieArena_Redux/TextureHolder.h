@@ -1,6 +1,12 @@
+/**
+*	@author			Ciaran Bent	[K00221230]
+*	@creationDate	2018/12/06	YYYY/MM/DD
+*	@description	...
+*/
+
 #pragma once
-#ifndef TEXTURE_HOLDER_H
-#define TEXTURE_HOLDER_H
+#ifndef TEXTUREHOLDER_H
+#define TEXTUREHOLDER_H
 
 #include <SFML/Graphics.hpp>
 #include <map>
@@ -21,4 +27,4 @@ private:
 	static TextureHolder* m_s_Instance;
 };
 
-#endif
+#endif // TEXTUREHOLDER_H

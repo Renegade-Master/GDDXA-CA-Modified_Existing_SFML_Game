@@ -1,7 +1,14 @@
-#pragma once
-#include <SFML/Graphics.hpp>
+/**
+*	@author			Ciaran Bent	[K00221230]
+*	@creationDate	2018/12/06	YYYY/MM/DD
+*	@description	...
+*/
 
-using namespace sf;
+#pragma once
+#ifndef PICKUP_H
+#define PICKUP_H
+
+#include <SFML/Graphics.hpp>
 
 class Pickup
 {
@@ -13,10 +20,10 @@ private:
 	const int START_SECONDS_TO_LIVE = 5;
 
 	// The sprite that represents this pickup
-	Sprite m_Sprite;
+	sf::Sprite m_Sprite;
 
 	// The arena it exists in
-	IntRect m_Arena;
+	sf::IntRect m_Arena;
 
 	// How much is this pickup worth?
 	int m_Value;
@@ -38,15 +45,15 @@ public:
 	Pickup::Pickup(int type);
 
 	// Prepare a new pickup
-	void setArena(IntRect arena);
+	void setArena(sf::IntRect arena);
 
 	void spawn();
 
 	// Check the position of a pickup
-	FloatRect getPosition();
+	sf::FloatRect getPosition();
 
 	// Get the sprite for drawing
-	Sprite getSprite();
+	sf::Sprite getSprite();
 
 	// Let the pickup update itself each frame
 	void update(float elapsedTime);
@@ -62,5 +69,4 @@ public:
 
 };
 
-
-
+#endif // PICKUP_H

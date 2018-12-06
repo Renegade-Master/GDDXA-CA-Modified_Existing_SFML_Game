@@ -1,6 +1,10 @@
-#include "stdafx.h"
-#include "bullet.h"
+/**
+*	@author			Ciaran Bent	[K00221230]
+*	@creationDate	2018/12/06	YYYY/MM/DD
+*	@description	...
+*/
 
+#include "bullet.h"
 
 // The constructor
 Bullet::Bullet()
@@ -69,12 +73,12 @@ bool Bullet::isInFlight()
 	return m_InFlight;
 }
 
-FloatRect Bullet::getPosition()
+sf::FloatRect Bullet::getPosition()
 {
 	return m_BulletShape.getGlobalBounds();
 }
 
-RectangleShape Bullet::getShape()
+sf::RectangleShape Bullet::getShape()
 {
 	return m_BulletShape;
 }

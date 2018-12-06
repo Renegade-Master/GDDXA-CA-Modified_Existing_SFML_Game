@@ -1,8 +1,13 @@
-#include "stdafx.h"
+/**
+*	@author			Ciaran Bent	[K00221230]
+*	@creationDate	2018/12/06	YYYY/MM/DD
+*	@description	...
+*/
+
 #include "ZombieArena.h"
 #include "Zombie.h"
 
-Zombie* createHorde(int numZombies, IntRect arena)
+Zombie* createHorde(int numZombies, sf::IntRect arena)
 {
 	Zombie* zombies = new Zombie[numZombies];
 

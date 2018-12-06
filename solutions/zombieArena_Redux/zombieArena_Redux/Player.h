@@ -1,7 +1,14 @@
-#pragma once
-#include <SFML/Graphics.hpp>
+/**
+*	@author			Ciaran Bent	[K00221230]
+*	@creationDate	2018/12/06	YYYY/MM/DD
+*	@description	...
+*/
 
-using namespace sf;
+#pragma once
+#ifndef PLAYER_H
+#define PLAYER_H
+
+#include <SFML/Graphics.hpp>
 
 class Player
 {
@@ -10,20 +17,20 @@ private:
 	const float START_HEALTH = 100;
 
 	// Where is the player
-	Vector2f m_Position;
+	sf::Vector2f m_Position;
 
 	// Of course we will need a sprite
-	Sprite m_Sprite;
+	sf::Sprite m_Sprite;
 
 	// And a texture
 	// !!Watch this space!!
-	Texture m_Texture;
+	sf::Texture m_Texture;
 
 	// What is the screen resolution
-	Vector2f m_Resolution;
+	sf::Vector2f m_Resolution;
 
 	// What size is the current arena
-	IntRect m_Arena;
+	sf::IntRect m_Arena;
 
 	// How big is each tile of the arena
 	int m_TileSize;
@@ -40,7 +47,7 @@ private:
 	int m_MaxHealth;
 
 	// When was the player last hit
-	Time m_LastHit;
+	sf::Time m_LastHit;
 
 	// Speed in pixels per second
 	float m_Speed;
@@ -54,25 +61,25 @@ public:
 	// Call this at the end of every game
 	void resetPlayerStats();
 
-	void spawn(IntRect arena, Vector2f resolution, int tileSize);
+	void spawn(sf::IntRect arena, sf::Vector2f resolution, int tileSize);
 
 	// Handle the player getting hit by a zombie
-	bool hit(Time timeHit);
+	bool hit(sf::Time timeHit);
 
 	// How long ago was the player last hit
-	Time getLastHitTime();
+	sf::Time getLastHitTime();
 
 	// Where is the player
-	FloatRect getPosition();
+	sf::FloatRect getPosition();
 
 	// Where is the center of the player
-	Vector2f getCenter();
+	sf::Vector2f getCenter();
 
 	// Which angle is the player facing
 	float getRotation();
 
 	// Send a copy of the sprite to main
-	Sprite getSprite();
+	sf::Sprite getSprite();
 
 	// How much health has the player currently got?
 	int getHealth();
@@ -96,7 +103,7 @@ public:
 	void stopDown();
 
 	// We will call this function once every frame
-	void update(float elapsedTime, Vector2i mousePosition);
+	void update(float elapsedTime, sf::Vector2i mousePosition);
 
 	// Give player a speed boost
 	void upgradeSpeed();
@@ -110,6 +117,4 @@ public:
 
 };
 
-
-
-#pragma once
+#endif // PLAYER_H
