@@ -4,6 +4,7 @@
 *	@description	...
 */
 
+#include <iostream> // For Debugging
 #include <sstream>
 #include <fstream>
 
@@ -485,13 +486,13 @@ int main() {
 
 			// Convert mouse position to world coordinates of mainView
 			mouseWorldPosition = window.mapPixelToCoords(
-				sf::Mouse::getPosition(), mainView);
-
+				mouseScreenPosition, mainView);
+			 
 			// Set the crosshair to the mouse world location
 			spriteCrosshair.setPosition(mouseWorldPosition);
 
 			// Update the player
-			player.update(dtAsSeconds, sf::Mouse::getPosition());
+			player.update(dtAsSeconds, mouseScreenPosition);
 
 			// Make a note of the players new position
 			sf::Vector2f playerPosition(player.getCenter());
