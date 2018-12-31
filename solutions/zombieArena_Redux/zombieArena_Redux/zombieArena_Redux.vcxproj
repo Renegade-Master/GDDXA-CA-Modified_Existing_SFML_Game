@@ -147,15 +147,16 @@
   <ItemGroup>
     <Image Include="Graphics\ammo_icon.png" />
     <Image Include="Graphics\ammo_pickup.png" />
-    <Image Include="Graphics\background 1280-720.png" />
     <Image Include="Graphics\background.png" />
-    <Image Include="Graphics\background_originalsize.png" />
     <Image Include="Graphics\background_sheet.png" />
+    <Image Include="Graphics\background_sheet_new.png" />
+    <Image Include="Graphics\background_sheet_stretch.png" />
     <Image Include="Graphics\bloater.png" />
     <Image Include="Graphics\blood.png" />
     <Image Include="Graphics\chaser.png" />
     <Image Include="Graphics\crawler.png" />
     <Image Include="Graphics\crosshair.png" />
+    <Image Include="Graphics\demonEnemy_01.png" />
     <Image Include="Graphics\health_pickup.png" />
     <Image Include="Graphics\player.png" />
   </ItemGroup>

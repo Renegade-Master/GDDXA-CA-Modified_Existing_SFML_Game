@@ -11,8 +11,9 @@ int createBackground(sf::VertexArray& rVA, sf::IntRect arena) {
 	// Anything we do to rVA we are actually doing to background (in the main function)
 
 	// How big is each tile/texture
-	const int TILE_SIZE = 50;
-	const int TILE_TYPES = 3;
+	const int TILE_SIZE = 48;
+	const int FLOOR_TILE_TYPES = 4;
+	const int WALL_TILE_TYPES = 3;
 	const int VERTS_IN_QUAD = 4;
 
 	int worldWidth = arena.width / TILE_SIZE;
@@ -36,18 +37,21 @@ int createBackground(sf::VertexArray& rVA, sf::IntRect arena) {
 			rVA[currentVertex + 3].position = sf::Vector2f((w * TILE_SIZE), (h * TILE_SIZE) + TILE_SIZE);
 
 			// Define the position in the Texture to draw for current quad
-			// Either mud, stone, grass or wall
 			if (h == 0 || h == worldHeight - 1 || w == 0 || w == worldWidth - 1) {
-				// Use the wall texture
-				rVA[currentVertex + 0].texCoords = sf::Vector2f(0, 0 + TILE_TYPES * TILE_SIZE);
-				rVA[currentVertex + 1].texCoords = sf::Vector2f(TILE_SIZE, 0 + TILE_TYPES * TILE_SIZE);
-				rVA[currentVertex + 2].texCoords = sf::Vector2f(TILE_SIZE, TILE_SIZE + TILE_TYPES * TILE_SIZE);
-				rVA[currentVertex + 3].texCoords = sf::Vector2f(0, TILE_SIZE + TILE_TYPES * TILE_SIZE);
+				// Use a random wall texture
+				srand((int)time(0) + h * w - h);
+				int mOrG = (rand() % WALL_TILE_TYPES);
+				int verticalOffset = mOrG * TILE_SIZE;
+
+				rVA[currentVertex + 0].texCoords = sf::Vector2f(0, 0 + FLOOR_TILE_TYPES * TILE_SIZE + verticalOffset);
+				rVA[currentVertex + 1].texCoords = sf::Vector2f(TILE_SIZE, 0 + FLOOR_TILE_TYPES * TILE_SIZE + verticalOffset);
+				rVA[currentVertex + 2].texCoords = sf::Vector2f(TILE_SIZE, TILE_SIZE + FLOOR_TILE_TYPES * TILE_SIZE + verticalOffset);
+				rVA[currentVertex + 3].texCoords = sf::Vector2f(0, TILE_SIZE + FLOOR_TILE_TYPES * TILE_SIZE + verticalOffset);
 			}
 			else {
 				// Use a random floor texture
 				srand((int)time(0) + h * w - h);
-				int mOrG = (rand() % TILE_TYPES);
+				int mOrG = (rand() % FLOOR_TILE_TYPES);
 				int verticalOffset = mOrG * TILE_SIZE;
 
 				rVA[currentVertex + 0].texCoords = sf::Vector2f(0, 0 + verticalOffset);

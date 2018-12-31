@@ -15,7 +15,7 @@ void Zombie::spawn(float startX, float startY, int type, int seed) {
 		case 0:
 			// Bloater
 			m_Sprite = sf::Sprite(TextureHolder::GetTexture(
-				"graphics/bloater.png"));
+				"graphics/demonEnemy_01.png"));
 
 			m_Speed = 40;
 			m_Health = 5;

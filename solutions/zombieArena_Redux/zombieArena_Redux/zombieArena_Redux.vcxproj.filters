@@ -76,13 +76,7 @@
     <Image Include="Graphics\ammo_pickup.png">
       <Filter>Resource Files\Graphics</Filter>
     </Image>
-    <Image Include="Graphics\background 1280-720.png">
-      <Filter>Resource Files\Graphics</Filter>
-    </Image>
     <Image Include="Graphics\background.png">
-      <Filter>Resource Files\Graphics</Filter>
-    </Image>
-    <Image Include="Graphics\background_originalsize.png">
       <Filter>Resource Files\Graphics</Filter>
     </Image>
     <Image Include="Graphics\background_sheet.png">
@@ -107,6 +101,15 @@
       <Filter>Resource Files\Graphics</Filter>
     </Image>
     <Image Include="Graphics\player.png">
+      <Filter>Resource Files\Graphics</Filter>
+    </Image>
+    <Image Include="Graphics\background_sheet_new.png">
+      <Filter>Resource Files\Graphics</Filter>
+    </Image>
+    <Image Include="Graphics\background_sheet_stretch.png">
+      <Filter>Resource Files\Graphics</Filter>
+    </Image>
+    <Image Include="Graphics\demonEnemy_01.png">
       <Filter>Resource Files\Graphics</Filter>
     </Image>
   </ItemGroup>
