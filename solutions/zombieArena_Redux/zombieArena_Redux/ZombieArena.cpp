@@ -77,7 +77,7 @@ int main() {
 	sf::Time lastPressed;
 
 	// Hide the mouse pointer and replace it with crosshair
-	window.setMouseCursorVisible(true);
+	window.setMouseCursorVisible(false);
 	sf::Sprite spriteCrosshair;
 	sf::Texture textureCrosshair = TextureHolder::GetTexture("Graphics/crosshair.png");
 	spriteCrosshair.setTexture(textureCrosshair);
@@ -245,7 +245,10 @@ int main() {
 	sf::Sound pickup;
 	pickup.setBuffer(pickupBuffer);
 
-	// The main game loop
+	/***--------------***\
+	| The Main Game Loop |
+	\***--------------***/
+
 	while (window.isOpen())	{
 		/*
 		************
@@ -482,7 +485,7 @@ int main() {
 			float dtAsSeconds = dt.asSeconds();
 
 			// Where is the mouse pointer
-			mouseScreenPosition = sf::Mouse::getPosition();
+			mouseScreenPosition = sf::Mouse::getPosition(window);
 
 			// Convert mouse position to world coordinates of mainView
 			mouseWorldPosition = window.mapPixelToCoords(
