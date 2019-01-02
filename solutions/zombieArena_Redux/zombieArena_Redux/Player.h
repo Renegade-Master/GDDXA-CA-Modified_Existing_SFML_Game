@@ -13,7 +13,7 @@
 class Player {
 private:
 	const float START_SPEED = 200;
-	const float START_HEALTH = 10000;
+	const float START_HEALTH = 100;
 
 	// Where is the player
 	sf::Vector2f m_Position;

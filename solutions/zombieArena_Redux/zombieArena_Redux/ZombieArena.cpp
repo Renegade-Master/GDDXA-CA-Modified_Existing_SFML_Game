@@ -21,8 +21,8 @@ int main() {
 	// Here is the instabce of TextureHolder
 	TextureHolder holder;
 
-	// The game will always be in one of four states
-	enum class State { PAUSED, LEVELING_UP, GAME_OVER, PLAYING };
+	// The game will always be in one of five states
+	enum class State { PAUSED, MAIN_MENU, LEVELING_UP, GAME_OVER, PLAYING };
 	// Start with the GAME_OVER state
 	State state = State::GAME_OVER;
 
@@ -124,7 +124,8 @@ int main() {
 	gameOverText.setCharacterSize(100);
 	gameOverText.setFillColor(sf::Color::White);
 	gameOverText.setPosition(resolution.x / 6, resolution.y / 3);
-	gameOverText.setString("Press Enter to Play");
+	//gameOverText.setString("Press Enter to Play");
+	gameOverText.setString("You DIED!\nYour Score was: " + score);
 
 	// Levelling up
 	sf::Text levelUpText;
@@ -338,7 +339,7 @@ int main() {
 
 		 // Handle the player quitting
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-			window.close();
+			state = State::MAIN_MENU;
 		}
 
 		// Handle controls while playing
@@ -470,6 +471,16 @@ int main() {
 				clock.restart();
 			}
 		}// End levelling up
+
+		// Handle the levelling up state
+		if (state == State::MAIN_MENU) {
+			std::cout << "Entered the Main Menu." << std::endl;
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) &&
+				state == State::MAIN_MENU) {
+				window.close();
+			}
+		}
 
 		 /*
 		 ****************
