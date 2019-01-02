@@ -4,18 +4,7 @@
 *	@description	...
 */
 
-#include <iostream> // For Debugging
-#include <sstream>
-#include <fstream>
-
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-
 #include "ZombieArena.h"
-#include "Player.h"
-#include "TextureHolder.h"
-#include "Bullet.h"
-#include "Pickup.h"
 
 int main() {
 	// Here is the instabce of TextureHolder
@@ -472,13 +461,13 @@ int main() {
 			}
 		}// End levelling up
 
-		// Handle the levelling up state
+		// Handle the main menu state
 		if (state == State::MAIN_MENU) {
 			std::cout << "Entered the Main Menu." << std::endl;
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) &&
 				state == State::MAIN_MENU) {
-				window.close();
+				//window.close();
 			}
 		}
 
@@ -714,6 +703,14 @@ int main() {
 			window.draw(gameOverText);
 			window.draw(scoreText);
 			window.draw(hiScoreText);
+		}
+
+		if (state == State::MAIN_MENU) {
+			window.draw(spriteGameOver);
+			window.draw(gameOverText);
+			window.draw(scoreText);
+			window.draw(hiScoreText);
+			window.draw(zombiesRemainingText);
 		}
 
 		window.display();
