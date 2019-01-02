@@ -4,18 +4,18 @@
 *	@description	...
 */
 
-#include "ZombieArena.h"
-#include "Zombie.h"
+#include "DevilSpawn.h"
+#include "Devil.h"
 
-Zombie* createHorde(int numZombies, sf::IntRect arena) {
-	Zombie* zombies = new Zombie[numZombies];
+Devil* createHorde(int numDevils, sf::IntRect arena) {
+	Devil* hoard = new Devil[numDevils];
 
 	int maxY = arena.height - 20;
 	int minY = arena.top + 20;
 	int maxX = arena.width - 20;
 	int minX = arena.left + 20;
 
-	for (int i = 0; i < numZombies; i++) {
+	for (int i = 0; i < numDevils; i++) {
 
 		// Which side should the zombie spawn
 		srand((int)time(0) * i);
@@ -53,8 +53,8 @@ Zombie* createHorde(int numZombies, sf::IntRect arena) {
 		int type = (rand() % 3);
 
 		// Spawn the new zombie into the array
-		zombies[i].spawn(x, y, type, i);
+		hoard[i].spawn(x, y, type, i);
 
 	}
-	return zombies;
+	return hoard;
 }

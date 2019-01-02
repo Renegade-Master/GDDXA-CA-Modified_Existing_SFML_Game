@@ -5,8 +5,8 @@
 */
 
 #pragma once
-#ifndef ZOMBIEARENA_H
-#define ZOMBIEARENA_H
+#ifndef DEVILSPAWN_H
+#define DEVILSPAWN_H
 
 #include <iostream> // For Debugging
 #include <sstream>
@@ -15,14 +15,14 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-#include "ZombieArena.h"
+#include "DevilSpawn.h"
 #include "Player.h"
 #include "TextureHolder.h"
 #include "Bullet.h"
 #include "Pickup.h"
-#include "Zombie.h"
+#include "Devil.h"
 
 int createBackground(sf::VertexArray& rVA, sf::IntRect arena);
-Zombie* createHorde(int numZombies, sf::IntRect arena);
+Devil* createHorde(int numDevils, sf::IntRect arena);
 
-#endif // ZOMBIEARENA_H
+#endif // DEVILSPAWN_H

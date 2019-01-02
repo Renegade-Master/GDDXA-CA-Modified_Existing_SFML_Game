@@ -133,16 +133,16 @@
     <ClCompile Include="Pickup.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="TextureHolder.cpp" />
-    <ClCompile Include="Zombie.cpp" />
-    <ClCompile Include="ZombieArena.cpp" />
+    <ClCompile Include="Devil.cpp" />
+    <ClCompile Include="DevilSpawn.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Pickup.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="TextureHolder.h" />
-    <ClInclude Include="Zombie.h" />
-    <ClInclude Include="ZombieArena.h" />
+    <ClInclude Include="Devil.h" />
+    <ClInclude Include="DevilSpawn.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Graphics\ammo_icon.png" />
@@ -154,11 +154,15 @@
     <Image Include="Graphics\bloater.png" />
     <Image Include="Graphics\blood.png" />
     <Image Include="Graphics\chaser.png" />
+    <Image Include="Graphics\chaser_head.png" />
+    <Image Include="Graphics\chaser_headless.png" />
     <Image Include="Graphics\crawler.png" />
     <Image Include="Graphics\crosshair.png" />
     <Image Include="Graphics\demonEnemy_01.png" />
     <Image Include="Graphics\health_pickup.png" />
+    <Image Include="Graphics\mtDoom_background.jpg" />
     <Image Include="Graphics\player.png" />
+    <Image Include="Graphics\player_new.png" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Audio\8BIT_RETRO_Coin_Collect_Two_Note_Deep_Twinkle_mono.wav" />

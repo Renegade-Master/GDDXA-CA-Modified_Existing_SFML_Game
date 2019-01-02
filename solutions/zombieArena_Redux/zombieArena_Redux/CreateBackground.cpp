@@ -5,7 +5,7 @@
 */
 
 #include <SFML/Graphics.hpp>
-#include "ZombieArena.h"
+#include "DevilSpawn.h"
 
 int createBackground(sf::VertexArray& rVA, sf::IntRect arena) {
 	// Anything we do to rVA we are actually doing to background (in the main function)

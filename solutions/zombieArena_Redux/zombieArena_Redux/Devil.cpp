@@ -4,12 +4,12 @@
 *	@description	...
 */
 
-#include "zombie.h"
+#include "Devil.h"
 #include "TextureHolder.h"
 #include <cstdlib>
 #include <ctime>
 
-void Zombie::spawn(float startX, float startY, int type, int seed) {
+void Devil::spawn(float startX, float startY, int type, int seed) {
 
 	switch (type) {
 		case 0:
@@ -24,7 +24,7 @@ void Zombie::spawn(float startX, float startY, int type, int seed) {
 		case 1:
 			// Chaser
 			m_Sprite = sf::Sprite(TextureHolder::GetTexture(
-				"graphics/chaser.png"));
+				"graphics/chaser_headless.png"));
 
 			m_Speed = 70;
 			m_Health = 1;
@@ -56,7 +56,7 @@ void Zombie::spawn(float startX, float startY, int type, int seed) {
 	m_Sprite.setPosition(m_Position);
 }
 
-bool Zombie::hit() {
+bool Devil::hit() {
 	m_Health--;
 
 	if (m_Health < 0) {
@@ -72,20 +72,20 @@ bool Zombie::hit() {
 	return false;
 }
 
-bool Zombie::isAlive() {
+bool Devil::isAlive() {
 	return m_Alive;
 }
 
-sf::FloatRect Zombie::getPosition() {
+sf::FloatRect Devil::getPosition() {
 	return m_Sprite.getGlobalBounds();
 }
 
 
-sf::Sprite Zombie::getSprite() {
+sf::Sprite Devil::getSprite() {
 	return m_Sprite;
 }
 
-void Zombie::update(float elapsedTime,
+void Devil::update(float elapsedTime,
 	sf::Vector2f playerLocation) {
 	float playerX = playerLocation.x;
 	float playerY = playerLocation.y;

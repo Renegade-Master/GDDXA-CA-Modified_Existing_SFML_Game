@@ -5,12 +5,12 @@
 */
 
 #pragma once
-#ifndef ZOMBIE_H
-#define ZOMBIE_H
+#ifndef DEVIL_H
+#define DEVIL_H
 
 #include <SFML/Graphics.hpp>
 
-class Zombie {
+class Devil {
 private:
 	// How fast is each zombie type?
 	const float BLOATER_SPEED = 40;
@@ -63,4 +63,4 @@ public:
 	void update(float elapsedTime, sf::Vector2f playerLocation);
 };
 
-#endif // ZOMBIE_H
+#endif // DEVIL_H

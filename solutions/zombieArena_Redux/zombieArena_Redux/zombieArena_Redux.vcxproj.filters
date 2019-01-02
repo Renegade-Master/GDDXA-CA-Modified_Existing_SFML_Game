@@ -42,10 +42,10 @@
     <ClCompile Include="TextureHolder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Zombie.cpp">
+    <ClCompile Include="DevilSpawn.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ZombieArena.cpp">
+    <ClCompile Include="Devil.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -62,10 +62,10 @@
     <ClInclude Include="TextureHolder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Zombie.h">
+    <ClInclude Include="DevilSpawn.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ZombieArena.h">
+    <ClInclude Include="Devil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -110,6 +110,18 @@
       <Filter>Resource Files\Graphics</Filter>
     </Image>
     <Image Include="Graphics\demonEnemy_01.png">
+      <Filter>Resource Files\Graphics</Filter>
+    </Image>
+    <Image Include="Graphics\chaser_head.png">
+      <Filter>Resource Files\Graphics</Filter>
+    </Image>
+    <Image Include="Graphics\chaser_headless.png">
+      <Filter>Resource Files\Graphics</Filter>
+    </Image>
+    <Image Include="Graphics\mtDoom_background.jpg">
+      <Filter>Resource Files\Graphics</Filter>
+    </Image>
+    <Image Include="Graphics\player_new.png">
       <Filter>Resource Files\Graphics</Filter>
     </Image>
   </ItemGroup>

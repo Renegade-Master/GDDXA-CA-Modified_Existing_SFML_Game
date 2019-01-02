@@ -4,7 +4,7 @@
 *	@description	...
 */
 
-#include "ZombieArena.h"
+#include "DevilSpawn.h"
 
 int main() {
 	/***-----------------***\
@@ -27,7 +27,7 @@ int main() {
 	resolution.y = 720;
 
 	sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y),
-		"Zombie Arena", sf::Style::Default);
+		"Devil Spawm", sf::Style::Default);
 
 	// Create a an SFML View
 	sf::View mainView(sf::FloatRect(0, 0, resolution.x, resolution.y));
@@ -54,10 +54,10 @@ int main() {
 	sf::Texture textureBackground = TextureHolder::GetTexture(
 		"Graphics/background_sheet_stretch.png");
 
-	// Prepare a horde of zombies
-	int numZombies;
-	int numZombiesAlive;
-	Zombie* zombies = NULL;
+	// Prepare a horde of horde
+	int hordeSize;
+	int numHordeAlive;
+	Devil* horde = NULL;
 
 	// Set fixed amount of bullets
 	Bullet bullets[100];
@@ -86,7 +86,7 @@ int main() {
 
 	// For the home/game over screen
 	sf::Sprite spriteGameOver;
-	sf::Texture textureGameOver = TextureHolder::GetTexture("Graphics/background.png");
+	sf::Texture textureGameOver = TextureHolder::GetTexture("Graphics/mtDoom_background.jpg");
 	spriteGameOver.setTexture(textureGameOver);
 	spriteGameOver.setPosition(0, 0);
 
@@ -136,6 +136,19 @@ int main() {
 		"\n6- More and better ammo pickups";
 	levelUpText.setString(levelUpStream.str());
 
+	// Main Menu
+	sf::Text mainMenuText;
+	mainMenuText.setFont(font);
+	mainMenuText.setCharacterSize(70);
+	mainMenuText.setFillColor(sf::Color::White);
+	mainMenuText.setPosition(50, 100);
+	std::stringstream mainMenuStream;
+	mainMenuStream	<< "Welcome to DevilSpawn\n"
+					<< "Press something to continue\n"
+					<< "See what happens."
+					<< std::endl;
+	mainMenuText.setString(mainMenuStream.str());
+
 	// Ammo
 	sf::Text ammoText;
 	ammoText.setFont(font);
@@ -169,12 +182,12 @@ int main() {
 	hiScoreText.setString(s.str());
 
 	// Zombies remaining
-	sf::Text zombiesRemainingText;
-	zombiesRemainingText.setFont(font);
-	zombiesRemainingText.setCharacterSize(55);
-	zombiesRemainingText.setFillColor(sf::Color::White);
-	zombiesRemainingText.setPosition(resolution.x - 275, resolution.y - 60);
-	zombiesRemainingText.setString("Zombies: 0");
+	sf::Text hordeRemainingText;
+	hordeRemainingText.setFont(font);
+	hordeRemainingText.setCharacterSize(55);
+	hordeRemainingText.setFillColor(sf::Color::White);
+	hordeRemainingText.setPosition(resolution.x - 275, resolution.y - 60);
+	hordeRemainingText.setString("Horde Size: 0");
 
 	// Wave number
 	int wave = 0;
@@ -457,12 +470,12 @@ int main() {
 				ammoPickup.setArena(arena);
 
 				// Create a horde of zombies
-				numZombies = 5 * wave;
+				hordeSize = 5 * wave;
 
 				// Delete the previously allocated memory (if it exists)
-				delete[] zombies;
-				zombies = createHorde(numZombies, arena);
-				numZombiesAlive = numZombies;
+				delete[] horde;
+				horde = createHorde(hordeSize, arena);
+				numHordeAlive = hordeSize;
 
 				// Play the powerup sound
 				powerup.play();
@@ -514,10 +527,10 @@ int main() {
 			// Make the view centre around the player				
 			mainView.setCenter(player.getCenter());
 
-			// Loop through each Zombie and update them
-			for (int i = 0; i < numZombies; i++) {
-				if (zombies[i].isAlive()) {
-					zombies[i].update(dt.asSeconds(), playerPosition);
+			// Loop through each Devil and update them
+			for (int i = 0; i < hordeSize; i++) {
+				if (horde[i].isAlive()) {
+					horde[i].update(dt.asSeconds(), playerPosition);
 				}
 			}
 
@@ -533,28 +546,28 @@ int main() {
 			ammoPickup.update(dtAsSeconds);
 
 			// Collision detection
-			// Have any zombies been shot?
+			// Have any horde been shot?
 			for (int i = 0; i < 100; i++) {
-				for (int j = 0; j < numZombies; j++) {
+				for (int j = 0; j < hordeSize; j++) {
 					if (bullets[i].isInFlight() && 
-						zombies[j].isAlive()) {
+						horde[j].isAlive()) {
 						if (bullets[i].getPosition().intersects
-							(zombies[j].getPosition())) {
+							(horde[j].getPosition())) {
 							// Stop the bullet
 							bullets[i].stop();
 
 							// Register the hit and see if it was a kill
-							if (zombies[j].hit()) {
+							if (horde[j].hit()) {
 								// Not just a hit but a kill too
 								score += 10;
 								if (score >= hiScore) {
 									hiScore = score;
 								}
 
-								numZombiesAlive--;
+								numHordeAlive--;
 
-								// When all the zombies are dead (again)
-								if (numZombiesAlive == 0) {
+								// When all the horde are dead (again)
+								if (numHordeAlive == 0) {
 									state = State::LEVELING_UP;
 								}
 							}	
@@ -566,10 +579,10 @@ int main() {
 				}
 			}// End zombie being shot
 
-			// Have any zombies touched the player			
-			for (int i = 0; i < numZombies; i++) {
+			// Have any horde touched the player			
+			for (int i = 0; i < hordeSize; i++) {
 				if (player.getPosition().intersects
-					(zombies[i].getPosition()) && zombies[i].isAlive())	{
+					(horde[i].getPosition()) && horde[i].isAlive())	{
 
 					if (player.hit(gameTimeTotal)) {
 						// More here later
@@ -618,7 +631,7 @@ int main() {
 				std::stringstream ssScore;
 				std::stringstream ssHiScore;
 				std::stringstream ssWave;
-				std::stringstream ssZombiesAlive;
+				std::stringstream ssHordeAlive;
 
 				// Update the ammo text
 				ssAmmo << bulletsInClip << "/" << bulletsSpare;
@@ -637,8 +650,8 @@ int main() {
 				waveNumberText.setString(ssWave.str());
 
 				// Update the high score text
-				ssZombiesAlive << "Zombies:" << numZombiesAlive;
-				zombiesRemainingText.setString(ssZombiesAlive.str());
+				ssHordeAlive << "Horde Size:" << numHordeAlive;
+				hordeRemainingText.setString(ssHordeAlive.str());
 
 				framesSinceLastHUDUpdate = 0;
 				timeSinceLastUpdate = sf::Time::Zero;
@@ -662,9 +675,9 @@ int main() {
 			// Draw the background
 			window.draw(background, &textureBackground);
 
-			// Draw the zombies
-			for (int i = 0; i < numZombies; i++) {
-				window.draw(zombies[i].getSprite());
+			// Draw the horde
+			for (int i = 0; i < hordeSize; i++) {
+				window.draw(horde[i].getSprite());
 			}
 
 			for (int i = 0; i < 100; i++) {
@@ -697,7 +710,7 @@ int main() {
 			window.draw(hiScoreText);
 			window.draw(healthBar);
 			window.draw(waveNumberText);
-			window.draw(zombiesRemainingText);
+			window.draw(hordeRemainingText);
 		}
 
 		if (state == State::LEVELING_UP) {
@@ -718,10 +731,7 @@ int main() {
 
 		if (state == State::MAIN_MENU) {
 			window.draw(spriteGameOver);
-			window.draw(gameOverText);
-			window.draw(scoreText);
-			window.draw(hiScoreText);
-			window.draw(zombiesRemainingText);
+			window.draw(mainMenuText);
 		}
 
 		window.display();
