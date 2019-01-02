@@ -135,9 +135,33 @@
     <Media Include="Audio\splat.wav">
       <Filter>Resource Files\Audio</Filter>
     </Media>
+    <Media Include="Audio\8BIT_RETRO_Coin_Collect_Two_Note_Deep_Twinkle_mono.wav">
+      <Filter>Resource Files\Audio</Filter>
+    </Media>
+    <Media Include="Audio\CHARGE_Sci-Fi_High_Pass_Sweep_12_Semi_Up_500ms_stereo.wav">
+      <Filter>Resource Files\Audio</Filter>
+    </Media>
+    <Media Include="Audio\FIREARM_Handgun_B_FS92_9mm_Fire_Short_Reverb_Tail_RR2_stereo.wav">
+      <Filter>Resource Files\Audio</Filter>
+    </Media>
+    <Media Include="Audio\GORE_Splat_Hit_Short_mono.wav">
+      <Filter>Resource Files\Audio</Filter>
+    </Media>
+    <Media Include="Audio\IMPACT_Generic_09_Short_mono.wav">
+      <Filter>Resource Files\Audio</Filter>
+    </Media>
+    <Media Include="Audio\RELOAD_Clicks_Double_mono.wav">
+      <Filter>Resource Files\Audio</Filter>
+    </Media>
+    <Media Include="Audio\RELOAD_Dry_Fire_stereo.wav">
+      <Filter>Resource Files\Audio</Filter>
+    </Media>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Fonts\zombiecontrol.ttf">
+      <Filter>Resource Files\Fonts</Filter>
+    </Font>
+    <Font Include="Fonts\firstordersemital.ttf">
       <Filter>Resource Files\Fonts</Filter>
     </Font>
   </ItemGroup>

@@ -7,7 +7,11 @@
 #include "ZombieArena.h"
 
 int main() {
-	// Here is the instabce of TextureHolder
+	/***-----------------***\
+	| Setting up Game Files |
+	\***-----------------***/
+
+	// Instance of TextureHolder
 	TextureHolder holder;
 
 	// The game will always be in one of five states
@@ -15,7 +19,7 @@ int main() {
 	// Start with the GAME_OVER state
 	State state = State::GAME_OVER;
 
-	// Get the screen resolution and create an SFML window
+	// Set the screen resolution and create an SFML window
 	sf::Vector2f resolution;
 	/*resolution.x = sf::VideoMode::getDesktopMode().width;
 	resolution.y = sf::VideoMode::getDesktopMode().height;*/
@@ -25,10 +29,10 @@ int main() {
 	sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y),
 		"Zombie Arena", sf::Style::Default);
 
-	// Create a an SFML View for the main action
+	// Create a an SFML View
 	sf::View mainView(sf::FloatRect(0, 0, resolution.x, resolution.y));
 
-	// Here is our clock for timing everything
+	// Clock for timings
 	sf::Clock clock;
 	// How long has the PLAYING state been active
 	sf::Time gameTimeTotal;
@@ -50,12 +54,12 @@ int main() {
 	sf::Texture textureBackground = TextureHolder::GetTexture(
 		"Graphics/background_sheet_stretch.png");
 
-	// Prepare for a horde of zombies
+	// Prepare a horde of zombies
 	int numZombies;
 	int numZombiesAlive;
 	Zombie* zombies = NULL;
 
-	// 100 bullets should do
+	// Set fixed amount of bullets
 	Bullet bullets[100];
 	int currentBullet = 0;
 	int bulletsSpare = 24;
@@ -97,7 +101,7 @@ int main() {
 
 	// Load the font
 	sf::Font font;
-	font.loadFromFile("Fonts/zombiecontrol.ttf");
+	font.loadFromFile("Fonts/firstordersemital.ttf");
 
 	// Paused
 	sf::Text pausedText;
@@ -195,43 +199,50 @@ int main() {
 
 	// Prepare the hit sound
 	sf::SoundBuffer hitBuffer;
-	hitBuffer.loadFromFile("Audio/hit.wav");
+	//splatBuffer.loadFromFile("Audio/hit.wav");
+	hitBuffer.loadFromFile("Audio/IMPACT_Generic_09_Short_mono.wav");
 	sf::Sound hit;
 	hit.setBuffer(hitBuffer);
 
 	// Prepare the splat sound
 	sf::SoundBuffer splatBuffer;
-	splatBuffer.loadFromFile("Audio/splat.wav");
+	//splatBuffer.loadFromFile("Audio/splat.wav");
+	splatBuffer.loadFromFile("Audio/GORE_Splat_Hit_Short_mono.wav");
 	sf::Sound splat;
 	splat.setBuffer(splatBuffer);
 
 	// Prepare the shoot sound
 	sf::SoundBuffer shootBuffer;
-	shootBuffer.loadFromFile("Audio/shoot.wav");
+	//splatBuffer.loadFromFile("Audio/shoot.wav");
+	shootBuffer.loadFromFile("Audio/FIREARM_Handgun_B_FS92_9mm_Fire_Short_Reverb_Tail_RR2_stereo.wav");
 	sf::Sound shoot;
 	shoot.setBuffer(shootBuffer);
 
 	// Prepare the reload sound
 	sf::SoundBuffer reloadBuffer;
-	reloadBuffer.loadFromFile("Audio/reload.wav");
+	//reloadBuffer.loadFromFile("Audio/reload.wav");
+	reloadBuffer.loadFromFile("Audio/RELOAD_Clicks_Double_mono.wav");
 	sf::Sound reload;
 	reload.setBuffer(reloadBuffer);
 
 	// Prepare the failed sound
 	sf::SoundBuffer reloadFailedBuffer;
-	reloadFailedBuffer.loadFromFile("Audio/reload_failed.wav");
+	//reloadFailedBuffer.loadFromFile("Audio/reload_failed.wav");
+	reloadFailedBuffer.loadFromFile("Audio/RELOAD_Dry_Fire_stereo.wav");
 	sf::Sound reloadFailed;
 	reloadFailed.setBuffer(reloadFailedBuffer);
 
 	// Prepare the powerup sound
 	sf::SoundBuffer powerupBuffer;
-	powerupBuffer.loadFromFile("Audio/powerup.wav");
+	//powerupBuffer.loadFromFile("Audio/powerup.wav");
+	powerupBuffer.loadFromFile("Audio/CHARGE_Sci-Fi_High_Pass_Sweep_12_Semi_Up_500ms_stereo.wav");
 	sf::Sound powerup;
 	powerup.setBuffer(powerupBuffer);
 
 	// Prepare the pickup sound
 	sf::SoundBuffer pickupBuffer;
-	pickupBuffer.loadFromFile("Audio/pickup.wav");
+	//pickupBuffer.loadFromFile("Audio/pickup.wav");
+	pickupBuffer.loadFromFile("Audio/8BIT_RETRO_Coin_Collect_Two_Note_Deep_Twinkle_mono.wav");
 	sf::Sound pickup;
 	pickup.setBuffer(pickupBuffer);
 

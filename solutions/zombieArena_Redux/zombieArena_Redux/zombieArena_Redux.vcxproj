@@ -161,15 +161,23 @@
     <Image Include="Graphics\player.png" />
   </ItemGroup>
   <ItemGroup>
+    <Media Include="Audio\8BIT_RETRO_Coin_Collect_Two_Note_Deep_Twinkle_mono.wav" />
+    <Media Include="Audio\CHARGE_Sci-Fi_High_Pass_Sweep_12_Semi_Up_500ms_stereo.wav" />
+    <Media Include="Audio\FIREARM_Handgun_B_FS92_9mm_Fire_Short_Reverb_Tail_RR2_stereo.wav" />
+    <Media Include="Audio\GORE_Splat_Hit_Short_mono.wav" />
     <Media Include="Audio\hit.wav" />
+    <Media Include="Audio\IMPACT_Generic_09_Short_mono.wav" />
     <Media Include="Audio\pickup.wav" />
     <Media Include="Audio\powerup.wav" />
     <Media Include="Audio\reload.wav" />
+    <Media Include="Audio\RELOAD_Clicks_Double_mono.wav" />
+    <Media Include="Audio\RELOAD_Dry_Fire_stereo.wav" />
     <Media Include="Audio\reload_failed.wav" />
     <Media Include="Audio\shoot.wav" />
     <Media Include="Audio\splat.wav" />
   </ItemGroup>
   <ItemGroup>
+    <Font Include="Fonts\firstordersemital.ttf" />
     <Font Include="Fonts\zombiecontrol.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

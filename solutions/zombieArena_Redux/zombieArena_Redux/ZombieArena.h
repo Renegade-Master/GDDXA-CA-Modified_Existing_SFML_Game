@@ -24,6 +24,5 @@
 
 int createBackground(sf::VertexArray& rVA, sf::IntRect arena);
 Zombie* createHorde(int numZombies, sf::IntRect arena);
-inline void SetupGame();
 
 #endif // ZOMBIEARENA_H
