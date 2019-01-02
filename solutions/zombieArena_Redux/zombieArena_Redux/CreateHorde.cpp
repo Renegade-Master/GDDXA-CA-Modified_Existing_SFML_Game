@@ -8,7 +8,7 @@
 #include "Devil.h"
 
 Devil* createHorde(int numDevils, sf::IntRect arena) {
-	Devil* hoard = new Devil[numDevils];
+	Devil* horde = new Devil[numDevils];
 
 	int maxY = arena.height - 20;
 	int minY = arena.top + 20;
@@ -53,8 +53,8 @@ Devil* createHorde(int numDevils, sf::IntRect arena) {
 		int type = (rand() % 3);
 
 		// Spawn the new zombie into the array
-		hoard[i].spawn(x, y, type, i);
+		horde[i].spawn(x, y, type, i);
 
 	}
-	return hoard;
+	return horde;
 }
