@@ -17,20 +17,24 @@ int main() {
 	// The game will always be in one of five states
 	enum class State { PAUSED, MAIN_MENU, LEVELING_UP, GAME_OVER, PLAYING };
 	// Start with the GAME_OVER state
-	State state = State::GAME_OVER;
+	State state = State::MAIN_MENU;
 
 	// Set the screen resolution and create an SFML window
 	sf::Vector2f resolution;
+	sf::Vector2f miniRes;
 	/*resolution.x = sf::VideoMode::getDesktopMode().width;
 	resolution.y = sf::VideoMode::getDesktopMode().height;*/
 	resolution.x = 1280;
 	resolution.y = 720;
+	miniRes.x = 256;
+	miniRes.y = 256;
 
 	sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y),
 		"Devil Spawm", sf::Style::Default);
 
 	// Create a an SFML View
 	sf::View mainView(sf::FloatRect(0, 0, resolution.x, resolution.y));
+	sf::View miniMapView(sf::FloatRect(0, resolution.y - miniRes.y, miniRes.x, miniRes.y));
 
 	// Clock for timings
 	sf::Clock clock;
@@ -108,8 +112,8 @@ int main() {
 	pausedText.setFont(font);
 	pausedText.setCharacterSize(155);
 	pausedText.setFillColor(sf::Color::White);
-	pausedText.setPosition(400, 400);
-	pausedText.setString("Press Enter \nto continue");
+	pausedText.setPosition(resolution.x / 7, resolution.y / 4);
+	pausedText.setString("Press Enter to continue or\nQ to go to the Main Menu");
 
 	// Game Over
 	sf::Text gameOverText;
@@ -144,8 +148,8 @@ int main() {
 	mainMenuText.setPosition(50, 100);
 	std::stringstream mainMenuStream;
 	mainMenuStream	<< "Welcome to DevilSpawn\n"
-					<< "Press something to continue\n"
-					<< "See what happens."
+					<< "\n1 - START GAME\n"
+					<< "\n\nQ - Quit Game"
 					<< std::endl;
 	mainMenuText.setString(mainMenuStream.str());
 
@@ -186,7 +190,7 @@ int main() {
 	hordeRemainingText.setFont(font);
 	hordeRemainingText.setCharacterSize(55);
 	hordeRemainingText.setFillColor(sf::Color::White);
-	hordeRemainingText.setPosition(resolution.x - 275, resolution.y - 60);
+	hordeRemainingText.setPosition(resolution.x - 350, resolution.y - 60);
 	hordeRemainingText.setString("Horde Size: 0");
 
 	// Wave number
@@ -275,7 +279,7 @@ int main() {
 		while (window.pollEvent(event))	{
 			if (event.type == sf::Event::KeyPressed) {
 				// Pause a game while playing
-				if (event.key.code == sf::Keyboard::Return &&
+				if (event.key.code == sf::Keyboard::Escape &&
 					state == State::PLAYING) {
 					state = State::PAUSED;
 				}
@@ -288,25 +292,12 @@ int main() {
 					clock.restart();
 				}
 
-				// Start a new game while in GAME_OVER state
-				else if (event.key.code == sf::Keyboard::Return &&
-					state == State::GAME_OVER) {
-					state = State::LEVELING_UP;
-					wave = 0;
-					score = 0;
-
-					// Prepare the gun and ammo for next game
-					currentBullet = 0;
-					bulletsSpare = 24;
-					bulletsInClip = 6;
-					clipSize = 6;
-					fireRate = 1;
-
-					// Reset the player's stats
-					player.resetPlayerStats();
+				// Handle the player quitting
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+					state = State::MAIN_MENU;
 				}
-				// Spin and zoom the world
 				
+				// Spin and zoom the world				
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))	{
 					mainView.rotate(.5f);
 				}
@@ -349,10 +340,37 @@ int main() {
 			}
 		}// End event polling
 
+		// Handle the main menu state
+		if (state == State::MAIN_MENU) {
+			std::cout << "Entered the Main Menu." << std::endl;
 
-		 // Handle the player quitting
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-			state = State::MAIN_MENU;
+			/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) &&
+				state == State::MAIN_MENU) {
+				window.close();
+			}*/
+
+			switch (event.key.code) {
+			case sf::Keyboard::Num1:
+				state = State::LEVELING_UP;
+				wave = 0;
+				score = 0;
+
+				// Prepare the gun and ammo for next game
+				currentBullet = 0;
+				bulletsSpare = 24;
+				bulletsInClip = 6;
+				clipSize = 6;
+				fireRate = 1;
+
+				// Reset the player's stats
+				player.resetPlayerStats();
+				break;
+			case sf::Keyboard::Q:
+				window.close();
+				break;
+			default:
+				break;
+			}
 		}
 
 		// Handle controls while playing
@@ -484,16 +502,6 @@ int main() {
 				clock.restart();
 			}
 		}// End levelling up
-
-		// Handle the main menu state
-		if (state == State::MAIN_MENU) {
-			std::cout << "Entered the Main Menu." << std::endl;
-
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) &&
-				state == State::MAIN_MENU) {
-				//window.close();
-			}
-		}
 
 		 /*
 		 ****************
