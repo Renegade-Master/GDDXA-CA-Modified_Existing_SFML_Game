@@ -8,7 +8,11 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
+#include <iostream>
+
 #include <SFML\Graphics.hpp>
+#include <THOR\Graphics.hpp>
+#include <THOR\Shapes.hpp>
 
 namespace GUI {
 	namespace Style	{
@@ -35,22 +39,19 @@ namespace GUI {
 
 		~Button();
 
-		void setColorTextNormal(sf::Color text) { m_textNormal = text; };
-		void setColorTextHover(sf::Color text) { m_textHover = text; };
-		void setColorTextClicked(sf::Color text) { m_textClicked = text; };
-		void setColorNormal(sf::Color bgNormal) { m_bgNormal = bgNormal; };
-		void setColorHover(sf::Color bgHover) { m_bgHover = bgHover; };
-		void setColorClicked(sf::Color bgClicked) { m_bgClicked = bgClicked; };
-		void setBorderColor(sf::Color border) { m_border = border; };
+		void setColourTextNormal(sf::Color text) { m_textNormal = text; };
+		void setColourTextHover(sf::Color text) { m_textHover = text; };
+		void setColourTextClicked(sf::Color text) { m_textClicked = text; };
+		void setColourNormal(sf::Color bgNormal) { m_bgNormal = bgNormal; };
+		void setColourHover(sf::Color bgHover) { m_bgHover = bgHover; };
+		void setColourClicked(sf::Color bgClicked) { m_bgClicked = bgClicked; };
+		void setBorderColour(sf::Color border) { m_border = border; };
 		void setBorderThickness(float t) { m_borderThickness = t; };
 		void setBorderRadius(float r) { m_borderRadius = r; };
 		void setPosition(sf::Vector2f position) { m_position = position; };
 		void setSize(unsigned int size);
 		
-		void setText(std::string s)	{
-			m_text.setString(s);
-			m_shadow = m_text;
-		};
+		void setText(std::string s);
 		void setStyle(sf::Uint32 Style);
 		void setFont(sf::Font& font);
 
@@ -61,13 +62,11 @@ namespace GUI {
 		void update(sf::Event& e, sf::RenderWindow& window);
 
 	private:
-
 		void init();
 
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	private:
-
 		sf::Color m_bgNormal;
 		sf::Color m_bgHover;
 		sf::Color m_bgClicked;
