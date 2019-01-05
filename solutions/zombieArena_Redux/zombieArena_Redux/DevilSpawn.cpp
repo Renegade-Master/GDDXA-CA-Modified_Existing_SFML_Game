@@ -32,8 +32,11 @@ int main() {
 	sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y),
 		"Devil Spawm", sf::Style::Default);
 
-	// Create a an SFML View
+	// Create an SFML View
 	sf::View mainView(sf::FloatRect(0, 0, resolution.x, resolution.y));
+	// Create a view for the HUD
+	sf::View hudView(sf::FloatRect(0, 0, resolution.x, resolution.y));	
+	// Create a view for the MiniMap
 	sf::View miniMapView(sf::FloatRect(0, resolution.y - miniRes.y, miniRes.x, miniRes.y));
 
 	// Clock for timings
@@ -58,7 +61,7 @@ int main() {
 	sf::Texture textureBackground = TextureHolder::GetTexture(
 		"Graphics/background_sheet_stretch.png");
 
-	// Prepare a horde of horde
+	// Prepare a horde of Devils
 	int hordeSize;
 	int numHordeAlive;
 	Devil* horde = NULL;
@@ -74,11 +77,10 @@ int main() {
 	sf::Time lastPressed;
 
 	// Hide the mouse pointer and replace it with crosshair
-	window.setMouseCursorVisible(false);
-	sf::Sprite spriteCrosshair;
-	sf::Texture textureCrosshair = TextureHolder::GetTexture("Graphics/crosshair.png");
-	spriteCrosshair.setTexture(textureCrosshair);
-	spriteCrosshair.setOrigin(25, 25);
+	window.setMouseCursorVisible(true);
+	sf::Sprite sprite_mouse;
+	sf::Texture texture_mouse;
+	sprite_mouse.setOrigin(25, 25);
 
 	// Create a couple of pickups
 	Pickup healthPickup(1);
@@ -93,9 +95,6 @@ int main() {
 	sf::Texture textureGameOver = TextureHolder::GetTexture("Graphics/mtDoom_background.jpg");
 	spriteGameOver.setTexture(textureGameOver);
 	spriteGameOver.setPosition(0, 0);
-
-	// Create a view for the HUD
-	sf::View hudView(sf::FloatRect(0, 0, resolution.x, resolution.y));
 
 	// Create a sprite for the ammo icon
 	sf::Sprite spriteAmmoIcon;
@@ -147,11 +146,14 @@ int main() {
 	mainMenuText.setFillColor(sf::Color::White);
 	mainMenuText.setPosition(50, 100);
 	std::stringstream mainMenuStream;
-	mainMenuStream	<< "Welcome to DevilSpawn\n"
-					<< "\n1 - START GAME\n"
+	mainMenuStream	<< "Welcome to DevilSpawn\n" << std::endl;
+					/*<< "\n1 - START GAME\n"
 					<< "\n\nQ - Quit Game"
-					<< std::endl;
+					<< std::endl;*/
 	mainMenuText.setString(mainMenuStream.str());
+	GUI::Button btn_mainMenu_play("Play", font, sf::Vector2f(resolution.x/3, resolution.y / 8), GUI::Style::save);
+	GUI::Button btn_mainMenu_settings("Settings", font, sf::Vector2f(resolution.x / 3, resolution.y / 8), GUI::Style::save);
+	GUI::Button btn_mainMenu_quit("Quit", font, sf::Vector2f(resolution.x / 3, resolution.y / 8), GUI::Style::save);
 
 	// Ammo
 	sf::Text ammoText;
@@ -268,24 +270,22 @@ int main() {
 	\***--------------***/
 
 	while (window.isOpen())	{
-		/*
-		************
-		Handle input
-		************
-		*/
+		/***--------***\
+		| Handle Input |
+		\***--------***/
 
 		// Handle events
-		sf::Event event;
-		while (window.pollEvent(event))	{
-			if (event.type == sf::Event::KeyPressed) {
+		sf::Event evnt;
+		while (window.pollEvent(evnt))	{
+			if (evnt.type == sf::Event::KeyPressed) {
 				// Pause a game while playing
-				if (event.key.code == sf::Keyboard::Escape &&
+				if (evnt.key.code == sf::Keyboard::Escape &&
 					state == State::PLAYING) {
 					state = State::PAUSED;
 				}
 
 				// Restart while paused
-				else if (event.key.code == sf::Keyboard::Return &&
+				else if (evnt.key.code == sf::Keyboard::Return &&
 					state == State::PAUSED)	{
 					state = State::PLAYING;
 					// Reset the clock so there isn't a frame jump
@@ -317,7 +317,7 @@ int main() {
 
 				if (state == State::PLAYING) {
 					// Reloading
-					if (event.key.code == sf::Keyboard::R) {
+					if (evnt.key.code == sf::Keyboard::R) {
 						if (bulletsSpare >= clipSize) {
 							// Plenty of bullets. Reload.
 							bulletsInClip = clipSize;
@@ -336,20 +336,16 @@ int main() {
 						}
 					}
 				}
-
 			}
 		}// End event polling
 
 		// Handle the main menu state
 		if (state == State::MAIN_MENU) {
-			std::cout << "Entered the Main Menu." << std::endl;
+			//std::cout << "Entered the Main Menu." << std::endl;
 
-			/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) &&
-				state == State::MAIN_MENU) {
-				window.close();
-			}*/
+			btn_mainMenu_play.update(evnt, window);
 
-			switch (event.key.code) {
+			switch (evnt.key.code) {
 			case sf::Keyboard::Num1:
 				state = State::LEVELING_UP;
 				wave = 0;
@@ -431,36 +427,36 @@ int main() {
 		// Handle the levelling up state
 		if (state == State::LEVELING_UP) {
 			// Handle the player levelling up
-			if (event.key.code == sf::Keyboard::Num1) {
+			if (evnt.key.code == sf::Keyboard::Num1) {
 				// Increase fire rate
 				fireRate++;
 				state = State::PLAYING;
 			}
 
-			if (event.key.code == sf::Keyboard::Num2) {
+			if (evnt.key.code == sf::Keyboard::Num2) {
 				// Increase clip size
 				clipSize += clipSize;
 				state = State::PLAYING;
 			}
 
-			if (event.key.code == sf::Keyboard::Num3) {
+			if (evnt.key.code == sf::Keyboard::Num3) {
 				// Increase health
 				player.upgradeHealth();
 				state = State::PLAYING;
 			}
 
-			if (event.key.code == sf::Keyboard::Num4) {
+			if (evnt.key.code == sf::Keyboard::Num4) {
 				// Increase speed
 				player.upgradeSpeed();
 				state = State::PLAYING;
 			}
 
-			if (event.key.code == sf::Keyboard::Num5) {
+			if (evnt.key.code == sf::Keyboard::Num5) {
 				healthPickup.upgrade();
 				state = State::PLAYING;
 			}
 
-			if (event.key.code == sf::Keyboard::Num6) {
+			if (evnt.key.code == sf::Keyboard::Num6) {
 				ammoPickup.upgrade();
 				state = State::PLAYING;
 			}
@@ -503,12 +499,16 @@ int main() {
 			}
 		}// End levelling up
 
-		 /*
-		 ****************
-		 UPDATE THE FRAME
-		 ****************
-		 */
+		/***------------***\
+		| Update the Frame |
+		\***------------***/
+		
 		if (state == State::PLAYING) {
+			// Change the mouse to the GAME mouse
+			window.setMouseCursorVisible(false);
+			texture_mouse = TextureHolder::GetTexture("Graphics/crosshair.png");
+			sprite_mouse.setTexture(texture_mouse);
+			sprite_mouse.setOrigin(25, 25);
 			// Update the delta time
 			sf::Time dt = clock.restart();
 			// Update the total game time
@@ -524,7 +524,7 @@ int main() {
 				mouseScreenPosition, mainView);
 			 
 			// Set the crosshair to the mouse world location
-			spriteCrosshair.setPosition(mouseWorldPosition);
+			sprite_mouse.setPosition(mouseWorldPosition);
 
 			// Update the player
 			player.update(dtAsSeconds, mouseScreenPosition);
@@ -534,6 +534,7 @@ int main() {
 
 			// Make the view centre around the player				
 			mainView.setCenter(player.getCenter());
+			miniMapView.setCenter(player.getCenter());
 
 			// Loop through each Devil and update them
 			for (int i = 0; i < hordeSize; i++) {
@@ -665,13 +666,17 @@ int main() {
 				timeSinceLastUpdate = sf::Time::Zero;
 			}// End HUD update
 
-		}// End updating the scene
+		}// End updating the PLAYING state
 
-		 /*
-		 **************
-		 Draw the scene
-		 **************
-		 */
+		if (state == State::MAIN_MENU) {
+			window.setMouseCursorVisible(true);
+			//texture_mouse = TextureHolder::GetTexture("Graphics/crosshair.png");
+			//sprite_mouse.setTexture(texture_mouse);
+		}
+
+		/***----------***\
+		| Draw the Frame |
+		\***----------***/
 
 		if (state == State::PLAYING) {
 			window.clear();
@@ -705,8 +710,12 @@ int main() {
 				window.draw(healthPickup.getSprite());
 			}
 
-			//Draw the crosshair
-			window.draw(spriteCrosshair);
+			//Draw the crosshair - MUST BE DRAWN TO MAINVIEW
+			window.draw(sprite_mouse);
+
+			// Draw the MiniMap
+			window.setView(miniMapView);
+
 
 			// Switch to the HUD view
 			window.setView(hudView);
@@ -738,8 +747,10 @@ int main() {
 		}
 
 		if (state == State::MAIN_MENU) {
+			window.setView(mainView);
 			window.draw(spriteGameOver);
 			window.draw(mainMenuText);
+			window.draw(btn_mainMenu_play);
 		}
 
 		window.display();

@@ -28,19 +28,19 @@ int main() {
 		std::cerr << "Could not find contb.ttf font." << std::endl;
 	}
 
-	GUI::Button yeah("Yeah!", myfont, sf::Vector2f(100.f, 100.f), GUI::Style::save);
-	GUI::Button nope("Nope", myfont, sf::Vector2f(100.f, 200.f), GUI::Style::cancel);
-	GUI::Button nice("Nice...", myfont, sf::Vector2f(300.f, 100.f), GUI::Style::clean);
-	GUI::Button custom("Sweet", myfont, sf::Vector2f(300.f, 200.f), GUI::Style::none);
-	custom.setBorderThickness(2.f);
-	custom.setBorderRadius(20.f);
-	custom.setBorderColour(sf::Color(255, 255, 255, 255));
-	custom.setColourNormal(sf::Color(200, 0, 200, 255));
-	custom.setColourHover(sf::Color(255, 0, 255, 100));
-	custom.setColourClicked(sf::Color(150, 0, 150, 255));
-	custom.setColourTextNormal(sf::Color(255, 255, 255, 255));
-	custom.setColourTextHover(sf::Color(255, 255, 0, 255));
-	custom.setColourTextClicked(sf::Color(255, 0, 0, 255));
+	GUI::Button btn_01("Don't", myfont, sf::Vector2f(100.f, 100.f), GUI::Style::save);
+	GUI::Button btn_02("The", myfont, sf::Vector2f(100.f, 200.f), GUI::Style::cancel);
+	GUI::Button btn_03("Press", myfont, sf::Vector2f(300.f, 100.f), GUI::Style::clean);
+	GUI::Button btn_04("Buttons", myfont, sf::Vector2f(300.f, 200.f), GUI::Style::none);
+	btn_04.setBorderThickness(2.f);
+	btn_04.setBorderRadius(20.f);
+	btn_04.setBorderColour(sf::Color(255, 255, 255, 255));
+	btn_04.setColourNormal(sf::Color(200, 0, 200, 255));
+	btn_04.setColourHover(sf::Color(255, 0, 255, 100));
+	btn_04.setColourClicked(sf::Color(150, 0, 150, 255));
+	btn_04.setColourTextNormal(sf::Color(255, 255, 255, 255));
+	btn_04.setColourTextHover(sf::Color(255, 255, 0, 255));
+	btn_04.setColourTextClicked(sf::Color(255, 0, 0, 255));
 
 	/***--------------***\
 	| The Main Game Loop |
@@ -63,10 +63,10 @@ int main() {
 		| Update the Frame |
 		\***------------***/
 
-		yeah.update(e, window);
-		nope.update(e, window);
-		nice.update(e, window);
-		custom.update(e, window);
+		btn_01.update(e, window);
+		btn_02.update(e, window);
+		btn_03.update(e, window);
+		btn_04.update(e, window);
 
 		/***----------***\
 		| Draw the Frame |
@@ -74,10 +74,10 @@ int main() {
 
 		window.clear();
 
-		window.draw(yeah);
-		window.draw(nope);
-		window.draw(nice);
-		window.draw(custom);
+		window.draw(btn_01);
+		window.draw(btn_02);
+		window.draw(btn_03);
+		window.draw(btn_04);
 
 		window.display();
 	}

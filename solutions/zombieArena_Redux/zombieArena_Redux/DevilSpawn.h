@@ -15,12 +15,13 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
+#include "Bullet.h"
+#include "Button.h"
+#include "Devil.h"
 #include "DevilSpawn.h"
+#include "Pickup.h"
 #include "Player.h"
 #include "TextureHolder.h"
-#include "Bullet.h"
-#include "Pickup.h"
-#include "Devil.h"
 
 int createBackground(sf::VertexArray& rVA, sf::IntRect arena);
 Devil* createHorde(int numDevils, sf::IntRect arena);
