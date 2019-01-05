@@ -151,9 +151,9 @@ int main() {
 					<< "\n\nQ - Quit Game"
 					<< std::endl;*/
 	mainMenuText.setString(mainMenuStream.str());
-	GUI::Button btn_mainMenu_play("Play", font, sf::Vector2f(resolution.x/3, resolution.y / 8), GUI::Style::save);
-	GUI::Button btn_mainMenu_settings("Settings", font, sf::Vector2f(resolution.x / 3, resolution.y / 8), GUI::Style::save);
-	GUI::Button btn_mainMenu_quit("Quit", font, sf::Vector2f(resolution.x / 3, resolution.y / 8), GUI::Style::save);
+	GUI::Button btn_mainMenu_play("Play", font, sf::Vector2f(resolution.x/4, resolution.y * 0.5), GUI::Style::clean);
+	GUI::Button btn_mainMenu_settings("Settings", font, sf::Vector2f(resolution.x / 4, resolution.y * 0.6), GUI::Style::none);
+	GUI::Button btn_mainMenu_quit("Quit", font, sf::Vector2f(resolution.x / 4, resolution.y * 0.7), GUI::Style::none);
 
 	// Ammo
 	sf::Text ammoText;
@@ -293,7 +293,8 @@ int main() {
 				}
 
 				// Handle the player quitting
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+				else if (evnt.key.code == sf::Keyboard::Q &&
+					state == State::PAUSED) {
 					state = State::MAIN_MENU;
 				}
 				
@@ -344,6 +345,8 @@ int main() {
 			//std::cout << "Entered the Main Menu." << std::endl;
 
 			btn_mainMenu_play.update(evnt, window);
+			btn_mainMenu_settings.update(evnt, window);
+			btn_mainMenu_quit.update(evnt, window);
 
 			switch (evnt.key.code) {
 			case sf::Keyboard::Num1:
@@ -361,7 +364,7 @@ int main() {
 				// Reset the player's stats
 				player.resetPlayerStats();
 				break;
-			case sf::Keyboard::Q:
+			case sf::Keyboard::Z:
 				window.close();
 				break;
 			default:
@@ -677,9 +680,10 @@ int main() {
 		/***----------***\
 		| Draw the Frame |
 		\***----------***/
+		
+		window.clear();
 
 		if (state == State::PLAYING) {
-			window.clear();
 
 			// set the mainView to be displayed in the window
 			// And draw everything related to it
@@ -751,6 +755,8 @@ int main() {
 			window.draw(spriteGameOver);
 			window.draw(mainMenuText);
 			window.draw(btn_mainMenu_play);
+			window.draw(btn_mainMenu_settings);
+			window.draw(btn_mainMenu_quit);
 		}
 
 		window.display();

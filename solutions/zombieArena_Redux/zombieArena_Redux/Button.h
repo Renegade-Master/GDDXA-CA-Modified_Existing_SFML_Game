@@ -79,7 +79,6 @@ namespace GUI {
 		sf::Uint32 m_style;
 		sf::Uint32 m_btnstate;
 
-		//sf::ConvexShape m_button;
 		sf::RectangleShape m_button;
 		sf::Font m_font;
 		unsigned int m_fontSize;

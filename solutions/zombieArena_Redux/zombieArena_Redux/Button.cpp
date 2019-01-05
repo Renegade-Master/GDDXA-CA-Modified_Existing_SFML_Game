@@ -6,10 +6,16 @@
 
 #include "Button.h"
 
+/**
+*	@description	- Default Contructor
+*/
 GUI::Button::Button() {
 
 }
 
+/**
+*	@description	- Paramaterised Constructor
+*/
 GUI::Button::Button(std::string s, sf::Font& font, sf::Vector2f position, sf::Uint32 style) {
 	//set position
 	m_position = position;
@@ -28,8 +34,6 @@ GUI::Button::Button(std::string s, sf::Font& font, sf::Vector2f position, sf::Ui
 		m_bgNormal = sf::Color(255, 255, 255, 100);
 		m_bgHover = sf::Color(200, 200, 200, 100);
 		m_bgClicked = sf::Color(150, 150, 150);
-		m_border = sf::Color(255, 255, 255, 100);
-	
 	break;
 
 	case GUI::Style::save:
@@ -39,8 +43,6 @@ GUI::Button::Button(std::string s, sf::Font& font, sf::Vector2f position, sf::Ui
 		m_bgNormal = sf::Color(0, 255, 0, 100);
 		m_bgHover = sf::Color(0, 200, 0, 100);
 		m_bgClicked = sf::Color(0, 150, 0);
-		m_border = sf::Color(0, 0, 0, 100);
-	
 	break;
 
 	case GUI::Style::cancel:
@@ -50,8 +52,6 @@ GUI::Button::Button(std::string s, sf::Font& font, sf::Vector2f position, sf::Ui
 		m_bgNormal = sf::Color(255, 0, 0, 100);
 		m_bgHover = sf::Color(200, 0, 0, 100);
 		m_bgClicked = sf::Color(150, 0, 0);
-		m_border = sf::Color(255, 255, 255, 100);
-	
 	break;
 
 	case GUI::Style::clean:
@@ -61,8 +61,6 @@ GUI::Button::Button(std::string s, sf::Font& font, sf::Vector2f position, sf::Ui
 		m_bgNormal = sf::Color(0, 255, 255, 100);
 		m_bgHover = sf::Color(0, 200, 200, 100);
 		m_bgClicked = sf::Color(0, 150, 150);
-		m_border = sf::Color(255, 255, 255, 100);
-	
 	break;
 
 	default:
@@ -80,7 +78,6 @@ GUI::Button::Button(std::string s, sf::Font& font, sf::Vector2f position, sf::Ui
 	m_borderThickness = 0.f;
 	m_size = sf::Vector2f(m_text.getGlobalBounds().width * 1.5f, m_text.getGlobalBounds().height * 1.5f);
 
-	//m_button = thor::Shapes::roundedRect(m_size, m_borderRadius, m_bgNormal, m_borderThickness, m_border);
 	m_button = sf::RectangleShape(m_size);
 	m_button.setOrigin(m_button.getGlobalBounds().width / 2, m_button.getGlobalBounds().height / 2);
 	m_button.setPosition(m_position);
@@ -95,10 +92,18 @@ GUI::Button::Button(std::string s, sf::Font& font, sf::Vector2f position, sf::Ui
 	m_shadow.setPosition(textPosition.x + 3.f, textPosition.y + 3.f);
 }
 
+
+/**
+*	@description	- Destructor
+*/
 GUI::Button::~Button() {
 	//dtor
 }
 
+
+/**
+*	@description	- Set the Size of the button
+*/
 void GUI::Button::setSize(unsigned int size) {
 	m_fontSize = size;
 	m_text.setCharacterSize(m_fontSize);
@@ -106,15 +111,22 @@ void GUI::Button::setSize(unsigned int size) {
 	m_shadow.setCharacterSize(m_fontSize);
 	m_shadow.setOrigin(m_shadow.getGlobalBounds().width / 2, m_shadow.getGlobalBounds().height / 2);
 	m_size = sf::Vector2f(m_text.getGlobalBounds().width * 1.5f, (m_text.getGlobalBounds().height + m_text.getGlobalBounds().height) * 1.5f);
-	//m_button = thor::Shapes::roundedRect(m_size, m_borderRadius, m_bgNormal, m_borderThickness, m_border);
 	m_button = sf::RectangleShape(m_size);
 }
 
+
+/**
+*	@description	- Set the text to be displayed on the button
+*/
 void GUI::Button::setText(std::string s) {
 	m_text.setString(s);
 	m_shadow = m_text;
 }
 
+
+/**
+*	@description	- Set a Pre-Assigned Style to the button
+*/
 void GUI::Button::setStyle(sf::Uint32 style) {
 	//set button style
 	m_style = style;
@@ -127,8 +139,6 @@ void GUI::Button::setStyle(sf::Uint32 style) {
 		m_bgNormal = sf::Color(255, 255, 255, 100);
 		m_bgHover = sf::Color(200, 200, 200, 100);
 		m_bgClicked = sf::Color(150, 150, 150);
-		m_border = sf::Color(255, 255, 255, 100);
-	
 	break;
 
 	case GUI::Style::save:
@@ -138,8 +148,6 @@ void GUI::Button::setStyle(sf::Uint32 style) {
 		m_bgNormal = sf::Color(0, 255, 0, 100);
 		m_bgHover = sf::Color(0, 200, 0, 100);
 		m_bgClicked = sf::Color(0, 150, 0);
-		m_border = sf::Color(0, 0, 0, 100);
-	
 	break;
 
 	case GUI::Style::cancel:
@@ -149,8 +157,6 @@ void GUI::Button::setStyle(sf::Uint32 style) {
 		m_bgNormal = sf::Color(255, 0, 0, 100);
 		m_bgHover = sf::Color(200, 0, 0, 100);
 		m_bgClicked = sf::Color(150, 0, 0);
-		m_border = sf::Color(255, 255, 255, 100);
-	
 	break;
 
 	case GUI::Style::clean:
@@ -160,8 +166,6 @@ void GUI::Button::setStyle(sf::Uint32 style) {
 		m_bgNormal = sf::Color(0, 255, 255, 100);
 		m_bgHover = sf::Color(0, 200, 200, 100);
 		m_bgClicked = sf::Color(0, 150, 150);
-		m_border = sf::Color(255, 255, 255, 100);
-	
 	break;
 
 	default:
@@ -169,18 +173,25 @@ void GUI::Button::setStyle(sf::Uint32 style) {
 	}
 }
 
+
+/**
+*	@description	- Set the font of the text to be displayed on the button
+*/
 void GUI::Button::setFont(sf::Font& font) {
 	m_text.setFont(font);
 	m_shadow.setFont(font);
 }
 
+
+/**
+*	@description	- Update the button
+*/
 void GUI::Button::update(sf::Event& e, sf::RenderWindow& window) {
 	//perform updates for settings from user
 	sf::Vector2f textPosition;
 	switch (m_style) {
 	case GUI::Style::none:
 		m_size = sf::Vector2f(m_text.getGlobalBounds().width * 1.5f, m_text.getGlobalBounds().height * 1.75f);
-		//m_button = thor::Shapes::roundedRect(m_size, m_borderRadius, m_bgNormal, m_borderThickness, m_border);
 		m_button = sf::RectangleShape(m_size);
 		m_button.setOrigin(m_button.getGlobalBounds().width / 2, m_button.getGlobalBounds().height / 2);
 		m_button.setPosition(m_position);
@@ -191,12 +202,10 @@ void GUI::Button::update(sf::Event& e, sf::RenderWindow& window) {
 		m_shadow.setOrigin(m_shadow.getGlobalBounds().width / 2, m_shadow.getGlobalBounds().height / 2);
 		m_shadow.setPosition(textPosition.x + 3.f, textPosition.y + 3.f);
 		m_shadow.setFillColor(sf::Color(0, 0, 0));
-	
 	break;
 
 	case GUI::Style::save:
 		m_size = sf::Vector2f(m_text.getGlobalBounds().width * 1.5f, m_text.getGlobalBounds().height * 1.75f);
-		//m_button = thor::Shapes::roundedRect(m_size, m_borderRadius, m_bgNormal, m_borderThickness, m_border);
 		m_button = sf::RectangleShape(m_size);
 		m_button.setOrigin(m_button.getGlobalBounds().width / 2, m_button.getGlobalBounds().height / 2);
 		m_button.setPosition(m_position);
@@ -207,12 +216,10 @@ void GUI::Button::update(sf::Event& e, sf::RenderWindow& window) {
 		m_shadow.setOrigin(m_shadow.getGlobalBounds().width / 2, m_shadow.getGlobalBounds().height / 2);
 		m_shadow.setPosition(textPosition.x + 3.f, textPosition.y + 3.f);
 		m_shadow.setFillColor(sf::Color(0, 0, 0));
-	
 	break;
 
 	case GUI::Style::cancel:
 		m_size = sf::Vector2f(m_text.getGlobalBounds().width * 1.5f, m_text.getGlobalBounds().height * 1.75f);
-		//m_button = thor::Shapes::roundedRect(m_size, m_borderRadius, m_bgNormal, m_borderThickness, m_border);
 		m_button = sf::RectangleShape(m_size);
 		m_button.setOrigin(m_button.getGlobalBounds().width / 2, m_button.getGlobalBounds().height / 2);
 		m_button.setPosition(m_position);
@@ -223,12 +230,10 @@ void GUI::Button::update(sf::Event& e, sf::RenderWindow& window) {
 		m_shadow.setOrigin(m_shadow.getGlobalBounds().width / 2, m_shadow.getGlobalBounds().height / 2);
 		m_shadow.setPosition(textPosition.x + 3.f, textPosition.y + 3.f);
 		m_shadow.setFillColor(sf::Color(0, 0, 0));
-	
 	break;
 
 	case GUI::Style::clean:
 		m_size = sf::Vector2f(m_text.getGlobalBounds().width * 1.5f, m_text.getGlobalBounds().height * 1.75f);
-		//m_button = thor::Shapes::roundedRect(m_size, m_borderRadius, m_bgNormal, m_borderThickness, m_border);
 		m_button = sf::RectangleShape(m_size);
 		m_button.setOrigin(m_button.getGlobalBounds().width / 2, m_button.getGlobalBounds().height / 2);
 		m_button.setPosition(m_position);
@@ -239,7 +244,6 @@ void GUI::Button::update(sf::Event& e, sf::RenderWindow& window) {
 		m_shadow.setOrigin(m_shadow.getGlobalBounds().width / 2, m_shadow.getGlobalBounds().height / 2);
 		m_shadow.setPosition(textPosition.x + 3.f, textPosition.y + 3.f);
 		m_shadow.setFillColor(sf::Color(0, 0, 0));
-	
 	break;
 
 	default:
@@ -307,51 +311,48 @@ void GUI::Button::update(sf::Event& e, sf::RenderWindow& window) {
 	case GUI::State::normal:
 		m_button.setFillColor(m_bgNormal);
 		m_text.setFillColor(m_textNormal);
-	
 	break;
 
 	case GUI::State::hovered:
 		m_button.setFillColor(m_bgHover);
 		m_text.setFillColor(m_textHover);
-	
 	break;
 
 	case GUI::State::clicked:
 		m_button.setFillColor(m_bgClicked);
 		m_text.setFillColor(m_textClicked);
-	
 	break;
 	}
 }
 
+
+/**
+*	@description	- Draw the button.  Overloads default draw() inherited from sf::Drawable
+*/
 void GUI::Button::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	switch (m_style) {
 	case GUI::Style::none:
 		target.draw(m_button, states);
 		target.draw(m_shadow, states);
 		target.draw(m_text, states);
-	
 	break;
 
 	case GUI::Style::save:
 		target.draw(m_button, states);
 		target.draw(m_shadow, states);
 		target.draw(m_text, states);
-	
 	break;
 
 	case GUI::Style::cancel:
 		target.draw(m_button, states);
 		target.draw(m_shadow, states);
 		target.draw(m_text, states);
-	
 	break;
 
 	case GUI::Style::clean:
 		target.draw(m_button, states);
 		target.draw(m_shadow, states);
 		target.draw(m_text, states);
-	
 	break;
 
 	default:
