@@ -268,6 +268,12 @@ int main() {
 	sf::Sound pickup;
 	pickup.setBuffer(pickupBuffer);
 
+	// Prepare the button sound
+	sf::SoundBuffer buttonClickBuffer;
+	buttonClickBuffer.loadFromFile("Audio\\UI_Click_Organic_49_Dry_Mono.wav");
+	sf::Sound buttonClick;
+	buttonClick.setBuffer(buttonClickBuffer);
+
 	/***--------------***\
 	| The Main Game Loop |
 	\***--------------***/
@@ -351,27 +357,66 @@ int main() {
 				it->update(evnt, window);
 			}
 
-			switch (evnt.key.code) {
-			case sf::Keyboard::Num1:
-				state = State::LEVELING_UP;
-				wave = 0;
-				score = 0;
+			if (evnt.type == sf::Event::KeyPressed) {
+				switch (evnt.key.code) {
+				case sf::Keyboard::Num1:
+					state = State::LEVELING_UP;
+					wave = 0;
+					score = 0;
 
-				// Prepare the gun and ammo for next game
-				currentBullet = 0;
-				bulletsSpare = 24;
-				bulletsInClip = 6;
-				clipSize = 6;
-				fireRate = 1;
+					// Prepare the gun and ammo for next game
+					currentBullet = 0;
+					bulletsSpare = 24;
+					bulletsInClip = 6;
+					clipSize = 6;
+					fireRate = 1;
 
-				// Reset the player's stats
-				player.resetPlayerStats();
-				break;
-			case sf::Keyboard::Z:
-				window.close();
-				break;
-			default:
-				break;
+					// Reset the player's stats
+					player.resetPlayerStats();
+					break;
+				case sf::Keyboard::Z:
+					window.close();
+					break;
+				default:
+					break;
+				}
+			}
+			else if (evnt.type == sf::Event::MouseButtonPressed) {
+				int i = 0;
+				for (std::list<GUI::Button>::iterator it = mainMenuButtons.begin(); it != mainMenuButtons.end(); ++it) {
+					switch (i++) {
+					case 0:
+						if (it->getState() == GUI::State::clicked) {
+							buttonClick.play();
+							state = State::LEVELING_UP;
+							wave = 0;
+							score = 0;
+
+							// Prepare the gun and ammo for next game
+							currentBullet = 0;
+							bulletsSpare = 24;
+							bulletsInClip = 6;
+							clipSize = 6;
+							fireRate = 1;
+
+							// Reset the player's stats
+							player.resetPlayerStats();
+						}
+						break;
+					case 1:
+						if (it->getState() == GUI::State::clicked) {
+							buttonClick.play();
+							// GO TO SETTINGS
+						}
+						break;
+					case 2:
+						if (it->getState() == GUI::State::clicked) {
+							buttonClick.play();
+							window.close();
+						}
+						break;
+					}
+				}
 			}
 		}
 
