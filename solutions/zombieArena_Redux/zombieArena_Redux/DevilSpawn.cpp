@@ -35,7 +35,7 @@ int main() {
 	// Create an SFML View
 	sf::View mainView(sf::FloatRect(0, 0, resolution.x, resolution.y));
 	// Create a view for the HUD
-	sf::View hudView(sf::FloatRect(0, 0, resolution.x, resolution.y));	
+	sf::View hudView(sf::FloatRect(0, 0, resolution.x, resolution.y));
 	// Create a view for the MiniMap
 	sf::View miniMapView(sf::FloatRect(0, resolution.y - miniRes.y, miniRes.x, miniRes.y));
 
@@ -151,9 +151,12 @@ int main() {
 					<< "\n\nQ - Quit Game"
 					<< std::endl;*/
 	mainMenuText.setString(mainMenuStream.str());
-	GUI::Button btn_mainMenu_play("Play", font, sf::Vector2f(resolution.x/4, resolution.y * 0.5), GUI::Style::clean);
-	GUI::Button btn_mainMenu_settings("Settings", font, sf::Vector2f(resolution.x / 4, resolution.y * 0.6), GUI::Style::none);
-	GUI::Button btn_mainMenu_quit("Quit", font, sf::Vector2f(resolution.x / 4, resolution.y * 0.7), GUI::Style::none);
+
+	//GUI::Button* mainMenuButtons = new GUI::Button[3];
+	std::list<GUI::Button> mainMenuButtons;
+	mainMenuButtons.push_back(GUI::Button("Play", font, sf::Vector2f(resolution.x/4, resolution.y * 0.5), GUI::Style::clean));
+	mainMenuButtons.push_back(GUI::Button("Settings", font, sf::Vector2f(resolution.x / 4, resolution.y * 0.6), GUI::Style::none));
+	mainMenuButtons.push_back(GUI::Button("Quit", font, sf::Vector2f(resolution.x / 4, resolution.y * 0.7), GUI::Style::none));
 
 	// Ammo
 	sf::Text ammoText;
@@ -322,17 +325,17 @@ int main() {
 						if (bulletsSpare >= clipSize) {
 							// Plenty of bullets. Reload.
 							bulletsInClip = clipSize;
-							bulletsSpare -= clipSize;		
+							bulletsSpare -= clipSize;
 							reload.play();
 						}
 						else if (bulletsSpare > 0) {
-							// Only few bullets left
+							// Less than a clip remaining
 							bulletsInClip = bulletsSpare;
-							bulletsSpare = 0;				
+							bulletsSpare = 0;
 							reload.play();
 						}
 						else {
-							// More here soon?!
+							// NO AMMO!!
 							reloadFailed.play();
 						}
 					}
@@ -344,9 +347,9 @@ int main() {
 		if (state == State::MAIN_MENU) {
 			//std::cout << "Entered the Main Menu." << std::endl;
 
-			btn_mainMenu_play.update(evnt, window);
-			btn_mainMenu_settings.update(evnt, window);
-			btn_mainMenu_quit.update(evnt, window);
+			for (std::list<GUI::Button>::iterator it = mainMenuButtons.begin(); it != mainMenuButtons.end(); ++it) {
+				it->update(evnt, window);
+			}
 
 			switch (evnt.key.code) {
 			case sf::Keyboard::Num1:
@@ -585,7 +588,7 @@ int main() {
 							}	
 
 							// Make a splat sound
-							splat.play();							
+							splat.play();
 						}
 					}
 				}
@@ -606,7 +609,7 @@ int main() {
 
 						std::ofstream outputFile("gamedata/scores.txt");
 						outputFile << hiScore;
-						outputFile.close();						
+						outputFile.close();
 					}
 				}
 			}// End player touched
@@ -616,7 +619,7 @@ int main() {
 				(healthPickup.getPosition()) && healthPickup.isSpawned()) {
 				player.increaseHealthLevel(healthPickup.gotIt());
 				// Play a sound
-				pickup.play();				
+				pickup.play();
 			}
 
 			// Has the player touched ammo pickup
@@ -624,7 +627,7 @@ int main() {
 				(ammoPickup.getPosition()) && ammoPickup.isSpawned()) {
 				bulletsSpare += ammoPickup.gotIt();
 				// Play a sound
-				reload.play();				
+				reload.play();
 			}
 
 			// size up the health bar
@@ -675,6 +678,8 @@ int main() {
 			window.setMouseCursorVisible(true);
 			//texture_mouse = TextureHolder::GetTexture("Graphics/crosshair.png");
 			//sprite_mouse.setTexture(texture_mouse);
+			
+			
 		}
 
 		/***----------***\
@@ -754,9 +759,12 @@ int main() {
 			window.setView(mainView);
 			window.draw(spriteGameOver);
 			window.draw(mainMenuText);
-			window.draw(btn_mainMenu_play);
+			/*window.draw(btn_mainMenu_play);
 			window.draw(btn_mainMenu_settings);
-			window.draw(btn_mainMenu_quit);
+			window.draw(btn_mainMenu_quit);*/
+			for (std::list<GUI::Button>::iterator it = mainMenuButtons.begin(); it != mainMenuButtons.end(); ++it) {
+				window.draw(*it);
+			}
 		}
 
 		window.display();

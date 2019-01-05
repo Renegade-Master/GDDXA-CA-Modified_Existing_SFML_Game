@@ -8,9 +8,10 @@
 #ifndef DEVILSPAWN_H
 #define DEVILSPAWN_H
 
+#include <fstream>
+#include <list>
 #include <iostream> // For Debugging
 #include <sstream>
-#include <fstream>
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -23,7 +24,10 @@
 #include "Player.h"
 #include "TextureHolder.h"
 
-int createBackground(sf::VertexArray& rVA, sf::IntRect arena);
-Devil* createHorde(int numDevils, sf::IntRect arena);
+//class DevilSpawn {
+//public:
+	int createBackground(sf::VertexArray& rVA, sf::IntRect arena);
+	Devil* createHorde(int numDevils, sf::IntRect arena);
+//};
 
 #endif // DEVILSPAWN_H
