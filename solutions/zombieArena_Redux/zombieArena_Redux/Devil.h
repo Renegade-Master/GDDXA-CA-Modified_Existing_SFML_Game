@@ -51,7 +51,7 @@ public:
 	bool isAlive();
 
 	// Spawn a new zombie
-	void spawn(float startX, float startY, int type, int seed);
+	void spawn(float startX, float startY, int type);
 
 	// Return a rectangle that is the position in the world
 	sf::FloatRect getPosition();

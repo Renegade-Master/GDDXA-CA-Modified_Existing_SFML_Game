@@ -39,7 +39,7 @@ int createBackground(sf::VertexArray& rVA, sf::IntRect arena) {
 			// Define the position in the Texture to draw for current quad
 			if (h == 0 || h == worldHeight - 1 || w == 0 || w == worldWidth - 1) {
 				// Use a random wall texture
-				srand((int)time(0) + h * w - h);
+				//srand((int)time(0) + h * w - h);
 				int mOrG = (rand() % WALL_TILE_TYPES);
 				int verticalOffset = mOrG * TILE_SIZE;
 
@@ -50,7 +50,7 @@ int createBackground(sf::VertexArray& rVA, sf::IntRect arena) {
 			}
 			else {
 				// Use a random floor texture
-				srand((int)time(0) + h * w - h);
+				//srand((int)time(0) + h * w - h);
 				int mOrG = (rand() % FLOOR_TILE_TYPES);
 				int verticalOffset = mOrG * TILE_SIZE;
 

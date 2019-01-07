@@ -64,10 +64,10 @@ int main() {
 	// Prepare a horde of Devils
 	int hordeSize;
 	int numHordeAlive;
-	Devil* horde = NULL;
+	std::vector<Devil*> horde = std::vector<Devil*>();
 
 	// Set fixed amount of bullets
-	Bullet bullets[100];
+	std::vector<Bullet*> bullets(100);
 	int currentBullet = 0;
 	int bulletsSpare = 24;
 	int bulletsInClip = 6;
@@ -81,6 +81,7 @@ int main() {
 	sf::Sprite sprite_mouse;
 	sf::Texture texture_mouse;
 	sprite_mouse.setOrigin(25, 25);
+	//sprite_mouse.setOrigin(texture_mouse.getSize().x / 2, texture_mouse.getSize().y / 2);
 
 	// Create a couple of pickups
 	Pickup healthPickup(1);
@@ -111,8 +112,13 @@ int main() {
 	pausedText.setFont(font);
 	pausedText.setCharacterSize(85);
 	pausedText.setFillColor(sf::Color::White);
-	pausedText.setPosition(resolution.x / 7, resolution.y / 4);
+	pausedText.setPosition(resolution.x * 0.075, resolution.y * 0.25);
 	pausedText.setString("Press Enter to continue or\nQ to go to the Main Menu");
+	
+	sf::RectangleShape pausedShader;
+	pausedShader.setSize(sf::Vector2f(resolution.x, resolution.y));
+	pausedShader.setPosition(0.0, 0.0);
+	pausedShader.setFillColor(sf::Color(0,0,0,128));
 
 	// Game Over
 	sf::Text gameOverText;
@@ -140,8 +146,7 @@ int main() {
 	levelUpButtons.push_back(GUI::Button("Run Speed ++", font, sf::Vector2f(resolution.x * 0.5, resolution.y * 0.6), GUI::Style::none));
 	levelUpButtons.push_back(GUI::Button("Health Pickup ++", font, sf::Vector2f(resolution.x * 0.5, resolution.y * 0.7), GUI::Style::none));
 	levelUpButtons.push_back(GUI::Button("Ammo Pickup ++", font, sf::Vector2f(resolution.x * 0.5, resolution.y * 0.8), GUI::Style::none));
-
-	levelUpButtons.push_back(GUI::Button("Back", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.95), GUI::Style::cancel));
+	levelUpButtons.push_back(GUI::Button("Back", font, sf::Vector2f(resolution.x * 0.5, resolution.y * 0.95), GUI::Style::cancel));
 
 	// Main Menu
 	sf::Text mainMenuText;
@@ -169,10 +174,10 @@ int main() {
 	settingsText.setString(settingsStream.str());
 
 	std::list<GUI::Button> settingsButtons;
-	settingsButtons.push_back(GUI::Button("Graphics Settings", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.5), GUI::Style::none));
-	settingsButtons.push_back(GUI::Button("Gameplay Settings", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.6), GUI::Style::none));
-	settingsButtons.push_back(GUI::Button("Audio Settings", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.7), GUI::Style::none));
-	settingsButtons.push_back(GUI::Button("Back", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.9), GUI::Style::cancel));
+	settingsButtons.push_back(GUI::Button("Graphics Settings", font, sf::Vector2f(resolution.x * 0.5, resolution.y * 0.5), GUI::Style::none));
+	settingsButtons.push_back(GUI::Button("Gameplay Settings", font, sf::Vector2f(resolution.x * 0.5, resolution.y * 0.6), GUI::Style::none));
+	settingsButtons.push_back(GUI::Button("Audio Settings", font, sf::Vector2f(resolution.x * 0.5, resolution.y * 0.7), GUI::Style::none));
+	settingsButtons.push_back(GUI::Button("Back", font, sf::Vector2f(resolution.x * 0.5, resolution.y * 0.9), GUI::Style::cancel));
 
 	// Ammo
 	sf::Text ammoText;
@@ -416,11 +421,9 @@ int main() {
 
 					// Pass the centre of the player and the centre of the crosshair
 					// to the shoot function
-					bullets[currentBullet].shoot(
+					bullets[currentBullet++]->shoot(
 						player.getCenter().x, player.getCenter().y,
 						mouseWorldPosition.x, mouseWorldPosition.y);
-
-					currentBullet++;
 					if (currentBullet > 99) {
 						currentBullet = 0;
 					}
@@ -432,12 +435,12 @@ int main() {
 		}// End handling controls while playing
 
 		// Handle the Paused controls
-		if (state == State::PAUSED) {
+		else if (state == State::PAUSED) {
 
 		} // End Paused controls
 
 		// Handle the main menu controls
-		if (state == State::MAIN_MENU) {
+		else if (state == State::MAIN_MENU) {
 			// Begin Button handling
 			if (evnt.type == sf::Event::MouseButtonPressed) {
 				int i = 0;
@@ -479,7 +482,7 @@ int main() {
 		} // End Main Menu Controls
 
 		// Handle the levelling up state
-		if (state == State::LEVELING_UP) {
+		else if (state == State::LEVELING_UP) {
 			// Begin Button handling
 			if (evnt.type == sf::Event::MouseButtonPressed) {
 				int i = 0;
@@ -562,7 +565,7 @@ int main() {
 				hordeSize = 5 * wave;
 
 				// Delete the previously allocated memory (if it exists)
-				delete[] horde;
+				horde.clear();
 				horde = createHorde(hordeSize, arena);
 				numHordeAlive = hordeSize;
 
@@ -575,7 +578,7 @@ int main() {
 		}// End handling controls while levelling up
 
 		// Handle the Settings controls
-		if (state == State::SETTINGS) {
+		else if (state == State::SETTINGS) {
 			// Begin Button handling
 			if (evnt.type == sf::Event::MouseButtonPressed) {
 				int i = 0;
@@ -611,7 +614,7 @@ int main() {
 		} // End Settings controls
 
 		// Handle the Game Over controls
-		if (state == State::GAME_OVER) {
+		else if (state == State::GAME_OVER) {
 
 		} // End Game Over controls
 
@@ -654,16 +657,16 @@ int main() {
 			miniMapView.setCenter(player.getCenter());
 
 			// Loop through each Devil and update them
-			for (int i = 0; i < hordeSize; i++) {
-				if (horde[i].isAlive()) {
-					horde[i].update(dt.asSeconds(), playerPosition);
+			for (std::vector<Devil*>::iterator it = horde.begin(); it != horde.end(); ++it) {
+				if ((*it)->isAlive()) {
+					(*it)->update(dt.asSeconds(), playerPosition);
 				}
 			}
 
 			// Update any bullets that are in-flight
-			for (int i = 0; i < 100; i++) {
-				if (bullets[i].isInFlight()) {
-					bullets[i].update(dtAsSeconds);
+			for (std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
+				if ((*it)->isInFlight()) {
+					(*it)->update(dtAsSeconds);
 				}
 			}
 
@@ -673,17 +676,17 @@ int main() {
 
 			// Collision detection
 			// Have any horde been shot?
-			for (int i = 0; i < 100; i++) {
-				for (int j = 0; j < hordeSize; j++) {
-					if (bullets[i].isInFlight() && 
-						horde[j].isAlive()) {
-						if (bullets[i].getPosition().intersects
-							(horde[j].getPosition())) {
+			for (std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
+				for (std::vector<Devil*>::iterator it2 = horde.begin(); it2 != horde.end(); ++it2) {
+					if ((*it)->isInFlight() && 
+						(*it2)->isAlive()) {
+						if ((*it)->getPosition().intersects
+							((*it2)->getPosition())) {
 							// Stop the bullet
-							bullets[i].stop();
+							(*it)->stop();
 
 							// Register the hit and see if it was a kill
-							if (horde[j].hit()) {
+							if ((*it2)->hit()) {
 								// Not just a hit but a kill too
 								score += 10;
 								if (score >= hiScore) {
@@ -706,9 +709,9 @@ int main() {
 			}// End zombie being shot
 
 			// Have any horde touched the player			
-			for (int i = 0; i < hordeSize; i++) {
+			for (std::vector<Devil*>::iterator it = horde.begin(); it != horde.end(); ++it) {
 				if (player.getPosition().intersects
-					(horde[i].getPosition()) && horde[i].isAlive())	{
+					((*it)->getPosition()) && (*it)->isAlive())	{
 
 					if (player.hit(gameTimeTotal)) {
 						// More here later
@@ -786,13 +789,13 @@ int main() {
 		}// End updating the PLAYING state
 
 		// Update while in Paused
-		if (state == State::PAUSED) {
+		else if (state == State::PAUSED) {
 			// Change Mouse to Menu Mouse
 			window.setMouseCursorVisible(true);
 		}
 
 		// Update while in Main Menu
-		if (state == State::MAIN_MENU) {
+		else if (state == State::MAIN_MENU) {
 			// Change Mouse to Menu Mouse
 			window.setMouseCursorVisible(true);
 
@@ -802,7 +805,7 @@ int main() {
 		}
 
 		// Update while in Leveling Up
-		if (state == State::LEVELING_UP) {
+		else if (state == State::LEVELING_UP) {
 			// Change Mouse to Menu Mouse
 			window.setMouseCursorVisible(true);
 
@@ -812,7 +815,7 @@ int main() {
 		}
 
 		// Update while in Settings
-		if (state == State::SETTINGS) {
+		else if (state == State::SETTINGS) {
 			// Change Mouse to Menu Mouse
 			window.setMouseCursorVisible(true);
 			
@@ -822,7 +825,7 @@ int main() {
 		}
 
 		// Update while in Game Over
-		if (state == State::GAME_OVER) {
+		else if (state == State::GAME_OVER) {
 			// Change Mouse to Menu Mouse
 			window.setMouseCursorVisible(true);
 		}
@@ -841,20 +844,21 @@ int main() {
 			window.draw(background, &textureBackground);
 
 			// Draw the horde
-			for (int i = 0; i < hordeSize; i++) {
-				window.draw(horde[i].getSprite());
+			for (std::vector<Devil*>::iterator it = horde.begin(); it != horde.end(); ++it) {
+				window.draw((*it)->getSprite());
 			}
 
-			for (int i = 0; i < 100; i++) {
-				if (bullets[i].isInFlight()) {
-					window.draw(bullets[i].getShape());
+			// Draw the Bullets in flight
+			for (std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
+				if ((*it)->isInFlight()) {
+					window.draw((*it)->getShape());
 				}
 			}
 
 			// Draw the player
 			window.draw(player.getSprite());
 
-			// Draw the pickups is currently spawned
+			// Draw the pickups if currently spawned
 			if (ammoPickup.isSpawned()) {
 				window.draw(ammoPickup.getSprite());
 			}
@@ -882,11 +886,12 @@ int main() {
 			window.draw(hordeRemainingText);
 		}
 
-		if (state == State::PAUSED) {
+		else if (state == State::PAUSED) {
+			window.draw(pausedShader);
 			window.draw(pausedText);
 		}
 
-		if (state == State::MAIN_MENU) {
+		else if (state == State::MAIN_MENU) {
 			window.setView(mainView);
 			window.draw(spriteGameOver);
 			window.draw(mainMenuText);
@@ -896,7 +901,7 @@ int main() {
 			}
 		}
 
-		if (state == State::LEVELING_UP) {
+		else if (state == State::LEVELING_UP) {
 			window.draw(spriteGameOver);
 			window.draw(levelUpText);
 			
@@ -905,7 +910,7 @@ int main() {
 			}
 		}
 
-		if (state == State::SETTINGS) {
+		else if (state == State::SETTINGS) {
 			window.setView(mainView);
 			window.draw(spriteGameOver);
 			window.draw(settingsText);
@@ -915,7 +920,7 @@ int main() {
 			}
 		}
 
-		if (state == State::GAME_OVER) {
+		else if (state == State::GAME_OVER) {
 			window.draw(spriteGameOver);
 			window.draw(gameOverText);
 			window.draw(scoreText);
