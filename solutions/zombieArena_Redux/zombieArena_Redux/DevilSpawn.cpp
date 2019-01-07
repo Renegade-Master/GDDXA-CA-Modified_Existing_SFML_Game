@@ -30,7 +30,7 @@ int main() {
 	miniRes.y = 256;
 
 	sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y),
-		"Devil Spawm", sf::Style::Default);
+		"Devil Spawn", sf::Style::Default);
 
 	// Create an SFML View
 	sf::View mainView(sf::FloatRect(0, 0, resolution.x, resolution.y));
@@ -59,7 +59,7 @@ int main() {
 	sf::VertexArray background;
 	// Load the texture for our background vertex array
 	sf::Texture textureBackground = TextureHolder::GetTexture(
-		"Graphics/background_sheet_stretch.png");
+		"Graphics\\background_sheet_stretch.png");
 
 	// Prepare a horde of Devils
 	int hordeSize;
@@ -92,19 +92,19 @@ int main() {
 
 	// For the home/game over screen
 	sf::Sprite spriteGameOver;
-	sf::Texture textureGameOver = TextureHolder::GetTexture("Graphics/mtDoom_background.jpg");
+	sf::Texture textureGameOver = TextureHolder::GetTexture("Graphics\\mtDoom_background.jpg");
 	spriteGameOver.setTexture(textureGameOver);
 	spriteGameOver.setPosition(0, 0);
 
 	// Create a sprite for the ammo icon
 	sf::Sprite spriteAmmoIcon;
-	sf::Texture textureAmmoIcon = TextureHolder::GetTexture("Graphics/ammo_icon.png");
+	sf::Texture textureAmmoIcon = TextureHolder::GetTexture("Graphics\\ammo_icon.png");
 	spriteAmmoIcon.setTexture(textureAmmoIcon);
 	spriteAmmoIcon.setPosition(20, resolution.y - 60);
 
 	// Load the font
 	sf::Font font;
-	font.loadFromFile("Fonts/firstordersemital.ttf");
+	font.loadFromFile("Fonts\\firstordersemital.ttf");
 
 	// Paused
 	sf::Text pausedText;
@@ -134,14 +134,14 @@ int main() {
 	levelUpText.setString(levelUpStream.str());
 
 	std::list<GUI::Button> levelUpButtons;
-	levelUpButtons.push_back(GUI::Button("Rate of Fire ++", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.2), GUI::Style::clean));
-	levelUpButtons.push_back(GUI::Button("Clip Size ++", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.3), GUI::Style::none));
-	levelUpButtons.push_back(GUI::Button("Health ++", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.4), GUI::Style::none));
-	levelUpButtons.push_back(GUI::Button("Run Speed ++", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.5), GUI::Style::none));
-	levelUpButtons.push_back(GUI::Button("Health Pickup ++", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.6), GUI::Style::none));
-	levelUpButtons.push_back(GUI::Button("Ammo Pickup ++", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.7), GUI::Style::none));
+	levelUpButtons.push_back(GUI::Button("Rate of Fire ++", font, sf::Vector2f(resolution.x * 0.5, resolution.y * 0.3), GUI::Style::none));
+	levelUpButtons.push_back(GUI::Button("Clip Size ++", font, sf::Vector2f(resolution.x * 0.5, resolution.y * 0.4), GUI::Style::none));
+	levelUpButtons.push_back(GUI::Button("Health ++", font, sf::Vector2f(resolution.x * 0.5, resolution.y * 0.5), GUI::Style::none));
+	levelUpButtons.push_back(GUI::Button("Run Speed ++", font, sf::Vector2f(resolution.x * 0.5, resolution.y * 0.6), GUI::Style::none));
+	levelUpButtons.push_back(GUI::Button("Health Pickup ++", font, sf::Vector2f(resolution.x * 0.5, resolution.y * 0.7), GUI::Style::none));
+	levelUpButtons.push_back(GUI::Button("Ammo Pickup ++", font, sf::Vector2f(resolution.x * 0.5, resolution.y * 0.8), GUI::Style::none));
 
-	levelUpButtons.push_back(GUI::Button("Back", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.9), GUI::Style::cancel));
+	levelUpButtons.push_back(GUI::Button("Back", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.95), GUI::Style::cancel));
 
 	// Main Menu
 	sf::Text mainMenuText;
@@ -169,9 +169,9 @@ int main() {
 	settingsText.setString(settingsStream.str());
 
 	std::list<GUI::Button> settingsButtons;
-	settingsButtons.push_back(GUI::Button("Graphics Settings", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.5), GUI::Style::clean));
-	settingsButtons.push_back(GUI::Button("Gameplay Settings", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.6), GUI::Style::clean));
-	settingsButtons.push_back(GUI::Button("Audio Settings", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.7), GUI::Style::clean));
+	settingsButtons.push_back(GUI::Button("Graphics Settings", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.5), GUI::Style::none));
+	settingsButtons.push_back(GUI::Button("Gameplay Settings", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.6), GUI::Style::none));
+	settingsButtons.push_back(GUI::Button("Audio Settings", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.7), GUI::Style::none));
 	settingsButtons.push_back(GUI::Button("Back", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.9), GUI::Style::cancel));
 
 	// Ammo
@@ -189,7 +189,7 @@ int main() {
 	scoreText.setPosition(20, 0);
 
 	// Load the high score from a text file/
-	std::ifstream inputFile("gamedata/scores.txt");
+	std::ifstream inputFile("gamedata\\scores.txt");
 	if (inputFile.is_open()) {
 		inputFile >> hiScore;
 		inputFile.close();
@@ -236,50 +236,50 @@ int main() {
 
 	// Prepare the hit sound
 	sf::SoundBuffer hitBuffer;
-	//splatBuffer.loadFromFile("Audio/hit.wav");
-	hitBuffer.loadFromFile("Audio/IMPACT_Generic_09_Short_mono.wav");
+	//splatBuffer.loadFromFile("Audio\\hit.wav");
+	hitBuffer.loadFromFile("Audio\\IMPACT_Generic_09_Short_mono.wav");
 	sf::Sound hit;
 	hit.setBuffer(hitBuffer);
 
 	// Prepare the splat sound
 	sf::SoundBuffer splatBuffer;
-	//splatBuffer.loadFromFile("Audio/splat.wav");
-	splatBuffer.loadFromFile("Audio/GORE_Splat_Hit_Short_mono.wav");
+	//splatBuffer.loadFromFile("Audio\\splat.wav");
+	splatBuffer.loadFromFile("Audio\\GORE_Splat_Hit_Short_mono.wav");
 	sf::Sound splat;
 	splat.setBuffer(splatBuffer);
 
 	// Prepare the shoot sound
 	sf::SoundBuffer shootBuffer;
-	//splatBuffer.loadFromFile("Audio/shoot.wav");
-	shootBuffer.loadFromFile("Audio/FIREARM_Handgun_B_FS92_9mm_Fire_Short_Reverb_Tail_RR2_stereo.wav");
+	//splatBuffer.loadFromFile("Audio\\shoot.wav");
+	shootBuffer.loadFromFile("Audio\\FIREARM_Handgun_B_FS92_9mm_Fire_Short_Reverb_Tail_RR2_stereo.wav");
 	sf::Sound shoot;
 	shoot.setBuffer(shootBuffer);
 
 	// Prepare the reload sound
 	sf::SoundBuffer reloadBuffer;
-	//reloadBuffer.loadFromFile("Audio/reload.wav");
-	reloadBuffer.loadFromFile("Audio/RELOAD_Clicks_Double_mono.wav");
+	//reloadBuffer.loadFromFile("Audio\\reload.wav");
+	reloadBuffer.loadFromFile("Audio\\RELOAD_Clicks_Double_mono.wav");
 	sf::Sound reload;
 	reload.setBuffer(reloadBuffer);
 
 	// Prepare the failed sound
 	sf::SoundBuffer reloadFailedBuffer;
-	//reloadFailedBuffer.loadFromFile("Audio/reload_failed.wav");
-	reloadFailedBuffer.loadFromFile("Audio/RELOAD_Dry_Fire_stereo.wav");
+	//reloadFailedBuffer.loadFromFile("Audio\\reload_failed.wav");
+	reloadFailedBuffer.loadFromFile("Audio\\RELOAD_Dry_Fire_stereo.wav");
 	sf::Sound reloadFailed;
 	reloadFailed.setBuffer(reloadFailedBuffer);
 
 	// Prepare the powerup sound
 	sf::SoundBuffer powerupBuffer;
-	//powerupBuffer.loadFromFile("Audio/powerup.wav");
-	powerupBuffer.loadFromFile("Audio/CHARGE_Sci-Fi_High_Pass_Sweep_12_Semi_Up_500ms_stereo.wav");
+	//powerupBuffer.loadFromFile("Audio\\powerup.wav");
+	powerupBuffer.loadFromFile("Audio\\CHARGE_Sci-Fi_High_Pass_Sweep_12_Semi_Up_500ms_stereo.wav");
 	sf::Sound powerup;
 	powerup.setBuffer(powerupBuffer);
 
 	// Prepare the pickup sound
 	sf::SoundBuffer pickupBuffer;
-	//pickupBuffer.loadFromFile("Audio/pickup.wav");
-	pickupBuffer.loadFromFile("Audio/8BIT_RETRO_Coin_Collect_Two_Note_Deep_Twinkle_mono.wav");
+	//pickupBuffer.loadFromFile("Audio\\pickup.wav");
+	pickupBuffer.loadFromFile("Audio\\8BIT_RETRO_Coin_Collect_Two_Note_Deep_Twinkle_mono.wav");
 	sf::Sound pickup;
 	pickup.setBuffer(pickupBuffer);
 
@@ -301,6 +301,7 @@ int main() {
 		// Handle events
 		sf::Event evnt;
 		while (window.pollEvent(evnt))	{
+			// Handle Keyboard Events
 			if (evnt.type == sf::Event::KeyPressed) {
 				// Pause while Playing
 				if (evnt.key.code == sf::Keyboard::Escape &&
@@ -330,19 +331,19 @@ int main() {
 				
 				// Spin and zoom the world				
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))	{
-					mainView.rotate(.5f);
+					mainView.rotate(1.0f);
 				}
 
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-					mainView.rotate(-.5f);
+					mainView.rotate(-1.0f);
 				}
 
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-					mainView.zoom(.99f);
+					mainView.zoom(.9f);
 				}
 
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))	{
-					mainView.zoom(1.01f);
+					mainView.zoom(1.1f);
 				}
 				// End spinning and zooming
 
@@ -369,137 +370,10 @@ int main() {
 					}
 				} // End Handling Events in PLAYING state
 			}
-			//else if (evnt.type == sf::Event::MouseButtonPressed) {
-			//	if (state == State::PLAYING) {
+			// Handle Mouse Events
+			else if (evnt.type == sf::Event::MouseButtonPressed) {
 
-			//	} // End Handling Mouse Events in PLAYING state
-			//	else if (state == State::PAUSED) {
-
-			//	} // End Handling Mouse Events in PAUSED state
-			//	else if (state == State::MAIN_MENU) {
-			//		int i = 0;
-			//		for (std::list<GUI::Button>::iterator it = mainMenuButtons.begin(); it != mainMenuButtons.end(); ++it) {
-			//			switch (i++) {
-			//			case 0: // Play Button
-			//				if (it->getState() == GUI::State::clicked) {
-			//					buttonClick.play();
-			//					state = State::LEVELING_UP;
-			//					wave = 0;
-			//					score = 0;
-
-			//					// Prepare the gun and ammo for next game
-			//					currentBullet = 0;
-			//					bulletsSpare = 24;
-			//					bulletsInClip = 6;
-			//					clipSize = 6;
-			//					fireRate = 1;
-
-			//					// Reset the player's stats
-			//					player.resetPlayerStats();
-			//				}
-			//				break;
-			//			case 1: // Settings Button
-			//				if (it->getState() == GUI::State::clicked) {
-			//					buttonClick.play();
-			//					state = State::SETTINGS;
-			//				}
-			//				break;
-			//			case 2: // Quit Button
-			//				if (it->getState() == GUI::State::clicked) {
-			//					buttonClick.play();
-			//					window.close();
-			//				}
-			//				break;
-			//			}
-			//		}
-			//	} // End Handling of Mouse Events in MAIN MENU state
-			//	else if (state == State::LEVELING_UP) {
-			//		int i = 0;
-			//		for (std::list<GUI::Button>::iterator it = levelUpButtons.begin(); it != levelUpButtons.end(); ++it) {
-			//			switch (i++) {
-			//			case 0: // Rate of Fire Upgrade Button
-			//				if (it->getState() == GUI::State::clicked) {
-			//					buttonClick.play();// Increase fire rate
-			//					fireRate++;
-			//					state = State::PLAYING;
-			//				}
-			//				break;
-			//			case 1: // Clip Size Upgrade Button
-			//				if (it->getState() == GUI::State::clicked) {
-			//					buttonClick.play();// Increase clip size
-			//					clipSize += clipSize;
-			//					state = State::PLAYING;
-			//				}
-			//				break;
-			//			case 2: // Health Upgrade Button
-			//				if (it->getState() == GUI::State::clicked) {
-			//					buttonClick.play();// Increase health
-			//					player.upgradeHealth();
-			//					state = State::PLAYING;
-			//				}
-			//				break;
-			//			case 3: // Run Speed Upgrade Button
-			//				if (it->getState() == GUI::State::clicked) {
-			//					buttonClick.play();// Increase speed
-			//					player.upgradeSpeed();
-			//					state = State::PLAYING;
-			//				}
-			//				break;
-			//			case 4: // Health Pickup Upgrade Button
-			//				if (it->getState() == GUI::State::clicked) {
-			//					buttonClick.play();
-			//					healthPickup.upgrade();
-			//					state = State::PLAYING;
-			//				}
-			//				break;
-			//			case 5: // Ammo Pickup Upgrade Button
-			//				if (it->getState() == GUI::State::clicked) {
-			//					buttonClick.play();
-			//					ammoPickup.upgrade();
-			//					state = State::PLAYING;
-			//				}
-			//				break;
-			//			case 6: // Back Button
-			//				if (it->getState() == GUI::State::clicked) {
-			//					buttonClick.play();
-			//					state = State::MAIN_MENU;
-			//				}
-			//				break;
-			//			}
-			//		}
-			//	} // End Handling Mouse Events in LEVEL UP state
-			//	else if (state == State::SETTINGS) {
-			//		int i = 0;
-			//		for (std::list<GUI::Button>::iterator it = settingsButtons.begin(); it != settingsButtons.end(); ++it) {
-			//			switch (i++) {
-			//			case 0: // Graphics Settings Button
-			//				if (it->getState() == GUI::State::clicked) {
-			//					buttonClick.play();
-			//				}
-			//				break;
-			//			case 1: // GamePlay Settings Button
-			//				if (it->getState() == GUI::State::clicked) {
-			//					buttonClick.play();
-			//				}
-			//				break;
-			//			case 2: // Audio Settings Button
-			//				if (it->getState() == GUI::State::clicked) {
-			//					buttonClick.play();
-			//				}
-			//				break;
-			//			case 3: // Back Button
-			//				if (it->getState() == GUI::State::clicked) {
-			//					buttonClick.play();
-			//					state = State::MAIN_MENU;
-			//				}
-			//				break;
-			//			}
-			//		}
-			//	} // End Handling Mouse Events in SETTINGS state
-			//	else if (state == State::GAME_OVER) {
-
-			//	} // End Handling Mouse Events in GAME OVER state
-			//}
+			}
 		}// End event polling
 		
 		// Handle controls while playing
@@ -564,8 +438,6 @@ int main() {
 
 		// Handle the main menu controls
 		if (state == State::MAIN_MENU) {
-			//std::cout << "Entered the Main Menu." << std::endl;
-
 			// Begin Button handling
 			if (evnt.type == sf::Event::MouseButtonPressed) {
 				int i = 0;
@@ -712,16 +584,19 @@ int main() {
 					case 0: // Graphics Settings Button
 						if (it->getState() == GUI::State::clicked) {
 							buttonClick.play();
+							std::cout << "No Graphics Settings Yet." << std::endl;
 						}
 						break;
 					case 1: // GamePlay Settings Button
 						if (it->getState() == GUI::State::clicked) {
 							buttonClick.play();
+							std::cout << "No Gameplay Settings Yet." << std::endl;
 						}
 						break;
 					case 2: // Audio Settings Button
 						if (it->getState() == GUI::State::clicked) {
 							buttonClick.play();
+							std::cout << "No Audio Settings Yet." << std::endl;
 						}
 						break;
 					case 3: // Back Button
@@ -748,7 +623,7 @@ int main() {
 		if (state == State::PLAYING) {
 			// Change the mouse to the GAME mouse
 			window.setMouseCursorVisible(false);
-			texture_mouse = TextureHolder::GetTexture("Graphics/crosshair.png");
+			texture_mouse = TextureHolder::GetTexture("Graphics\\crosshair.png");
 			sprite_mouse.setTexture(texture_mouse);
 			sprite_mouse.setOrigin(25, 25);
 			// Update the delta time
@@ -843,7 +718,7 @@ int main() {
 					if (player.getHealth() <= 0) {
 						state = State::GAME_OVER;
 
-						std::ofstream outputFile("gamedata/scores.txt");
+						std::ofstream outputFile("gamedata\\scores.txt");
 						outputFile << hiScore;
 						outputFile.close();
 					}
@@ -956,12 +831,9 @@ int main() {
 		| Draw the Frame |
 		\***----------***/
 		
-		//window.clear();
+		window.clear();
 
-		if (state == State::PLAYING) {
-			window.clear();
-
-			// set the mainView to be displayed in the window
+		if (state == State::PLAYING) {// set the mainView to be displayed in the window
 			// And draw everything related to it
 			window.setView(mainView);
 
@@ -1015,7 +887,6 @@ int main() {
 		}
 
 		if (state == State::MAIN_MENU) {
-			window.clear();
 			window.setView(mainView);
 			window.draw(spriteGameOver);
 			window.draw(mainMenuText);
@@ -1026,7 +897,6 @@ int main() {
 		}
 
 		if (state == State::LEVELING_UP) {
-			window.clear();
 			window.draw(spriteGameOver);
 			window.draw(levelUpText);
 			
@@ -1036,7 +906,6 @@ int main() {
 		}
 
 		if (state == State::SETTINGS) {
-			window.clear();
 			window.setView(mainView);
 			window.draw(spriteGameOver);
 			window.draw(settingsText);
@@ -1047,7 +916,6 @@ int main() {
 		}
 
 		if (state == State::GAME_OVER) {
-			window.clear();
 			window.draw(spriteGameOver);
 			window.draw(gameOverText);
 			window.draw(scoreText);
