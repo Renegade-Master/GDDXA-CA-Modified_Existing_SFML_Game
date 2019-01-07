@@ -14,9 +14,9 @@ int main() {
 	// Instance of TextureHolder
 	TextureHolder holder;
 
-	// The game will always be in one of five states
-	enum class State { PAUSED, MAIN_MENU, LEVELING_UP, GAME_OVER, PLAYING };
-	// Start with the GAME_OVER state
+	// The game will always be in one of six states
+	enum class State { PLAYING, PAUSED, MAIN_MENU, LEVELING_UP, SETTINGS, GAME_OVER };
+	// Start with the MAIN_MENU state
 	State state = State::MAIN_MENU;
 
 	// Set the screen resolution and create an SFML window
@@ -109,7 +109,7 @@ int main() {
 	// Paused
 	sf::Text pausedText;
 	pausedText.setFont(font);
-	pausedText.setCharacterSize(155);
+	pausedText.setCharacterSize(85);
 	pausedText.setFillColor(sf::Color::White);
 	pausedText.setPosition(resolution.x / 7, resolution.y / 4);
 	pausedText.setString("Press Enter to continue or\nQ to go to the Main Menu");
@@ -128,16 +128,20 @@ int main() {
 	levelUpText.setFont(font);
 	levelUpText.setCharacterSize(70);
 	levelUpText.setFillColor(sf::Color::White);
-	levelUpText.setPosition(50, 100);
+	levelUpText.setPosition(50, 30);
 	std::stringstream levelUpStream;
-	levelUpStream <<
-		"1- Increased rate of fire" <<
-		"\n2- Increased clip size(next reload)" <<
-		"\n3- Increased max health" <<
-		"\n4- Increased run speed" <<
-		"\n5- More and better health pickups" <<
-		"\n6- More and better ammo pickups";
+	levelUpStream << "Please choose an Upgrade" << std::endl;
 	levelUpText.setString(levelUpStream.str());
+
+	std::list<GUI::Button> levelUpButtons;
+	levelUpButtons.push_back(GUI::Button("Rate of Fire ++", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.2), GUI::Style::clean));
+	levelUpButtons.push_back(GUI::Button("Clip Size ++", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.3), GUI::Style::none));
+	levelUpButtons.push_back(GUI::Button("Health ++", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.4), GUI::Style::none));
+	levelUpButtons.push_back(GUI::Button("Run Speed ++", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.5), GUI::Style::none));
+	levelUpButtons.push_back(GUI::Button("Health Pickup ++", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.6), GUI::Style::none));
+	levelUpButtons.push_back(GUI::Button("Ammo Pickup ++", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.7), GUI::Style::none));
+
+	levelUpButtons.push_back(GUI::Button("Back", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.9), GUI::Style::cancel));
 
 	// Main Menu
 	sf::Text mainMenuText;
@@ -146,17 +150,29 @@ int main() {
 	mainMenuText.setFillColor(sf::Color::White);
 	mainMenuText.setPosition(50, 100);
 	std::stringstream mainMenuStream;
-	mainMenuStream	<< "Welcome to DevilSpawn\n" << std::endl;
-					/*<< "\n1 - START GAME\n"
-					<< "\n\nQ - Quit Game"
-					<< std::endl;*/
+	mainMenuStream	<< "Welcome to DEVILSPAWN" << std::endl;
 	mainMenuText.setString(mainMenuStream.str());
 
-	//GUI::Button* mainMenuButtons = new GUI::Button[3];
 	std::list<GUI::Button> mainMenuButtons;
-	mainMenuButtons.push_back(GUI::Button("Play", font, sf::Vector2f(resolution.x/4, resolution.y * 0.5), GUI::Style::clean));
-	mainMenuButtons.push_back(GUI::Button("Settings", font, sf::Vector2f(resolution.x / 4, resolution.y * 0.6), GUI::Style::none));
-	mainMenuButtons.push_back(GUI::Button("Quit", font, sf::Vector2f(resolution.x / 4, resolution.y * 0.7), GUI::Style::none));
+	mainMenuButtons.push_back(GUI::Button("Play", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.5), GUI::Style::clean));
+	mainMenuButtons.push_back(GUI::Button("Settings", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.6), GUI::Style::none));
+	mainMenuButtons.push_back(GUI::Button("Quit", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.7), GUI::Style::cancel));
+
+	// Settings
+	sf::Text settingsText;
+	settingsText.setFont(font);
+	settingsText.setCharacterSize(70);
+	settingsText.setFillColor(sf::Color::White);
+	settingsText.setPosition(50, 100);
+	std::stringstream settingsStream;
+	settingsStream << "Configure Game Settings" << std::endl;
+	settingsText.setString(settingsStream.str());
+
+	std::list<GUI::Button> settingsButtons;
+	settingsButtons.push_back(GUI::Button("Graphics Settings", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.5), GUI::Style::clean));
+	settingsButtons.push_back(GUI::Button("Gameplay Settings", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.6), GUI::Style::clean));
+	settingsButtons.push_back(GUI::Button("Audio Settings", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.7), GUI::Style::clean));
+	settingsButtons.push_back(GUI::Button("Back", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.9), GUI::Style::cancel));
 
 	// Ammo
 	sf::Text ammoText;
@@ -174,8 +190,7 @@ int main() {
 
 	// Load the high score from a text file/
 	std::ifstream inputFile("gamedata/scores.txt");
-	if (inputFile.is_open())
-	{
+	if (inputFile.is_open()) {
 		inputFile >> hiScore;
 		inputFile.close();
 	}
@@ -287,13 +302,13 @@ int main() {
 		sf::Event evnt;
 		while (window.pollEvent(evnt))	{
 			if (evnt.type == sf::Event::KeyPressed) {
-				// Pause a game while playing
+				// Pause while Playing
 				if (evnt.key.code == sf::Keyboard::Escape &&
 					state == State::PLAYING) {
 					state = State::PAUSED;
 				}
 
-				// Restart while paused
+				// Restart while Paused
 				else if (evnt.key.code == sf::Keyboard::Return &&
 					state == State::PAUSED)	{
 					state = State::PLAYING;
@@ -301,9 +316,15 @@ int main() {
 					clock.restart();
 				}
 
-				// Handle the player quitting
+				// Quit while Paused
 				else if (evnt.key.code == sf::Keyboard::Q &&
 					state == State::PAUSED) {
+					state = State::MAIN_MENU;
+				}
+
+				// Go to Main Menu while in Settings
+				else if (evnt.key.code == sf::Keyboard::Escape &&
+					state == State::SETTINGS) {
 					state = State::MAIN_MENU;
 				}
 				
@@ -325,6 +346,7 @@ int main() {
 				}
 				// End spinning and zooming
 
+				// Handle Events in PLAYING state
 				if (state == State::PLAYING) {
 					// Reloading
 					if (evnt.key.code == sf::Keyboard::R) {
@@ -345,81 +367,141 @@ int main() {
 							reloadFailed.play();
 						}
 					}
-				}
+				} // End Handling Events in PLAYING state
 			}
+			//else if (evnt.type == sf::Event::MouseButtonPressed) {
+			//	if (state == State::PLAYING) {
+
+			//	} // End Handling Mouse Events in PLAYING state
+			//	else if (state == State::PAUSED) {
+
+			//	} // End Handling Mouse Events in PAUSED state
+			//	else if (state == State::MAIN_MENU) {
+			//		int i = 0;
+			//		for (std::list<GUI::Button>::iterator it = mainMenuButtons.begin(); it != mainMenuButtons.end(); ++it) {
+			//			switch (i++) {
+			//			case 0: // Play Button
+			//				if (it->getState() == GUI::State::clicked) {
+			//					buttonClick.play();
+			//					state = State::LEVELING_UP;
+			//					wave = 0;
+			//					score = 0;
+
+			//					// Prepare the gun and ammo for next game
+			//					currentBullet = 0;
+			//					bulletsSpare = 24;
+			//					bulletsInClip = 6;
+			//					clipSize = 6;
+			//					fireRate = 1;
+
+			//					// Reset the player's stats
+			//					player.resetPlayerStats();
+			//				}
+			//				break;
+			//			case 1: // Settings Button
+			//				if (it->getState() == GUI::State::clicked) {
+			//					buttonClick.play();
+			//					state = State::SETTINGS;
+			//				}
+			//				break;
+			//			case 2: // Quit Button
+			//				if (it->getState() == GUI::State::clicked) {
+			//					buttonClick.play();
+			//					window.close();
+			//				}
+			//				break;
+			//			}
+			//		}
+			//	} // End Handling of Mouse Events in MAIN MENU state
+			//	else if (state == State::LEVELING_UP) {
+			//		int i = 0;
+			//		for (std::list<GUI::Button>::iterator it = levelUpButtons.begin(); it != levelUpButtons.end(); ++it) {
+			//			switch (i++) {
+			//			case 0: // Rate of Fire Upgrade Button
+			//				if (it->getState() == GUI::State::clicked) {
+			//					buttonClick.play();// Increase fire rate
+			//					fireRate++;
+			//					state = State::PLAYING;
+			//				}
+			//				break;
+			//			case 1: // Clip Size Upgrade Button
+			//				if (it->getState() == GUI::State::clicked) {
+			//					buttonClick.play();// Increase clip size
+			//					clipSize += clipSize;
+			//					state = State::PLAYING;
+			//				}
+			//				break;
+			//			case 2: // Health Upgrade Button
+			//				if (it->getState() == GUI::State::clicked) {
+			//					buttonClick.play();// Increase health
+			//					player.upgradeHealth();
+			//					state = State::PLAYING;
+			//				}
+			//				break;
+			//			case 3: // Run Speed Upgrade Button
+			//				if (it->getState() == GUI::State::clicked) {
+			//					buttonClick.play();// Increase speed
+			//					player.upgradeSpeed();
+			//					state = State::PLAYING;
+			//				}
+			//				break;
+			//			case 4: // Health Pickup Upgrade Button
+			//				if (it->getState() == GUI::State::clicked) {
+			//					buttonClick.play();
+			//					healthPickup.upgrade();
+			//					state = State::PLAYING;
+			//				}
+			//				break;
+			//			case 5: // Ammo Pickup Upgrade Button
+			//				if (it->getState() == GUI::State::clicked) {
+			//					buttonClick.play();
+			//					ammoPickup.upgrade();
+			//					state = State::PLAYING;
+			//				}
+			//				break;
+			//			case 6: // Back Button
+			//				if (it->getState() == GUI::State::clicked) {
+			//					buttonClick.play();
+			//					state = State::MAIN_MENU;
+			//				}
+			//				break;
+			//			}
+			//		}
+			//	} // End Handling Mouse Events in LEVEL UP state
+			//	else if (state == State::SETTINGS) {
+			//		int i = 0;
+			//		for (std::list<GUI::Button>::iterator it = settingsButtons.begin(); it != settingsButtons.end(); ++it) {
+			//			switch (i++) {
+			//			case 0: // Graphics Settings Button
+			//				if (it->getState() == GUI::State::clicked) {
+			//					buttonClick.play();
+			//				}
+			//				break;
+			//			case 1: // GamePlay Settings Button
+			//				if (it->getState() == GUI::State::clicked) {
+			//					buttonClick.play();
+			//				}
+			//				break;
+			//			case 2: // Audio Settings Button
+			//				if (it->getState() == GUI::State::clicked) {
+			//					buttonClick.play();
+			//				}
+			//				break;
+			//			case 3: // Back Button
+			//				if (it->getState() == GUI::State::clicked) {
+			//					buttonClick.play();
+			//					state = State::MAIN_MENU;
+			//				}
+			//				break;
+			//			}
+			//		}
+			//	} // End Handling Mouse Events in SETTINGS state
+			//	else if (state == State::GAME_OVER) {
+
+			//	} // End Handling Mouse Events in GAME OVER state
+			//}
 		}// End event polling
-
-		// Handle the main menu state
-		if (state == State::MAIN_MENU) {
-			//std::cout << "Entered the Main Menu." << std::endl;
-
-			for (std::list<GUI::Button>::iterator it = mainMenuButtons.begin(); it != mainMenuButtons.end(); ++it) {
-				it->update(evnt, window);
-			}
-
-			if (evnt.type == sf::Event::KeyPressed) {
-				switch (evnt.key.code) {
-				case sf::Keyboard::Num1:
-					state = State::LEVELING_UP;
-					wave = 0;
-					score = 0;
-
-					// Prepare the gun and ammo for next game
-					currentBullet = 0;
-					bulletsSpare = 24;
-					bulletsInClip = 6;
-					clipSize = 6;
-					fireRate = 1;
-
-					// Reset the player's stats
-					player.resetPlayerStats();
-					break;
-				case sf::Keyboard::Z:
-					window.close();
-					break;
-				default:
-					break;
-				}
-			}
-			else if (evnt.type == sf::Event::MouseButtonPressed) {
-				int i = 0;
-				for (std::list<GUI::Button>::iterator it = mainMenuButtons.begin(); it != mainMenuButtons.end(); ++it) {
-					switch (i++) {
-					case 0:
-						if (it->getState() == GUI::State::clicked) {
-							buttonClick.play();
-							state = State::LEVELING_UP;
-							wave = 0;
-							score = 0;
-
-							// Prepare the gun and ammo for next game
-							currentBullet = 0;
-							bulletsSpare = 24;
-							bulletsInClip = 6;
-							clipSize = 6;
-							fireRate = 1;
-
-							// Reset the player's stats
-							player.resetPlayerStats();
-						}
-						break;
-					case 1:
-						if (it->getState() == GUI::State::clicked) {
-							buttonClick.play();
-							// GO TO SETTINGS
-						}
-						break;
-					case 2:
-						if (it->getState() == GUI::State::clicked) {
-							buttonClick.play();
-							window.close();
-						}
-						break;
-					}
-				}
-			}
-		}
-
+		
 		// Handle controls while playing
 		if (state == State::PLAYING) {
 			// Handle the pressing and releasing of the WASD keys
@@ -473,45 +555,115 @@ int main() {
 					bulletsInClip--;
 				}
 			}// End fire a bullet
-		}// End WASD while playing
+		}// End handling controls while playing
+
+		// Handle the Paused controls
+		if (state == State::PAUSED) {
+
+		} // End Paused controls
+
+		// Handle the main menu controls
+		if (state == State::MAIN_MENU) {
+			//std::cout << "Entered the Main Menu." << std::endl;
+
+			// Begin Button handling
+			if (evnt.type == sf::Event::MouseButtonPressed) {
+				int i = 0;
+				for (std::list<GUI::Button>::iterator it = mainMenuButtons.begin(); it != mainMenuButtons.end(); ++it) {
+					switch (i++) {
+					case 0: // Play Button
+						if (it->getState() == GUI::State::clicked) {
+							buttonClick.play();
+							state = State::LEVELING_UP;
+							wave = 0;
+							score = 0;
+
+							// Prepare the gun and ammo for next game
+							currentBullet = 0;
+							bulletsSpare = 24;
+							bulletsInClip = 6;
+							clipSize = 6;
+							fireRate = 1;
+
+							// Reset the player's stats
+							player.resetPlayerStats();
+						}
+						break;
+					case 1: // Settings Button
+						if (it->getState() == GUI::State::clicked) {
+							buttonClick.play();
+							state = State::SETTINGS;
+						}
+						break;
+					case 2: // Quit Button
+						if (it->getState() == GUI::State::clicked) {
+							buttonClick.play();
+							window.close();
+						}
+						break;
+					}
+				}
+			} // End Button Handling
+		} // End Main Menu Controls
 
 		// Handle the levelling up state
 		if (state == State::LEVELING_UP) {
-			// Handle the player levelling up
-			if (evnt.key.code == sf::Keyboard::Num1) {
-				// Increase fire rate
-				fireRate++;
-				state = State::PLAYING;
+			// Begin Button handling
+			if (evnt.type == sf::Event::MouseButtonPressed) {
+				int i = 0;
+				for (std::list<GUI::Button>::iterator it = levelUpButtons.begin(); it != levelUpButtons.end(); ++it) {
+					switch (i++) {
+					case 0: // Rate of Fire Upgrade Button
+						if (it->getState() == GUI::State::clicked) {
+							buttonClick.play();// Increase fire rate
+							fireRate++;
+							state = State::PLAYING;
+						}
+						break;
+					case 1: // Clip Size Upgrade Button
+						if (it->getState() == GUI::State::clicked) {
+							buttonClick.play();// Increase clip size
+							clipSize += clipSize;
+							state = State::PLAYING;
+						}
+						break;
+					case 2: // Health Upgrade Button
+						if (it->getState() == GUI::State::clicked) {
+							buttonClick.play();// Increase health
+							player.upgradeHealth();
+							state = State::PLAYING;
+						}
+						break;
+					case 3: // Run Speed Upgrade Button
+						if (it->getState() == GUI::State::clicked) {
+							buttonClick.play();// Increase speed
+							player.upgradeSpeed();
+							state = State::PLAYING;
+						}
+						break;
+					case 4: // Health Pickup Upgrade Button
+						if (it->getState() == GUI::State::clicked) {
+							buttonClick.play();
+							healthPickup.upgrade();
+							state = State::PLAYING;
+						}
+						break;
+					case 5: // Ammo Pickup Upgrade Button
+						if (it->getState() == GUI::State::clicked) {
+							buttonClick.play();
+							ammoPickup.upgrade();
+							state = State::PLAYING;
+						}
+						break;
+					case 6: // Back Button
+						if (it->getState() == GUI::State::clicked) {
+							buttonClick.play();
+							state = State::MAIN_MENU;
+						}
+						break;
+					}
+				}
 			}
-
-			if (evnt.key.code == sf::Keyboard::Num2) {
-				// Increase clip size
-				clipSize += clipSize;
-				state = State::PLAYING;
-			}
-
-			if (evnt.key.code == sf::Keyboard::Num3) {
-				// Increase health
-				player.upgradeHealth();
-				state = State::PLAYING;
-			}
-
-			if (evnt.key.code == sf::Keyboard::Num4) {
-				// Increase speed
-				player.upgradeSpeed();
-				state = State::PLAYING;
-			}
-
-			if (evnt.key.code == sf::Keyboard::Num5) {
-				healthPickup.upgrade();
-				state = State::PLAYING;
-			}
-
-			if (evnt.key.code == sf::Keyboard::Num6) {
-				ammoPickup.upgrade();
-				state = State::PLAYING;
-			}
-
 			if (state == State::PLAYING) {
 				// Increase the wave number
 				wave++;
@@ -548,12 +700,51 @@ int main() {
 				// Reset the clock so there isn't a frame jump
 				clock.restart();
 			}
-		}// End levelling up
+		}// End handling controls while levelling up
+
+		// Handle the Settings controls
+		if (state == State::SETTINGS) {
+			// Begin Button handling
+			if (evnt.type == sf::Event::MouseButtonPressed) {
+				int i = 0;
+				for (std::list<GUI::Button>::iterator it = settingsButtons.begin(); it != settingsButtons.end(); ++it) {
+					switch (i++) {
+					case 0: // Graphics Settings Button
+						if (it->getState() == GUI::State::clicked) {
+							buttonClick.play();
+						}
+						break;
+					case 1: // GamePlay Settings Button
+						if (it->getState() == GUI::State::clicked) {
+							buttonClick.play();
+						}
+						break;
+					case 2: // Audio Settings Button
+						if (it->getState() == GUI::State::clicked) {
+							buttonClick.play();
+						}
+						break;
+					case 3: // Back Button
+						if (it->getState() == GUI::State::clicked) {
+							buttonClick.play();
+							state = State::MAIN_MENU;
+						}
+						break;
+					}
+				}
+			} // End Button Handling
+		} // End Settings controls
+
+		// Handle the Game Over controls
+		if (state == State::GAME_OVER) {
+
+		} // End Game Over controls
 
 		/***------------***\
 		| Update the Frame |
 		\***------------***/
 		
+		// Update while Playing
 		if (state == State::PLAYING) {
 			// Change the mouse to the GAME mouse
 			window.setMouseCursorVisible(false);
@@ -719,21 +910,56 @@ int main() {
 
 		}// End updating the PLAYING state
 
-		if (state == State::MAIN_MENU) {
+		// Update while in Paused
+		if (state == State::PAUSED) {
+			// Change Mouse to Menu Mouse
 			window.setMouseCursorVisible(true);
-			//texture_mouse = TextureHolder::GetTexture("Graphics/crosshair.png");
-			//sprite_mouse.setTexture(texture_mouse);
+		}
+
+		// Update while in Main Menu
+		if (state == State::MAIN_MENU) {
+			// Change Mouse to Menu Mouse
+			window.setMouseCursorVisible(true);
+
+			for (std::list<GUI::Button>::iterator it = mainMenuButtons.begin(); it != mainMenuButtons.end(); ++it) {
+				it->update(evnt, window);
+			}
+		}
+
+		// Update while in Leveling Up
+		if (state == State::LEVELING_UP) {
+			// Change Mouse to Menu Mouse
+			window.setMouseCursorVisible(true);
+
+			for (std::list<GUI::Button>::iterator it = levelUpButtons.begin(); it != levelUpButtons.end(); ++it) {
+				it->update(evnt, window);
+			}
+		}
+
+		// Update while in Settings
+		if (state == State::SETTINGS) {
+			// Change Mouse to Menu Mouse
+			window.setMouseCursorVisible(true);
 			
-			
+			for (std::list<GUI::Button>::iterator it = settingsButtons.begin(); it != settingsButtons.end(); ++it) {
+				it->update(evnt, window);
+			}
+		}
+
+		// Update while in Game Over
+		if (state == State::GAME_OVER) {
+			// Change Mouse to Menu Mouse
+			window.setMouseCursorVisible(true);
 		}
 
 		/***----------***\
 		| Draw the Frame |
 		\***----------***/
 		
-		window.clear();
+		//window.clear();
 
 		if (state == State::PLAYING) {
+			window.clear();
 
 			// set the mainView to be displayed in the window
 			// And draw everything related to it
@@ -784,32 +1010,48 @@ int main() {
 			window.draw(hordeRemainingText);
 		}
 
-		if (state == State::LEVELING_UP) {
-			window.draw(spriteGameOver);
-			window.draw(levelUpText);
-		}
-
 		if (state == State::PAUSED) {
 			window.draw(pausedText);
 		}
 
+		if (state == State::MAIN_MENU) {
+			window.clear();
+			window.setView(mainView);
+			window.draw(spriteGameOver);
+			window.draw(mainMenuText);
+			
+			for (std::list<GUI::Button>::iterator it = mainMenuButtons.begin(); it != mainMenuButtons.end(); ++it) {
+				window.draw(*it);
+			}
+		}
+
+		if (state == State::LEVELING_UP) {
+			window.clear();
+			window.draw(spriteGameOver);
+			window.draw(levelUpText);
+			
+			for (std::list<GUI::Button>::iterator it = levelUpButtons.begin(); it != levelUpButtons.end(); ++it) {
+				window.draw(*it);
+			}
+		}
+
+		if (state == State::SETTINGS) {
+			window.clear();
+			window.setView(mainView);
+			window.draw(spriteGameOver);
+			window.draw(settingsText);
+
+			for (std::list<GUI::Button>::iterator it = settingsButtons.begin(); it != settingsButtons.end(); ++it) {
+				window.draw(*it);
+			}
+		}
+
 		if (state == State::GAME_OVER) {
+			window.clear();
 			window.draw(spriteGameOver);
 			window.draw(gameOverText);
 			window.draw(scoreText);
 			window.draw(hiScoreText);
-		}
-
-		if (state == State::MAIN_MENU) {
-			window.setView(mainView);
-			window.draw(spriteGameOver);
-			window.draw(mainMenuText);
-			/*window.draw(btn_mainMenu_play);
-			window.draw(btn_mainMenu_settings);
-			window.draw(btn_mainMenu_quit);*/
-			for (std::list<GUI::Button>::iterator it = mainMenuButtons.begin(); it != mainMenuButtons.end(); ++it) {
-				window.draw(*it);
-			}
 		}
 
 		window.display();
