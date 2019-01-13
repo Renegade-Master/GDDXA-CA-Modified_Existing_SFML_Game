@@ -64,10 +64,10 @@ int main() {
 	// Prepare a horde of Devils
 	int hordeSize;
 	int numHordeAlive;
-	std::vector<Devil*> horde = std::vector<Devil*>();
+	std::vector<Devil> horde = std::vector<Devil>();
 
 	// Set fixed amount of bullets
-	std::vector<Bullet*> bullets(100);
+	std::vector<Bullet> bullets(100);
 	int currentBullet = 0;
 	int bulletsSpare = 24;
 	int bulletsInClip = 6;
@@ -421,7 +421,7 @@ int main() {
 
 					// Pass the centre of the player and the centre of the crosshair
 					// to the shoot function
-					bullets[currentBullet++]->shoot(
+					bullets[currentBullet++].shoot(
 						player.getCenter().x, player.getCenter().y,
 						mouseWorldPosition.x, mouseWorldPosition.y);
 					if (currentBullet > 99) {
@@ -657,16 +657,16 @@ int main() {
 			miniMapView.setCenter(player.getCenter());
 
 			// Loop through each Devil and update them
-			for (std::vector<Devil*>::iterator it = horde.begin(); it != horde.end(); ++it) {
-				if ((*it)->isAlive()) {
-					(*it)->update(dt.asSeconds(), playerPosition);
+			for (std::vector<Devil>::iterator it = horde.begin(); it != horde.end(); ++it) {
+				if (it->isAlive()) {
+					it->update(dt.asSeconds(), playerPosition);
 				}
 			}
 
 			// Update any bullets that are in-flight
-			for (std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
-				if ((*it)->isInFlight()) {
-					(*it)->update(dtAsSeconds);
+			for (std::vector<Bullet>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
+				if (it->isInFlight()) {
+					it->update(dtAsSeconds);
 				}
 			}
 
@@ -676,17 +676,17 @@ int main() {
 
 			// Collision detection
 			// Have any horde been shot?
-			for (std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
-				for (std::vector<Devil*>::iterator it2 = horde.begin(); it2 != horde.end(); ++it2) {
-					if ((*it)->isInFlight() && 
-						(*it2)->isAlive()) {
-						if ((*it)->getPosition().intersects
-							((*it2)->getPosition())) {
+			for (std::vector<Bullet>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
+				for (std::vector<Devil>::iterator it2 = horde.begin(); it2 != horde.end(); ++it2) {
+					if (it->isInFlight() && 
+						it2->isAlive()) {
+						if (it->getPosition().intersects
+							(it2->getPosition())) {
 							// Stop the bullet
-							(*it)->stop();
+							it->stop();
 
 							// Register the hit and see if it was a kill
-							if ((*it2)->hit()) {
+							if (it2->hit()) {
 								// Not just a hit but a kill too
 								score += 10;
 								if (score >= hiScore) {
@@ -709,9 +709,9 @@ int main() {
 			}// End zombie being shot
 
 			// Have any horde touched the player			
-			for (std::vector<Devil*>::iterator it = horde.begin(); it != horde.end(); ++it) {
+			for (std::vector<Devil>::iterator it = horde.begin(); it != horde.end(); ++it) {
 				if (player.getPosition().intersects
-					((*it)->getPosition()) && (*it)->isAlive())	{
+					(it->getPosition()) && it->isAlive())	{
 
 					if (player.hit(gameTimeTotal)) {
 						// More here later
@@ -844,14 +844,14 @@ int main() {
 			window.draw(background, &textureBackground);
 
 			// Draw the horde
-			for (std::vector<Devil*>::iterator it = horde.begin(); it != horde.end(); ++it) {
-				window.draw((*it)->getSprite());
+			for (std::vector<Devil>::iterator it = horde.begin(); it != horde.end(); ++it) {
+				window.draw(it->getSprite());
 			}
 
 			// Draw the Bullets in flight
-			for (std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
-				if ((*it)->isInFlight()) {
-					window.draw((*it)->getShape());
+			for (std::vector<Bullet>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
+				if (it->isInFlight()) {
+					window.draw(it->getShape());
 				}
 			}
 

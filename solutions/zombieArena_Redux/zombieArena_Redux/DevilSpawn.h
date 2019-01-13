@@ -28,7 +28,7 @@
 //class DevilSpawn {
 //public:
 	int createBackground(sf::VertexArray& rVA, sf::IntRect arena);
-	std::vector<Devil*> createHorde(int numDevils, sf::IntRect arena);
+	std::vector<Devil> createHorde(int numDevils, sf::IntRect arena);
 //};
 
 #endif // DEVILSPAWN_H
