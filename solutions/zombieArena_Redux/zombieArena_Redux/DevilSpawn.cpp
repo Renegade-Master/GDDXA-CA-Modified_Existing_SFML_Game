@@ -11,17 +11,7 @@ int main() {
 	| Setting up Game Files |
 	\***-----------------***/
 
-	// Instance of TextureHolder
-	TextureHolder holder;
-
-	// The game will always be in one of six states
-	enum class State { PLAYING, PAUSED, MAIN_MENU, LEVELING_UP, SETTINGS, GAME_OVER };
-	// Start with the MAIN_MENU state
-	State state = State::MAIN_MENU;
-
 	// Set the screen resolution and create an SFML window
-	sf::Vector2f resolution;
-	sf::Vector2f miniRes;
 	/*resolution.x = sf::VideoMode::getDesktopMode().width;
 	resolution.y = sf::VideoMode::getDesktopMode().height;*/
 	resolution.x = 1280;
@@ -39,107 +29,56 @@ int main() {
 	// Create a view for the MiniMap
 	sf::View miniMapView(sf::FloatRect(0, resolution.y - miniRes.y, miniRes.x, miniRes.y));
 
+	// Prepare a horde of Devils
+	horde = std::vector<Devil>();
+
 	// Clock for timings
 	sf::Clock clock;
-	// How long has the PLAYING state been active
-	sf::Time gameTimeTotal;
-
-	// Where is the mouse in relation to world coordinates
-	sf::Vector2f mouseWorldPosition;
-	// Where is the mouse in relation to screen coordinates
-	sf::Vector2i mouseScreenPosition;
-
-	// Create an instance of the Player class
-	Player player;
-
-	// The boundaries of the arena
-	sf::IntRect arena;
-
-	// Create the background
-	sf::VertexArray background;
-	// Load the texture for our background vertex array
-	sf::Texture textureBackground = TextureHolder::GetTexture(
-		"Graphics\\background_sheet_stretch.png");
-
-	// Prepare a horde of Devils
-	int hordeSize;
-	int numHordeAlive;
-	std::vector<Devil> horde = std::vector<Devil>();
-
-	// Set fixed amount of bullets
-	std::vector<Bullet> bullets(100);
-	int currentBullet = 0;
-	int bulletsSpare = 24;
-	int bulletsInClip = 6;
-	int clipSize = 6;
-	float fireRate = 1;
-	// When was the fire button last pressed?
-	sf::Time lastPressed;
 
 	// Hide the mouse pointer and replace it with crosshair
 	window.setMouseCursorVisible(true);
-	sf::Sprite sprite_mouse;
-	sf::Texture texture_mouse;
 	sprite_mouse.setOrigin(25, 25);
 	//sprite_mouse.setOrigin(texture_mouse.getSize().x / 2, texture_mouse.getSize().y / 2);
 
-	// Create a couple of pickups
-	Pickup healthPickup(1);
-	Pickup ammoPickup(2);
-
-	// About the game
-	int score = 0;
-	int hiScore = 0;
-
 	// For the home/game over screen
-	sf::Sprite spriteGameOver;
-	sf::Texture textureGameOver = TextureHolder::GetTexture("Graphics\\mtDoom_background.jpg");
+	textureGameOver = TextureHolder::GetTexture("Graphics\\mtDoom_background.jpg");
 	spriteGameOver.setTexture(textureGameOver);
 	spriteGameOver.setPosition(0, 0);
 
 	// Create a sprite for the ammo icon
-	sf::Sprite spriteAmmoIcon;
-	sf::Texture textureAmmoIcon = TextureHolder::GetTexture("Graphics\\ammo_icon.png");
+	textureAmmoIcon = TextureHolder::GetTexture("Graphics\\ammo_icon.png");
 	spriteAmmoIcon.setTexture(textureAmmoIcon);
 	spriteAmmoIcon.setPosition(20, resolution.y - 60);
 
 	// Load the font
-	sf::Font font;
 	font.loadFromFile("Fonts\\firstordersemital.ttf");
 
 	// Paused
-	sf::Text pausedText;
 	pausedText.setFont(font);
 	pausedText.setCharacterSize(85);
 	pausedText.setFillColor(sf::Color::White);
 	pausedText.setPosition(resolution.x * 0.075, resolution.y * 0.25);
 	pausedText.setString("Press Enter to continue or\nQ to go to the Main Menu");
 	
-	sf::RectangleShape pausedShader;
 	pausedShader.setSize(sf::Vector2f(resolution.x, resolution.y));
 	pausedShader.setPosition(0.0, 0.0);
 	pausedShader.setFillColor(sf::Color(0,0,0,128));
 
 	// Game Over
-	sf::Text gameOverText;
 	gameOverText.setFont(font);
 	gameOverText.setCharacterSize(100);
 	gameOverText.setFillColor(sf::Color::White);
 	gameOverText.setPosition(resolution.x / 6, resolution.y / 3);
-	//gameOverText.setString("Press Enter to Play");
 	gameOverText.setString("You DIED!\nYour Score was: " + score);
 
 	// Levelling up
-	sf::Text levelUpText;
 	levelUpText.setFont(font);
 	levelUpText.setCharacterSize(70);
 	levelUpText.setFillColor(sf::Color::White);
 	levelUpText.setPosition(50, 30);
-	std::stringstream levelUpStream;
 	levelUpStream << "Please choose an Upgrade" << std::endl;
 	levelUpText.setString(levelUpStream.str());
 
-	std::list<GUI::Button> levelUpButtons;
 	levelUpButtons.push_back(GUI::Button("Rate of Fire ++", font, sf::Vector2f(resolution.x * 0.5, resolution.y * 0.3), GUI::Style::none));
 	levelUpButtons.push_back(GUI::Button("Clip Size ++", font, sf::Vector2f(resolution.x * 0.5, resolution.y * 0.4), GUI::Style::none));
 	levelUpButtons.push_back(GUI::Button("Health ++", font, sf::Vector2f(resolution.x * 0.5, resolution.y * 0.5), GUI::Style::none));
@@ -149,45 +88,37 @@ int main() {
 	levelUpButtons.push_back(GUI::Button("Back", font, sf::Vector2f(resolution.x * 0.5, resolution.y * 0.95), GUI::Style::cancel));
 
 	// Main Menu
-	sf::Text mainMenuText;
 	mainMenuText.setFont(font);
 	mainMenuText.setCharacterSize(70);
 	mainMenuText.setFillColor(sf::Color::White);
 	mainMenuText.setPosition(50, 100);
-	std::stringstream mainMenuStream;
 	mainMenuStream	<< "Welcome to DEVILSPAWN" << std::endl;
 	mainMenuText.setString(mainMenuStream.str());
 
-	std::list<GUI::Button> mainMenuButtons;
 	mainMenuButtons.push_back(GUI::Button("Play", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.5), GUI::Style::clean));
 	mainMenuButtons.push_back(GUI::Button("Settings", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.6), GUI::Style::none));
 	mainMenuButtons.push_back(GUI::Button("Quit", font, sf::Vector2f(resolution.x * 0.25, resolution.y * 0.7), GUI::Style::cancel));
 
 	// Settings
-	sf::Text settingsText;
 	settingsText.setFont(font);
 	settingsText.setCharacterSize(70);
 	settingsText.setFillColor(sf::Color::White);
 	settingsText.setPosition(50, 100);
-	std::stringstream settingsStream;
 	settingsStream << "Configure Game Settings" << std::endl;
 	settingsText.setString(settingsStream.str());
 
-	std::list<GUI::Button> settingsButtons;
 	settingsButtons.push_back(GUI::Button("Graphics Settings", font, sf::Vector2f(resolution.x * 0.5, resolution.y * 0.5), GUI::Style::none));
 	settingsButtons.push_back(GUI::Button("Gameplay Settings", font, sf::Vector2f(resolution.x * 0.5, resolution.y * 0.6), GUI::Style::none));
 	settingsButtons.push_back(GUI::Button("Audio Settings", font, sf::Vector2f(resolution.x * 0.5, resolution.y * 0.7), GUI::Style::none));
 	settingsButtons.push_back(GUI::Button("Back", font, sf::Vector2f(resolution.x * 0.5, resolution.y * 0.9), GUI::Style::cancel));
 
 	// Ammo
-	sf::Text ammoText;
 	ammoText.setFont(font);
 	ammoText.setCharacterSize(55);
 	ammoText.setFillColor(sf::Color::White);
 	ammoText.setPosition(75, resolution.y - 60);
 
 	// Score
-	sf::Text scoreText;
 	scoreText.setFont(font);
 	scoreText.setCharacterSize(55);
 	scoreText.setFillColor(sf::Color::White);
@@ -201,17 +132,14 @@ int main() {
 	}
 
 	// Hi Score
-	sf::Text hiScoreText;
 	hiScoreText.setFont(font);
 	hiScoreText.setCharacterSize(55);
 	hiScoreText.setFillColor(sf::Color::White);
 	hiScoreText.setPosition(resolution.x - 275, 0);
-	std::stringstream s;
 	s << "Hi Score:" << hiScore;
 	hiScoreText.setString(s.str());
 
 	// Zombies remaining
-	sf::Text hordeRemainingText;
 	hordeRemainingText.setFont(font);
 	hordeRemainingText.setCharacterSize(55);
 	hordeRemainingText.setFillColor(sf::Color::White);
@@ -219,8 +147,6 @@ int main() {
 	hordeRemainingText.setString("Horde Size: 0");
 
 	// Wave number
-	int wave = 0;
-	sf::Text waveNumberText;
 	waveNumberText.setFont(font);
 	waveNumberText.setCharacterSize(55);
 	waveNumberText.setFillColor(sf::Color::White);
@@ -228,70 +154,39 @@ int main() {
 	waveNumberText.setString("Wave: 0");
 
 	// Health bar
-	sf::RectangleShape healthBar;
 	healthBar.setFillColor(sf::Color::Red);
 	healthBar.setPosition(resolution.x / 2, resolution.y - 60);
-		
-	// When did we last update the HUD?
-	int framesSinceLastHUDUpdate = 0;
-	// What time was the last update
-	sf::Time timeSinceLastUpdate;
-	// How often (in frames) should we update the HUD
-	int fpsMeasurementFrameInterval = 500;
 
 	// Prepare the hit sound
-	sf::SoundBuffer hitBuffer;
-	//splatBuffer.loadFromFile("Audio\\hit.wav");
 	hitBuffer.loadFromFile("Audio\\IMPACT_Generic_09_Short_mono.wav");
-	sf::Sound hit;
 	hit.setBuffer(hitBuffer);
 
 	// Prepare the splat sound
-	sf::SoundBuffer splatBuffer;
-	//splatBuffer.loadFromFile("Audio\\splat.wav");
 	splatBuffer.loadFromFile("Audio\\GORE_Splat_Hit_Short_mono.wav");
-	sf::Sound splat;
 	splat.setBuffer(splatBuffer);
 
 	// Prepare the shoot sound
-	sf::SoundBuffer shootBuffer;
-	//splatBuffer.loadFromFile("Audio\\shoot.wav");
 	shootBuffer.loadFromFile("Audio\\FIREARM_Handgun_B_FS92_9mm_Fire_Short_Reverb_Tail_RR2_stereo.wav");
-	sf::Sound shoot;
 	shoot.setBuffer(shootBuffer);
 
 	// Prepare the reload sound
-	sf::SoundBuffer reloadBuffer;
-	//reloadBuffer.loadFromFile("Audio\\reload.wav");
 	reloadBuffer.loadFromFile("Audio\\RELOAD_Clicks_Double_mono.wav");
-	sf::Sound reload;
 	reload.setBuffer(reloadBuffer);
 
 	// Prepare the failed sound
-	sf::SoundBuffer reloadFailedBuffer;
-	//reloadFailedBuffer.loadFromFile("Audio\\reload_failed.wav");
 	reloadFailedBuffer.loadFromFile("Audio\\RELOAD_Dry_Fire_stereo.wav");
-	sf::Sound reloadFailed;
 	reloadFailed.setBuffer(reloadFailedBuffer);
 
 	// Prepare the powerup sound
-	sf::SoundBuffer powerupBuffer;
-	//powerupBuffer.loadFromFile("Audio\\powerup.wav");
 	powerupBuffer.loadFromFile("Audio\\CHARGE_Sci-Fi_High_Pass_Sweep_12_Semi_Up_500ms_stereo.wav");
-	sf::Sound powerup;
 	powerup.setBuffer(powerupBuffer);
 
 	// Prepare the pickup sound
-	sf::SoundBuffer pickupBuffer;
-	//pickupBuffer.loadFromFile("Audio\\pickup.wav");
 	pickupBuffer.loadFromFile("Audio\\8BIT_RETRO_Coin_Collect_Two_Note_Deep_Twinkle_mono.wav");
-	sf::Sound pickup;
 	pickup.setBuffer(pickupBuffer);
 
 	// Prepare the button sound
-	sf::SoundBuffer buttonClickBuffer;
 	buttonClickBuffer.loadFromFile("Audio\\UI_Click_Organic_49_Dry_Mono.wav");
-	sf::Sound buttonClick;
 	buttonClick.setBuffer(buttonClickBuffer);
 
 	/***--------------***\
