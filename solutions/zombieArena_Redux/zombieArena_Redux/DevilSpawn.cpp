@@ -6,7 +6,7 @@
 
 #include "DevilSpawn.h"
 
-int main() {
+int DevilSpawn::main() {
 	/***-----------------***\
 	| Setting up Game Files |
 	\***-----------------***/
@@ -32,6 +32,9 @@ int main() {
 	// Prepare a horde of Devils
 	horde = std::vector<Devil>();
 
+	// Set fixed amount of bullets
+	bullets = std::vector<Bullet>(100);
+
 	// Clock for timings
 	sf::Clock clock;
 
@@ -39,6 +42,10 @@ int main() {
 	window.setMouseCursorVisible(true);
 	sprite_mouse.setOrigin(25, 25);
 	//sprite_mouse.setOrigin(texture_mouse.getSize().x / 2, texture_mouse.getSize().y / 2);
+
+	// Create a couple of pickups
+	Pickup healthPickup(1);
+	Pickup ammoPickup(2);
 
 	// For the home/game over screen
 	textureGameOver = TextureHolder::GetTexture("Graphics\\mtDoom_background.jpg");
