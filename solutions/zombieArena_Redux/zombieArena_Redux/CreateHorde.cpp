@@ -7,7 +7,7 @@
 #include "DevilSpawn.h"
 #include "Devil.h"
 
-std::vector<Devil> createHorde(int numDevils, sf::IntRect arena) {
+std::vector<Devil> DevilSpawn::createHorde(int numDevils, sf::IntRect arena) {
 	std::vector<Devil> horde(numDevils);
 
 	srand((int)time(0));

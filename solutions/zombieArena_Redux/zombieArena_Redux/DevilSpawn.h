@@ -25,10 +25,31 @@
 #include "Player.h"
 #include "TextureHolder.h"
 
-//class DevilSpawn {
-//public:
+class DevilSpawn {
+public:
+	int runGame();
+
+private:
 	int createBackground(sf::VertexArray& rVA, sf::IntRect arena);
 	std::vector<Devil> createHorde(int numDevils, sf::IntRect arena);
-//};
+	   
+	// The game will always be in one of six states
+	enum class State { PLAYING, PAUSED, MAIN_MENU, LEVELING_UP, SETTINGS, GAME_OVER };
+	// Start with the MAIN_MENU state
+	State state = State::MAIN_MENU;
+
+	// Set the screen resolution and create an SFML window
+	sf::Vector2f resolution;
+	sf::Vector2f miniRes;
+
+	sf::RenderWindow window;
+
+	// Create an SFML View
+	sf::View mainView;
+	// Create a view for the HUD
+	sf::View hudView;
+	// Create a view for the MiniMap
+	sf::View miniMapView;
+};
 
 #endif // DEVILSPAWN_H

@@ -6,7 +6,7 @@
 
 #include "DevilSpawn.h"
 
-int main() {
+int DevilSpawn::runGame() {
 	/***-----------------***\
 	| Setting up Game Files |
 	\***-----------------***/
@@ -14,14 +14,6 @@ int main() {
 	// Instance of TextureHolder
 	TextureHolder holder;
 
-	// The game will always be in one of six states
-	enum class State { PLAYING, PAUSED, MAIN_MENU, LEVELING_UP, SETTINGS, GAME_OVER };
-	// Start with the MAIN_MENU state
-	State state = State::MAIN_MENU;
-
-	// Set the screen resolution and create an SFML window
-	sf::Vector2f resolution;
-	sf::Vector2f miniRes;
 	/*resolution.x = sf::VideoMode::getDesktopMode().width;
 	resolution.y = sf::VideoMode::getDesktopMode().height;*/
 	resolution.x = 1280;
@@ -29,15 +21,20 @@ int main() {
 	miniRes.x = 256;
 	miniRes.y = 256;
 
-	sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y),
+	window.create(sf::VideoMode(resolution.x, resolution.y),
 		"Devil Spawn", sf::Style::Default);
 
-	// Create an SFML View
-	sf::View mainView(sf::FloatRect(0, 0, resolution.x, resolution.y));
+	// Create the Main SFML View
+	mainView.setSize(resolution);
+	mainView.reset(sf::FloatRect(0, 0, resolution.x, resolution.y));
+
 	// Create a view for the HUD
-	sf::View hudView(sf::FloatRect(0, 0, resolution.x, resolution.y));
+	hudView.reset(sf::FloatRect(0, 0, resolution.x, resolution.y));
+
 	// Create a view for the MiniMap
-	sf::View miniMapView(sf::FloatRect(0, resolution.y - miniRes.y, miniRes.x, miniRes.y));
+	miniMapView.setSize(miniRes);
+	miniMapView.setViewport(sf::FloatRect(0, resolution.y - miniRes.y, miniRes.x, miniRes.y));
+	//miniMapView.reset(sf::FloatRect(0, resolution.y - miniRes.y, miniRes.x, miniRes.y));
 
 	// Clock for timings
 	sf::Clock clock;
@@ -118,7 +115,7 @@ int main() {
 	sf::RectangleShape pausedShader;
 	pausedShader.setSize(sf::Vector2f(resolution.x, resolution.y));
 	pausedShader.setPosition(0.0, 0.0);
-	pausedShader.setFillColor(sf::Color(0,0,0,128));
+	pausedShader.setFillColor(sf::Color(sf::Color::Black));
 
 	// Game Over
 	sf::Text gameOverText;
@@ -178,6 +175,12 @@ int main() {
 	settingsButtons.push_back(GUI::Button("Gameplay Settings", font, sf::Vector2f(resolution.x * 0.5, resolution.y * 0.6), GUI::Style::none));
 	settingsButtons.push_back(GUI::Button("Audio Settings", font, sf::Vector2f(resolution.x * 0.5, resolution.y * 0.7), GUI::Style::none));
 	settingsButtons.push_back(GUI::Button("Back", font, sf::Vector2f(resolution.x * 0.5, resolution.y * 0.9), GUI::Style::cancel));
+
+	//MiniMap Border
+	sf::RectangleShape miniMapBorder;
+	miniMapBorder.setSize(sf::Vector2f(resolution.x, resolution.y));
+	miniMapBorder.setOutlineThickness(10.0);
+	miniMapBorder.setOutlineColor(sf::Color(sf::Color::Black));
 
 	// Ammo
 	sf::Text ammoText;
@@ -872,6 +875,7 @@ int main() {
 			// Draw the MiniMap
 			window.setView(miniMapView);
 
+			window.draw(miniMapBorder);
 
 			// Switch to the HUD view
 			window.setView(hudView);
