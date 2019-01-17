@@ -42,9 +42,9 @@ void Player::spawn(sf::IntRect arena, sf::Vector2f resolution, int tileSize) {
 	// Remember how big the tiles are in this arena
 	m_TileSize = tileSize;
 
-	// Strore the resolution for future use
-	m_Resolution.x = resolution.x;
-	m_Resolution.y = resolution.y;
+	// Store the resolution for future use
+	/*m_Resolution.x = resolution.x;
+	m_Resolution.y = resolution.y;*/
 }
 
 sf::Time Player::getLastHitTime() {
@@ -114,7 +114,7 @@ void Player::stopDown() {
 	m_DownPressed = false;
 }
 
-void Player::update(float elapsedTime, sf::Vector2i mousePosition) {
+void Player::update(float elapsedTime, sf::Vector2i mousePosition, sf::Vector2f resolution) {
 
 	if (m_UpPressed) {
 		m_Position.y -= m_Speed * elapsedTime;
@@ -152,8 +152,8 @@ void Player::update(float elapsedTime, sf::Vector2i mousePosition) {
 	}
 
 	// Calculate the angle the player is facing
-	float angle = (atan2(mousePosition.y - m_Resolution.y / 2,
-		mousePosition.x - m_Resolution.x / 2)
+	float angle = (atan2(mousePosition.y - resolution.y / 2,
+		mousePosition.x - resolution.x / 2)
 		* 180) / 3.141;
 
 	m_Sprite.setRotation(angle);

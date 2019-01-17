@@ -684,7 +684,7 @@ int DevilSpawn::runGame() {
 			sprite_mouse.setPosition(mouseWorldPosition);
 
 			// Update the player
-			player.update(dtAsSeconds, mouseScreenPosition);
+			player.update(dtAsSeconds, mouseScreenPosition, resolution);
 
 			// Make a note of the players new position
 			sf::Vector2f playerPosition(player.getCenter());
