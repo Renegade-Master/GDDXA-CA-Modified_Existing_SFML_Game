@@ -4,7 +4,7 @@
 *	@description	...
 */
 
-#include "bullet.h"
+#include "Bullet.h"
 
 // The constructor
 Bullet::Bullet() {

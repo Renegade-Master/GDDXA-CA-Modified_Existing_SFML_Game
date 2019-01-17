@@ -5,7 +5,6 @@
 */
 
 #include "TextureHolder.h"
-#include <assert.h>
 
 TextureHolder* TextureHolder::m_s_Instance = nullptr;
 
@@ -39,6 +38,9 @@ sf::Texture& TextureHolder::GetTexture(std::string const& filename) {
 		auto& texture = m[filename];
 		// Load the texture from file in the usual way
 		texture.loadFromFile(filename);
+
+		// Set the texture to Smooth
+		texture.setSmooth(true);
 
 		// Return the texture to the calling code
 		return texture;

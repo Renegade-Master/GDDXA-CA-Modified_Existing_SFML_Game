@@ -4,7 +4,6 @@
 *	@description	...
 */
 
-#include <SFML/Graphics.hpp>
 #include "DevilSpawn.h"
 
 int DevilSpawn::createBackground(sf::VertexArray& rVA, sf::IntRect arena) {

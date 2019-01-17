@@ -6,8 +6,6 @@
 
 #include "Devil.h"
 #include "TextureHolder.h"
-#include <cstdlib>
-#include <ctime>
 
 void Devil::spawn(float startX, float startY, int type) {
 

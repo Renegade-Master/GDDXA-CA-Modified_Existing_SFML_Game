@@ -123,8 +123,11 @@ int DevilSpawn::runGame() {
 	gameOverText.setCharacterSize(100);
 	gameOverText.setFillColor(sf::Color::White);
 	gameOverText.setPosition(resolution.x / 6, resolution.y / 3);
-	//gameOverText.setString("Press Enter to Play");
 	gameOverText.setString("You DIED!\nYour Score was: " + score);
+
+	std::list<GUI::Button> gameOverButtons;
+	gameOverButtons.push_back(GUI::Button("Retry", font, sf::Vector2f(resolution.x * 0.3, resolution.y * 0.95), GUI::Style::none));
+	gameOverButtons.push_back(GUI::Button("Main Menu", font, sf::Vector2f(resolution.x * 0.6, resolution.y * 0.95), GUI::Style::cancel));
 
 	// Levelling up
 	sf::Text levelUpText;
@@ -618,11 +621,42 @@ int DevilSpawn::runGame() {
 
 		// Handle the Game Over controls
 		else if (state == State::GAME_OVER) {
+			// Begin Button handling
+			if (evnt.type == sf::Event::MouseButtonPressed) {
+				int i = 0;
+				for (std::list<GUI::Button>::iterator it = gameOverButtons.begin(); it != gameOverButtons.end(); ++it) {
+					switch (i++) {
+					case 0: // Retry Button
+						if (it->getState() == GUI::State::clicked) {
+							buttonClick.play();
+							state = State::LEVELING_UP;
+							wave = 0;
+							score = 0;
 
+							// Prepare the gun and ammo for next game
+							currentBullet = 0;
+							bulletsSpare = 24;
+							bulletsInClip = 6;
+							clipSize = 6;
+							fireRate = 1;
+
+							// Reset the player's stats
+							player.resetPlayerStats();
+						}
+						break;
+					case 1: // Main Menu Button
+						if (it->getState() == GUI::State::clicked) {
+							buttonClick.play();
+							state = State::MAIN_MENU;
+						}
+						break;
+					}
+				}
+			} // End Button Handling
 		} // End Game Over controls
 
 		/***------------***\
-		| Update the Frame |
+		| Update the Scene |
 		\***------------***/
 		
 		// Update while Playing
@@ -799,6 +833,8 @@ int DevilSpawn::runGame() {
 
 		// Update while in Main Menu
 		else if (state == State::MAIN_MENU) {
+			mainView.reset(sf::FloatRect(0, 0, resolution.x, resolution.y));
+
 			// Change Mouse to Menu Mouse
 			window.setMouseCursorVisible(true);
 
@@ -831,6 +867,10 @@ int DevilSpawn::runGame() {
 		else if (state == State::GAME_OVER) {
 			// Change Mouse to Menu Mouse
 			window.setMouseCursorVisible(true);
+
+			for (std::list<GUI::Button>::iterator it = gameOverButtons.begin(); it != gameOverButtons.end(); ++it) {
+				it->update(evnt, window);
+			}
 		}
 
 		/***----------***\
@@ -929,6 +969,10 @@ int DevilSpawn::runGame() {
 			window.draw(gameOverText);
 			window.draw(scoreText);
 			window.draw(hiScoreText);
+
+			for (std::list<GUI::Button>::iterator it = gameOverButtons.begin(); it != gameOverButtons.end(); ++it) {
+				window.draw(*it);
+			}
 		}
 
 		window.display();

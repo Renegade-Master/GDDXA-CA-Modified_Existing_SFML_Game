@@ -8,8 +8,10 @@
 #ifndef TEXTUREHOLDER_H
 #define TEXTUREHOLDER_H
 
-#include <SFML/Graphics.hpp>
+#include <assert.h>
 #include <map>
+
+#include <SFML/Graphics.hpp>
 
 class TextureHolder {
 public:
