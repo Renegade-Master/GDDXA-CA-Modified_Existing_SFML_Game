@@ -65,11 +65,7 @@ int DevilSpawn::runGame() {
 
 	// Set fixed amount of bullets
 	std::vector<Bullet> bullets(100);
-	int currentBullet = 0;
-	int bulletsSpare = 24;
-	int bulletsInClip = 6;
-	int clipSize = 6;
-	float fireRate = 1;
+	
 	// When was the fire button last pressed?
 	sf::Time lastPressed;
 
@@ -362,20 +358,10 @@ int DevilSpawn::runGame() {
 				if (state == State::PLAYING) {
 					// Reloading
 					if (evnt.key.code == sf::Keyboard::R) {
-						if (bulletsSpare >= clipSize) {
-							// Plenty of bullets. Reload.
-							bulletsInClip = clipSize;
-							bulletsSpare -= clipSize;
-							reload.play();
-						}
-						else if (bulletsSpare > 0) {
-							// Less than a clip remaining
-							bulletsInClip = bulletsSpare;
-							bulletsSpare = 0;
+						if (player.reload()) {
 							reload.play();
 						}
 						else {
-							// NO AMMO!!
 							reloadFailed.play();
 						}
 					}
@@ -423,19 +409,19 @@ int DevilSpawn::runGame() {
 
 				if (gameTimeTotal.asMilliseconds()
 					- lastPressed.asMilliseconds()
-					> 1000 / fireRate && bulletsInClip > 0)	{
+					> 1000 / player.fireRate && player.bulletsInClip > 0)	{
 
 					// Pass the centre of the player and the centre of the crosshair
 					// to the shoot function
-					bullets[currentBullet++].shoot(
+					bullets[player.currentBullet++].shoot(
 						player.getCenter().x, player.getCenter().y,
 						mouseWorldPosition.x, mouseWorldPosition.y);
-					if (currentBullet > 99) {
-						currentBullet = 0;
+					if (player.currentBullet > 99) {
+						player.currentBullet = 0;
 					}
 					lastPressed = gameTimeTotal;
 					shoot.play();
-					bulletsInClip--;
+					player.bulletsInClip--;
 				}
 			}// End fire a bullet
 		}// End handling controls while playing
@@ -458,13 +444,6 @@ int DevilSpawn::runGame() {
 							state = State::LEVELING_UP;
 							wave = 0;
 							score = 0;
-
-							// Prepare the gun and ammo for next game
-							currentBullet = 0;
-							bulletsSpare = 24;
-							bulletsInClip = 6;
-							clipSize = 6;
-							fireRate = 1;
 
 							// Reset the player's stats
 							player.resetPlayerStats();
@@ -497,14 +476,14 @@ int DevilSpawn::runGame() {
 					case 0: // Rate of Fire Upgrade Button
 						if (it->getState() == GUI::State::clicked) {
 							buttonClick.play();// Increase fire rate
-							fireRate++;
+							player.fireRate++;
 							state = State::PLAYING;
 						}
 						break;
 					case 1: // Clip Size Upgrade Button
 						if (it->getState() == GUI::State::clicked) {
 							buttonClick.play();// Increase clip size
-							clipSize += clipSize;
+							player.clipSize += player.clipSize;
 							state = State::PLAYING;
 						}
 						break;
@@ -632,13 +611,6 @@ int DevilSpawn::runGame() {
 							state = State::LEVELING_UP;
 							wave = 0;
 							score = 0;
-
-							// Prepare the gun and ammo for next game
-							currentBullet = 0;
-							bulletsSpare = 24;
-							bulletsInClip = 6;
-							clipSize = 6;
-							fireRate = 1;
 
 							// Reset the player's stats
 							player.resetPlayerStats();
@@ -776,7 +748,7 @@ int DevilSpawn::runGame() {
 			// Has the player touched ammo pickup
 			if (player.getPosition().intersects
 				(ammoPickup.getPosition()) && ammoPickup.isSpawned()) {
-				bulletsSpare += ammoPickup.gotIt();
+				player.bulletsSpare += ammoPickup.gotIt();
 				// Play a sound
 				reload.play();
 			}
@@ -800,7 +772,7 @@ int DevilSpawn::runGame() {
 				std::stringstream ssHordeAlive;
 
 				// Update the ammo text
-				ssAmmo << bulletsInClip << "/" << bulletsSpare;
+				ssAmmo << player.bulletsInClip << "/" << player.bulletsSpare;
 				ammoText.setString(ssAmmo.str());
 
 				// Update the score text

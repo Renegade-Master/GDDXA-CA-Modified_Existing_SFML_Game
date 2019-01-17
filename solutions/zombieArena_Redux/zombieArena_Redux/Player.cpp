@@ -26,6 +26,13 @@ void Player::resetPlayerStats() {
 	m_Speed = START_SPEED;
 	m_Health = START_HEALTH;
 	m_MaxHealth = START_HEALTH;
+
+	// Prepare the gun and ammo for next game
+	currentBullet = 0;
+	bulletsSpare = 24;
+	bulletsInClip = 6;
+	clipSize = 6;
+	fireRate = 1;
 }
 
 void Player::spawn(sf::IntRect arena, sf::Vector2f resolution, int tileSize) {
@@ -59,6 +66,25 @@ bool Player::hit(sf::Time timeHit) {
 	}
 	else {
 		return false;
+	}
+}
+
+bool Player::reload() {
+	if (bulletsSpare >= clipSize) {
+		// Plenty of bullets. Reload.
+		bulletsSpare -= (clipSize - bulletsInClip);
+		bulletsInClip = clipSize;
+		return(true);
+	}
+	else if (bulletsSpare > 0) {
+		// Less than a clip remaining
+		bulletsInClip = bulletsSpare;
+		bulletsSpare = 0;
+		return(true);
+	}
+	else {
+		// NO ARROWS!!
+		return(false);
 	}
 }
 
