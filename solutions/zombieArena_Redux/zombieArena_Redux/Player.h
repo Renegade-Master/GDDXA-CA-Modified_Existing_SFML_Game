@@ -63,6 +63,9 @@ public:
 	// Handle the player getting hit by a zombie
 	bool hit(sf::Time timeHit);
 
+	// Reload the currently equipped weapon
+	bool reload();
+
 	// How long ago was the player last hit
 	sf::Time getLastHitTime();
 
@@ -110,6 +113,13 @@ public:
 
 	// Increase the maximum amount of health the player can have
 	void increaseHealthLevel(int amount);
+
+	// Player Ammunition
+	int currentBullet = 0;
+	int bulletsSpare = 24;
+	int bulletsInClip = 6;
+	int clipSize = 6;
+	float fireRate = 1;
 };
 
 #endif // PLAYER_H
