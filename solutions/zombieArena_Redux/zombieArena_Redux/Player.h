@@ -100,7 +100,7 @@ public:
 	void stopDown();
 
 	// We will call this function once every frame
-	void update(float elapsedTime, sf::Vector2i mousePosition);
+	void update(float elapsedTime, sf::Vector2i mousePosition, sf::Vector2f resolution);
 
 	// Give player a speed boost
 	void upgradeSpeed();
