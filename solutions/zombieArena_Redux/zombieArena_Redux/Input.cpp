@@ -311,42 +311,57 @@ void DevilSpawn::Input() {
 					case 0: // Fullscreen Button
 						if (it->getState() == GUI::ButtonState::clicked) {
 							buttonClick.play();
-							m_frameRate = 30;
+							m_windowedStatus = sf::Style::Fullscreen;
+							resolution = sf::Vector2f(
+								sf::VideoMode::getDesktopMode().width,
+								sf::VideoMode::getDesktopMode().height);
+							refreshWindow();
 						}
 						break;
 					case 1: // Windowed Button
 						if (it->getState() == GUI::ButtonState::clicked) {
 							buttonClick.play();
-							m_frameRate = 30;
+							m_windowedStatus = sf::Style::Default;
+							resolution = sf::Vector2f(
+								1280,
+								720);
+							refreshWindow();
 						}
 						break;
 					case 2: // 30 FPS Button
 						if (it->getState() == GUI::ButtonState::clicked) {
 							buttonClick.play();
 							m_frameRate = 30;
+							refreshWindow();
 						}
 						break;
 					case 3: // 60 FPS Button
 						if (it->getState() == GUI::ButtonState::clicked) {
 							buttonClick.play();
 							m_frameRate = 60;
+							refreshWindow();
 						}
 						break;
 					case 4: // VSync ON Button
 						if (it->getState() == GUI::ButtonState::clicked) {
 							buttonClick.play();
 							m_vSyncActive = true;
+							m_frameRate = 0;
+							refreshWindow();
 						}
 						break;
 					case 5: // VSync OFF Button
 						if (it->getState() == GUI::ButtonState::clicked) {
 							buttonClick.play();
 							m_vSyncActive = false;
+							m_frameRate = 0;
+							refreshWindow();
 						}
 						break;
 					case 6: // Back Button
 						if (it->getState() == GUI::ButtonState::clicked) {
 							buttonClick.play();
+							refreshWindow();
 							m_currentSettingsPage = SettingsPage::LIST;
 						}
 						break;

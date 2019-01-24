@@ -7,6 +7,20 @@
 #include "DevilSpawn.h"
 
 void DevilSpawn::initButtons() {
+	// Delete any old buttons
+	/*if (btnLst_mainMenu.size() != 0) { btnLst_mainMenu.clear(); }
+	if (btnLst_levelUp.size() != 0) { btnLst_levelUp.clear(); }
+	if (btnLst_gameOver.size() != 0) { btnLst_gameOver.clear(); }
+	if (btnLst_allSettings.size() != 0) { btnLst_allSettings.clear(); }
+	if (btnLst_graphicsSettings.size() != 0) { btnLst_graphicsSettings.clear(); }
+	if (btnLst_audioSettings.size() != 0) { btnLst_audioSettings.clear(); }
+	if (btnLst_gameplaySettings.size() != 0) { btnLst_gameplaySettings.clear(); }*/
+
+	// Main Menu Buttons
+	btnLst_mainMenu.push_back(GUI::Button("Play", font, sf::Vector2f(resolution.x * 0.25f, resolution.y * 0.5f), GUI::ButtonStyle::clean));
+	btnLst_mainMenu.push_back(GUI::Button("Settings", font, sf::Vector2f(resolution.x * 0.25f, resolution.y * 0.6f), GUI::ButtonStyle::none));
+	btnLst_mainMenu.push_back(GUI::Button("Quit", font, sf::Vector2f(resolution.x * 0.25f, resolution.y * 0.7f), GUI::ButtonStyle::cancel));
+
 	// Game Over Buttons
 	btnLst_gameOver.push_back(GUI::Button("Retry", font, sf::Vector2f(resolution.x * 0.3f, resolution.y * 0.95f), GUI::ButtonStyle::none));
 	btnLst_gameOver.push_back(GUI::Button("Main Menu", font, sf::Vector2f(resolution.x * 0.6f, resolution.y * 0.95f), GUI::ButtonStyle::cancel));
@@ -19,12 +33,7 @@ void DevilSpawn::initButtons() {
 	btnLst_levelUp.push_back(GUI::Button("Health Pickup ++", font, sf::Vector2f(resolution.x * 0.5f, resolution.y * 0.7f), GUI::ButtonStyle::none));
 	btnLst_levelUp.push_back(GUI::Button("Ammo Pickup ++", font, sf::Vector2f(resolution.x * 0.5f, resolution.y * 0.8f), GUI::ButtonStyle::none));
 	btnLst_levelUp.push_back(GUI::Button("Back", font, sf::Vector2f(resolution.x * 0.5f, resolution.y * 0.95f), GUI::ButtonStyle::cancel));
-
-	// Main Menu Buttons
-	btnLst_mainMenu.push_back(GUI::Button("Play", font, sf::Vector2f(resolution.x * 0.25f, resolution.y * 0.5f), GUI::ButtonStyle::clean));
-	btnLst_mainMenu.push_back(GUI::Button("Settings", font, sf::Vector2f(resolution.x * 0.25f, resolution.y * 0.6f), GUI::ButtonStyle::none));
-	btnLst_mainMenu.push_back(GUI::Button("Quit", font, sf::Vector2f(resolution.x * 0.25f, resolution.y * 0.7f), GUI::ButtonStyle::cancel));
-
+	
 	// Settings Buttons
 	btnLst_allSettings.push_back(GUI::Button("Graphics Settings", font, sf::Vector2f(resolution.x * 0.5f, resolution.y * 0.5f), GUI::ButtonStyle::none));
 	btnLst_allSettings.push_back(GUI::Button("Gameplay Settings", font, sf::Vector2f(resolution.x * 0.5f, resolution.y * 0.6f), GUI::ButtonStyle::none));

@@ -185,7 +185,7 @@ void DevilSpawn::Update() {
 
 	// Update while in Main Menu
 	else if (m_gameState == GameState::MAIN_MENU) {
-		mainView.reset(sf::FloatRect(0, 0, resolution.x, resolution.y));
+		//mainView.reset(sf::FloatRect(0, 0, resolution.x, resolution.y));
 
 		// Change Mouse to Menu Mouse
 		window.setMouseCursorVisible(true);
@@ -209,15 +209,7 @@ void DevilSpawn::Update() {
 	else if (m_gameState == GameState::SETTINGS) {
 		// Change Mouse to Menu Mouse
 		window.setMouseCursorVisible(true);
-
-		// Update Settings to Newly set Values
-		window.setFramerateLimit(m_frameRate);
-		window.setVerticalSyncEnabled(m_vSyncActive);
-		std::cout 
-			<< "Current Resolution:\t" << resolution.x << " x " << resolution.y << std::endl
-			<< "Framerate:\t\t" << m_frameRate << std::endl
-			<< "V-Sync Status:\t\t" << m_vSyncActive << std::endl << std::endl;;
-
+		
 		if (m_currentSettingsPage == SettingsPage::LIST) {
 			for (std::list<GUI::Button>::iterator it = btnLst_allSettings.begin(); it != btnLst_allSettings.end(); ++it) {
 				it->update(evnt, window);
@@ -227,6 +219,17 @@ void DevilSpawn::Update() {
 			for (std::list<GUI::Button>::iterator it = btnLst_graphicsSettings.begin(); it != btnLst_graphicsSettings.end(); ++it) {
 				it->update(evnt, window);
 			}
+
+			// Update Settings to Newly set Values
+			//window.setSize(sf::Vector2u(resolution));
+			//window.setFramerateLimit(m_frameRate);
+			//window.setVerticalSyncEnabled(m_vSyncActive);
+			//mainView.reset(sf::FloatRect(0, 0, resolution.x, resolution.y));
+			
+			std::cout
+				<< "Current Resolution:\t" << resolution.x << " x " << resolution.y << std::endl
+				<< "Framerate:\t\t" << m_frameRate << std::endl
+				<< "V-Sync Status:\t\t" << m_vSyncActive << std::endl << std::endl;;
 		}
 		else if (m_currentSettingsPage == SettingsPage::AUDIO) {
 			for (std::list<GUI::Button>::iterator it = btnLst_audioSettings.begin(); it != btnLst_audioSettings.end(); ++it) {

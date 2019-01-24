@@ -58,8 +58,11 @@ private:
 
 	sf::RenderWindow window;
 
+	sf::Uint32 m_windowedStatus = sf::Style::Default;
 	unsigned int m_frameRate = 60;
 	bool m_vSyncActive = false;
+
+	void refreshWindow();
 
 	// Create an SFML View
 	sf::View mainView;
