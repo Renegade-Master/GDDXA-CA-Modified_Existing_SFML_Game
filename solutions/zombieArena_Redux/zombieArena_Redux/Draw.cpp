@@ -13,7 +13,7 @@ void DevilSpawn::Draw() {
 
 	window.clear();
 
-	if (state == State::PLAYING) {// set the mainView to be displayed in the window
+	if (m_gameState == GameState::PLAYING) {// set the mainView to be displayed in the window
 		// And draw everything related to it
 		window.setView(mainView);
 
@@ -64,47 +64,64 @@ void DevilSpawn::Draw() {
 		window.draw(hordeRemainingText);
 	}
 
-	else if (state == State::PAUSED) {
+	else if (m_gameState == GameState::PAUSED) {
 		window.draw(pausedShader);
 		window.draw(pausedText);
 	}
 
-	else if (state == State::MAIN_MENU) {
+	else if (m_gameState == GameState::MAIN_MENU) {
 		window.setView(mainView);
 		window.draw(spriteGameOver);
 		window.draw(mainMenuText);
 
-		for (std::list<GUI::Button>::iterator it = mainMenuButtons.begin(); it != mainMenuButtons.end(); ++it) {
+		for (std::list<GUI::Button>::iterator it = btnLst_mainMenu.begin(); it != btnLst_mainMenu.end(); ++it) {
 			window.draw(*it);
 		}
 	}
 
-	else if (state == State::LEVELING_UP) {
+	else if (m_gameState == GameState::LEVELING_UP) {
 		window.draw(spriteGameOver);
 		window.draw(levelUpText);
 
-		for (std::list<GUI::Button>::iterator it = levelUpButtons.begin(); it != levelUpButtons.end(); ++it) {
+		for (std::list<GUI::Button>::iterator it = btnLst_levelUp.begin(); it != btnLst_levelUp.end(); ++it) {
 			window.draw(*it);
 		}
 	}
 
-	else if (state == State::SETTINGS) {
+	else if (m_gameState == GameState::SETTINGS) {
 		window.setView(mainView);
 		window.draw(spriteGameOver);
 		window.draw(settingsText);
 
-		for (std::list<GUI::Button>::iterator it = settingsButtons.begin(); it != settingsButtons.end(); ++it) {
-			window.draw(*it);
+		if (m_currentSettingsPage == SettingsPage::LIST) {
+			for (std::list<GUI::Button>::iterator it = btnLst_allSettings.begin(); it != btnLst_allSettings.end(); ++it) {
+				window.draw(*it);
+			}
+		}
+		else if (m_currentSettingsPage == SettingsPage::GRAPHICS) {
+			for (std::list<GUI::Button>::iterator it = btnLst_graphicsSettings.begin(); it != btnLst_graphicsSettings.end(); ++it) {
+				window.draw(*it);
+			}
+		}
+		else if (m_currentSettingsPage == SettingsPage::AUDIO) {
+			for (std::list<GUI::Button>::iterator it = btnLst_audioSettings.begin(); it != btnLst_audioSettings.end(); ++it) {
+				window.draw(*it);
+			}
+		}
+		else if (m_currentSettingsPage == SettingsPage::GAMEPLAY) {
+			for (std::list<GUI::Button>::iterator it = btnLst_gameplaySettings.begin(); it != btnLst_gameplaySettings.end(); ++it) {
+				window.draw(*it);
+			}
 		}
 	}
 
-	else if (state == State::GAME_OVER) {
+	else if (m_gameState == GameState::GAME_OVER) {
 		window.draw(spriteGameOver);
 		window.draw(gameOverText);
 		window.draw(scoreText);
 		window.draw(hiScoreText);
 
-		for (std::list<GUI::Button>::iterator it = gameOverButtons.begin(); it != gameOverButtons.end(); ++it) {
+		for (std::list<GUI::Button>::iterator it = btnLst_gameOver.begin(); it != btnLst_gameOver.end(); ++it) {
 			window.draw(*it);
 		}
 	}

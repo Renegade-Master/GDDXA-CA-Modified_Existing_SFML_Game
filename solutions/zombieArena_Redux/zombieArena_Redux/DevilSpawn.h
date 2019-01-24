@@ -43,9 +43,14 @@ private:
 	std::vector<Devil> createHorde(int numDevils, sf::IntRect arena);
 	   
 	// The game will always be in one of six states
-	enum class State { PLAYING, PAUSED, MAIN_MENU, LEVELING_UP, SETTINGS, GAME_OVER };
-	// Start with the MAIN_MENU state
-	State state = State::MAIN_MENU;
+	enum class GameState { PLAYING, PAUSED, MAIN_MENU, LEVELING_UP, SETTINGS, GAME_OVER };
+	// Start with the MAIN_MENU m_gameState
+	GameState m_gameState = GameState::MAIN_MENU;
+
+	// Settings pages
+	enum class SettingsPage { LIST, GRAPHICS, AUDIO, GAMEPLAY};
+	SettingsPage m_currentSettingsPage = SettingsPage::LIST;
+
 
 	// Set the screen resolution and create an SFML window
 	sf::Vector2f resolution;
@@ -68,7 +73,7 @@ private:
 
 	// Clock for timings
 	sf::Clock clock;
-	// How long has the PLAYING state been active
+	// How long has the PLAYING m_gameState been active
 	sf::Time gameTimeTotal;
 
 	// Where is the mouse in relation to world coordinates
@@ -143,10 +148,13 @@ private:
 	sf::Text waveNumberText;
 
 	// Declare Buttons Lists
-	std::list<GUI::Button> gameOverButtons;
-	std::list<GUI::Button> levelUpButtons;
-	std::list<GUI::Button> mainMenuButtons;
-	std::list<GUI::Button> settingsButtons;
+	std::list<GUI::Button> btnLst_gameOver;
+	std::list<GUI::Button> btnLst_levelUp;
+	std::list<GUI::Button> btnLst_mainMenu;
+	std::list<GUI::Button> btnLst_allSettings;
+	std::list<GUI::Button> btnLst_graphicsSettings;
+	std::list<GUI::Button> btnLst_audioSettings;
+	std::list<GUI::Button> btnLst_gameplaySettings;
 
 	// Declare Shapes
 	sf::RectangleShape pausedShader;

@@ -20,14 +20,14 @@ GUI::Button::Button(std::string s, sf::Font& font, sf::Vector2f position, sf::Ui
 	//set position
 	this->m_position = position;
 
-	//set initial state
-	this->m_btnstate = GUI::State::normal;
+	//set initial Button State
+	this->m_btnstate = GUI::ButtonState::normal;
 
 	//set button style
 	this->m_style = style;
 
 	switch (this->m_style) {
-	case GUI::Style::none:
+	case GUI::ButtonStyle::none:
 		this->m_textNormal = sf::Color(255, 255, 255);
 		this->m_textHover = sf::Color(255, 255, 255);
 		this->m_textClicked = sf::Color(255, 255, 255);
@@ -36,7 +36,7 @@ GUI::Button::Button(std::string s, sf::Font& font, sf::Vector2f position, sf::Ui
 		this->m_bgClicked = sf::Color(150, 150, 150);
 	break;
 
-	case GUI::Style::save:
+	case GUI::ButtonStyle::save:
 		this->m_textNormal = sf::Color(255, 255, 255);
 		this->m_textHover = sf::Color(255, 255, 255);
 		this->m_textClicked = sf::Color(255, 255, 255);
@@ -45,7 +45,7 @@ GUI::Button::Button(std::string s, sf::Font& font, sf::Vector2f position, sf::Ui
 		this->m_bgClicked = sf::Color(0, 150, 0);
 	break;
 
-	case GUI::Style::cancel:
+	case GUI::ButtonStyle::cancel:
 		this->m_textNormal = sf::Color(255, 255, 255);
 		this->m_textHover = sf::Color(255, 255, 255);
 		this->m_textClicked = sf::Color(255, 255, 255);
@@ -54,7 +54,7 @@ GUI::Button::Button(std::string s, sf::Font& font, sf::Vector2f position, sf::Ui
 		this->m_bgClicked = sf::Color(150, 0, 0);
 	break;
 
-	case GUI::Style::clean:
+	case GUI::ButtonStyle::clean:
 		this->m_textNormal = sf::Color(255, 255, 255);
 		this->m_textHover = sf::Color(255, 255, 255);
 		this->m_textClicked = sf::Color(255, 255, 255);
@@ -125,14 +125,14 @@ void GUI::Button::setText(std::string s) {
 
 
 /**
-*	@description	- Set a Pre-Assigned Style to the button
+*	@description	- Set a Pre-Assigned ButtonStyle to the button
 */
 void GUI::Button::setStyle(sf::Uint32 style) {
 	//set button style
 	this->m_style = style;
 
 	switch (this->m_style) {
-	case GUI::Style::none:
+	case GUI::ButtonStyle::none:
 		this->m_textNormal = sf::Color(255, 255, 255);
 		this->m_textHover = sf::Color(255, 255, 255);
 		this->m_textClicked = sf::Color(255, 255, 255);
@@ -141,7 +141,7 @@ void GUI::Button::setStyle(sf::Uint32 style) {
 		this->m_bgClicked = sf::Color(150, 150, 150);
 	break;
 
-	case GUI::Style::save:
+	case GUI::ButtonStyle::save:
 		this->m_textNormal = sf::Color(255, 255, 255);
 		this->m_textHover = sf::Color(255, 255, 255);
 		this->m_textClicked = sf::Color(255, 255, 255);
@@ -150,7 +150,7 @@ void GUI::Button::setStyle(sf::Uint32 style) {
 		this->m_bgClicked = sf::Color(0, 150, 0);
 	break;
 
-	case GUI::Style::cancel:
+	case GUI::ButtonStyle::cancel:
 		this->m_textNormal = sf::Color(255, 255, 255);
 		this->m_textHover = sf::Color(255, 255, 255);
 		this->m_textClicked = sf::Color(255, 255, 255);
@@ -159,7 +159,7 @@ void GUI::Button::setStyle(sf::Uint32 style) {
 		this->m_bgClicked = sf::Color(150, 0, 0);
 	break;
 
-	case GUI::Style::clean:
+	case GUI::ButtonStyle::clean:
 		this->m_textNormal = sf::Color(255, 255, 255);
 		this->m_textHover = sf::Color(255, 255, 255);
 		this->m_textClicked = sf::Color(255, 255, 255);
@@ -190,7 +190,7 @@ void GUI::Button::update(sf::Event& e, sf::RenderWindow& window) {
 	//perform updates for settings from user
 	sf::Vector2f textPosition;
 	switch (this->m_style) {
-	case GUI::Style::none:
+	case GUI::ButtonStyle::none:
 		this->m_size = sf::Vector2f(this->m_text.getGlobalBounds().width * 1.5f, this->m_text.getGlobalBounds().height * 1.75f);
 		this->m_button = sf::RectangleShape(this->m_size);
 		this->m_button.setOrigin(this->m_button.getGlobalBounds().width / 2, this->m_button.getGlobalBounds().height / 2);
@@ -204,7 +204,7 @@ void GUI::Button::update(sf::Event& e, sf::RenderWindow& window) {
 		this->m_shadow.setFillColor(sf::Color(0, 0, 0));
 	break;
 
-	case GUI::Style::save:
+	case GUI::ButtonStyle::save:
 		this->m_size = sf::Vector2f(this->m_text.getGlobalBounds().width * 1.5f, this->m_text.getGlobalBounds().height * 1.75f);
 		this->m_button = sf::RectangleShape(this->m_size);
 		this->m_button.setOrigin(this->m_button.getGlobalBounds().width / 2, this->m_button.getGlobalBounds().height / 2);
@@ -218,7 +218,7 @@ void GUI::Button::update(sf::Event& e, sf::RenderWindow& window) {
 		this->m_shadow.setFillColor(sf::Color(0, 0, 0));
 	break;
 
-	case GUI::Style::cancel:
+	case GUI::ButtonStyle::cancel:
 		this->m_size = sf::Vector2f(this->m_text.getGlobalBounds().width * 1.5f, this->m_text.getGlobalBounds().height * 1.75f);
 		this->m_button = sf::RectangleShape(this->m_size);
 		this->m_button.setOrigin(this->m_button.getGlobalBounds().width / 2, this->m_button.getGlobalBounds().height / 2);
@@ -232,7 +232,7 @@ void GUI::Button::update(sf::Event& e, sf::RenderWindow& window) {
 		this->m_shadow.setFillColor(sf::Color(0, 0, 0));
 	break;
 
-	case GUI::Style::clean:
+	case GUI::ButtonStyle::clean:
 		this->m_size = sf::Vector2f(this->m_text.getGlobalBounds().width * 1.5f, this->m_text.getGlobalBounds().height * 1.75f);
 		this->m_button = sf::RectangleShape(this->m_size);
 		this->m_button.setOrigin(this->m_button.getGlobalBounds().width / 2, this->m_button.getGlobalBounds().height / 2);
@@ -261,12 +261,12 @@ void GUI::Button::update(sf::Event& e, sf::RenderWindow& window) {
 	if (e.type == sf::Event::MouseMoved) {
 		if (mouseInButton)
 		{
-			this->m_btnstate = GUI::State::hovered;
+			this->m_btnstate = GUI::ButtonState::hovered;
 		}
 
 		else
 		{
-			this->m_btnstate = GUI::State::normal;
+			this->m_btnstate = GUI::ButtonState::normal;
 		}
 	}
 
@@ -277,12 +277,12 @@ void GUI::Button::update(sf::Event& e, sf::RenderWindow& window) {
 		{
 			if (mouseInButton)
 			{
-				this->m_btnstate = GUI::State::clicked;
+				this->m_btnstate = GUI::ButtonState::clicked;
 			}
 
 			else
 			{
-				this->m_btnstate = GUI::State::normal;
+				this->m_btnstate = GUI::ButtonState::normal;
 			}
 		}
 		break;
@@ -296,29 +296,29 @@ void GUI::Button::update(sf::Event& e, sf::RenderWindow& window) {
 		{
 			if (mouseInButton)
 			{
-				this->m_btnstate = GUI::State::hovered;
+				this->m_btnstate = GUI::ButtonState::hovered;
 			}
 
 			else
 			{
-				this->m_btnstate = GUI::State::normal;
+				this->m_btnstate = GUI::ButtonState::normal;
 			}
 		}
 		}
 	}
 
 	switch (this->m_btnstate) {
-	case GUI::State::normal:
+	case GUI::ButtonState::normal:
 		this->m_button.setFillColor(this->m_bgNormal);
 		this->m_text.setFillColor(this->m_textNormal);
 	break;
 
-	case GUI::State::hovered:
+	case GUI::ButtonState::hovered:
 		this->m_button.setFillColor(this->m_bgHover);
 		this->m_text.setFillColor(this->m_textHover);
 	break;
 
-	case GUI::State::clicked:
+	case GUI::ButtonState::clicked:
 		this->m_button.setFillColor(this->m_bgClicked);
 		this->m_text.setFillColor(this->m_textClicked);
 	break;
@@ -331,25 +331,25 @@ void GUI::Button::update(sf::Event& e, sf::RenderWindow& window) {
 */
 void GUI::Button::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	switch (this->m_style) {
-	case GUI::Style::none:
+	case GUI::ButtonStyle::none:
 		target.draw(this->m_button, states);
 		target.draw(this->m_shadow, states);
 		target.draw(this->m_text, states);
 	break;
 
-	case GUI::Style::save:
+	case GUI::ButtonStyle::save:
 		target.draw(this->m_button, states);
 		target.draw(this->m_shadow, states);
 		target.draw(this->m_text, states);
 	break;
 
-	case GUI::Style::cancel:
+	case GUI::ButtonStyle::cancel:
 		target.draw(this->m_button, states);
 		target.draw(this->m_shadow, states);
 		target.draw(this->m_text, states);
 	break;
 
-	case GUI::Style::clean:
+	case GUI::ButtonStyle::clean:
 		target.draw(this->m_button, states);
 		target.draw(this->m_shadow, states);
 		target.draw(this->m_text, states);

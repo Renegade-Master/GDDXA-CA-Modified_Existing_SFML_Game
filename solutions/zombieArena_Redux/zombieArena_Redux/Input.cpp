@@ -17,28 +17,28 @@ void DevilSpawn::Input() {
 		if (evnt.type == sf::Event::KeyPressed) {
 			// Pause while Playing
 			if (evnt.key.code == sf::Keyboard::Escape &&
-				state == State::PLAYING) {
-				state = State::PAUSED;
+				m_gameState == GameState::PLAYING) {
+				m_gameState = GameState::PAUSED;
 			}
 
 			// Restart while Paused
 			else if (evnt.key.code == sf::Keyboard::Return &&
-				state == State::PAUSED) {
-				state = State::PLAYING;
+				m_gameState == GameState::PAUSED) {
+				m_gameState = GameState::PLAYING;
 				// Reset the clock so there isn't a frame jump
 				clock.restart();
 			}
 
 			// Quit while Paused
 			else if (evnt.key.code == sf::Keyboard::Q &&
-				state == State::PAUSED) {
-				state = State::MAIN_MENU;
+				m_gameState == GameState::PAUSED) {
+				m_gameState = GameState::MAIN_MENU;
 			}
 
 			// Go to Main Menu while in Settings
 			else if (evnt.key.code == sf::Keyboard::Escape &&
-				state == State::SETTINGS) {
-				state = State::MAIN_MENU;
+				m_gameState == GameState::SETTINGS) {
+				m_gameState = GameState::MAIN_MENU;
 			}
 
 			// Spin and zoom the world				
@@ -59,8 +59,8 @@ void DevilSpawn::Input() {
 			}
 			// End spinning and zooming
 
-			// Handle Events in PLAYING state
-			if (state == State::PLAYING) {
+			// Handle Events in PLAYING m_gameState
+			if (m_gameState == GameState::PLAYING) {
 				// Reloading
 				if (evnt.key.code == sf::Keyboard::R) {
 					if (player.reload()) {
@@ -70,7 +70,7 @@ void DevilSpawn::Input() {
 						reloadFailed.play();
 					}
 				}
-			} // End Handling Events in PLAYING state
+			} // End Handling Events in PLAYING m_gameState
 		}
 		// Handle Mouse Events
 		else if (evnt.type == sf::Event::MouseButtonPressed) {
@@ -79,7 +79,7 @@ void DevilSpawn::Input() {
 	}// End event polling
 
 	// Handle controls while playing
-	if (state == State::PLAYING) {
+	if (m_gameState == GameState::PLAYING) {
 		// Handle the pressing and releasing of the WASD keys
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 			player.moveUp();
@@ -132,21 +132,21 @@ void DevilSpawn::Input() {
 	}// End handling controls while playing
 
 	// Handle the Paused controls
-	else if (state == State::PAUSED) {
+	else if (m_gameState == GameState::PAUSED) {
 
 	} // End Paused controls
 
 	// Handle the main menu controls
-	else if (state == State::MAIN_MENU) {
+	else if (m_gameState == GameState::MAIN_MENU) {
 		// Begin Button handling
 		if (evnt.type == sf::Event::MouseButtonPressed) {
 			int i = 0;
-			for (std::list<GUI::Button>::iterator it = mainMenuButtons.begin(); it != mainMenuButtons.end(); ++it) {
+			for (std::list<GUI::Button>::iterator it = btnLst_mainMenu.begin(); it != btnLst_mainMenu.end(); ++it) {
 				switch (i++) {
 				case 0: // Play Button
-					if (it->getState() == GUI::State::clicked) {
+					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();
-						state = State::LEVELING_UP;
+						m_gameState = GameState::LEVELING_UP;
 						wave = 0;
 						score = 0;
 
@@ -155,13 +155,13 @@ void DevilSpawn::Input() {
 					}
 					break;
 				case 1: // Settings Button
-					if (it->getState() == GUI::State::clicked) {
+					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();
-						state = State::SETTINGS;
+						m_gameState = GameState::SETTINGS;
 					}
 					break;
 				case 2: // Quit Button
-					if (it->getState() == GUI::State::clicked) {
+					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();
 						window.close();
 					}
@@ -171,65 +171,65 @@ void DevilSpawn::Input() {
 		} // End Button Handling
 	} // End Main Menu Controls
 
-	// Handle the levelling up state
-	else if (state == State::LEVELING_UP) {
+	// Handle the levelling up m_gameState
+	else if (m_gameState == GameState::LEVELING_UP) {
 		// Begin Button handling
 		if (evnt.type == sf::Event::MouseButtonPressed) {
 			int i = 0;
-			for (std::list<GUI::Button>::iterator it = levelUpButtons.begin(); it != levelUpButtons.end(); ++it) {
+			for (std::list<GUI::Button>::iterator it = btnLst_levelUp.begin(); it != btnLst_levelUp.end(); ++it) {
 				switch (i++) {
 				case 0: // Rate of Fire Upgrade Button
-					if (it->getState() == GUI::State::clicked) {
+					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();// Increase fire rate
 						player.fireRate++;
-						state = State::PLAYING;
+						m_gameState = GameState::PLAYING;
 					}
 					break;
 				case 1: // Clip Size Upgrade Button
-					if (it->getState() == GUI::State::clicked) {
+					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();// Increase clip size
 						player.clipSize += player.clipSize;
-						state = State::PLAYING;
+						m_gameState = GameState::PLAYING;
 					}
 					break;
 				case 2: // Health Upgrade Button
-					if (it->getState() == GUI::State::clicked) {
+					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();// Increase health
 						player.upgradeHealth();
-						state = State::PLAYING;
+						m_gameState = GameState::PLAYING;
 					}
 					break;
 				case 3: // Run Speed Upgrade Button
-					if (it->getState() == GUI::State::clicked) {
+					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();// Increase speed
 						player.upgradeSpeed();
-						state = State::PLAYING;
+						m_gameState = GameState::PLAYING;
 					}
 					break;
 				case 4: // Health Pickup Upgrade Button
-					if (it->getState() == GUI::State::clicked) {
+					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();
 						healthPickup.upgrade();
-						state = State::PLAYING;
+						m_gameState = GameState::PLAYING;
 					}
 					break;
 				case 5: // Ammo Pickup Upgrade Button
-					if (it->getState() == GUI::State::clicked) {
+					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();
 						ammoPickup.upgrade();
-						state = State::PLAYING;
+						m_gameState = GameState::PLAYING;
 					}
 					break;
 				case 6: // Back Button
-					if (it->getState() == GUI::State::clicked) {
+					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();
-						state = State::MAIN_MENU;
+						m_gameState = GameState::MAIN_MENU;
 					}
 					break;
 				}
 			}
 		}
-		if (state == State::PLAYING) {
+		if (m_gameState == GameState::PLAYING) {
 			// Increase the wave number
 			wave++;
 
@@ -268,52 +268,90 @@ void DevilSpawn::Input() {
 	}// End handling controls while levelling up
 
 	// Handle the Settings controls
-	else if (state == State::SETTINGS) {
+	else if (m_gameState == GameState::SETTINGS) {
 		// Begin Button handling
 		if (evnt.type == sf::Event::MouseButtonPressed) {
 			int i = 0;
-			for (std::list<GUI::Button>::iterator it = settingsButtons.begin(); it != settingsButtons.end(); ++it) {
-				switch (i++) {
-				case 0: // Graphics Settings Button
-					if (it->getState() == GUI::State::clicked) {
-						buttonClick.play();
-						std::cout << "No Graphics Settings Yet." << std::endl;
+			if (m_currentSettingsPage == SettingsPage::LIST) {
+				for (std::list<GUI::Button>::iterator it = btnLst_allSettings.begin(); it != btnLst_allSettings.end(); ++it) {
+					switch (i++) {
+					case 0: // Graphics Settings Button
+						if (it->getState() == GUI::ButtonState::clicked) {
+							buttonClick.play();
+							//std::cout << "No Graphics Settings Yet." << std::endl;
+							m_currentSettingsPage = SettingsPage::GRAPHICS;
+						}
+						break;
+					case 1: // Audio Settings Button
+						if (it->getState() == GUI::ButtonState::clicked) {
+							buttonClick.play();
+							//std::cout << "No Gameplay Settings Yet." << std::endl;
+							m_currentSettingsPage = SettingsPage::AUDIO;
+						}
+						break;
+					case 2: // GamePlay Settings Button
+						if (it->getState() == GUI::ButtonState::clicked) {
+							buttonClick.play();
+							//std::cout << "No Audio Settings Yet." << std::endl;
+							m_currentSettingsPage = SettingsPage::GAMEPLAY;
+						}
+						break;
+					case 3: // Back Button
+						if (it->getState() == GUI::ButtonState::clicked) {
+							buttonClick.play();
+							m_gameState = GameState::MAIN_MENU;
+						}
+						break;
 					}
-					break;
-				case 1: // GamePlay Settings Button
-					if (it->getState() == GUI::State::clicked) {
-						buttonClick.play();
-						std::cout << "No Gameplay Settings Yet." << std::endl;
-					}
-					break;
-				case 2: // Audio Settings Button
-					if (it->getState() == GUI::State::clicked) {
-						buttonClick.play();
-						std::cout << "No Audio Settings Yet." << std::endl;
-					}
-					break;
-				case 3: // Back Button
-					if (it->getState() == GUI::State::clicked) {
-						buttonClick.play();
-						state = State::MAIN_MENU;
-					}
-					break;
 				}
-			}
+			} // End All Settings Page
+			else if (m_currentSettingsPage == SettingsPage::GRAPHICS) {
+				for (std::list<GUI::Button>::iterator it = btnLst_graphicsSettings.begin(); it != btnLst_graphicsSettings.end(); ++it) {
+					switch (i++) {
+					case 0: // Back Button
+						if (it->getState() == GUI::ButtonState::clicked) {
+							buttonClick.play();
+							m_currentSettingsPage = SettingsPage::LIST;
+						}
+					}
+				}
+			} // End Graphics Settings Page
+			else if (m_currentSettingsPage == SettingsPage::AUDIO) {
+				for (std::list<GUI::Button>::iterator it = btnLst_audioSettings.begin(); it != btnLst_audioSettings.end(); ++it) {
+					switch (i++) {
+					case 0: // Back Button
+						if (it->getState() == GUI::ButtonState::clicked) {
+							buttonClick.play();
+							m_currentSettingsPage = SettingsPage::LIST;
+						}
+					}
+				}
+			} // End Audio Settings Page
+			else if (m_currentSettingsPage == SettingsPage::GAMEPLAY) {
+				for (std::list<GUI::Button>::iterator it = btnLst_gameplaySettings.begin(); it != btnLst_gameplaySettings.end(); ++it) {
+					switch (i++) {
+					case 0: // Back Button
+						if (it->getState() == GUI::ButtonState::clicked) {
+							buttonClick.play();
+							m_currentSettingsPage = SettingsPage::LIST;
+						}
+					}
+				}
+			} // End Gameplay Settings Page
 		} // End Button Handling
 	} // End Settings controls
 
 	// Handle the Game Over controls
-	else if (state == State::GAME_OVER) {
+	else if (m_gameState == GameState::GAME_OVER) {
 		// Begin Button handling
 		if (evnt.type == sf::Event::MouseButtonPressed) {
 			int i = 0;
-			for (std::list<GUI::Button>::iterator it = gameOverButtons.begin(); it != gameOverButtons.end(); ++it) {
+			for (std::list<GUI::Button>::iterator it = btnLst_gameOver.begin(); it != btnLst_gameOver.end(); ++it) {
 				switch (i++) {
 				case 0: // Retry Button
-					if (it->getState() == GUI::State::clicked) {
+					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();
-						state = State::LEVELING_UP;
+						m_gameState = GameState::LEVELING_UP;
 						wave = 0;
 						score = 0;
 
@@ -322,9 +360,9 @@ void DevilSpawn::Input() {
 					}
 					break;
 				case 1: // Main Menu Button
-					if (it->getState() == GUI::State::clicked) {
+					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();
-						state = State::MAIN_MENU;
+						m_gameState = GameState::MAIN_MENU;
 					}
 					break;
 				}
