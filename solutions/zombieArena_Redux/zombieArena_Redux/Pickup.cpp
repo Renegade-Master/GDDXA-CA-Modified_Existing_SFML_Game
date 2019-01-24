@@ -16,20 +16,22 @@ Pickup::Pickup(int type) {
 	m_Type = type;
 
 	// Associate the texture with the sprite
-	if (m_Type == 1) {
+	switch (m_Type) {
+	case 1:
 		m_Sprite = sf::Sprite(TextureHolder::GetTexture(
-			"graphics/health_pickup.png"));
+			"graphics\\health_pickup.png"));
 
 		// How much is pickup worth
 		m_Value = HEALTH_START_VALUE;
+		break;
 
-	}
-	else {
+	case 2:
 		m_Sprite = sf::Sprite(TextureHolder::GetTexture(
-			"graphics/ammo_pickup.png"));
+			"graphics\\ammo_pickup.png"));
 
 		// How much is pickup worth
 		m_Value = AMMO_START_VALUE;
+		break;
 	}
 
 	m_Sprite.setOrigin(25, 25);
