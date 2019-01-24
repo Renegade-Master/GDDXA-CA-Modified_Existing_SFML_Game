@@ -207,7 +207,7 @@ int DevilSpawn::runGame() {
 	hiScoreText.setFont(font);
 	hiScoreText.setCharacterSize(55);
 	hiScoreText.setFillColor(sf::Color::White);
-	hiScoreText.setPosition(resolution.x - 275, 0);
+	hiScoreText.setPosition(resolution.x - 300, 0);
 	std::stringstream s;
 	s << "Hi Score:" << hiScore;
 	hiScoreText.setString(s.str());
