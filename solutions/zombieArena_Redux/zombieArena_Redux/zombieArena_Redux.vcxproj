@@ -132,6 +132,9 @@
     <ClCompile Include="CreateBackground.cpp" />
     <ClCompile Include="CreateHorde.cpp" />
     <ClCompile Include="Draw.cpp" />
+    <ClCompile Include="initButtons.cpp" />
+    <ClCompile Include="initSounds.cpp" />
+    <ClCompile Include="initText.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pickup.cpp" />
