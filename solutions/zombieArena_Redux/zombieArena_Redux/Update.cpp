@@ -210,6 +210,14 @@ void DevilSpawn::Update() {
 		// Change Mouse to Menu Mouse
 		window.setMouseCursorVisible(true);
 
+		// Update Settings to Newly set Values
+		window.setFramerateLimit(m_frameRate);
+		window.setVerticalSyncEnabled(m_vSyncActive);
+		std::cout 
+			<< "Current Resolution:\t" << resolution.x << " x " << resolution.y << std::endl
+			<< "Framerate:\t\t" << m_frameRate << std::endl
+			<< "V-Sync Status:\t\t" << m_vSyncActive << std::endl << std::endl;;
+
 		if (m_currentSettingsPage == SettingsPage::LIST) {
 			for (std::list<GUI::Button>::iterator it = btnLst_allSettings.begin(); it != btnLst_allSettings.end(); ++it) {
 				it->update(evnt, window);

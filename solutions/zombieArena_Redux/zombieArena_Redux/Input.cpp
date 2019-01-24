@@ -308,11 +308,48 @@ void DevilSpawn::Input() {
 			else if (m_currentSettingsPage == SettingsPage::GRAPHICS) {
 				for (std::list<GUI::Button>::iterator it = btnLst_graphicsSettings.begin(); it != btnLst_graphicsSettings.end(); ++it) {
 					switch (i++) {
-					case 0: // Back Button
+					case 0: // Fullscreen Button
+						if (it->getState() == GUI::ButtonState::clicked) {
+							buttonClick.play();
+							m_frameRate = 30;
+						}
+						break;
+					case 1: // Windowed Button
+						if (it->getState() == GUI::ButtonState::clicked) {
+							buttonClick.play();
+							m_frameRate = 30;
+						}
+						break;
+					case 2: // 30 FPS Button
+						if (it->getState() == GUI::ButtonState::clicked) {
+							buttonClick.play();
+							m_frameRate = 30;
+						}
+						break;
+					case 3: // 60 FPS Button
+						if (it->getState() == GUI::ButtonState::clicked) {
+							buttonClick.play();
+							m_frameRate = 60;
+						}
+						break;
+					case 4: // VSync ON Button
+						if (it->getState() == GUI::ButtonState::clicked) {
+							buttonClick.play();
+							m_vSyncActive = true;
+						}
+						break;
+					case 5: // VSync OFF Button
+						if (it->getState() == GUI::ButtonState::clicked) {
+							buttonClick.play();
+							m_vSyncActive = false;
+						}
+						break;
+					case 6: // Back Button
 						if (it->getState() == GUI::ButtonState::clicked) {
 							buttonClick.play();
 							m_currentSettingsPage = SettingsPage::LIST;
 						}
+						break;
 					}
 				}
 			} // End Graphics Settings Page
@@ -324,6 +361,7 @@ void DevilSpawn::Input() {
 							buttonClick.play();
 							m_currentSettingsPage = SettingsPage::LIST;
 						}
+						break;
 					}
 				}
 			} // End Audio Settings Page
@@ -335,6 +373,7 @@ void DevilSpawn::Input() {
 							buttonClick.play();
 							m_currentSettingsPage = SettingsPage::LIST;
 						}
+						break;
 					}
 				}
 			} // End Gameplay Settings Page

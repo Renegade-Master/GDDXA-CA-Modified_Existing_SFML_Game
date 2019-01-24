@@ -99,6 +99,7 @@ void DevilSpawn::Draw() {
 			}
 		}
 		else if (m_currentSettingsPage == SettingsPage::GRAPHICS) {
+			window.draw(graphicsSettingsText);
 			for (std::list<GUI::Button>::iterator it = btnLst_graphicsSettings.begin(); it != btnLst_graphicsSettings.end(); ++it) {
 				window.draw(*it);
 			}

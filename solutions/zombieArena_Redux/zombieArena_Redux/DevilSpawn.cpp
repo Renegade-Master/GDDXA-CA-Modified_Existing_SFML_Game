@@ -21,6 +21,9 @@ DevilSpawn::DevilSpawn() {
 	window.create(sf::VideoMode(resolution.x, resolution.y),
 		"Devil Spawn", sf::Style::Default);
 
+	window.setFramerateLimit(m_frameRate);
+	window.setVerticalSyncEnabled(m_vSyncActive);
+
 	// Create the Main SFML View
 	mainView.setSize(resolution);
 	mainView.reset(sf::FloatRect(0, 0, resolution.x, resolution.y));

@@ -58,6 +58,9 @@ private:
 
 	sf::RenderWindow window;
 
+	unsigned int m_frameRate = 60;
+	bool m_vSyncActive = false;
+
 	// Create an SFML View
 	sf::View mainView;
 	// Create a view for the HUD
@@ -140,12 +143,15 @@ private:
 	sf::Text gameOverText;
 	sf::Text levelUpText;
 	sf::Text mainMenuText;
-	sf::Text settingsText;
 	sf::Text ammoText;
 	sf::Text scoreText;
 	sf::Text hiScoreText;
 	sf::Text hordeRemainingText;
 	sf::Text waveNumberText;
+	sf::Text settingsText;
+	sf::Text graphicsSettingsText;
+	sf::Text audioSettingsText;
+	sf::Text gameplaySettingsText;
 
 	// Declare Buttons Lists
 	std::list<GUI::Button> btnLst_gameOver;
