@@ -7,6 +7,10 @@
 #include "Pickup.h"
 #include "TextureHolder.h"
 
+Pickup::Pickup() {
+	//ctor
+}
+
 Pickup::Pickup(int type) {
 	// Store the type of this pickup
 	m_Type = type;

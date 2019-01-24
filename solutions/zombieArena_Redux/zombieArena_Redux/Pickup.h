@@ -40,7 +40,8 @@ private:
 
 // Public prototypes go here
 public:
-	/*Pickup::*/Pickup(int type);
+	Pickup();
+	Pickup(int type);
 
 	// Prepare a new pickup
 	void setArena(sf::IntRect arena);
