@@ -81,6 +81,8 @@ private:
 	sf::Clock clock;
 	// How long has the PLAYING m_gameState been active
 	sf::Time gameTimeTotal;
+	sf::Time dt;
+	float dtAsSeconds;
 
 	// Where is the mouse in relation to world coordinates
 	sf::Vector2f mouseWorldPosition;

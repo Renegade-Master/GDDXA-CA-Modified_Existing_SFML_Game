@@ -22,6 +22,7 @@ GUI::Button::Button(std::string s, sf::Font& font, sf::Vector2f position, sf::Ui
 
 	//set initial Button State
 	this->m_btnstate = GUI::ButtonState::normal;
+	this->m_sinceLastClick = sf::Time::Zero;
 
 	//set button style
 	this->m_style = style;
@@ -186,7 +187,7 @@ void GUI::Button::setFont(sf::Font& font) {
 /**
 *	@description	- Update the button
 */
-void GUI::Button::update(sf::Event& e, sf::RenderWindow& window) {
+void GUI::Button::update(sf::Event& e, sf::Time t, sf::RenderWindow& window) {
 	//perform updates for settings from user
 	sf::Vector2f textPosition;
 	switch (this->m_style) {
@@ -271,21 +272,18 @@ void GUI::Button::update(sf::Event& e, sf::RenderWindow& window) {
 	}
 
 	if (e.type == sf::Event::MouseButtonPressed) {
-		switch (e.mouseButton.button)
-		{
-		case sf::Mouse::Left:
-		{
-			if (mouseInButton)
-			{
-				this->m_btnstate = GUI::ButtonState::clicked;
+		if ((t.asMilliseconds() - this->m_sinceLastClick.asMilliseconds()) > 750.0f) {
+			switch (e.mouseButton.button) {
+			case sf::Mouse::Left:
+				if (mouseInButton) {
+					this->m_btnstate = GUI::ButtonState::clicked;
+					this->m_sinceLastClick = t;
+				}
+				else {
+					this->m_btnstate = GUI::ButtonState::normal;
+				}
+				break;
 			}
-
-			else
-			{
-				this->m_btnstate = GUI::ButtonState::normal;
-			}
-		}
-		break;
 		}
 	}
 

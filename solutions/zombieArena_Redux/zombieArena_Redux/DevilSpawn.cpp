@@ -74,6 +74,12 @@ void DevilSpawn::runGame() {
 	\***--------------***/
 
 	while (window.isOpen())	{
+		// Update the delta time
+		dt = clock.restart();
+		// Update the total game time
+		gameTimeTotal += dt;
+		// Make a decimal fraction of 1 from the delta time
+		dtAsSeconds = dt.asSeconds();
 
 		Input();
 		Update();

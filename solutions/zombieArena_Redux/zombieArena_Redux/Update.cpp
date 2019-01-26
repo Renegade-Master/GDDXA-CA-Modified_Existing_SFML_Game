@@ -18,12 +18,6 @@ void DevilSpawn::Update() {
 		texture_mouse = TextureHolder::GetTexture("Graphics\\crosshair.png");
 		sprite_mouse.setTexture(texture_mouse);
 		sprite_mouse.setOrigin(25, 25);
-		// Update the delta time
-		sf::Time dt = clock.restart();
-		// Update the total game time
-		gameTimeTotal += dt;
-		// Make a decimal fraction of 1 from the delta time
-		float dtAsSeconds = dt.asSeconds();
 
 		// Where is the mouse pointer
 		mouseScreenPosition = sf::Mouse::getPosition(window);
@@ -191,7 +185,7 @@ void DevilSpawn::Update() {
 		window.setMouseCursorVisible(true);
 
 		for (std::list<GUI::Button>::iterator it = btnLst_mainMenu.begin(); it != btnLst_mainMenu.end(); ++it) {
-			it->update(evnt, window);
+			it->update(evnt, gameTimeTotal, window);
 		}
 	}
 
@@ -201,7 +195,7 @@ void DevilSpawn::Update() {
 		window.setMouseCursorVisible(true);
 
 		for (std::list<GUI::Button>::iterator it = btnLst_levelUp.begin(); it != btnLst_levelUp.end(); ++it) {
-			it->update(evnt, window);
+			it->update(evnt, gameTimeTotal, window);
 		}
 	}
 
@@ -212,12 +206,12 @@ void DevilSpawn::Update() {
 		
 		if (m_currentSettingsPage == SettingsPage::LIST) {
 			for (std::list<GUI::Button>::iterator it = btnLst_allSettings.begin(); it != btnLst_allSettings.end(); ++it) {
-				it->update(evnt, window);
+				it->update(evnt, gameTimeTotal, window);
 			}
 		}
 		else if (m_currentSettingsPage == SettingsPage::GRAPHICS) {
 			for (std::list<GUI::Button>::iterator it = btnLst_graphicsSettings.begin(); it != btnLst_graphicsSettings.end(); ++it) {
-				it->update(evnt, window);
+				it->update(evnt, gameTimeTotal, window);
 			}
 
 			// Update Settings to Newly set Values
@@ -233,12 +227,12 @@ void DevilSpawn::Update() {
 		}
 		else if (m_currentSettingsPage == SettingsPage::AUDIO) {
 			for (std::list<GUI::Button>::iterator it = btnLst_audioSettings.begin(); it != btnLst_audioSettings.end(); ++it) {
-				it->update(evnt, window);
+				it->update(evnt, gameTimeTotal, window);
 			}
 		}
 		else if (m_currentSettingsPage == SettingsPage::GAMEPLAY) {
 			for (std::list<GUI::Button>::iterator it = btnLst_gameplaySettings.begin(); it != btnLst_gameplaySettings.end(); ++it) {
-				it->update(evnt, window);
+				it->update(evnt, gameTimeTotal, window);
 			}
 		}
 	}
@@ -249,7 +243,7 @@ void DevilSpawn::Update() {
 		window.setMouseCursorVisible(true);
 
 		for (std::list<GUI::Button>::iterator it = btnLst_gameOver.begin(); it != btnLst_gameOver.end(); ++it) {
-			it->update(evnt, window);
+			it->update(evnt, gameTimeTotal, window);
 		}
 	}
 }
