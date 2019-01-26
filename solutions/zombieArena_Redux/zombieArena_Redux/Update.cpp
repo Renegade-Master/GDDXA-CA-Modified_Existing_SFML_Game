@@ -12,18 +12,12 @@ void DevilSpawn::Update() {
 		\***------------***/
 
 		// Update while Playing
-	if (state == State::PLAYING) {
+	if (m_gameState == GameState::PLAYING) {
 		// Change the mouse to the GAME mouse
 		window.setMouseCursorVisible(false);
 		texture_mouse = TextureHolder::GetTexture("Graphics\\crosshair.png");
 		sprite_mouse.setTexture(texture_mouse);
 		sprite_mouse.setOrigin(25, 25);
-		// Update the delta time
-		sf::Time dt = clock.restart();
-		// Update the total game time
-		gameTimeTotal += dt;
-		// Make a decimal fraction of 1 from the delta time
-		float dtAsSeconds = dt.asSeconds();
 
 		// Where is the mouse pointer
 		mouseScreenPosition = sf::Mouse::getPosition(window);
@@ -86,7 +80,7 @@ void DevilSpawn::Update() {
 
 							// When all the horde are dead (again)
 							if (numHordeAlive == 0) {
-								state = State::LEVELING_UP;
+								m_gameState = GameState::LEVELING_UP;
 							}
 						}
 
@@ -108,7 +102,7 @@ void DevilSpawn::Update() {
 				}
 
 				if (player.getHealth() <= 0) {
-					state = State::GAME_OVER;
+					m_gameState = GameState::GAME_OVER;
 
 					std::ofstream outputFile("gamedata\\scores.txt");
 					outputFile << hiScore;
@@ -175,53 +169,81 @@ void DevilSpawn::Update() {
 			timeSinceLastUpdate = sf::Time::Zero;
 		}// End HUD update
 
-	}// End updating the PLAYING state
+	}// End updating the PLAYING m_gameState
 
 	// Update while in Paused
-	else if (state == State::PAUSED) {
+	else if (m_gameState == GameState::PAUSED) {
 		// Change Mouse to Menu Mouse
 		window.setMouseCursorVisible(true);
 	}
 
 	// Update while in Main Menu
-	else if (state == State::MAIN_MENU) {
-		mainView.reset(sf::FloatRect(0, 0, resolution.x, resolution.y));
+	else if (m_gameState == GameState::MAIN_MENU) {
+		//mainView.reset(sf::FloatRect(0, 0, resolution.x, resolution.y));
 
 		// Change Mouse to Menu Mouse
 		window.setMouseCursorVisible(true);
 
-		for (std::list<GUI::Button>::iterator it = mainMenuButtons.begin(); it != mainMenuButtons.end(); ++it) {
-			it->update(evnt, window);
+		for (std::list<GUI::Button>::iterator it = btnLst_mainMenu.begin(); it != btnLst_mainMenu.end(); ++it) {
+			it->update(evnt, gameTimeTotal, window);
 		}
 	}
 
 	// Update while in Leveling Up
-	else if (state == State::LEVELING_UP) {
+	else if (m_gameState == GameState::LEVELING_UP) {
 		// Change Mouse to Menu Mouse
 		window.setMouseCursorVisible(true);
 
-		for (std::list<GUI::Button>::iterator it = levelUpButtons.begin(); it != levelUpButtons.end(); ++it) {
-			it->update(evnt, window);
+		for (std::list<GUI::Button>::iterator it = btnLst_levelUp.begin(); it != btnLst_levelUp.end(); ++it) {
+			it->update(evnt, gameTimeTotal, window);
 		}
 	}
 
 	// Update while in Settings
-	else if (state == State::SETTINGS) {
+	else if (m_gameState == GameState::SETTINGS) {
 		// Change Mouse to Menu Mouse
 		window.setMouseCursorVisible(true);
+		
+		if (m_currentSettingsPage == SettingsPage::LIST) {
+			for (std::list<GUI::Button>::iterator it = btnLst_allSettings.begin(); it != btnLst_allSettings.end(); ++it) {
+				it->update(evnt, gameTimeTotal, window);
+			}
+		}
+		else if (m_currentSettingsPage == SettingsPage::GRAPHICS) {
+			for (std::list<GUI::Button>::iterator it = btnLst_graphicsSettings.begin(); it != btnLst_graphicsSettings.end(); ++it) {
+				it->update(evnt, gameTimeTotal, window);
+			}
 
-		for (std::list<GUI::Button>::iterator it = settingsButtons.begin(); it != settingsButtons.end(); ++it) {
-			it->update(evnt, window);
+			// Update Settings to Newly set Values
+			//window.setSize(sf::Vector2u(resolution));
+			//window.setFramerateLimit(m_frameRate);
+			//window.setVerticalSyncEnabled(m_vSyncActive);
+			//mainView.reset(sf::FloatRect(0, 0, resolution.x, resolution.y));
+			
+			std::cout
+				<< "Current Resolution:\t" << resolution.x << " x " << resolution.y << std::endl
+				<< "Framerate:\t\t" << m_frameRate << std::endl
+				<< "V-Sync Status:\t\t" << m_vSyncActive << std::endl << std::endl;;
+		}
+		else if (m_currentSettingsPage == SettingsPage::AUDIO) {
+			for (std::list<GUI::Button>::iterator it = btnLst_audioSettings.begin(); it != btnLst_audioSettings.end(); ++it) {
+				it->update(evnt, gameTimeTotal, window);
+			}
+		}
+		else if (m_currentSettingsPage == SettingsPage::GAMEPLAY) {
+			for (std::list<GUI::Button>::iterator it = btnLst_gameplaySettings.begin(); it != btnLst_gameplaySettings.end(); ++it) {
+				it->update(evnt, gameTimeTotal, window);
+			}
 		}
 	}
 
 	// Update while in Game Over
-	else if (state == State::GAME_OVER) {
+	else if (m_gameState == GameState::GAME_OVER) {
 		// Change Mouse to Menu Mouse
 		window.setMouseCursorVisible(true);
 
-		for (std::list<GUI::Button>::iterator it = gameOverButtons.begin(); it != gameOverButtons.end(); ++it) {
-			it->update(evnt, window);
+		for (std::list<GUI::Button>::iterator it = btnLst_gameOver.begin(); it != btnLst_gameOver.end(); ++it) {
+			it->update(evnt, gameTimeTotal, window);
 		}
 	}
 }

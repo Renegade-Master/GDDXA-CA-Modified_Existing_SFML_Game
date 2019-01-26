@@ -13,7 +13,7 @@ void DevilSpawn::initText() {
 	pausedText.setFillColor(sf::Color::White);
 	pausedText.setPosition(resolution.x * 0.075, resolution.y * 0.25);
 	pausedText.setString("Press Enter to continue or\nQ to go to the Main Menu");
-	
+
 	// Game Over
 	gameOverText.setFont(font);
 	gameOverText.setCharacterSize(100);
@@ -39,15 +39,6 @@ void DevilSpawn::initText() {
 	mainMenuStream << "Welcome to DEVILSPAWN" << std::endl;
 	mainMenuText.setString(mainMenuStream.str());
 
-	// Settings
-	settingsText.setFont(font);
-	settingsText.setCharacterSize(70);
-	settingsText.setFillColor(sf::Color::White);
-	settingsText.setPosition(50, 100);
-	std::stringstream settingsStream;
-	settingsStream << "Configure Game Settings" << std::endl;
-	settingsText.setString(settingsStream.str());
-
 	// Ammo
 	ammoText.setFont(font);
 	ammoText.setCharacterSize(55);
@@ -59,7 +50,7 @@ void DevilSpawn::initText() {
 	scoreText.setCharacterSize(55);
 	scoreText.setFillColor(sf::Color::White);
 	scoreText.setPosition(20, 0);
-	
+
 	// Load the high score from a text file
 	std::ifstream inputFile("gamedata\\scores.txt");
 	if (inputFile.is_open()) {
@@ -71,9 +62,9 @@ void DevilSpawn::initText() {
 	hiScoreText.setCharacterSize(55);
 	hiScoreText.setFillColor(sf::Color::White);
 	hiScoreText.setPosition(resolution.x - 300, 0);
-	std::stringstream s;
-	s << "Hi Score:" << hiScore;
-	hiScoreText.setString(s.str());
+	std::stringstream hiScoreStream;
+	hiScoreStream << "Hi Score:" << hiScore;
+	hiScoreText.setString(hiScoreStream.str());
 
 	// Zombies Remaining
 	hordeRemainingText.setFont(font);
@@ -88,4 +79,26 @@ void DevilSpawn::initText() {
 	waveNumberText.setFillColor(sf::Color::White);
 	waveNumberText.setPosition(resolution.x - 275, resolution.y - 120);
 	waveNumberText.setString("Wave: 0");
+
+	// Settings pages
+	// All Settings
+	settingsText.setFont(font);
+	settingsText.setCharacterSize(70);
+	settingsText.setFillColor(sf::Color::White);
+	settingsText.setPosition(50, 70);
+	std::stringstream settingsStream;
+	settingsStream << "Configure Game Settings" << std::endl;
+	settingsText.setString(settingsStream.str());
+
+	// Graphics Settings Page
+	graphicsSettingsText.setFont(font);
+	graphicsSettingsText.setCharacterSize(40);
+	graphicsSettingsText.setFillColor(sf::Color::White);
+	graphicsSettingsText.setPosition(50, 200);
+	std::stringstream graphicsSettingsStream;
+	graphicsSettingsStream 
+		<< "Resolution" << std::endl << std::endl
+		<< "Framerate" << std::endl << std::endl
+		<< "V-Sync" << std::endl;
+	graphicsSettingsText.setString(graphicsSettingsStream.str());
 }

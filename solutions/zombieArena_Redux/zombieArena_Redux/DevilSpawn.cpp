@@ -18,20 +18,7 @@ DevilSpawn::DevilSpawn() {
 	miniRes.x = 256;
 	miniRes.y = 256;
 
-	window.create(sf::VideoMode(resolution.x, resolution.y),
-		"Devil Spawn", sf::Style::Default);
-
-	// Create the Main SFML View
-	mainView.setSize(resolution);
-	mainView.reset(sf::FloatRect(0, 0, resolution.x, resolution.y));
-
-	// Create a view for the HUD
-	hudView.reset(sf::FloatRect(0, 0, resolution.x, resolution.y));
-
-	// Create a view for the MiniMap
-	miniMapView.setSize(miniRes);
-	miniMapView.setViewport(sf::FloatRect(0, resolution.y - miniRes.y, miniRes.x, miniRes.y));
-	//miniMapView.reset(sf::FloatRect(0, resolution.y - miniRes.y, miniRes.x, miniRes.y));
+	refreshWindow();
 
 	// Load the texture for our background vertex array
 	textureBackground = TextureHolder::GetTexture(
@@ -86,9 +73,43 @@ void DevilSpawn::runGame() {
 	| The Main Game Loop |
 	\***--------------***/
 
-	while (window.isOpen())	{		
+	while (window.isOpen())	{
+		// Update the delta time
+		dt = clock.restart();
+		// Update the total game time
+		gameTimeTotal += dt;
+		// Make a decimal fraction of 1 from the delta time
+		dtAsSeconds = dt.asSeconds();
+
 		Input();
 		Update();
 		Draw();		
 	} // End game loop
+}
+
+/**
+*
+*/
+void DevilSpawn::refreshWindow() {
+	window.create(sf::VideoMode(resolution.x, resolution.y),
+		"Devil Spawn", m_windowedStatus);
+	window.setSize(sf::Vector2u(resolution));
+	window.setFramerateLimit(m_frameRate);
+	window.setVerticalSyncEnabled(m_vSyncActive);
+	
+	// Create the Main SFML View
+	mainView = sf::View(sf::FloatRect(0, 0, resolution.x, resolution.y));
+	//mainView.reset(sf::FloatRect(0, 0, resolution.x, resolution.y));
+	//mainView.setSize(resolution);
+	mainView.setViewport(sf::FloatRect(0,0,1,1));
+
+	// Create a view for the HUD
+	hudView = sf::View(sf::FloatRect(0, 0, resolution.x, resolution.y));
+	//hudView.reset(sf::FloatRect(0, 0, resolution.x, resolution.y));
+	mainView.setViewport(sf::FloatRect(0, 0, 1, 1));
+
+	// Create a view for the MiniMap
+	/*miniMapView.setSize(miniRes);
+	miniMapView.setViewport(sf::FloatRect(0.0f, 0.75f, 0.25f, 0.25f));*/
+	//miniMapView.reset(sf::FloatRect(0, resolution.y - miniRes.y, miniRes.x, miniRes.y));
 }

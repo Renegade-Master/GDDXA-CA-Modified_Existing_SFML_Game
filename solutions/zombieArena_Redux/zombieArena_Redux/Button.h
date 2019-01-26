@@ -13,7 +13,7 @@
 #include <SFML\Graphics.hpp>
 
 namespace GUI {
-	namespace Style	{
+	namespace ButtonStyle {
 		enum {
 			none = 0,
 			save = 1,
@@ -22,7 +22,7 @@ namespace GUI {
 		};
 	};
 
-	namespace State	{
+	namespace ButtonState {
 		enum {
 			normal = 0,
 			hovered = 1,
@@ -33,7 +33,7 @@ namespace GUI {
 	class Button : public sf::Drawable {
 	public:
 		Button();
-		Button(std::string s, sf::Font& font, sf::Vector2f position, sf::Uint32 Style);
+		Button(std::string s, sf::Font& font, sf::Vector2f position, sf::Uint32 ButtonStyle);
 
 		~Button();
 
@@ -50,14 +50,14 @@ namespace GUI {
 		void setSize(unsigned int size);
 		
 		void setText(std::string s);
-		void setStyle(sf::Uint32 Style);
+		void setStyle(sf::Uint32 ButtonStyle);
 		void setFont(sf::Font& font);
 
 		sf::Vector2f getPosition() { return m_position; };
 		sf::Vector2f getDimensions() { return sf::Vector2f(m_button.getGlobalBounds().width, m_button.getGlobalBounds().height); };
 		sf::Uint32 getState() { return m_btnstate; };
 
-		void update(sf::Event& e, sf::RenderWindow& window);
+		void update(sf::Event& e, sf::Time t, sf::RenderWindow& window);
 
 	private:
 		void init();
@@ -84,6 +84,8 @@ namespace GUI {
 		unsigned int m_fontSize;
 		sf::Text m_text;
 		sf::Text m_shadow;
+
+		sf::Time m_sinceLastClick;
 	};
 };
 
