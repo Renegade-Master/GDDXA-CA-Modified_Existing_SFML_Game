@@ -22,21 +22,17 @@ void InputHandler::chooseScheme(sf::Uint32 scheme) {
 
 	if (scheme == ControlScheme::DEFAULT) {
 		//	Keyboard Keys we want to use
-		key_W = nullptr;
+		key_W = new cmd_RunUp();
 		key_A = new cmd_RunLeft();
-		key_S = nullptr;
+		key_S = new cmd_RunDown();
 		key_D = new cmd_RunRight();
-		key_SPACE = new cmd_Jump();
 
 		//	Mouse Buttons we want to use
 		mouse_LMB = new cmd_Shoot();
-		mouse_RMB = new cmd_ToggleAim();
 
 		//	Gamepad Buttons we want to use
-		cont_CROSS = new cmd_Jump();
-		cont_SQUARE = new cmd_Shoot();
+		cont_SQUARE = nullptr;
 		cont_TRIANGLE = nullptr;
-		cont_CIRCLE = new cmd_ToggleAim();
 
 		cont_L1 = nullptr;
 		cont_L2 = nullptr;
@@ -48,16 +44,17 @@ void InputHandler::chooseScheme(sf::Uint32 scheme) {
 		cont_LEFT_STICK_UP = nullptr;
 		cont_LEFT_STICK_DOWN = nullptr;
 
-		//Control Aiming(Right Analog)
-		cont_RIGHT_STICK_LEFT = new cmd_AimLeft;
-		cont_RIGHT_STICK_RIGHT = new cmd_AimRight;
-		cont_RIGHT_STICK_UP = new cmd_AimUp;
-		cont_RIGHT_STICK_DOWN = new cmd_AimDown;
-		//Angled Control(Right Analog)
-		cont_RIGHT_STICK_LEFT_UP = new cmd_LEFT_DOWN;
-		cont_RIGHT_STICK_LEFT_DOWN = new cmd_LEFT_UP;
-		cont_RIGHT_STICK_RIGHT_UP = new cmd_RIGHT_UP;
-		cont_RIGHT_STICK_RIGHT_DOWN = new cmd_RIGHT_DOWN;
+		//	Control Aiming (Right Analog)
+		cont_RIGHT_STICK_UP = new cmd_RunUp();
+		cont_RIGHT_STICK_LEFT = new cmd_RunLeft();
+		cont_RIGHT_STICK_DOWN = new cmd_RunDown();
+		cont_RIGHT_STICK_RIGHT = new cmd_RunRight();
+
+		//	Diagonal Aiming (Right Analog)
+		cont_RIGHT_STICK_LEFT_UP = nullptr;
+		cont_RIGHT_STICK_LEFT_DOWN = nullptr;
+		cont_RIGHT_STICK_RIGHT_UP = nullptr;
+		cont_RIGHT_STICK_RIGHT_DOWN = nullptr;
 
 	}
 	else if (scheme == ControlScheme::BUMPERJUMPER) {
@@ -66,11 +63,9 @@ void InputHandler::chooseScheme(sf::Uint32 scheme) {
 		key_A = new cmd_RunLeft();
 		key_S = nullptr;
 		key_D = new cmd_RunRight();
-		key_SPACE = new cmd_Jump();
 
 		//	Mouse Buttons we want to use
 		mouse_LMB = new cmd_Shoot();
-		mouse_RMB = new cmd_ToggleAim();
 
 		//	Gamepad Buttons we want to use
 		cont_CROSS = nullptr;
@@ -78,15 +73,15 @@ void InputHandler::chooseScheme(sf::Uint32 scheme) {
 		cont_TRIANGLE = nullptr;
 		cont_CIRCLE = nullptr;
 
-		cont_L1 = new cmd_ToggleAim();
+		cont_L1 = nullptr;
 		cont_L2 = nullptr;
-		cont_R1 = new cmd_Jump();
+		cont_R1 = nullptr;
 		cont_R2 = new cmd_Shoot();
 
+		cont_LEFT_STICK_UP = new cmd_RunUp();
 		cont_LEFT_STICK_LEFT = new cmd_RunLeft();
+		cont_LEFT_STICK_DOWN = new cmd_Down();
 		cont_LEFT_STICK_RIGHT = new cmd_RunRight();
-		cont_LEFT_STICK_UP = nullptr;
-		cont_LEFT_STICK_DOWN = nullptr;
 
 		cont_RIGHT_STICK_LEFT = nullptr;
 		cont_RIGHT_STICK_RIGHT = nullptr;
@@ -119,6 +114,9 @@ Command* InputHandler::handleInput(sf::Time t) {
 		}
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
 			return(mouse_RMB);
+		}
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Middle)) {
+			return(mouse_MMB);
 		}
 
 		//	Gamepad Joysticks
@@ -181,14 +179,7 @@ Command* InputHandler::handleInput(sf::Time t) {
 			return(cont_CROSS);
 		}
 		if (sf::Joystick::isButtonPressed(0, 1)) {
-			if (m_ControlScheme == ControlScheme::DEFAULT) {
-				if (t.asMilliseconds() - m_LastToggleEvent.asMilliseconds() < 1000) {
-					return(cont_CIRCLE);
-				}
-			}
-			else {
-				return(cont_CIRCLE);
-			}
+			return(cont_CIRCLE);
 		}
 		if (sf::Joystick::isButtonPressed(0, 2)) {
 			return(cont_SQUARE);
@@ -197,14 +188,7 @@ Command* InputHandler::handleInput(sf::Time t) {
 			return(cont_TRIANGLE);
 		}
 		if (sf::Joystick::isButtonPressed(0, 4)) {
-			if (m_ControlScheme == ControlScheme::BUMPERJUMPER) {
-				if (t.asMilliseconds() - m_LastToggleEvent.asMilliseconds() < 1000) {
-					return(cont_CIRCLE);
-				}
-			}
-			else {
-				return(cont_CIRCLE);
-			}
+			return(cont_L1);
 		}
 		if (sf::Joystick::isButtonPressed(0, 5)) {
 			return(cont_R1);

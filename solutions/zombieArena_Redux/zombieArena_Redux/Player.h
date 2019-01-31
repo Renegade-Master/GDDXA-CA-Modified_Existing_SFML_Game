@@ -10,49 +10,11 @@
 
 #include <SFML/Graphics.hpp>
 
-class Player {
-private:
-	const float START_SPEED = 200;
-	const float START_HEALTH = 100;
+#include "PlayerCharacter.h"
 
-	// Where is the player
-	sf::Vector2f m_Position;
-
-	// Of course we will need a sprite
-	sf::Sprite m_Sprite;
-
-	// And a texture
-	// !!Watch this space!!
-	sf::Texture m_Texture;
-
-	// What is the screen resolution
-	sf::Vector2f m_Resolution;
-
-	// What size is the current arena
-	sf::IntRect m_Arena;
-
-	// How big is each tile of the arena
-	int m_TileSize;
-
-	// Which directions is the player currently moving in
-	bool m_UpPressed;
-	bool m_DownPressed;
-	bool m_LeftPressed;
-	bool m_RightPressed;
-
-	// How much health has the player got?
-	int m_Health;
-	// What is the maximum health the player can have
-	int m_MaxHealth;
-
-	// When was the player last hit
-	sf::Time m_LastHit;
-
-	// Speed in pixels per second
-	float m_Speed;
-
-// All our public functions will come next
+class Player : public PlayerCharacter{
 public:
+	//	Constructor
 	Player();
 
 	// Call this at the end of every game
@@ -69,20 +31,8 @@ public:
 	// How long ago was the player last hit
 	sf::Time getLastHitTime();
 
-	// Where is the player
-	sf::FloatRect getPosition();
-
-	// Where is the center of the player
-	sf::Vector2f getCenter();
-
 	// Which angle is the player facing
 	float getRotation();
-
-	// Send a copy of the sprite to main
-	sf::Sprite getSprite();
-
-	// How much health has the player currently got?
-	int getHealth();
 
 	// The next four functions move the player
 	void moveLeft();
@@ -120,6 +70,30 @@ public:
 	int bulletsInClip = 6;
 	int clipSize = 6;
 	float fireRate = 1;
+
+private:
+
+	// Where is the player
+	sf::Vector2f m_Position;
+
+	// Of course we will need a sprite
+	sf::Sprite m_Sprite;
+
+	// And a texture
+	// !!Watch this space!!
+	sf::Texture m_Texture;
+
+	// What is the screen resolution
+	sf::Vector2f m_Resolution;
+
+	// What size is the current arena
+	sf::IntRect m_Arena;
+
+	// Which directions is the player currently moving in
+	bool m_UpPressed;
+	bool m_DownPressed;
+	bool m_LeftPressed;
+	bool m_RightPressed;
 };
 
 #endif // PLAYER_H

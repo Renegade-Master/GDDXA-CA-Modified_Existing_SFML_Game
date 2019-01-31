@@ -140,6 +140,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pickup.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerCharacter.cpp" />
     <ClCompile Include="TextureHolder.cpp" />
     <ClCompile Include="Devil.cpp" />
     <ClCompile Include="DevilSpawn.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Pickup.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerCharacter.h" />
     <ClInclude Include="TextureHolder.h" />
     <ClInclude Include="Devil.h" />
     <ClInclude Include="DevilSpawn.h" />

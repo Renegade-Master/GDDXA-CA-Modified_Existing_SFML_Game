@@ -8,9 +8,7 @@
 #ifndef DEVIL_H
 #define DEVIL_H
 
-#include <SFML/Graphics.hpp>
-
-class Devil {
+class Devil : public PlayerCharacter {
 private:
 	// How fast is each zombie type?
 	const float BLOATER_SPEED = 40;
