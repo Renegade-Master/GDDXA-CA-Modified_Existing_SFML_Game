@@ -19,8 +19,11 @@ protected:
 	|	Finite State Machines	|
 	\***---------------------***/
 
-	enum class Movement { IDLE, UP, DOWN, LEFT, RIGHT };
-	Movement m_Movement = Movement::IDLE;
+	enum class Movement_V { IDLE, UP, DOWN};
+	Movement_V m_Movement_V = Movement_V::IDLE;
+
+	enum class Movement_H { IDLE, LEFT, RIGHT };
+	Movement_H m_Movement_H = Movement_H::IDLE;
 
 	enum class Action { IDLE, ATTACKING };
 	Action m_Action = Action::IDLE;
@@ -41,12 +44,34 @@ protected:
 	// Maximum Speed in pixels per second
 	float m_MaxSpeed;
 
+	// Where is the PC
+	sf::Vector2f m_Position;
+
+	// What does the PC look like
+	sf::Sprite m_Sprite;
+	sf::Texture m_Texture;
+
 	// When was the PC last hit
 	sf::Time m_LastHit;
+
 
 	/***---------***\
 	|	Functions	|
 	\***---------***/
+
+	virtual void spawn() = 0;
+
+	// The next four functions move the player
+	void moveLeft();
+	void moveRight();
+	void moveUp();
+	void moveDown();
+
+	// Stop the player moving in a specific direction
+	void stopLeft();
+	void stopRight();
+	void stopUp();
+	void stopDown();
 
 	// Where is the PC
 	sf::FloatRect getPosition();
@@ -59,6 +84,12 @@ protected:
 
 	// How much health has the PC currently got?
 	int getHealth();
+
+	// How long ago was the player last hit
+	sf::Time getLastHitTime();
+
+	// Handle the player getting hit by a zombie
+	bool hit(sf::Time timeHit);
 
 private:
 
