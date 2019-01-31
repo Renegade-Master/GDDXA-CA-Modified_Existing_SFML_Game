@@ -136,6 +136,7 @@
     <ClCompile Include="initSounds.cpp" />
     <ClCompile Include="initText.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pickup.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -147,6 +148,8 @@
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Command.h" />
+    <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Pickup.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="TextureHolder.h" />
