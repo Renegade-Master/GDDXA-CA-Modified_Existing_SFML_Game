@@ -16,7 +16,7 @@ public:
 	/*virtual*/ void spawn(float posX, float posY, int type);
 
 	// Update the Enemy each frame
-	/*virtual*/ void update(float elapsedTime, sf::Vector2f playerLocation);
+	/*virtual*/ void update(sf::Time elapsedTime/*, sf::Vector2f playerLocation*/);
 
 	//	Handle the Enemy being hit
 	/*virtual*/ bool onHit(sf::Time timeHit);

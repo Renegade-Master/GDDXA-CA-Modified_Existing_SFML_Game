@@ -42,7 +42,7 @@ void DevilSpawn::Update() {
 		// Loop through each Devil and update them
 		for (std::vector<Devil*>::iterator it = horde.begin(); it != horde.end(); ++it) {
 			if ((*it)->isAlive()) {
-				(*it)->update(dt.asSeconds(), playerPosition);
+				(*it)->update(dt/*, playerPosition*/);
 			}
 		}
 

@@ -258,7 +258,7 @@ void DevilSpawn::Input() {
 
 			// Delete the previously allocated memory (if it exists)
 			horde.clear();
-			horde = createHorde(hordeSize, arena);
+			createHorde(hordeSize, arena);
 			numHordeAlive = hordeSize;
 
 			// Play the powerup sound
