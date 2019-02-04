@@ -12,7 +12,7 @@
 
 #include "PlayerCharacter.h"
 
-class Player : public PlayerCharacter{
+class Player : public PlayerCharacter {
 public:
 	//	Constructor
 	Player();
@@ -20,16 +20,17 @@ public:
 	// Call this at the end of every game
 	void resetPlayerStats();
 
-	void spawn(sf::IntRect arena, sf::Vector2f resolution, int tileSize);
+	/*virtual*/ void spawn(float posX, float posY, int type);
+	/*virtual*/ void update(sf::Time elapsedTime);
+	/*virtual*/ sf::String getClassName();
+
+	/*virtual*/ bool onHit(sf::Time timeHit);
 
 	// Reload the currently equipped weapon
 	bool reload();
 
 	// Which angle is the player facing
 	float getRotation();
-
-	// We will call this function once every frame
-	void update(float elapsedTime, sf::Vector2i mousePosition, sf::Vector2f resolution);
 
 	// Give player a speed boost
 	void upgradeSpeed();

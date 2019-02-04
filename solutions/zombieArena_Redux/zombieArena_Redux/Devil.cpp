@@ -7,7 +7,7 @@
 #include "Devil.h"
 #include "TextureHolder.h"
 
-void Devil::spawn(float startX, float startY, int type) {
+void Devil::spawn(float posX, float posY, int type) {
 
 	switch (type) {
 		case 0:
@@ -42,45 +42,29 @@ void Devil::spawn(float startX, float startY, int type) {
 	// Every zombie is unique. Create a speed modifier
 	//srand((int)time(0) * seed);
 	// Somewhere between 80 an 100
-	float modifier = (rand() % MAX_VARRIANCE) + OFFSET;
+	float modifier = (rand() % MAX_VARIANCE) + OFFSET;
 	// Express as a fraction of 1
 	modifier /= 100; // Now equals between .7 and 1
 	this->m_Speed *= modifier;
 
-	this->m_Position.x = startX;
-	this->m_Position.y = startY;
+	this->m_Position.x = posX;
+	this->m_Position.y = posY;
 
 	this->m_Sprite.setOrigin(25, 25);
 	this->m_Sprite.setPosition(this->m_Position);
 }
 
-bool Devil::hit() {
-	this->m_Health--;
-
-	if (this->m_Health < 0) {
+bool Devil::onHit(sf::Time timeHit) {
+	if (!this->isAlive()) {
 		// dead
-		this->m_Alive = false;
 		this->m_Sprite.setTexture(TextureHolder::GetTexture(
 			"graphics\\blood.png"));
 
-		return true;
+		return(true);
 	}
 
 	// injured but not dead yet
 	return false;
-}
-
-bool Devil::isAlive() {
-	return this->m_Alive;
-}
-
-sf::FloatRect Devil::getPosition() {
-	return this->m_Sprite.getGlobalBounds();
-}
-
-
-sf::Sprite Devil::getSprite() {
-	return this->m_Sprite;
 }
 
 void Devil::update(float elapsedTime,
@@ -118,4 +102,11 @@ void Devil::update(float elapsedTime,
 		* 180) / 3.141;
 
 	this->m_Sprite.setRotation(angle);
+}
+
+/**
+*	Return the String name of this Class.
+*/
+sf::String Devil::getClassName() {
+	return(sf::String("\nPlayerCharacter::Devil Class.\n"));
 }

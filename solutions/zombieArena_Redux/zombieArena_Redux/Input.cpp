@@ -63,7 +63,7 @@ void DevilSpawn::Input() {
 			if (m_gameState == GameState::PLAYING) {
 				// Reloading
 				if (evnt.key.code == sf::Keyboard::R) {
-					if (player.reload()) {
+					if (m_Player.reload()) {
 						reload.play();
 					}
 					else {
@@ -80,55 +80,57 @@ void DevilSpawn::Input() {
 
 	// Handle controls while playing
 	if (m_gameState == GameState::PLAYING) {
-		// Handle the pressing and releasing of the WASD keys
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-			player.moveUp();
-		}
-		else {
-			player.stopUp();
-		}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-			player.moveDown();
-		}
-		else {
-			player.stopDown();
-		}
+		
+		//// Handle the pressing and releasing of the WASD keys
+		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+		//	m_Player.moveUp();
+		//}
+		//else {
+		//	m_Player.stopUp();
+		//}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-			player.moveLeft();
-		}
-		else {
-			player.stopLeft();
-		}
+		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		//	m_Player.moveDown();
+		//}
+		//else {
+		//	m_Player.stopDown();
+		//}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-			player.moveRight();
-		}
-		else {
-			player.stopRight();
-		}
+		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+		//	m_Player.moveLeft();
+		//}
+		//else {
+		//	m_Player.stopLeft();
+		//}
 
-		// Fire a bullet
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+		//	m_Player.moveRight();
+		//}
+		//else {
+		//	m_Player.stopRight();
+		//}
 
-			if (gameTimeTotal.asMilliseconds()
-				- lastPressed.asMilliseconds()
-					> 1000 / player.fireRate && player.bulletsInClip > 0) {
+		//// Fire a bullet
+		//if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 
-				// Pass the centre of the player and the centre of the crosshair
-				// to the shoot function
-				bullets[player.currentBullet++].shoot(
-					player.getCenter().x, player.getCenter().y,
-					mouseWorldPosition.x, mouseWorldPosition.y);
-				if (player.currentBullet > 99) {
-					player.currentBullet = 0;
-				}
-				lastPressed = gameTimeTotal;
-				shoot.play();
-				player.bulletsInClip--;
-			}
-		}// End fire a bullet
+		//	if (gameTimeTotal.asMilliseconds()
+		//		- lastPressed.asMilliseconds()
+		//			> 1000 / m_Player.fireRate && m_Player.bulletsInClip > 0) {
+
+		//		// Pass the centre of the m_Player and the centre of the crosshair
+		//		// to the shoot function
+		//		bullets[m_Player.currentBullet++].shoot(
+		//			m_Player.getCenter().x, m_Player.getCenter().y,
+		//			mouseWorldPosition.x, mouseWorldPosition.y);
+		//		if (m_Player.currentBullet > 99) {
+		//			m_Player.currentBullet = 0;
+		//		}
+		//		lastPressed = gameTimeTotal;
+		//		shoot.play();
+		//		m_Player.bulletsInClip--;
+		//	}
+		//}// End fire a bullet
 	}// End handling controls while playing
 
 	// Handle the Paused controls
@@ -151,7 +153,7 @@ void DevilSpawn::Input() {
 						score = 0;
 
 						// Reset the player's stats
-						player.resetPlayerStats();
+						m_Player.resetPlayerStats();
 					}
 					break;
 				case 1: // Settings Button
@@ -181,28 +183,28 @@ void DevilSpawn::Input() {
 				case 0: // Rate of Fire Upgrade Button
 					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();// Increase fire rate
-						player.fireRate++;
+						m_Player.fireRate++;
 						m_gameState = GameState::PLAYING;
 					}
 					break;
 				case 1: // Clip Size Upgrade Button
 					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();// Increase clip size
-						player.clipSize += player.clipSize;
+						m_Player.clipSize += m_Player.clipSize;
 						m_gameState = GameState::PLAYING;
 					}
 					break;
 				case 2: // Health Upgrade Button
 					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();// Increase health
-						player.upgradeHealth();
+						m_Player.upgradeHealth();
 						m_gameState = GameState::PLAYING;
 					}
 					break;
 				case 3: // Run Speed Upgrade Button
 					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();// Increase speed
-						player.upgradeSpeed();
+						m_Player.upgradeSpeed();
 						m_gameState = GameState::PLAYING;
 					}
 					break;
@@ -245,7 +247,7 @@ void DevilSpawn::Input() {
 			int tileSize = createBackground(background, arena);
 
 			// Spawn the player in the middle of the arena
-			player.spawn(arena, resolution, tileSize);
+			//m_Player.spawn(arena, resolution, tileSize);
 
 			// Configure the pick-ups
 			healthPickup.setArena(arena);
@@ -410,7 +412,7 @@ void DevilSpawn::Input() {
 						score = 0;
 
 						// Reset the player's stats
-						player.resetPlayerStats();
+						m_Player.resetPlayerStats();
 					}
 					break;
 				case 1: // Main Menu Button

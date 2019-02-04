@@ -27,7 +27,8 @@ public:
 class cmd_Null : public Command {
 public:
 	virtual void execute(Player& pc) override {
-		pc.m_Direction = Player::Direction::IDLE;
+		pc.m_Movement_V = PlayerCharacter::Movement_V::IDLE;
+		pc.m_Movement_H = PlayerCharacter::Movement_H::IDLE;
 	}
 };
 
@@ -37,7 +38,7 @@ public:
 class cmd_RunUp : public Command {
 public:
 	virtual void execute(Player& pc) override {
-		pc.m_Direction = Player::Direction::UP;
+		pc.m_Movement_V = PlayerCharacter::Movement_V::UP;
 	}
 };
 
@@ -47,7 +48,7 @@ public:
 class cmd_RunLeft : public Command {
 public:
 	virtual void execute(Player& pc) override {
-		pc.m_Direction = Player::Direction::LEFT;
+		pc.m_Movement_H = PlayerCharacter::Movement_H::LEFT;
 	}
 };
 
@@ -57,7 +58,7 @@ public:
 class cmd_RunDown : public Command {
 public:
 	virtual void execute(Player& pc) override {
-		pc.m_Direction = Player::Direction::DOWN;
+		pc.m_Movement_V = PlayerCharacter::Movement_V::DOWN;
 	}
 };
 
@@ -67,17 +68,17 @@ public:
 class cmd_RunRight : public Command {
 public:
 	virtual void execute(Player& pc) override {
-		pc.m_Direction = Player::Direction::RIGHT;
+		pc.m_Movement_H = PlayerCharacter::Movement_H::RIGHT;
 	}
 };
 
 /**
 *	Set the Character to Attacking
 */
-class cmd_Shoot : public Command {
+class cmd_Attack : public Command {
 public:
 	virtual void execute(Player& pc) override {
-		pc.m_Action = Player::Action::ATTACKING;
+		pc.m_Action = PlayerCharacter::Action::ATTACKING;
 	}
 };
 

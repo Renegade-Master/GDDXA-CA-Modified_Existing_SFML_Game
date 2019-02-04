@@ -40,7 +40,7 @@ private:
 	void initSounds();
 
 	int createBackground(sf::VertexArray& rVA, sf::IntRect arena);
-	std::vector<Devil> createHorde(int numDevils, sf::IntRect arena);
+	std::vector<Devil*> createHorde(int numDevils, sf::IntRect arena);
 	   
 	// The game will always be in one of six states
 	enum class GameState { PLAYING, PAUSED, MAIN_MENU, LEVELING_UP, SETTINGS, GAME_OVER };
@@ -90,7 +90,7 @@ private:
 	sf::Vector2i mouseScreenPosition;
 
 	// Create an instance of the Player class
-	Player player;
+	Player m_Player;
 
 	// The boundaries of the arena
 	sf::IntRect arena;
@@ -102,7 +102,7 @@ private:
 	// Prepare a horde of Devils
 	int hordeSize;
 	int numHordeAlive;
-	std::vector<Devil> horde = std::vector<Devil>();
+	std::vector<Devil*> horde = std::vector<Devil*>();
 
 	// Set a container for the Bullets
 	std::vector<Bullet> bullets;

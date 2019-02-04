@@ -13,21 +13,37 @@
 
 class PlayerCharacter {
 public:
-	
-protected:
 	/***---------------------***\
 	|	Finite State Machines	|
 	\***---------------------***/
 
-	enum class Movement_V { IDLE, UP, DOWN};
-	Movement_V m_Movement_V = Movement_V::IDLE;
-
+	enum class Movement_V { IDLE, UP, DOWN };
 	enum class Movement_H { IDLE, LEFT, RIGHT };
-	Movement_H m_Movement_H = Movement_H::IDLE;
-
 	enum class Action { IDLE, ATTACKING };
+
+	Movement_V m_Movement_V = Movement_V::IDLE;
+	Movement_H m_Movement_H = Movement_H::IDLE;
 	Action m_Action = Action::IDLE;
 
+	// Find out if the PC is alive
+	bool isAlive();
+
+	// Where is the PC
+	sf::FloatRect getPosition();
+
+	// Where is the center of the PC
+	sf::Vector2f getCenter();
+
+	// Send a copy of the sprite to main
+	sf::Sprite getSprite();
+
+	// How much health has the PC currently got?
+	int getHealth();
+
+	// How long ago was the player last hit
+	sf::Time getLastHitTime();
+	
+protected:
 	/***---------***\
 	|	Variables	|
 	\***---------***/
@@ -59,7 +75,13 @@ protected:
 	|	Functions	|
 	\***---------***/
 
-	virtual void spawn() = 0;
+	virtual void spawn(float posX, float posY, int type) = 0;
+	virtual void update(sf::Time elapsedTime) = 0;
+	virtual sf::String getClassName() = 0;
+
+	// Handle hits in both directions
+	/*virtual sf::Time getLastHitTime() = 0;*/
+	virtual bool onHit(sf::Time timeHit) = 0;
 
 	// The next four functions move the player
 	void moveLeft();
@@ -72,24 +94,6 @@ protected:
 	void stopRight();
 	void stopUp();
 	void stopDown();
-
-	// Where is the PC
-	sf::FloatRect getPosition();
-
-	// Where is the center of the PC
-	sf::Vector2f getCenter();
-
-	// Send a copy of the sprite to main
-	sf::Sprite getSprite();
-
-	// How much health has the PC currently got?
-	int getHealth();
-
-	// How long ago was the player last hit
-	sf::Time getLastHitTime();
-
-	// Handle the player getting hit by a zombie
-	bool hit(sf::Time timeHit);
 
 private:
 

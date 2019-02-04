@@ -28,7 +28,7 @@ void InputHandler::chooseScheme(sf::Uint32 scheme) {
 		key_D = new cmd_RunRight();
 
 		//	Mouse Buttons we want to use
-		mouse_LMB = new cmd_Shoot();
+		mouse_LMB = new cmd_Attack();
 
 		//	Gamepad Buttons we want to use
 		cont_SQUARE = nullptr;
@@ -65,7 +65,7 @@ void InputHandler::chooseScheme(sf::Uint32 scheme) {
 		key_D = new cmd_RunRight();
 
 		//	Mouse Buttons we want to use
-		mouse_LMB = new cmd_Shoot();
+		mouse_LMB = new cmd_Attack();
 
 		//	Gamepad Buttons we want to use
 		cont_CROSS = nullptr;
@@ -76,11 +76,11 @@ void InputHandler::chooseScheme(sf::Uint32 scheme) {
 		cont_L1 = nullptr;
 		cont_L2 = nullptr;
 		cont_R1 = nullptr;
-		cont_R2 = new cmd_Shoot();
+		cont_R2 = new cmd_Attack();
 
 		cont_LEFT_STICK_UP = new cmd_RunUp();
 		cont_LEFT_STICK_LEFT = new cmd_RunLeft();
-		cont_LEFT_STICK_DOWN = new cmd_Down();
+		cont_LEFT_STICK_DOWN = new cmd_RunDown();
 		cont_LEFT_STICK_RIGHT = new cmd_RunRight();
 
 		cont_RIGHT_STICK_LEFT = nullptr;

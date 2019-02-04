@@ -6,54 +6,151 @@
 
 #include "PlayerCharacter.h"
 
+/**
+*	...
+*/
+void PlayerCharacter::spawn(float posX, float posY, int type) {
+	//	Function is overridden
+}
+
+/**
+*
+*/
+void PlayerCharacter::update(sf::Time elapsedTime) {
+	//	Handle Vertical Movements
+	if (this->m_Movement_V == Movement_V::UP) {
+		this->m_Position.y -= this->m_Speed * elapsedTime.asMicroseconds();
+	}
+	else if (this->m_Movement_V == Movement_V::DOWN) {
+		this->m_Position.y += this->m_Speed * elapsedTime.asMicroseconds();
+	}
+
+	//	Handle Horizontal Movements
+	if (this->m_Movement_H == Movement_H::LEFT) {
+		this->m_Position.x -= this->m_Speed * elapsedTime.asMicroseconds();
+	}
+	else if (this->m_Movement_H == Movement_H::RIGHT) {
+		this->m_Position.x += this->m_Speed * elapsedTime.asMicroseconds();
+	}
+}
+
+/**
+*	Return the String name of this Class.
+*/
+sf::String PlayerCharacter::getClassName() {
+	return(sf::String("\nAbstract PlayerCharacter Class.\nThis should not have been possible.\n"));
+}
+
+/**
+*	Return the Position (Global Bounds) of the Sprite assigned to this Object.
+*/
 sf::FloatRect PlayerCharacter::getPosition() {
-	return m_Sprite.getGlobalBounds();
+	return this->m_Sprite.getGlobalBounds();
 }
 
+/**
+*	...
+*/
 sf::Vector2f PlayerCharacter::getCenter() {
-	return m_Position;
+	return this->m_Position;
 }
 
+/**
+*	...
+*/
 int PlayerCharacter::getHealth() {
-	return m_Health;
+	return this->m_Health;
 }
 
+/**
+*	...
+*/
 void PlayerCharacter::moveLeft() {
-	m_Movement_H = Movement_H::LEFT;
+	this->m_Movement_H = Movement_H::LEFT;
 }
 
+/**
+*	...
+*/
 void PlayerCharacter::moveRight() {
-	m_Movement_H = Movement_H::RIGHT;
+	this->m_Movement_H = Movement_H::RIGHT;
 }
 
+/**
+*	...
+*/
 void PlayerCharacter::moveUp() {
-	m_Movement_V = Movement_V::UP;
+	this->m_Movement_V = Movement_V::UP;
 }
 
+/**
+*	...
+*/
 void PlayerCharacter::moveDown() {
-	m_Movement_V = Movement_V::DOWN;
+	this->m_Movement_V = Movement_V::DOWN;
 }
 
+/**
+*	...
+*/
 void PlayerCharacter::stopLeft() {
-	m_Movement_H = Movement_H::IDLE;
+	this->m_Movement_H = Movement_H::IDLE;
 }
 
+/**
+*	...
+*/
 void PlayerCharacter::stopRight() {
-	m_Movement_H = Movement_H::IDLE;
+	this->m_Movement_H = Movement_H::IDLE;
 }
 
+/**
+*	...
+*/
 void PlayerCharacter::stopUp() {
-	m_Movement_V = Movement_V::IDLE;
+	this->m_Movement_V = Movement_V::IDLE;
 }
 
+/**
+*	...
+*/
 void PlayerCharacter::stopDown() {
-	m_Movement_V = Movement_V::IDLE;
+	this->m_Movement_V = Movement_V::IDLE;
 }
 
+/**
+*	...
+*/
 sf::Sprite PlayerCharacter::getSprite() {
-	return m_Sprite;
+	return this->m_Sprite;
 }
 
-sf::Time getLastHitTime() {
-	return m_LastHit;
+/**
+*	...
+*/
+sf::Time PlayerCharacter::getLastHitTime() {
+	return this->m_LastHit;
+}
+
+/**
+*	Is this PC alive?
+*/
+bool PlayerCharacter::isAlive() {
+	if (this->m_Health > 0) { return true; }
+	else { return false; }
+}
+
+/**
+*	Should this PC be hit, or has it been too soon?
+*/
+bool PlayerCharacter::onHit(sf::Time timeHit) {
+	if (timeHit.asMilliseconds() - this->m_LastHit.asMilliseconds() > 200) {
+		this->m_LastHit = timeHit;
+		this->m_Health -= 10;
+		
+		return(true);
+	}
+	else {
+		return(false);
+	}
 }

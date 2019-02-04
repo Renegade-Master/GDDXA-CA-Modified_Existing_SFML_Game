@@ -7,8 +7,8 @@
 #include "DevilSpawn.h"
 #include "Devil.h"
 
-std::vector<Devil> DevilSpawn::createHorde(int numDevils, sf::IntRect arena) {
-	std::vector<Devil> horde(numDevils);
+std::vector<Devil*> DevilSpawn::createHorde(int numDevils, sf::IntRect arena) {
+	std::vector<Devil*> horde(numDevils);
 
 	srand((int)time(0));
 	int maxY = arena.height - 20;
@@ -16,7 +16,7 @@ std::vector<Devil> DevilSpawn::createHorde(int numDevils, sf::IntRect arena) {
 	int maxX = arena.width - 20;
 	int minX = arena.left + 20;
 
-	for (std::vector<Devil>::iterator it = horde.begin(); it != horde.end(); ++it) {
+	for (std::vector<Devil*>::iterator it = horde.begin(); it != horde.end(); ++it) {
 
 		// Which side should the zombie spawn
 		int side = (rand() % 4);
@@ -53,8 +53,8 @@ std::vector<Devil> DevilSpawn::createHorde(int numDevils, sf::IntRect arena) {
 		int type = (rand() % 3);
 
 		// Spawn the new zombie into the array
-		it->spawn(x, y, type);
+		(*it)->spawn(x, y, type);
 
 	}
-	return horde;
+	return(horde);
 }
