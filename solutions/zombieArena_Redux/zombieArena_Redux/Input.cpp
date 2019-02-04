@@ -41,24 +41,6 @@ void DevilSpawn::Input() {
 				m_gameState = GameState::MAIN_MENU;
 			}
 
-			// Spin and zoom the world				
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-				mainView.rotate(1.0f);
-			}
-
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-				mainView.rotate(-1.0f);
-			}
-
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-				mainView.zoom(.9f);
-			}
-
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-				mainView.zoom(1.1f);
-			}
-			// End spinning and zooming
-
 			// Handle Events in PLAYING m_gameState
 			if (m_gameState == GameState::PLAYING) {
 				// Reloading
