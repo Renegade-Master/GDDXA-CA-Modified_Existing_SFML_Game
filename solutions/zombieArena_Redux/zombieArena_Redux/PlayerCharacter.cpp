@@ -32,6 +32,8 @@ void PlayerCharacter::update(sf::Time elapsedTime) {
 	else if (this->m_Movement_H == Movement_H::RIGHT) {
 		this->m_Position.x += this->m_Speed * elapsedTime.asSeconds();
 	}
+
+	this->m_Sprite.setPosition(this->m_Position);
 }
 
 /**

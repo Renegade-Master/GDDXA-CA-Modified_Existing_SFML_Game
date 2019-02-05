@@ -143,23 +143,6 @@ Command* InputHandler::handleInput(sf::Time t) {
 		}
 
 		//		Right Stick
-		//Angle
-		if ((sf::Joystick::getAxisPosition(0, sf::Joystick::V) > 10.0f) &&
-			(sf::Joystick::getAxisPosition(0, sf::Joystick::U) > 10.0f)) {
-			return(cont_RIGHT_STICK_RIGHT_DOWN);
-		}
-		if ((sf::Joystick::getAxisPosition(0, sf::Joystick::V) < -10.0f) &&
-			(sf::Joystick::getAxisPosition(0, sf::Joystick::U) > 10.0f)) {
-			return(cont_RIGHT_STICK_RIGHT_UP);
-		}
-		if ((sf::Joystick::getAxisPosition(0, sf::Joystick::V) < -10.0f) &&
-			(sf::Joystick::getAxisPosition(0, sf::Joystick::U) < -10.0f)) {
-			return(cont_RIGHT_STICK_LEFT_UP);
-		}
-		if ((sf::Joystick::getAxisPosition(0, sf::Joystick::V) > 10.0f) &&
-			(sf::Joystick::getAxisPosition(0, sf::Joystick::U) < -10.0f)) {
-			return(cont_RIGHT_STICK_LEFT_DOWN);
-		}
 		//Direct
 		if (sf::Joystick::getAxisPosition(0, sf::Joystick::U) < -10.0f) {
 			return(cont_RIGHT_STICK_LEFT);

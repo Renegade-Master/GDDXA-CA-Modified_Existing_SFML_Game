@@ -100,29 +100,20 @@ void Player::update(sf::Time elapsedTime/*, sf::Vector2i mousePosition, sf::Vect
 
 	m_Sprite.setPosition(m_Position);
 
-	// Keep the player in the arena
-	/*if (m_Position.x > m_Arena.width - TILE_SIZE) {
-		m_Position.x = m_Arena.width - TILE_SIZE;
-	}
+	
+}
 
-	if (m_Position.x < m_Arena.left + TILE_SIZE) {
-		m_Position.x = m_Arena.left + TILE_SIZE;
-	}
+/**
+*	Face the Player towards the mouse.
+*/
+void Player::lookAt(sf::Vector2f mousePosition, sf::Vector2f resolution) {
+	
+	// Calculate the angle the player is facing
+	float angle = (atan2(mousePosition.y - resolution.y / 2,
+		mousePosition.x - resolution.x / 2)
+		* 180) / 3.141;
 
-	if (m_Position.y > m_Arena.height - TILE_SIZE) {
-		m_Position.y = m_Arena.height - TILE_SIZE;
-	}
-
-	if (m_Position.y < m_Arena.top + TILE_SIZE) {
-		m_Position.y = m_Arena.top + TILE_SIZE;
-	}*/
-
-	//// Calculate the angle the player is facing
-	//float angle = (atan2(mousePosition.y - resolution.y / 2,
-	//	mousePosition.x - resolution.x / 2)
-	//	* 180) / 3.141;
-
-	//m_Sprite.setRotation(angle);
+	this->m_Sprite.setRotation(angle);
 }
 
 /**

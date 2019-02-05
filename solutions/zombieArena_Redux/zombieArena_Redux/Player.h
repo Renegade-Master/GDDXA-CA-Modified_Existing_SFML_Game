@@ -29,6 +29,9 @@ public:
 	// Reload the currently equipped weapon
 	bool reload();
 
+	//	Face the Player towards the mouse
+	void lookAt(sf::Vector2f mousePosition, sf::Vector2f resolution);
+
 	// Which angle is the player facing
 	float getRotation();
 

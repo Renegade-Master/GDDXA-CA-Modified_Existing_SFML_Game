@@ -69,35 +69,7 @@ void DevilSpawn::Input() {
 			cmd->execute(m_Player);
 		}
 
-		
-		//// Handle the pressing and releasing of the WASD keys
-		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-		//	m_Player.moveUp();
-		//}
-		//else {
-		//	m_Player.stopUp();
-		//}
-
-		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-		//	m_Player.moveDown();
-		//}
-		//else {
-		//	m_Player.stopDown();
-		//}
-
-		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-		//	m_Player.moveLeft();
-		//}
-		//else {
-		//	m_Player.stopLeft();
-		//}
-
-		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-		//	m_Player.moveRight();
-		//}
-		//else {
-		//	m_Player.stopRight();
-		//}
+		m_Player.lookAt(mouseWorldPosition, resolution);
 
 		//// Fire a bullet
 		//if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
