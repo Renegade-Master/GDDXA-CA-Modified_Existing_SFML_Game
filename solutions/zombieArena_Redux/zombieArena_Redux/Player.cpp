@@ -18,7 +18,7 @@ Player::Player() {
 	// Associate a texture with the sprite
 	// !!Watch this space!!
 	m_Sprite = sf::Sprite(TextureHolder::GetTexture(
-		"graphics/player.png"));
+		"graphics\\player.png"));
 
 	// Set the origin of the sprite to the centre, 
 	// for smooth rotation
@@ -96,11 +96,12 @@ float Player::getRotation() {
 *	Update Player attributes
 */
 void Player::update(sf::Time elapsedTime/*, sf::Vector2i mousePosition, sf::Vector2f resolution*/) {
+	this->PlayerCharacter::update(elapsedTime);
 
 	m_Sprite.setPosition(m_Position);
 
 	// Keep the player in the arena
-	if (m_Position.x > m_Arena.width - TILE_SIZE) {
+	/*if (m_Position.x > m_Arena.width - TILE_SIZE) {
 		m_Position.x = m_Arena.width - TILE_SIZE;
 	}
 
@@ -114,7 +115,7 @@ void Player::update(sf::Time elapsedTime/*, sf::Vector2i mousePosition, sf::Vect
 
 	if (m_Position.y < m_Arena.top + TILE_SIZE) {
 		m_Position.y = m_Arena.top + TILE_SIZE;
-	}
+	}*/
 
 	//// Calculate the angle the player is facing
 	//float angle = (atan2(mousePosition.y - resolution.y / 2,

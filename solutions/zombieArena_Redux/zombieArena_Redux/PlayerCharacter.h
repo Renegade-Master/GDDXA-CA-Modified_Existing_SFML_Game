@@ -7,6 +7,8 @@
 #pragma once
 #ifndef PLAYERCHARACTER_H
 
+#include <iostream>
+
 #include <SFML/Graphics.hpp>
 
 #include "Constants.h"

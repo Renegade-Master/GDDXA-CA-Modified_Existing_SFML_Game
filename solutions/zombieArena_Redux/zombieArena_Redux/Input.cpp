@@ -63,6 +63,12 @@ void DevilSpawn::Input() {
 	// Handle controls while playing
 	if (m_gameState == GameState::PLAYING) {
 
+		cmd = m_InpHand.handleInput(dt);
+
+		if (cmd) { 
+			cmd->execute(m_Player);
+		}
+
 		
 		//// Handle the pressing and releasing of the WASD keys
 		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
@@ -229,7 +235,7 @@ void DevilSpawn::Input() {
 			int tileSize = createBackground(background, arena);
 
 			// Spawn the player in the middle of the arena
-			//m_Player.spawn(arena, resolution, tileSize);
+			m_Player.spawn(250,50,0);
 
 			// Configure the pick-ups
 			healthPickup.setArena(arena);

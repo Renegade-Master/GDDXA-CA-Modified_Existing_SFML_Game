@@ -29,6 +29,7 @@ public:
 	virtual void execute(Player& pc) override {
 		pc.m_Movement_V = PlayerCharacter::Movement_V::IDLE;
 		pc.m_Movement_H = PlayerCharacter::Movement_H::IDLE;
+		std::cout << "Executing NULL Input" << std::endl;
 	}
 };
 
@@ -39,6 +40,7 @@ class cmd_RunUp : public Command {
 public:
 	virtual void execute(Player& pc) override {
 		pc.m_Movement_V = PlayerCharacter::Movement_V::UP;
+		std::cout << "Executing RUN UP Input" << std::endl;
 	}
 };
 
@@ -49,6 +51,7 @@ class cmd_RunLeft : public Command {
 public:
 	virtual void execute(Player& pc) override {
 		pc.m_Movement_H = PlayerCharacter::Movement_H::LEFT;
+		std::cout << "Executing RUN LEFT Input" << std::endl;
 	}
 };
 
@@ -59,6 +62,7 @@ class cmd_RunDown : public Command {
 public:
 	virtual void execute(Player& pc) override {
 		pc.m_Movement_V = PlayerCharacter::Movement_V::DOWN;
+		std::cout << "Executing RUN DOWN Input" << std::endl;
 	}
 };
 
@@ -69,6 +73,7 @@ class cmd_RunRight : public Command {
 public:
 	virtual void execute(Player& pc) override {
 		pc.m_Movement_H = PlayerCharacter::Movement_H::RIGHT;
+		std::cout << "Executing RUN RIGHT Input" << std::endl;
 	}
 };
 
@@ -79,6 +84,7 @@ class cmd_Attack : public Command {
 public:
 	virtual void execute(Player& pc) override {
 		pc.m_Action = PlayerCharacter::Action::ATTACKING;
+		std::cout << "Executing ATTACK Input" << std::endl;
 	}
 };
 

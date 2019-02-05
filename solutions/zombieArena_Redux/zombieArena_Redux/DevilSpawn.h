@@ -21,6 +21,7 @@
 #include "Button.h"
 #include "Devil.h"
 #include "DevilSpawn.h"
+#include "InputHandler.h"
 #include "Pickup.h"
 #include "Player.h"
 #include "TextureHolder.h"
@@ -72,6 +73,10 @@ private:
 
 	// Instance of TextureHolder
 	TextureHolder holder;
+
+	//	An Input Handler
+	InputHandler m_InpHand;
+	Command* cmd;
 
 	// Hold Events betwen frames
 	sf::Event evnt;

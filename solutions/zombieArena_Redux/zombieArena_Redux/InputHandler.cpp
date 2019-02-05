@@ -19,17 +19,23 @@ InputHandler::InputHandler() {
 *	Paramaterised Constructor
 */
 void InputHandler::chooseScheme(sf::Uint32 scheme) {
+	//	Keyboard Keys we want to use
+	key_W = new cmd_RunUp();;
+	key_A = new cmd_RunLeft();
+	key_S = new cmd_RunDown();;
+	key_D = new cmd_RunRight();
+	key_SPACE = nullptr;
+	key_RETURN = nullptr;
+	key_BCKSPACE = nullptr;
+	key_ESCAPE = nullptr;
+
+	//	Mouse Buttons we want to use
+	mouse_LMB = new cmd_Attack();
+	mouse_RMB = nullptr;
+	mouse_MMB = nullptr;
+
 
 	if (scheme == ControlScheme::DEFAULT) {
-		//	Keyboard Keys we want to use
-		key_W = new cmd_RunUp();
-		key_A = new cmd_RunLeft();
-		key_S = new cmd_RunDown();
-		key_D = new cmd_RunRight();
-
-		//	Mouse Buttons we want to use
-		mouse_LMB = new cmd_Attack();
-
 		//	Gamepad Buttons we want to use
 		cont_SQUARE = nullptr;
 		cont_TRIANGLE = nullptr;
@@ -39,34 +45,19 @@ void InputHandler::chooseScheme(sf::Uint32 scheme) {
 		cont_R1 = nullptr;
 		cont_R2 = nullptr;
 
+		//	Movement (Left Analog)
 		cont_LEFT_STICK_LEFT = new cmd_RunLeft();
 		cont_LEFT_STICK_RIGHT = new cmd_RunRight();
-		cont_LEFT_STICK_UP = nullptr;
-		cont_LEFT_STICK_DOWN = nullptr;
+		cont_LEFT_STICK_UP = new cmd_RunUp();
+		cont_LEFT_STICK_DOWN = new cmd_RunDown();
 
 		//	Control Aiming (Right Analog)
-		cont_RIGHT_STICK_UP = new cmd_RunUp();
-		cont_RIGHT_STICK_LEFT = new cmd_RunLeft();
-		cont_RIGHT_STICK_DOWN = new cmd_RunDown();
-		cont_RIGHT_STICK_RIGHT = new cmd_RunRight();
-
-		//	Diagonal Aiming (Right Analog)
-		cont_RIGHT_STICK_LEFT_UP = nullptr;
-		cont_RIGHT_STICK_LEFT_DOWN = nullptr;
-		cont_RIGHT_STICK_RIGHT_UP = nullptr;
-		cont_RIGHT_STICK_RIGHT_DOWN = nullptr;
-
+		cont_RIGHT_STICK_UP = nullptr;
+		cont_RIGHT_STICK_LEFT = nullptr;
+		cont_RIGHT_STICK_DOWN = nullptr;
+		cont_RIGHT_STICK_RIGHT = nullptr;
 	}
 	else if (scheme == ControlScheme::BUMPERJUMPER) {
-		//	Keyboard Keys we want to use
-		key_W = nullptr;
-		key_A = new cmd_RunLeft();
-		key_S = nullptr;
-		key_D = new cmd_RunRight();
-
-		//	Mouse Buttons we want to use
-		mouse_LMB = new cmd_Attack();
-
 		//	Gamepad Buttons we want to use
 		cont_CROSS = nullptr;
 		cont_SQUARE = nullptr;
@@ -100,8 +91,14 @@ Command* InputHandler::handleInput(sf::Time t) {
 		m_sinceLastInput = sf::Time::Zero;
 		
 		//	Keyboard Keys
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+			return(key_W);
+		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 			return(key_A);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+			return(key_S);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 			return(key_D);
@@ -109,6 +106,17 @@ Command* InputHandler::handleInput(sf::Time t) {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 			return(key_SPACE);
 		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
+			return(key_RETURN);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) {
+			return(key_BCKSPACE);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+			return(key_ESCAPE);
+		}
+
+		//	Mouse Input
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 			return(mouse_LMB);
 		}
@@ -196,5 +204,5 @@ Command* InputHandler::handleInput(sf::Time t) {
 	}
 
 	//	Nothing was pressed
-	return(noInput);
+	return(NULL);
 }

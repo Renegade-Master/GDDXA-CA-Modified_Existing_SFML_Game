@@ -47,9 +47,9 @@ void DevilSpawn::Draw() {
 		window.draw(sprite_mouse);
 
 		// Draw the MiniMap
-		window.setView(miniMapView);
+		//window.setView(miniMapView);
 
-		window.draw(miniMapBorder);
+		//window.draw(miniMapBorder);
 
 		// Switch to the HUD view
 		window.setView(hudView);

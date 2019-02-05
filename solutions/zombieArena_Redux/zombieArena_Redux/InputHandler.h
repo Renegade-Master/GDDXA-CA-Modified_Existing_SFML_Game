@@ -27,7 +27,7 @@ public:
 
 	//  Is the Player using a controller?
 	unsigned int m_controllerIndex = 0;
-	sf::Time m_inputBlocker = sf::milliseconds(10);
+	sf::Time m_inputBlocker = sf::milliseconds(128);
 	sf::Time m_sinceLastInput = sf::Time::Zero;
 	sf::Time m_LastToggleEvent = sf::Time::Zero;
 
@@ -39,11 +39,14 @@ private:
 	Command* noInput = new cmd_Null();
 
 	//	Keyboard Keys we want to use
-	Command* key_W		= nullptr;
-	Command* key_A		= nullptr;
-	Command* key_S		= nullptr;
-	Command* key_D		= nullptr;
-	Command* key_SPACE	= nullptr;
+	Command* key_W			= nullptr;
+	Command* key_A			= nullptr;
+	Command* key_S			= nullptr;
+	Command* key_D			= nullptr;
+	Command* key_SPACE		= nullptr;
+	Command* key_RETURN		= nullptr;
+	Command* key_BCKSPACE	= nullptr;
+	Command* key_ESCAPE		= nullptr;
 
 	//	Mouse Buttons we want to use
 	Command* mouse_LMB	= nullptr;
