@@ -13,7 +13,7 @@
 
 #include "Constants.h"
 
-class PlayerCharacter {
+class PlayerCharacter abstract {
 public:
 	/***---------------------***\
 	|	Finite State Machines	|
@@ -78,7 +78,7 @@ protected:
 	\***---------***/
 
 	virtual void spawn(float posX, float posY, int type) = 0;
-	virtual void update(sf::Time elapsedTime) = 0;
+	virtual void update(sf::Time elapsedTime);
 	virtual sf::String getClassName() = 0;
 
 	// Handle hits in both directions

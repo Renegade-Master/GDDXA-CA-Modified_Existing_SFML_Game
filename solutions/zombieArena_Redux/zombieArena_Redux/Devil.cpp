@@ -67,40 +67,36 @@ bool Devil::onHit(sf::Time timeHit) {
 	return false;
 }
 
-void Devil::update(sf::Time elapsedTime/*, sf::Vector2f playerLocation*/) {
-	//float playerX = playerLocation.x;
-	//float playerY = playerLocation.y;
+void Devil::update(sf::Time elapsedTime, sf::Vector2f playerLocation) {
+	float playerX = playerLocation.x;
+	float playerY = playerLocation.y;
 
-	//// Update the zombie position variables
-	//if (playerX > this->m_Position.x)	{
-	//	this->m_Position.x = this->m_Position.x +
-	//		this->m_Speed * elapsedTime;
-	//}
+	// Update the zombie position variables
+	if (playerX > this->m_Position.x)	{
+		this->m_Position.x += this->m_Speed * elapsedTime.asSeconds();
+	}
 
-	//if (playerY > this->m_Position.y)	{
-	//	this->m_Position.y = this->m_Position.y +
-	//		this->m_Speed * elapsedTime;
-	//}
+	if (playerY > this->m_Position.y)	{
+		this->m_Position.y += this->m_Speed * elapsedTime.asSeconds();
+	}
 
-	//if (playerX < this->m_Position.x)	{
-	//	this->m_Position.x = this->m_Position.x -
-	//		this->m_Speed * elapsedTime;
-	//}
+	if (playerX < this->m_Position.x)	{
+		this->m_Position.x -= this->m_Speed * elapsedTime.asSeconds();
+	}
 
-	//if (playerY < this->m_Position.y)	{
-	//	this->m_Position.y = this->m_Position.y -
-	//		this->m_Speed * elapsedTime;
-	//}
+	if (playerY < this->m_Position.y)	{
+		this->m_Position.y -= this->m_Speed * elapsedTime.asSeconds();
+	}
 
-	//// Move the sprite
-	//this->m_Sprite.setPosition(this->m_Position);
+	// Move the sprite
+	this->m_Sprite.setPosition(this->m_Position);
 
-	//// Face the sprite in the correct direction
-	//float angle = (atan2(playerY - this->m_Position.y,
-	//	playerX - this->m_Position.x)
-	//	* 180) / 3.141;
+	// Face the sprite in the correct direction
+	float angle = (atan2(playerY - this->m_Position.y,
+		playerX - this->m_Position.x)
+		* 180) / 3.141;
 
-	//this->m_Sprite.setRotation(angle);
+	this->m_Sprite.setRotation(angle);
 }
 
 /**

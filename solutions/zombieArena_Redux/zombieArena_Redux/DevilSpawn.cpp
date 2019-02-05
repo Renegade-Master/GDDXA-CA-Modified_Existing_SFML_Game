@@ -68,6 +68,9 @@ DevilSpawn::DevilSpawn() {
 
 }
 
+/**
+*	Run the Main Game Loop.
+*/
 void DevilSpawn::runGame() {
 	/***--------------***\
 	| The Main Game Loop |
