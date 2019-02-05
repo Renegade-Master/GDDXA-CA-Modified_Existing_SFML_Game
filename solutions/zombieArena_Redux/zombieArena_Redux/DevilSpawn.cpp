@@ -25,7 +25,7 @@ DevilSpawn::DevilSpawn() {
 		"Graphics\\background_sheet_stretch.png");
 
 	// Set fixed amount of bullets
-	bullets = std::vector<Bullet>(100);
+	DevilSpawn::loadBullets(100);
 
 	// Hide the mouse pointer and replace it with crosshair
 	window.setMouseCursorVisible(true);
@@ -76,10 +76,9 @@ void DevilSpawn::runGame() {
 	while (window.isOpen())	{
 		// Update the delta time
 		dt = clock.restart();
+
 		// Update the total game time
 		gameTimeTotal += dt;
-		// Make a decimal fraction of 1 from the delta time
-		dtAsSeconds = dt.asSeconds();
 
 		Input();
 		Update();
@@ -112,4 +111,22 @@ void DevilSpawn::refreshWindow() {
 	/*miniMapView.setSize(miniRes);
 	miniMapView.setViewport(sf::FloatRect(0.0f, 0.75f, 0.25f, 0.25f));*/
 	//miniMapView.reset(sf::FloatRect(0, resolution.y - miniRes.y, miniRes.x, miniRes.y));
+}
+
+/**
+*
+*/
+void DevilSpawn::loadBullets(int amount) {
+	for (int i = 0; i < amount; i++) {
+		bullets.push_back(forgeBullet());
+	}
+}
+
+/**
+*
+*/
+Bullet* DevilSpawn::forgeBullet() {
+	Bullet* newBullet = new Bullet();
+
+	return(newBullet);
 }

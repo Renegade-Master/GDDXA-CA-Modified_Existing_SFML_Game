@@ -47,26 +47,26 @@ void DevilSpawn::Update() {
 		}
 
 		// Update any bullets that are in-flight
-		for (std::vector<Bullet>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
-			if (it->isInFlight()) {
-				it->update(dtAsSeconds);
+		for (std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
+			if ((*it)->isInFlight()) {
+				(*it)->update(dt.asSeconds());
 			}
 		}
 
 		// Update the pickups
-		healthPickup.update(dtAsSeconds);
-		ammoPickup.update(dtAsSeconds);
+		healthPickup.update(dt.asSeconds());
+		ammoPickup.update(dt.asSeconds());
 
 		// Collision detection
 		// Have any horde been shot?
-		for (std::vector<Bullet>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
+		for (std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
 			for (std::vector<Devil*>::iterator it2 = horde.begin(); it2 != horde.end(); ++it2) {
-				if (it->isInFlight() &&
+				if ((*it)->isInFlight() &&
 					(*it2)->isAlive()) {
-					if (it->getPosition().intersects
+					if ((*it)->getPosition().intersects
 					((*it2)->getPosition())) {
 						// Stop the bullet
-						it->stop();
+						(*it)->stop();
 
 						// Register the hit and see if it was a kill
 						if ((*it2)->onHit(dt)) {
