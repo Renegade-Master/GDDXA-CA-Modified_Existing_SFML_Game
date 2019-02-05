@@ -13,7 +13,7 @@
 class Devil abstract : public PlayerCharacter {
 public:
 	// Spawn a new Enemy
-	void spawn(float posX, float posY, int type);
+	void spawn(float posX, float posY);
 
 	// Update the Enemy each frame
 	virtual void update(sf::Time elapsedTime, sf::Vector2f playerLocation);
@@ -21,19 +21,7 @@ public:
 	//	Handle the Enemy being hit
 	virtual bool onHit(sf::Time timeHit);
 
-	virtual sf::String getClassName() = 0;
-};
-
-class Bloater : public Devil {
-	sf::String getClassName() { return(sf::String("\nPlayerCharacter::Devil::Bloater Class.\n")); };
-};
-
-class Chaser : public Devil {
-	sf::String getClassName() { return(sf::String("\nPlayerCharacter::Devil::Chaser Class.\n")); };
-};
-
-class Crawler : public Devil {
-	sf::String getClassName() { return(sf::String("\nPlayerCharacter::Devil::Crawler Class.\n")); };
+	virtual sf::String getClassName() = 0 { return(sf::String("\nAbstract PlayerCharacter::Devil Class.\n")); };
 };
 
 #endif // DEVIL_H

@@ -9,7 +9,7 @@
 /**
 *	...
 */
-void PlayerCharacter::spawn(float posX, float posY, int type) {
+void PlayerCharacter::spawn(float posX, float posY) {
 	//	Function is overridden
 }
 
@@ -33,14 +33,8 @@ void PlayerCharacter::update(sf::Time elapsedTime) {
 		this->m_Position.x += this->m_Speed * elapsedTime.asSeconds();
 	}
 
+	//	Move the Sprite to the new Position
 	this->m_Sprite.setPosition(this->m_Position);
-}
-
-/**
-*	Return the String name of this Class.
-*/
-sf::String PlayerCharacter::getClassName() {
-	return(sf::String("\nAbstract PlayerCharacter Class.\nThis should not have been possible.\n"));
 }
 
 /**
@@ -62,62 +56,6 @@ sf::Vector2f PlayerCharacter::getCenter() {
 */
 int PlayerCharacter::getHealth() {
 	return this->m_Health;
-}
-
-/**
-*	...
-*/
-void PlayerCharacter::moveLeft() {
-	this->m_Movement_H = Movement_H::LEFT;
-}
-
-/**
-*	...
-*/
-void PlayerCharacter::moveRight() {
-	this->m_Movement_H = Movement_H::RIGHT;
-}
-
-/**
-*	...
-*/
-void PlayerCharacter::moveUp() {
-	this->m_Movement_V = Movement_V::UP;
-}
-
-/**
-*	...
-*/
-void PlayerCharacter::moveDown() {
-	this->m_Movement_V = Movement_V::DOWN;
-}
-
-/**
-*	...
-*/
-void PlayerCharacter::stopLeft() {
-	this->m_Movement_H = Movement_H::IDLE;
-}
-
-/**
-*	...
-*/
-void PlayerCharacter::stopRight() {
-	this->m_Movement_H = Movement_H::IDLE;
-}
-
-/**
-*	...
-*/
-void PlayerCharacter::stopUp() {
-	this->m_Movement_V = Movement_V::IDLE;
-}
-
-/**
-*	...
-*/
-void PlayerCharacter::stopDown() {
-	this->m_Movement_V = Movement_V::IDLE;
 }
 
 /**

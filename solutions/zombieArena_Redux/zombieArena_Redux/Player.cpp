@@ -44,22 +44,18 @@ void Player::resetPlayerStats() {
 /**
 *	Spawn the Player into the Game.
 */
-void Player::spawn(float posX, float posY, int type) {
-	// Place the player in the middle of the arena
+void Player::spawn(float posX, float posY) {
+	// Place the player in the arena
 	m_Position.x = posX;
 	m_Position.y = posY;
-
-	// Copy the details of the arena to the player's m_Arena
-	/*m_Arena.left = arena.left;
-	m_Arena.width = arena.width;
-	m_Arena.top = arena.top;
-	m_Arena.height = arena.height;*/
 }
 
 /**
 *	Handle the Player being Hit.
 */
 bool Player::onHit(sf::Time timeHit) {
+	//this->m_Health -= 10;
+
 	return(true);
 }
 

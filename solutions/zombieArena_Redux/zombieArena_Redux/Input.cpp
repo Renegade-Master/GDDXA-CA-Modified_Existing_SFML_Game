@@ -207,7 +207,7 @@ void DevilSpawn::Input() {
 			int tileSize = createBackground(background, arena);
 
 			// Spawn the player in the middle of the arena
-			m_Player.spawn(250,50,0);
+			m_Player.spawn(250,50);
 
 			// Configure the pick-ups
 			healthPickup.setArena(arena);
