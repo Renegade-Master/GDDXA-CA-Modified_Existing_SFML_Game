@@ -19,18 +19,18 @@ void PlayerCharacter::spawn(float posX, float posY, int type) {
 void PlayerCharacter::update(sf::Time elapsedTime) {
 	//	Handle Vertical Movements
 	if (this->m_Movement_V == Movement_V::UP) {
-		this->m_Position.y -= this->m_Speed * elapsedTime.asMicroseconds();
+		this->m_Position.y -= this->m_Speed * elapsedTime.asSeconds();
 	}
 	else if (this->m_Movement_V == Movement_V::DOWN) {
-		this->m_Position.y += this->m_Speed * elapsedTime.asMicroseconds();
+		this->m_Position.y += this->m_Speed * elapsedTime.asSeconds();
 	}
 
 	//	Handle Horizontal Movements
 	if (this->m_Movement_H == Movement_H::LEFT) {
-		this->m_Position.x -= this->m_Speed * elapsedTime.asMicroseconds();
+		this->m_Position.x -= this->m_Speed * elapsedTime.asSeconds();
 	}
 	else if (this->m_Movement_H == Movement_H::RIGHT) {
-		this->m_Position.x += this->m_Speed * elapsedTime.asMicroseconds();
+		this->m_Position.x += this->m_Speed * elapsedTime.asSeconds();
 	}
 }
 

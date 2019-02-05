@@ -204,5 +204,5 @@ Command* InputHandler::handleInput(sf::Time t) {
 	}
 
 	//	Nothing was pressed
-	return(NULL);
+	return(noInput);
 }

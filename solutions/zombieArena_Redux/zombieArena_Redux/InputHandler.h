@@ -27,7 +27,7 @@ public:
 
 	//  Is the Player using a controller?
 	unsigned int m_controllerIndex = 0;
-	sf::Time m_inputBlocker = sf::milliseconds(128);
+	sf::Time m_inputBlocker = sf::milliseconds(10);
 	sf::Time m_sinceLastInput = sf::Time::Zero;
 	sf::Time m_LastToggleEvent = sf::Time::Zero;
 
