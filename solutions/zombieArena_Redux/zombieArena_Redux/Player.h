@@ -20,7 +20,7 @@ public:
 	// Call this at the end of every game
 	void resetPlayerStats();
 
-	/*virtual*/ void spawn(float posX, float posY, int type);
+	/*virtual*/ void spawn(float posX, float posY);
 	/*virtual*/ void update(sf::Time elapsedTime);
 	/*virtual*/ sf::String getClassName();
 

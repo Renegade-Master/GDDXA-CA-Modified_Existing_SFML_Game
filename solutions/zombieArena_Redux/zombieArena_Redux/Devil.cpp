@@ -5,44 +5,14 @@
 */
 
 #include "Devil.h"
-#include "TextureHolder.h"
 
-void Devil::spawn(float posX, float posY, int type) {
-
-	switch (type) {
-		case 0:
-			// Bloater
-			this->m_Sprite = sf::Sprite(TextureHolder::GetTexture(
-				"graphics/demonEnemy_01.png"));
-
-			this->m_Speed = 40;
-			this->m_Health = 5;
-			break;
-
-		case 1:
-			// Chaser
-			this->m_Sprite = sf::Sprite(TextureHolder::GetTexture(
-				"graphics/chaser_headless.png"));
-
-			this->m_Speed = 70;
-			this->m_Health = 1;
-			break;
-
-		case 2:
-			// Crawler
-			this->m_Sprite = sf::Sprite(TextureHolder::GetTexture(
-				"graphics/crawler.png"));
-
-			this->m_Speed = 20;
-			this->m_Health = 3;
-			break;
-	}
+void Devil::spawn(float posX, float posY) {
 
 	// Modify the speed to make the zombie unique
 	// Every zombie is unique. Create a speed modifier
-	//srand((int)time(0) * seed);
 	// Somewhere between 80 an 100
 	float modifier = (rand() % MAX_VARIANCE) + OFFSET;
+	
 	// Express as a fraction of 1
 	modifier /= 100; // Now equals between .7 and 1
 	this->m_Speed *= modifier;
@@ -67,45 +37,33 @@ bool Devil::onHit(sf::Time timeHit) {
 	return false;
 }
 
-void Devil::update(sf::Time elapsedTime/*, sf::Vector2f playerLocation*/) {
-	//float playerX = playerLocation.x;
-	//float playerY = playerLocation.y;
+void Devil::update(sf::Time elapsedTime, sf::Vector2f playerLocation) {
+	float playerX = playerLocation.x;
+	float playerY = playerLocation.y;
 
-	//// Update the zombie position variables
-	//if (playerX > this->m_Position.x)	{
-	//	this->m_Position.x = this->m_Position.x +
-	//		this->m_Speed * elapsedTime;
-	//}
+	// Update the zombie position variables
+	if (playerX > this->m_Position.x)	{
+		this->m_Movement_H = Movement_H::RIGHT;
+	}
 
-	//if (playerY > this->m_Position.y)	{
-	//	this->m_Position.y = this->m_Position.y +
-	//		this->m_Speed * elapsedTime;
-	//}
+	if (playerY > this->m_Position.y)	{
+		this->m_Movement_V = Movement_V::DOWN;
+	}
 
-	//if (playerX < this->m_Position.x)	{
-	//	this->m_Position.x = this->m_Position.x -
-	//		this->m_Speed * elapsedTime;
-	//}
+	if (playerX < this->m_Position.x)	{
+		this->m_Movement_H = Movement_H::LEFT;
+	}
 
-	//if (playerY < this->m_Position.y)	{
-	//	this->m_Position.y = this->m_Position.y -
-	//		this->m_Speed * elapsedTime;
-	//}
+	if (playerY < this->m_Position.y)	{
+		this->m_Movement_V = Movement_V::UP;
+	}
 
-	//// Move the sprite
-	//this->m_Sprite.setPosition(this->m_Position);
+	this->PlayerCharacter::update(elapsedTime);
 
-	//// Face the sprite in the correct direction
-	//float angle = (atan2(playerY - this->m_Position.y,
-	//	playerX - this->m_Position.x)
-	//	* 180) / 3.141;
+	// Face the sprite in the correct direction
+	float angle = (atan2(playerY - this->m_Position.y,
+		playerX - this->m_Position.x)
+		* 180) / 3.141;
 
-	//this->m_Sprite.setRotation(angle);
-}
-
-/**
-*	Return the String name of this Class.
-*/
-sf::String Devil::getClassName() {
-	return(sf::String("\nPlayerCharacter::Devil Class.\n"));
+	this->m_Sprite.setRotation(angle);
 }

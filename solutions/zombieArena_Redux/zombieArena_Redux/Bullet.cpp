@@ -6,13 +6,18 @@
 
 #include "Bullet.h"
 
-// The constructor
+/**
+*	Default Constructor
+*/
 Bullet::Bullet() {
 	this->m_BulletShape.setSize(sf::Vector2f(2, 2));
 }
 
-void Bullet::shoot(float startX, float startY,
-	float targetX, float targetY) {
+/**
+*	Fire a Bullet
+*/
+void Bullet::shoot(float startX, float startY, float targetX, float targetY) {
+	
 	// Keep track of the bullet
 	this->m_InFlight = true;
 	this->m_Position.x = startX;
@@ -58,22 +63,37 @@ void Bullet::shoot(float startX, float startY,
 	this->m_BulletShape.setPosition(this->m_Position);
 }
 
+/**
+*	...
+*/
 void Bullet::stop() {
 	this->m_InFlight = false;
 }
 
+/**
+*	...
+*/
 bool Bullet::isInFlight() {
 	return this->m_InFlight;
 }
 
+/**
+*	...
+*/
 sf::FloatRect Bullet::getPosition() {
 	return this->m_BulletShape.getGlobalBounds();
 }
 
+/**
+*	...
+*/
 sf::RectangleShape Bullet::getShape() {
 	return this->m_BulletShape;
 }
 
+/**
+*	...
+*/
 void Bullet::update(float elapsedTime) {
 	// Update the bullet position variables
 	this->m_Position.x += this->m_BulletDistanceX * elapsedTime;

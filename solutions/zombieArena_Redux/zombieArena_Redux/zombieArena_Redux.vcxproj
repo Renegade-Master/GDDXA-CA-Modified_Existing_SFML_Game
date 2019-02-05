@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DevilTypes.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CreateBackground.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="DevilTypes.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Pickup.h" />
     <ClInclude Include="Player.h" />

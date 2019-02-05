@@ -10,18 +10,18 @@
 
 #include "PlayerCharacter.h"
 
-class Devil : public PlayerCharacter {
+class Devil abstract : public PlayerCharacter {
 public:
 	// Spawn a new Enemy
-	/*virtual*/ void spawn(float posX, float posY, int type);
+	void spawn(float posX, float posY);
 
 	// Update the Enemy each frame
-	/*virtual*/ void update(sf::Time elapsedTime/*, sf::Vector2f playerLocation*/);
+	virtual void update(sf::Time elapsedTime, sf::Vector2f playerLocation);
 
 	//	Handle the Enemy being hit
-	/*virtual*/ bool onHit(sf::Time timeHit);
+	virtual bool onHit(sf::Time timeHit);
 
-	virtual sf::String getClassName();
+	virtual sf::String getClassName() = 0 { return(sf::String("\nAbstract PlayerCharacter::Devil Class.\n")); };
 };
 
 #endif // DEVIL_H

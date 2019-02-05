@@ -129,59 +129,58 @@ Command* InputHandler::handleInput(sf::Time t) {
 
 		//	Gamepad Joysticks
 		//		Left Stick
-		if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) < -10.0f) {
+		if (sf::Joystick::getAxisPosition(1, sf::Joystick::X) < -10.0f) {
 			return(cont_LEFT_STICK_LEFT);
 		}
-		if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) > 10.0f) {
+		if (sf::Joystick::getAxisPosition(1, sf::Joystick::X) > 10.0f) {
 			return(cont_LEFT_STICK_RIGHT);
 		}
-		if (sf::Joystick::getAxisPosition(0, sf::Joystick::Y) < -10.0f) {
+		if (sf::Joystick::getAxisPosition(1, sf::Joystick::Y) < -10.0f) {
 			return(cont_LEFT_STICK_UP);
 		}
-		if (sf::Joystick::getAxisPosition(0, sf::Joystick::Y) > 10.0f) {
+		if (sf::Joystick::getAxisPosition(1, sf::Joystick::Y) > 10.0f) {
 			return(cont_LEFT_STICK_DOWN);
 		}
 
 		//		Right Stick
-		//Direct
-		if (sf::Joystick::getAxisPosition(0, sf::Joystick::U) < -10.0f) {
+		if (sf::Joystick::getAxisPosition(1, sf::Joystick::U) < -10.0f) {
 			return(cont_RIGHT_STICK_LEFT);
 		}
-		if (sf::Joystick::getAxisPosition(0, sf::Joystick::U) > 10.0f) {
+		if (sf::Joystick::getAxisPosition(1, sf::Joystick::U) > 10.0f) {
 			return(cont_RIGHT_STICK_RIGHT);
 		}
-		if (sf::Joystick::getAxisPosition(0, sf::Joystick::V) < -10.0f) {
+		if (sf::Joystick::getAxisPosition(1, sf::Joystick::V) < -10.0f) {
 			return(cont_RIGHT_STICK_UP);
 		}
-		if (sf::Joystick::getAxisPosition(0, sf::Joystick::V) > 10.0f) {
+		if (sf::Joystick::getAxisPosition(1, sf::Joystick::V) > 10.0f) {
 			return(cont_RIGHT_STICK_DOWN);
 		}
 
 		//	Triggers
-		if (sf::Joystick::getAxisPosition(0, sf::Joystick::Z) > 40.0f) {
+		if (sf::Joystick::getAxisPosition(1, sf::Joystick::Z) > 40.0f) {
 			return(cont_L2);
 		}
-		if (sf::Joystick::getAxisPosition(0, sf::Joystick::Z) < -40.0f) {
+		if (sf::Joystick::getAxisPosition(1, sf::Joystick::Z) < -40.0f) {
 			return(cont_R2);
 		}
 
 		//	Buttons
-		if (sf::Joystick::isButtonPressed(0, 0)) {
+		if (sf::Joystick::isButtonPressed(1, 0)) {
 			return(cont_CROSS);
 		}
-		if (sf::Joystick::isButtonPressed(0, 1)) {
+		if (sf::Joystick::isButtonPressed(1, 1)) {
 			return(cont_CIRCLE);
 		}
-		if (sf::Joystick::isButtonPressed(0, 2)) {
+		if (sf::Joystick::isButtonPressed(1, 2)) {
 			return(cont_SQUARE);
 		}
-		if (sf::Joystick::isButtonPressed(0, 3)) {
+		if (sf::Joystick::isButtonPressed(1, 3)) {
 			return(cont_TRIANGLE);
 		}
-		if (sf::Joystick::isButtonPressed(0, 4)) {
+		if (sf::Joystick::isButtonPressed(1, 4)) {
 			return(cont_L1);
 		}
-		if (sf::Joystick::isButtonPressed(0, 5)) {
+		if (sf::Joystick::isButtonPressed(1, 5)) {
 			return(cont_R1);
 		}
 	}

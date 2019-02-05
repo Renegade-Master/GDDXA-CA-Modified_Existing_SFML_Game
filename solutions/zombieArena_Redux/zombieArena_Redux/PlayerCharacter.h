@@ -6,14 +6,16 @@
 
 #pragma once
 #ifndef PLAYERCHARACTER_H
+#define PLAYERCHARACTER_H
 
 #include <iostream>
 
 #include <SFML/Graphics.hpp>
 
 #include "Constants.h"
+#include "TextureHolder.h"
 
-class PlayerCharacter {
+class PlayerCharacter abstract {
 public:
 	/***---------------------***\
 	|	Finite State Machines	|
@@ -77,25 +79,13 @@ protected:
 	|	Functions	|
 	\***---------***/
 
-	virtual void spawn(float posX, float posY, int type) = 0;
-	virtual void update(sf::Time elapsedTime) = 0;
-	virtual sf::String getClassName() = 0;
+	virtual void spawn(float posX, float posY) = 0;
+	virtual void update(sf::Time elapsedTime);
+	virtual sf::String getClassName() = 0 { return(sf::String("\nAbstract PlayerCharacter Class.\n")); };
 
 	// Handle hits in both directions
 	/*virtual sf::Time getLastHitTime() = 0;*/
 	virtual bool onHit(sf::Time timeHit) = 0;
-
-	// The next four functions move the player
-	void moveLeft();
-	void moveRight();
-	void moveUp();
-	void moveDown();
-
-	// Stop the player moving in a specific direction
-	void stopLeft();
-	void stopRight();
-	void stopUp();
-	void stopDown();
 
 private:
 

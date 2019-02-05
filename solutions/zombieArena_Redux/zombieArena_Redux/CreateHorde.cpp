@@ -5,7 +5,7 @@
 */
 
 #include "DevilSpawn.h"
-#include "Devil.h"
+#include "DevilTypes.h"
 
 void DevilSpawn::createHorde(int numDevils, sf::IntRect arena) {
 	//	THIS NEEDS REPLACING FAST
@@ -55,9 +55,24 @@ void DevilSpawn::createHorde(int numDevils, sf::IntRect arena) {
 }
 
 Devil* DevilSpawn::summonDevil(sf::Vector2f pos, int type) {
-	Devil* thrall = new Devil();
+	Devil* thrall = NULL;
+
+	switch (type) {
+	case 0:
+		thrall = new Bloater();
+		break;
+	case 1:
+		thrall = new Chaser();
+		break;
+	case 2:
+		thrall = new Crawler();
+		break;
+	default:
+		break;
+	}
+	
 	// Spawn the new Enemy into the array
-	thrall->spawn(pos.x, pos.y, type);
+	thrall->spawn(pos.x, pos.y);
 
 	return(thrall);
 

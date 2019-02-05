@@ -86,7 +86,6 @@ private:
 	// How long has the PLAYING m_gameState been active
 	sf::Time gameTimeTotal;
 	sf::Time dt;
-	float dtAsSeconds;
 
 	// Where is the mouse in relation to world coordinates
 	sf::Vector2f mouseWorldPosition;
@@ -106,12 +105,14 @@ private:
 	// Prepare a horde of Devils
 	int hordeSize;
 	int numHordeAlive;
-	std::vector<Devil*> horde;/* = std::vector<Devil*>();*/
+	std::vector<Devil*> horde;
 	void createHorde(int numDevils, sf::IntRect arena);
 	Devil* summonDevil(sf::Vector2f pos, int type);
 
 	// Set a container for the Bullets
-	std::vector<Bullet> bullets;
+	std::vector<Bullet*> bullets;
+	void loadBullets(int amount);
+	Bullet* forgeBullet();
 
 	// When was the fire button last pressed?
 	sf::Time lastPressed;
