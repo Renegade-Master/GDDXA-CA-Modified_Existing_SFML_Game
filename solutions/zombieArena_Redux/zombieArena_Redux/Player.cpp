@@ -95,12 +95,9 @@ float Player::getRotation() {
 /**
 *	Update Player attributes
 */
-void Player::update(sf::Time elapsedTime/*, sf::Vector2i mousePosition, sf::Vector2f resolution*/) {
+void Player::update(sf::Time elapsedTime) {
+	//	Call the Super-Class
 	this->PlayerCharacter::update(elapsedTime);
-
-	m_Sprite.setPosition(m_Position);
-
-	
 }
 
 /**

@@ -69,7 +69,7 @@ void DevilSpawn::Input() {
 			cmd->execute(m_Player);
 		}
 
-		m_Player.lookAt(mouseWorldPosition, resolution);
+		m_Player.lookAt(sf::Vector2f(mouseScreenPosition), resolution);
 
 		//// Fire a bullet
 		//if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
