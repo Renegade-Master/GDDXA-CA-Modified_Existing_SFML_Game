@@ -179,7 +179,7 @@ void DevilSpawn::Update() {
 
 	// Update while in Main Menu
 	else if (m_gameState == GameState::MAIN_MENU) {
-		//mainView.reset(sf::FloatRect(0, 0, resolution.x, resolution.y));
+		mainView.reset(sf::FloatRect(0, 0, resolution.x, resolution.y));
 
 		// Change Mouse to Menu Mouse
 		window.setMouseCursorVisible(true);

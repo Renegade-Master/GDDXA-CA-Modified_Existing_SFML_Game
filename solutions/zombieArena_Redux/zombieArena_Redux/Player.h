@@ -22,12 +22,9 @@ public:
 
 	/*virtual*/ void spawn(float posX, float posY);
 	/*virtual*/ void update(sf::Time elapsedTime);
-	/*virtual*/ sf::String getClassName();
+	/*virtual*/ sf::String getClassName() { return(sf::String("PlayerCharacter::Player")); };
 
 	/*virtual*/ bool onHit(sf::Time timeHit);
-
-	// Reload the currently equipped weapon
-	bool reload();
 
 	//	Face the Player towards the mouse
 	void lookAt(sf::Vector2f mousePosition, sf::Vector2f resolution);
@@ -43,13 +40,6 @@ public:
 
 	// Increase the maximum amount of health the player can have
 	void increaseHealthLevel(int amount);
-
-	// Player Ammunition
-	int currentBullet = 0;
-	int bulletsSpare = 24;
-	int bulletsInClip = 6;
-	int clipSize = 6;
-	float fireRate = 1;
 
 private:
 

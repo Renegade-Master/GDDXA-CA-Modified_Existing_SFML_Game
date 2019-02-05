@@ -21,7 +21,7 @@ public:
 	//	Handle the Enemy being hit
 	virtual bool onHit(sf::Time timeHit);
 
-	virtual sf::String getClassName() = 0 { return(sf::String("\nAbstract PlayerCharacter::Devil Class.\n")); };
+	virtual sf::String getClassName() = 0 { return(sf::String("Abstract PlayerCharacter::Devil")); };
 };
 
 #endif // DEVIL_H

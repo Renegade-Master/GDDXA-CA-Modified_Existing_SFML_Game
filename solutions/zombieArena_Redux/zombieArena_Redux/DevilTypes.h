@@ -13,19 +13,19 @@
 class Bloater : public Devil {
 public:
 	Bloater();
-	sf::String getClassName() { return(sf::String("\nPlayerCharacter::Devil::Bloater Class.\n")); };
+	sf::String getClassName() { return(sf::String("PlayerCharacter::Devil::Bloater")); };
 };
 
 class Chaser : public Devil {
 public:
 	Chaser();
-	sf::String getClassName() { return(sf::String("\nPlayerCharacter::Devil::Chaser Class.\n")); };
+	sf::String getClassName() { return(sf::String("PlayerCharacter::Devil::Chaser")); };
 };
 
 class Crawler : public Devil {
 public:
 	Crawler();
-	sf::String getClassName() { return(sf::String("\nPlayerCharacter::Devil::Crawler Class.\n")); };
+	sf::String getClassName() { return(sf::String("PlayerCharacter::Devil::Crawler")); };
 };
 
 #endif	// !DEVILTYPES_H

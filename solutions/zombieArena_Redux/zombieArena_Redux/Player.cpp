@@ -54,9 +54,7 @@ void Player::spawn(float posX, float posY) {
 *	Handle the Player being Hit.
 */
 bool Player::onHit(sf::Time timeHit) {
-	//this->m_Health -= 10;
-
-	return(true);
+	return(this->PlayerCharacter::onHit(timeHit));
 }
 
 /**
@@ -136,11 +134,4 @@ void Player::increaseHealthLevel(int amount) {
 	if (m_Health > m_MaxHealth) {
 		m_Health = m_MaxHealth;
 	}
-}
-
-/**
-*	Return the String name of this Class.
-*/
-sf::String Player::getClassName() {
-	return(sf::String("\nPlayerCharacter::Player Class.\n"));
 }

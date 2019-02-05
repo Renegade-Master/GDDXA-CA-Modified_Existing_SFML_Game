@@ -22,7 +22,9 @@ private:
 	bool m_InFlight = false;
 
 	// How fast does a bullet travel?
-	float m_BulletSpeed = 1000;
+	float m_BulletSpeed;
+
+	float m_BulletDamage;
 
 	// What fraction of 1 pixel does the bullet travel, 
 	// Horizontally and vertically each frame?
@@ -43,7 +45,7 @@ private:
 // Public function prototypes go here
 public:
 	// The constructor
-	Bullet();
+	Bullet(float damage);
 
 	// Stop the bullet
 	void stop();

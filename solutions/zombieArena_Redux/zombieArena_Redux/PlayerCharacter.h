@@ -14,6 +14,7 @@
 
 #include "Constants.h"
 #include "TextureHolder.h"
+#include "WeaponTypes.h"
 
 class PlayerCharacter abstract {
 public:
@@ -52,6 +53,11 @@ protected:
 	|	Variables	|
 	\***---------***/
 
+	//	What weapon is currently equipped?
+	Weapon* m_Weapon;
+	void shoot();
+	void reload();
+
 	// How much health has the PC got?
 	int m_Health;
 
@@ -81,7 +87,7 @@ protected:
 
 	virtual void spawn(float posX, float posY) = 0;
 	virtual void update(sf::Time elapsedTime);
-	virtual sf::String getClassName() = 0 { return(sf::String("\nAbstract PlayerCharacter Class.\n")); };
+	virtual sf::String getClassName() = 0 { return(sf::String("PlayerCharacter")); };
 
 	// Handle hits in both directions
 	/*virtual sf::Time getLastHitTime() = 0;*/

@@ -110,9 +110,6 @@ private:
 	Devil* summonDevil(sf::Vector2f pos, int type);
 
 	// Set a container for the Bullets
-	std::vector<Bullet*> bullets;
-	void loadBullets(int amount);
-	Bullet* forgeBullet();
 
 	// When was the fire button last pressed?
 	sf::Time lastPressed;
