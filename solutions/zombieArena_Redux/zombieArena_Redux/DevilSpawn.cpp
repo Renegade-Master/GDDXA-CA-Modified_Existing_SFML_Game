@@ -88,7 +88,7 @@ void DevilSpawn::runGame() {
 }
 
 /**
-*
+*	Reload the active window with new values.
 */
 void DevilSpawn::refreshWindow() {
 	window.create(sf::VideoMode(resolution.x, resolution.y),

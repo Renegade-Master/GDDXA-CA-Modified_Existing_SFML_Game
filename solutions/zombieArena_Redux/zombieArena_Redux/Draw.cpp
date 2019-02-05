@@ -21,8 +21,8 @@ void DevilSpawn::Draw() {
 		window.draw(background, &textureBackground);
 
 		// Draw the horde
-		for (std::vector<Devil>::iterator it = horde.begin(); it != horde.end(); ++it) {
-			window.draw(it->getSprite());
+		for (std::vector<Devil*>::iterator it = horde.begin(); it != horde.end(); ++it) {
+			window.draw((*it)->getSprite());
 		}
 
 		// Draw the Bullets in flight
@@ -33,7 +33,7 @@ void DevilSpawn::Draw() {
 		}
 
 		// Draw the player
-		window.draw(player.getSprite());
+		window.draw(m_Player.getSprite());
 
 		// Draw the pickups if currently spawned
 		if (ammoPickup.isSpawned()) {
@@ -47,9 +47,9 @@ void DevilSpawn::Draw() {
 		window.draw(sprite_mouse);
 
 		// Draw the MiniMap
-		window.setView(miniMapView);
+		//window.setView(miniMapView);
 
-		window.draw(miniMapBorder);
+		//window.draw(miniMapBorder);
 
 		// Switch to the HUD view
 		window.setView(hudView);

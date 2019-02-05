@@ -136,9 +136,11 @@
     <ClCompile Include="initSounds.cpp" />
     <ClCompile Include="initText.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pickup.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerCharacter.cpp" />
     <ClCompile Include="TextureHolder.cpp" />
     <ClCompile Include="Devil.cpp" />
     <ClCompile Include="DevilSpawn.cpp" />
@@ -147,8 +149,12 @@
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Command.h" />
+    <ClInclude Include="Constants.h" />
+    <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Pickup.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerCharacter.h" />
     <ClInclude Include="TextureHolder.h" />
     <ClInclude Include="Devil.h" />
     <ClInclude Include="DevilSpawn.h" />
