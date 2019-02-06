@@ -84,6 +84,7 @@ class cmd_Attack : public Command {
 public:
 	virtual void execute(Player& pc) override {
 		pc.m_Action = PlayerCharacter::Action::ATTACKING;
+		pc.shoot();
 		//std::cout << "Executing ATTACK Input" << std::endl;
 	}
 };

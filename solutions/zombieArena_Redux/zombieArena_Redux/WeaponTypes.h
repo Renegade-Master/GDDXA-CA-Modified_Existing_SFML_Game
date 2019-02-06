@@ -12,16 +12,17 @@
 
 class Weapon abstract {
 public:
+	enum class WEAPON_TYPES { HOLSTERED, PISTOL, ASSAULTRIFLE, SHOTGUN, RPG };
+	
 	std::vector<Bullet*> m_Ammo;	// A collection of Bullets
 	
 	sf::Time getTimeLastFired() { return(m_timeLastFired); };
 
-	Weapon* forgeWeapon();
+	Weapon* forgeWeapon(WEAPON_TYPES type);
 
 	virtual void fire(sf::Time currentFrameTime) = 0;
 
 protected:
-	enum class WEAPON_TYPES { HOLSTERED, PISTOL, ASSAULTRIFLE, SHOTGUN, RPG };
 	WEAPON_TYPES m_Weapon = WEAPON_TYPES::HOLSTERED;
 
 	//	Ammunition
@@ -43,7 +44,7 @@ protected:
 class Unarmed : public Weapon {
 public:
 	Unarmed();
-	void fire();
+	void fire(sf::Time currentFrameTime);
 
 	sf::String getClassName() { return(sf::String("Weapon::Unarmed")); };
 };
@@ -59,7 +60,7 @@ public:
 class AssaultRifle : public Weapon {
 public:
 	AssaultRifle();
-	void fire();
+	void fire(sf::Time currentFrameTime);
 
 	sf::String getClassName() { return(sf::String("Weapon::AssaultRifle")); };
 };
@@ -67,7 +68,7 @@ public:
 class Shotgun : public Weapon {
 public:
 	Shotgun();
-	void fire();
+	void fire(sf::Time currentFrameTime);
 
 	sf::String getClassName() { return(sf::String("Weapon::Shotgun")); };
 };
@@ -75,7 +76,7 @@ public:
 class RPG : public Weapon {
 public:
 	RPG();
-	void fire();
+	void fire(sf::Time currentFrameTime);
 
 	sf::String getClassName() { return(sf::String("Weapon::RPG")); };
 };

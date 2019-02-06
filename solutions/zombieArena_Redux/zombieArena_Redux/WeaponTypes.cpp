@@ -82,7 +82,7 @@ RPG::RPG() {
 /**
 *	Fire a Bullet
 */
-void Unarmed::fire() {
+void Unarmed::fire(sf::Time currentFrameTime) {
 
 }
 
@@ -96,21 +96,21 @@ void Pistol::fire(sf::Time currentFrameTime) {
 /**
 *	Fire a Bullet
 */
-void AssaultRifle::fire() {
+void AssaultRifle::fire(sf::Time currentFrameTime) {
 
 }
 
 /**
 *	Fire a Bullet
 */
-void Shotgun::fire() {
+void Shotgun::fire(sf::Time currentFrameTime) {
 
 }
 
 /**
 *	Fire a Bullet
 */
-void RPG::fire() {
+void RPG::fire(sf::Time currentFrameTime) {
 
 }
 
@@ -162,6 +162,30 @@ Bullet* Weapon::forgeBullet() {
 /**
 *	Create a new Weapon
 */
-Weapon* Weapon::forgeWeapon() {
+Weapon* Weapon::forgeWeapon(WEAPON_TYPES type) {
+	Weapon* freshWeapon;
 
+	switch (type) {
+	case WEAPON_TYPES::HOLSTERED:
+		freshWeapon = new Unarmed();
+		break;
+	case WEAPON_TYPES::PISTOL:
+		freshWeapon = new Pistol();
+		break;
+	case WEAPON_TYPES::ASSAULTRIFLE:
+		freshWeapon = new AssaultRifle();
+		break;
+	case WEAPON_TYPES::SHOTGUN:
+		freshWeapon = new Shotgun();
+		break;
+	case WEAPON_TYPES::RPG:
+		freshWeapon = new RPG();
+		break;
+	default:
+		//	Not a Weapon
+		freshWeapon = nullptr;
+		break;
+	}
+
+	return(freshWeapon);
 }

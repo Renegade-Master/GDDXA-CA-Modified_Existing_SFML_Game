@@ -81,6 +81,13 @@ bool PlayerCharacter::isAlive() {
 }
 
 /**
+*	The the Weapon currently held by the PC
+*/
+void PlayerCharacter::shoot() {
+	//this->m_Weapon->fire();
+}
+
+/**
 *	Should this PC be hit, or has it been too soon?
 */
 bool PlayerCharacter::onHit(sf::Time timeHit) {
