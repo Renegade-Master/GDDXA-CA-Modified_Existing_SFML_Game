@@ -126,7 +126,7 @@ private:
 	// What time was the last update
 	sf::Time timeSinceLastUpdate;
 	// How often (in frames) should we update the HUD
-	int fpsMeasurementFrameInterval = 500;
+	int fpsMeasurementFrameInterval = 120;
 
 	// For the home/game over screen
 	sf::Sprite spriteGameOver;

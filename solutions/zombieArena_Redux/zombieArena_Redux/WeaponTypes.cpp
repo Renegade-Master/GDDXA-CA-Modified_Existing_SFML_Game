@@ -16,14 +16,10 @@
 Unarmed::Unarmed() {
 	this->m_Weapon = WEAPON_TYPES::HOLSTERED;
 
-	this->m_currentBullet = 0;
-	this->m_bulletsReserved = -1;
-	this->m_clipRemaining = 0;
 	this->m_clipSize = 0;
 	this->fireRate = sf::Time::Zero;
 
-	/*this->loadBullets(this->m_bulletsReserved);
-	this->m_bulletsReserved -= this->m_clipSize;*/
+	this->loadBullets(this->m_clipSize);
 }
 
 /**
@@ -32,14 +28,10 @@ Unarmed::Unarmed() {
 Pistol::Pistol() {
 	this->m_Weapon = WEAPON_TYPES::PISTOL;
 
-	this->m_currentBullet = 0;
-	this->m_bulletsReserved = 5;
-	this->m_clipRemaining = 12;
-	this->m_clipSize = 12;
+	this->m_clipSize = 6;
 	this->fireRate = sf::Time(sf::milliseconds(500));
 
-	this->loadBullets(this->m_bulletsReserved);
-	this->m_bulletsReserved -= this->m_clipSize;
+	this->loadBullets(this->m_clipSize);
 }
 
 /**
@@ -48,14 +40,10 @@ Pistol::Pistol() {
 AssaultRifle::AssaultRifle() {
 	this->m_Weapon = WEAPON_TYPES::ASSAULTRIFLE;
 
-	this->m_currentBullet = 0;
-	this->m_bulletsReserved = 63;
-	this->m_clipRemaining = 32;
 	this->m_clipSize = 32;
 	this->fireRate = sf::Time(sf::milliseconds(200));
 
-	this->loadBullets(this->m_bulletsReserved);
-	this->m_bulletsReserved -= this->m_clipSize;
+	this->loadBullets(this->m_clipSize);
 }
 
 /**
@@ -64,14 +52,10 @@ AssaultRifle::AssaultRifle() {
 Shotgun::Shotgun() {
 	this->m_Weapon = WEAPON_TYPES::SHOTGUN;
 
-	this->m_currentBullet = 0;
-	this->m_bulletsReserved = 15;
-	this->m_clipRemaining = 6;
 	this->m_clipSize = 6;
 	this->fireRate = sf::Time(sf::milliseconds(500));
 
-	this->loadBullets(this->m_bulletsReserved);
-	this->m_bulletsReserved -= this->m_clipSize;
+	this->loadBullets(this->m_clipSize);
 }
 
 /**
@@ -80,14 +64,10 @@ Shotgun::Shotgun() {
 RPG::RPG() {
 	this->m_Weapon = WEAPON_TYPES::RPG;
 
-	this->m_currentBullet = 0;
-	this->m_bulletsReserved = 9;
-	this->m_clipRemaining = 1;
 	this->m_clipSize = 1;
 	this->fireRate = sf::Time(sf::milliseconds(1000));
 
-	this->loadBullets(this->m_bulletsReserved);
-	this->m_bulletsReserved -= this->m_clipSize;
+	this->loadBullets(this->m_clipSize);
 }
 
 /***-----------------***\
@@ -140,9 +120,15 @@ void Weapon::reload() {
 *	Load an amount of Bullets into a Weapon.
 */
 void Weapon::loadBullets(int amount) {
+	//	Provide several Clips worth of Bullets
+	amount *= 5;
+
 	for (int i = 0; i < amount; i++) {
 		this->m_Ammo.push_back(this->forgeBullet());
 	}
+	
+	this->m_bulletsReserved = amount;
+	this->m_clipRemaining = this->m_clipSize;
 }
 
 /**

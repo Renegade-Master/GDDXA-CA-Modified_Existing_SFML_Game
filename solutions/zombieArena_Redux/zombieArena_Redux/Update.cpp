@@ -146,7 +146,7 @@ void DevilSpawn::Update() {
 			std::stringstream ssHordeAlive;
 
 			// Update the ammo text
-			//ssAmmo << m_Player.m_clipRemaining << "/" << m_Player.m_bulletsReserved;
+			ssAmmo << m_Player.m_Weapon->m_clipRemaining << "/" << m_Player.m_Weapon->m_bulletsReserved;
 			ammoText.setString(ssAmmo.str());
 
 			// Update the score text

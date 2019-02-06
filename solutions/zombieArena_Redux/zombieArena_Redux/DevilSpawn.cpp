@@ -24,9 +24,6 @@ DevilSpawn::DevilSpawn() {
 	textureBackground = TextureHolder::GetTexture(
 		"Graphics\\background_sheet_stretch.png");
 
-	// Set fixed amount of bullets
-	//DevilSpawn::loadBullets(100);
-
 	// Hide the mouse pointer and replace it with crosshair
 	window.setMouseCursorVisible(true);
 	sprite_mouse.setOrigin(25, 25);
