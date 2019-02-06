@@ -27,10 +27,6 @@
 #include "TextureHolder.h"
 
 class DevilSpawn {
-public:
-	DevilSpawn();
-	void runGame();
-
 private:
 	void Input();
 	void Update();
@@ -81,12 +77,6 @@ private:
 	// Hold Events betwen frames
 	sf::Event evnt;
 
-	// Clock for timings
-	sf::Clock clock;
-	// How long has the PLAYING m_gameState been active
-	sf::Time gameTimeTotal;
-	sf::Time dt;
-
 	// Where is the mouse in relation to world coordinates
 	sf::Vector2f mouseWorldPosition;
 	// Where is the mouse in relation to screen coordinates
@@ -109,7 +99,11 @@ private:
 	void createHorde(int numDevils, sf::IntRect arena);
 	Devil* summonDevil(sf::Vector2f pos, int type);
 
-	// Set a container for the Bullets
+	// Clock for timings
+	sf::Clock m_GameClock;
+	// How long has the PLAYING m_gameState been active
+	sf::Time gameTimeTotal;
+	sf::Time m_FrameTime;
 
 	// When was the fire button last pressed?
 	sf::Time lastPressed;
@@ -193,6 +187,10 @@ private:
 	sf::Sound pickup;
 	sf::SoundBuffer buttonClickBuffer;
 	sf::Sound buttonClick;
+
+public:
+	DevilSpawn();
+	void runGame();
 };
 
 #endif // DEVILSPAWN_H

@@ -14,65 +14,65 @@
 *	Infinite ammo, low damage, very short range.
 */
 Unarmed::Unarmed() {
-	m_Weapon = WEAPON_TYPES::HOLSTERED;
+	this->m_Weapon = WEAPON_TYPES::HOLSTERED;
 
-	currentBullet = 0;
-	bulletsSpare = 0;
-	bulletsInClip = 0;
-	clipSize = 0;
-	fireRate = sf::Time::Zero;
+	this->m_currentBullet = 0;
+	this->m_bulletsReserved = -1;
+	this->m_clipRemaining = 0;
+	this->m_clipSize = 0;
+	this->fireRate = sf::Time::Zero;
 }
 
 /**
 *	Low fire rate, low damage, infinite ammo.
 */
 Pistol::Pistol() {
-	m_Weapon = WEAPON_TYPES::PISTOL;
+	this->m_Weapon = WEAPON_TYPES::PISTOL;
 
-	currentBullet = 0;
-	bulletsSpare = INT_MAX;
-	bulletsInClip = 12;
-	clipSize = 12;
-	fireRate = sf::Time(sf::milliseconds(500));
+	this->m_currentBullet = 0;
+	this->m_bulletsReserved = -1;
+	this->m_clipRemaining = 12;
+	this->m_clipSize = 12;
+	this->fireRate = sf::Time(sf::milliseconds(500));
 }
 
 /**
 *	Lots of bullets, medium damage, high fire rate.
 */
 AssaultRifle::AssaultRifle() {
-	m_Weapon = WEAPON_TYPES::ASSAULTRIFLE;
+	this->m_Weapon = WEAPON_TYPES::ASSAULTRIFLE;
 
-	currentBullet = 0;
-	bulletsSpare = 63;
-	bulletsInClip = 32;
-	clipSize = 32;
-	fireRate = sf::Time(sf::milliseconds(200));
+	this->m_currentBullet = 0;
+	this->m_bulletsReserved = 63;
+	this->m_clipRemaining = 32;
+	this->m_clipSize = 32;
+	this->fireRate = sf::Time(sf::milliseconds(200));
 }
 
 /**
 *	Fire many bullets in a spread for a shorter distance.
 */
 Shotgun::Shotgun() {
-	m_Weapon = WEAPON_TYPES::SHOTGUN;
+	this->m_Weapon = WEAPON_TYPES::SHOTGUN;
 
-	currentBullet = 0;
-	bulletsSpare = 15;
-	bulletsInClip = 6;
-	clipSize = 6;
-	fireRate = sf::Time(sf::milliseconds(500));
+	this->m_currentBullet = 0;
+	this->m_bulletsReserved = 15;
+	this->m_clipRemaining = 6;
+	this->m_clipSize = 6;
+	this->fireRate = sf::Time(sf::milliseconds(500));
 }
 
 /**
 *	Fire a single large bullet that affects an area, very limited ammo.
 */
 RPG::RPG() {
-	m_Weapon = WEAPON_TYPES::RPG;
+	this->m_Weapon = WEAPON_TYPES::RPG;
 
-	currentBullet = 0;
-	bulletsSpare = 9;
-	bulletsInClip = 1;
-	clipSize = 1;
-	fireRate = sf::Time(sf::milliseconds(1000));
+	this->m_currentBullet = 0;
+	this->m_bulletsReserved = 9;
+	this->m_clipRemaining = 1;
+	this->m_clipSize = 1;
+	this->fireRate = sf::Time(sf::milliseconds(1000));
 }
 
 /***-------------***\
@@ -83,14 +83,27 @@ RPG::RPG() {
 *	Fire a Bullet
 */
 void Unarmed::fire(sf::Time currentFrameTime) {
-
+	// Melee?
 }
 
 /**
 *	Fire a Bullet
 */
 void Pistol::fire(sf::Time currentFrameTime) {
+	this->m_timeSinceFired += currentFrameTime;
 
+	//	Ready to fire again?
+	if (this->m_timeSinceFired + currentFrameTime
+		> this->fireRate
+		&& this->m_clipRemaining > 0) {
+
+		std::cout << "Firing!" << std::endl;
+
+		this->m_timeSinceFired = sf::Time::Zero;
+	}
+	else {
+		std::cout << "Firing too soon!" << std::endl;
+	}
 }
 
 /**
@@ -123,15 +136,15 @@ void RPG::fire(sf::Time currentFrameTime) {
 *	Reload this Weapon.
 */
 void Weapon::reload() {
-	if (this->bulletsSpare >= this->clipSize) {
+	if (this->m_bulletsReserved >= this->m_clipSize) {
 		// Plenty of bullets. Reload.
-		this->bulletsSpare -= (this->clipSize - this->bulletsInClip);
-		this->bulletsInClip = this->clipSize;
+		this->m_bulletsReserved -= (this->m_clipSize - this->m_clipRemaining);
+		this->m_clipRemaining = this->m_clipSize;
 	}
-	else if (this->bulletsSpare > 0) {
+	else if (this->m_bulletsReserved > 0) {
 		// Less than a clip remaining
-		this->bulletsInClip = this->bulletsSpare;
-		this->bulletsSpare = 0;
+		this->m_clipRemaining = this->m_bulletsReserved;
+		this->m_bulletsReserved = 0;
 	}
 	else {
 		// NO ARROWS!!

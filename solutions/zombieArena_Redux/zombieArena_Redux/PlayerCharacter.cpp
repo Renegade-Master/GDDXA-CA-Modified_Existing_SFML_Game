@@ -83,8 +83,8 @@ bool PlayerCharacter::isAlive() {
 /**
 *	The the Weapon currently held by the PC
 */
-void PlayerCharacter::shoot() {
-	//this->m_Weapon->fire();
+void PlayerCharacter::shoot(sf::Time currentFrameTime) {
+	this->m_Weapon->fire(currentFrameTime);
 }
 
 /**

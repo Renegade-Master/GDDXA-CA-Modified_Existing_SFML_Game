@@ -8,6 +8,8 @@
 #ifndef BULLET_H
 #define BULLET_H
 
+#include <iostream>
+
 #include <SFML/Graphics.hpp>
 
 class Bullet {

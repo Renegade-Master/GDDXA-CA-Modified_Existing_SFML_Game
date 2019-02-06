@@ -26,7 +26,7 @@ void DevilSpawn::Input() {
 				m_gameState == GameState::PAUSED) {
 				m_gameState = GameState::PLAYING;
 				// Reset the clock so there isn't a frame jump
-				clock.restart();
+				m_GameClock.restart();
 			}
 
 			// Quit while Paused
@@ -63,10 +63,10 @@ void DevilSpawn::Input() {
 	// Handle controls while playing
 	if (m_gameState == GameState::PLAYING) {
 
-		cmd = m_InpHand.handleInput(dt);
+		cmd = m_InpHand.handleInput(m_FrameTime);
 
 		if (cmd) { 
-			cmd->execute(m_Player);
+			cmd->execute(m_Player, m_FrameTime);
 		}
 
 		m_Player.lookAt(sf::Vector2f(mouseScreenPosition), resolution);
@@ -76,19 +76,19 @@ void DevilSpawn::Input() {
 
 		//	if (gameTimeTotal.asMilliseconds()
 		//		- lastPressed.asMilliseconds()
-		//			> 1000 / m_Player.fireRate && m_Player.bulletsInClip > 0) {
+		//			> 1000 / m_Player.fireRate && m_Player.m_clipRemaining > 0) {
 
 		//		// Pass the centre of the m_Player and the centre of the crosshair
 		//		// to the shoot function
-		//		bullets[m_Player.currentBullet++].shoot(
+		//		bullets[m_Player.m_currentBullet++].shoot(
 		//			m_Player.getCenter().x, m_Player.getCenter().y,
 		//			mouseWorldPosition.x, mouseWorldPosition.y);
-		//		if (m_Player.currentBullet > 99) {
-		//			m_Player.currentBullet = 0;
+		//		if (m_Player.m_currentBullet > 99) {
+		//			m_Player.m_currentBullet = 0;
 		//		}
 		//		lastPressed = gameTimeTotal;
 		//		shoot.play();
-		//		m_Player.bulletsInClip--;
+		//		m_Player.m_clipRemaining--;
 		//	}
 		//}// End fire a bullet
 	}// End handling controls while playing
@@ -150,7 +150,7 @@ void DevilSpawn::Input() {
 				case 1: // Clip Size Upgrade Button
 					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();// Increase clip size
-						//m_Player.clipSize += m_Player.clipSize;
+						//m_Player.m_clipSize += m_Player.m_clipSize;
 						m_gameState = GameState::PLAYING;
 					}
 					break;
@@ -225,7 +225,7 @@ void DevilSpawn::Input() {
 			powerup.play();
 
 			// Reset the clock so there isn't a frame jump
-			clock.restart();
+			m_GameClock.restart();
 		}
 	}// End handling controls while levelling up
 

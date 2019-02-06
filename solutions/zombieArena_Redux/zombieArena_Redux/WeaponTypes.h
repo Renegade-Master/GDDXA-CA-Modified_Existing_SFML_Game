@@ -16,7 +16,7 @@ public:
 	
 	std::vector<Bullet*> m_Ammo;	// A collection of Bullets
 	
-	sf::Time getTimeLastFired() { return(m_timeLastFired); };
+	sf::Time getTimeLastFired() { return(m_timeSinceFired); };
 	void reload();
 
 	Weapon* forgeWeapon(WEAPON_TYPES type);
@@ -27,13 +27,13 @@ protected:
 	WEAPON_TYPES m_Weapon = WEAPON_TYPES::HOLSTERED;
 
 	//	Ammunition
-	int currentBullet;	// Bullet currently in chamber
-	int bulletsSpare;	// Bullets left in pouch
-	int bulletsInClip;	// Bullets left in the current clip
-	int clipSize;		// How many Bullets fit in this clip
+	int m_currentBullet;	// Bullet currently in chamber
+	int m_bulletsReserved;	// Bullets left in pouch
+	int m_clipRemaining;	// Bullets left in the current clip
+	int m_clipSize;			// How many Bullets fit in this clip
 
 	sf::Time fireRate = sf::Time::Zero;			// How fast can Bullets be fired
-	sf::Time m_timeLastFired = sf::Time::Zero;
+	sf::Time m_timeSinceFired = sf::Time::Zero;
 
 	void loadBullets(int amount);
 	Bullet* forgeBullet();

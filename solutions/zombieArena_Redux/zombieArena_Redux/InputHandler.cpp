@@ -20,7 +20,7 @@ InputHandler::InputHandler() {
 */
 void InputHandler::chooseScheme(sf::Uint32 scheme) {
 	//	Keyboard Keys we want to use
-	key_W = new cmd_RunUp();;
+	key_W = new cmd_RunUp();
 	key_A = new cmd_RunLeft();
 	key_S = new cmd_RunDown();;
 	key_D = new cmd_RunRight();
@@ -37,7 +37,9 @@ void InputHandler::chooseScheme(sf::Uint32 scheme) {
 
 	if (scheme == ControlScheme::DEFAULT) {
 		//	Gamepad Buttons we want to use
-		cont_SQUARE = nullptr;
+		cont_CROSS = nullptr;
+		cont_CIRCLE = nullptr;
+		cont_SQUARE = new cmd_Attack();
 		cont_TRIANGLE = nullptr;
 
 		cont_L1 = nullptr;
@@ -60,14 +62,14 @@ void InputHandler::chooseScheme(sf::Uint32 scheme) {
 	else if (scheme == ControlScheme::BUMPERJUMPER) {
 		//	Gamepad Buttons we want to use
 		cont_CROSS = nullptr;
+		cont_CIRCLE = nullptr;
 		cont_SQUARE = nullptr;
 		cont_TRIANGLE = nullptr;
-		cont_CIRCLE = nullptr;
 
 		cont_L1 = nullptr;
 		cont_L2 = nullptr;
-		cont_R1 = nullptr;
-		cont_R2 = new cmd_Attack();
+		cont_R1 = new cmd_Attack();
+		cont_R2 = nullptr;
 
 		cont_LEFT_STICK_UP = new cmd_RunUp();
 		cont_LEFT_STICK_LEFT = new cmd_RunLeft();

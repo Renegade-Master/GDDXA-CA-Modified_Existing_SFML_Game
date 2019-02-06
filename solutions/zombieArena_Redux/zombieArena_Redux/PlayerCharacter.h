@@ -32,7 +32,7 @@ public:
 
 	//	What weapon is currently equipped?
 	Weapon* m_Weapon;
-	void shoot();
+	void shoot(sf::Time currentFrameTime);
 	void reload() { this->m_Weapon->reload(); };
 
 	// Find out if the PC is alive
