@@ -14,7 +14,7 @@ void PlayerCharacter::spawn(float posX, float posY) {
 }
 
 /**
-*
+*	Move the PC depending on their Movement states.
 */
 void PlayerCharacter::update(sf::Time elapsedTime) {
 	//	Handle Vertical Movements

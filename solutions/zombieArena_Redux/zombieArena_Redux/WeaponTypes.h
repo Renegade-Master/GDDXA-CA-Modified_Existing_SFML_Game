@@ -17,6 +17,7 @@ public:
 	std::vector<Bullet*> m_Ammo;	// A collection of Bullets
 	
 	sf::Time getTimeLastFired() { return(m_timeLastFired); };
+	void reload();
 
 	Weapon* forgeWeapon(WEAPON_TYPES type);
 

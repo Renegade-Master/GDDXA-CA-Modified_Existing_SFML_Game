@@ -120,7 +120,26 @@ void RPG::fire(sf::Time currentFrameTime) {
 \***-----------------***/
 
 /**
-*	Load an amount of bullets into a Weapon.
+*	Reload this Weapon.
+*/
+void Weapon::reload() {
+	if (this->bulletsSpare >= this->clipSize) {
+		// Plenty of bullets. Reload.
+		this->bulletsSpare -= (this->clipSize - this->bulletsInClip);
+		this->bulletsInClip = this->clipSize;
+	}
+	else if (this->bulletsSpare > 0) {
+		// Less than a clip remaining
+		this->bulletsInClip = this->bulletsSpare;
+		this->bulletsSpare = 0;
+	}
+	else {
+		// NO ARROWS!!
+	}
+}
+
+/**
+*	Load an amount of Bullets into a Weapon.
 */
 void Weapon::loadBullets(int amount) {
 	for (int i = 0; i < amount; i++) {

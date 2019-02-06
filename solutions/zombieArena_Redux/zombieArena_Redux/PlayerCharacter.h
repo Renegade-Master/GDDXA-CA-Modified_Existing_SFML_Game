@@ -33,7 +33,7 @@ public:
 	//	What weapon is currently equipped?
 	Weapon* m_Weapon;
 	void shoot();
-	void reload();
+	void reload() { this->m_Weapon->reload(); };
 
 	// Find out if the PC is alive
 	bool isAlive();

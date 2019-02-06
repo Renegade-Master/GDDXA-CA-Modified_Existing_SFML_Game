@@ -11,35 +11,31 @@
 *	Default Constructor
 */
 Player::Player() {
-	m_Speed = PLAYER_START_SPEED;
-	m_Health = PLAYER_START_HEALTH;
-	m_MaxHealth = PLAYER_START_HEALTH;
-	m_Weapon = m_Weapon->forgeWeapon(Weapon::WEAPON_TYPES::PISTOL);
+	this->m_Speed = PLAYER_START_SPEED;
+	this->m_Health = PLAYER_START_HEALTH;
+	this->m_MaxHealth = PLAYER_START_HEALTH;
+	this->m_Weapon = this->m_Weapon->forgeWeapon(Weapon::WEAPON_TYPES::PISTOL);
 
 	// Associate a texture with the sprite
 	// !!Watch this space!!
-	m_Sprite = sf::Sprite(TextureHolder::GetTexture(
+	this->m_Sprite = sf::Sprite(TextureHolder::GetTexture(
 		"graphics\\player.png"));
 
 	// Set the origin of the sprite to the centre, 
 	// for smooth rotation
-	m_Sprite.setOrigin(25, 25);
+	this->m_Sprite.setOrigin(
+		m_Sprite.getTextureRect().width / 2,
+		m_Sprite.getTextureRect().height / 2);
 }
 
 /**
 *	Reset Player stats for a new round.
 */
 void Player::resetPlayerStats() {
-	m_Speed = PLAYER_START_SPEED;
-	m_Health = PLAYER_START_HEALTH;
-	m_MaxHealth = PLAYER_START_HEALTH;
-
-	// Prepare the gun and ammo for next game
-	/*currentBullet = 0;
-	bulletsSpare = 24;
-	bulletsInClip = 6;
-	clipSize = 6;
-	fireRate = 1;*/
+	this->m_Speed = PLAYER_START_SPEED;
+	this->m_Health = PLAYER_START_HEALTH;
+	this->m_MaxHealth = PLAYER_START_HEALTH;
+	this->m_Weapon = this->m_Weapon->forgeWeapon(Weapon::WEAPON_TYPES::PISTOL);
 }
 
 /**
@@ -47,8 +43,8 @@ void Player::resetPlayerStats() {
 */
 void Player::spawn(float posX, float posY) {
 	// Place the player in the arena
-	m_Position.x = posX;
-	m_Position.y = posY;
+	this->m_Position.x = posX;
+	this->m_Position.y = posY;
 }
 
 /**
@@ -59,32 +55,10 @@ bool Player::onHit(sf::Time timeHit) {
 }
 
 /**
-*	Reload the Player's weapon.
-*/
-//bool Player::reload() {
-//	if (bulletsSpare >= clipSize) {
-//		// Plenty of bullets. Reload.
-//		bulletsSpare -= (clipSize - bulletsInClip);
-//		bulletsInClip = clipSize;
-//		return(true);
-//	}
-//	else if (bulletsSpare > 0) {
-//		// Less than a clip remaining
-//		bulletsInClip = bulletsSpare;
-//		bulletsSpare = 0;
-//		return(true);
-//	}
-//	else {
-//		// NO ARROWS!!
-//		return(false);
-//	}
-//}
-
-/**
 *	...
 */
 float Player::getRotation() {
-	return m_Sprite.getRotation();
+	return this->m_Sprite.getRotation();
 }
 
 /**
