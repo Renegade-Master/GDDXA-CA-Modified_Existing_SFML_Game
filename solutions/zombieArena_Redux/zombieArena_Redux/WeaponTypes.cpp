@@ -15,6 +15,7 @@
 */
 Unarmed::Unarmed() {
 	m_Weapon = WEAPON_TYPES::UNARMED;
+
 	currentBullet = 0;
 	bulletsSpare = 0;
 	bulletsInClip = 0;
@@ -27,6 +28,7 @@ Unarmed::Unarmed() {
 */
 Pistol::Pistol() {
 	m_Weapon = WEAPON_TYPES::PISTOL;
+
 	currentBullet = 0;
 	bulletsSpare = INT_MAX;
 	bulletsInClip = 12;
@@ -39,6 +41,7 @@ Pistol::Pistol() {
 */
 AssaultRifle::AssaultRifle() {
 	m_Weapon = WEAPON_TYPES::ASSAULTRIFLE;
+
 	currentBullet = 0;
 	bulletsSpare = 63;
 	bulletsInClip = 32;
@@ -51,6 +54,7 @@ AssaultRifle::AssaultRifle() {
 */
 Shotgun::Shotgun() {
 	m_Weapon = WEAPON_TYPES::SHOTGUN;
+
 	currentBullet = 0;
 	bulletsSpare = 15;
 	bulletsInClip = 6;
@@ -63,6 +67,7 @@ Shotgun::Shotgun() {
 */
 RPG::RPG() {
 	m_Weapon = WEAPON_TYPES::RPG;
+
 	currentBullet = 0;
 	bulletsSpare = 9;
 	bulletsInClip = 1;

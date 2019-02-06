@@ -26,6 +26,7 @@ protected:
 	void loadBullets(int amount);
 	Bullet* forgeBullet();
 
+	virtual ~Weapon() = 0 { /*delete m_Ammo;*/ };
 	virtual sf::String getClassName() = 0 { return(sf::String("Weapon")); };
 };
 
