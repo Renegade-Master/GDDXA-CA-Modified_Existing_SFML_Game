@@ -45,12 +45,12 @@ void DevilSpawn::Input() {
 			if (m_gameState == GameState::PLAYING) {
 				// Reloading
 				if (evnt.key.code == sf::Keyboard::R) {
-					if (m_Player.reload()) {
+					/*if (m_Player.reload()) {
 						reload.play();
 					}
 					else {
 						reloadFailed.play();
-					}
+					}*/
 				}
 			} // End Handling Events in PLAYING m_gameState
 		}
@@ -143,14 +143,14 @@ void DevilSpawn::Input() {
 				case 0: // Rate of Fire Upgrade Button
 					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();// Increase fire rate
-						m_Player.fireRate++;
+						//m_Player.fireRate++;
 						m_gameState = GameState::PLAYING;
 					}
 					break;
 				case 1: // Clip Size Upgrade Button
 					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();// Increase clip size
-						m_Player.clipSize += m_Player.clipSize;
+						//m_Player.clipSize += m_Player.clipSize;
 						m_gameState = GameState::PLAYING;
 					}
 					break;

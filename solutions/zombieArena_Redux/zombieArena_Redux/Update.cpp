@@ -47,11 +47,11 @@ void DevilSpawn::Update() {
 		}
 
 		// Update any bullets that are in-flight
-		for (std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
+		/*for (std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
 			if ((*it)->isInFlight()) {
 				(*it)->update(dt.asSeconds());
 			}
-		}
+		}*/
 
 		// Update the pickups
 		healthPickup.update(dt.asSeconds());
@@ -59,37 +59,37 @@ void DevilSpawn::Update() {
 
 		// Collision detection
 		// Have any horde been shot?
-		for (std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
-			for (std::vector<Devil*>::iterator it2 = horde.begin(); it2 != horde.end(); ++it2) {
-				if ((*it)->isInFlight() &&
-					(*it2)->isAlive()) {
-					if ((*it)->getPosition().intersects
-					((*it2)->getPosition())) {
-						// Stop the bullet
-						(*it)->stop();
+		//for (std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
+		//	for (std::vector<Devil*>::iterator it2 = horde.begin(); it2 != horde.end(); ++it2) {
+		//		if ((*it)->isInFlight() &&
+		//			(*it2)->isAlive()) {
+		//			if ((*it)->getPosition().intersects
+		//			((*it2)->getPosition())) {
+		//				// Stop the bullet
+		//				(*it)->stop();
 
-						// Register the hit and see if it was a kill
-						if ((*it2)->onHit(dt)) {
-							// Not just a hit but a kill too
-							score += 10;
-							if (score >= hiScore) {
-								hiScore = score;
-							}
+		//				// Register the hit and see if it was a kill
+		//				if ((*it2)->onHit(dt)) {
+		//					// Not just a hit but a kill too
+		//					score += 10;
+		//					if (score >= hiScore) {
+		//						hiScore = score;
+		//					}
 
-							numHordeAlive--;
+		//					numHordeAlive--;
 
-							// When all the horde are dead (again)
-							if (numHordeAlive == 0) {
-								m_gameState = GameState::LEVELING_UP;
-							}
-						}
+		//					// When all the horde are dead (again)
+		//					if (numHordeAlive == 0) {
+		//						m_gameState = GameState::LEVELING_UP;
+		//					}
+		//				}
 
-						// Make a splat sound
-						splat.play();
-					}
-				}
-			}
-		}// End zombie being shot
+		//				// Make a splat sound
+		//				splat.play();
+		//			}
+		//		}
+		//	}
+		//}// End zombie being shot
 
 		// Have any horde touched the player			
 		for (std::vector<Devil*>::iterator it = horde.begin(); it != horde.end(); ++it) {
@@ -122,7 +122,7 @@ void DevilSpawn::Update() {
 		// Has the player touched ammo pickup
 		if (m_Player.getPosition().intersects
 		(ammoPickup.getPosition()) && ammoPickup.isSpawned()) {
-			m_Player.bulletsSpare += ammoPickup.gotIt();
+			//m_Player.bulletsSpare += ammoPickup.gotIt();
 			// Play a sound
 			reload.play();
 		}
@@ -146,7 +146,7 @@ void DevilSpawn::Update() {
 			std::stringstream ssHordeAlive;
 
 			// Update the ammo text
-			ssAmmo << m_Player.bulletsInClip << "/" << m_Player.bulletsSpare;
+			//ssAmmo << m_Player.bulletsInClip << "/" << m_Player.bulletsSpare;
 			ammoText.setString(ssAmmo.str());
 
 			// Update the score text

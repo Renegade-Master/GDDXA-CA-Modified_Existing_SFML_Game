@@ -12,53 +12,56 @@
 
 class Weapon abstract {
 protected:
-	//	Ammunition
-	int currentBullet;
-	int bulletsSpare;
-	int bulletsInClip;
-	int clipSize;
-	float fireRate;
+	enum class WEAPON_TYPES { UNARMED, PISTOL, ASSAULTRIFLE, SHOTGUN, RPG };
+	WEAPON_TYPES m_Weapon = WEAPON_TYPES::UNARMED;
 
-	std::vector<Bullet*> m_Ammo;
+	//	Ammunition
+	std::vector<Bullet*> m_Ammo;	// A collection of Bullets
+	int currentBullet;				// Bullet currently in chamber
+	int bulletsSpare;				// Bullets left in pouch
+	int bulletsInClip;				// Bullets left in the current clip
+	int clipSize;					// How many Bullets fit in this clip
+	float fireRate;					// How fast can Bullets be fired
+
 	void loadBullets(int amount);
 	Bullet* forgeBullet();
 
-	virtual sf::Uint32 getClassName() = 0 { return(sf::Uint32("Weapon")); };
+	virtual sf::String getClassName() = 0 { return(sf::String("Weapon")); };
 };
 
 class Unarmed : public Weapon {
 public:
 	Unarmed();
 
-	sf::Uint32 getClassName() { return(sf::Uint32("Weapon::Unarmed")); };
+	sf::String getClassName() { return(sf::String("Weapon::Unarmed")); };
 };
 
 class Pistol : public Weapon {
 public:
 	Pistol();
 
-	sf::Uint32 getClassName() { return(sf::Uint32("Weapon::Pistol")); };
+	sf::String getClassName() { return(sf::String("Weapon::Pistol")); };
 };
 
 class AssaultRifle : public Weapon {
 public:
 	AssaultRifle();
 
-	sf::Uint32 getClassName() { return(sf::Uint32("Weapon::AssaultRifle")); };
+	sf::String getClassName() { return(sf::String("Weapon::AssaultRifle")); };
 };
 
 class Shotgun : public Weapon {
 public:
 	Shotgun();
 
-	sf::Uint32 getClassName() { return(sf::Uint32("Weapon::Shotgun")); };
+	sf::String getClassName() { return(sf::String("Weapon::Shotgun")); };
 };
 
 class RPG : public Weapon {
 public:
 	RPG();
 
-	sf::Uint32 getClassName() { return(sf::Uint32("Weapon::RPG")); };
+	sf::String getClassName() { return(sf::String("Weapon::RPG")); };
 };
 
 #endif // !WEAPONTYPES_H

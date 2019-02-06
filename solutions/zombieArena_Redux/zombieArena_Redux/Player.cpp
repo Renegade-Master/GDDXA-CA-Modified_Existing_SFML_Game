@@ -34,11 +34,11 @@ void Player::resetPlayerStats() {
 	m_MaxHealth = PLAYER_START_HEALTH;
 
 	// Prepare the gun and ammo for next game
-	currentBullet = 0;
+	/*currentBullet = 0;
 	bulletsSpare = 24;
 	bulletsInClip = 6;
 	clipSize = 6;
-	fireRate = 1;
+	fireRate = 1;*/
 }
 
 /**
@@ -60,24 +60,24 @@ bool Player::onHit(sf::Time timeHit) {
 /**
 *	Reload the Player's weapon.
 */
-bool Player::reload() {
-	if (bulletsSpare >= clipSize) {
-		// Plenty of bullets. Reload.
-		bulletsSpare -= (clipSize - bulletsInClip);
-		bulletsInClip = clipSize;
-		return(true);
-	}
-	else if (bulletsSpare > 0) {
-		// Less than a clip remaining
-		bulletsInClip = bulletsSpare;
-		bulletsSpare = 0;
-		return(true);
-	}
-	else {
-		// NO ARROWS!!
-		return(false);
-	}
-}
+//bool Player::reload() {
+//	if (bulletsSpare >= clipSize) {
+//		// Plenty of bullets. Reload.
+//		bulletsSpare -= (clipSize - bulletsInClip);
+//		bulletsInClip = clipSize;
+//		return(true);
+//	}
+//	else if (bulletsSpare > 0) {
+//		// Less than a clip remaining
+//		bulletsInClip = bulletsSpare;
+//		bulletsSpare = 0;
+//		return(true);
+//	}
+//	else {
+//		// NO ARROWS!!
+//		return(false);
+//	}
+//}
 
 /**
 *	...
