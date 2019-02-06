@@ -71,7 +71,7 @@ void DevilSpawn::Input() {
 
 		m_Player.lookAt(sf::Vector2f(mouseScreenPosition), resolution);
 
-		//// Fire a bullet
+		// Fire a bullet
 		//if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 
 		//	if (gameTimeTotal.asMilliseconds()

@@ -30,6 +30,11 @@ public:
 	Movement_H m_Movement_H = Movement_H::IDLE;
 	Action m_Action = Action::IDLE;
 
+	//	What weapon is currently equipped?
+	Weapon* m_Weapon;
+	void shoot();
+	void reload();
+
 	// Find out if the PC is alive
 	bool isAlive();
 
@@ -52,11 +57,6 @@ protected:
 	/***---------***\
 	|	Variables	|
 	\***---------***/
-
-	//	What weapon is currently equipped?
-	Weapon* m_Weapon;
-	void shoot();
-	void reload();
 
 	// How much health has the PC got?
 	int m_Health;

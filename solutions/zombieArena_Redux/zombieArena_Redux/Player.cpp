@@ -14,6 +14,7 @@ Player::Player() {
 	m_Speed = PLAYER_START_SPEED;
 	m_Health = PLAYER_START_HEALTH;
 	m_MaxHealth = PLAYER_START_HEALTH;
+	m_Weapon = new Pistol();
 
 	// Associate a texture with the sprite
 	// !!Watch this space!!

@@ -14,13 +14,13 @@
 *	Infinite ammo, low damage, very short range.
 */
 Unarmed::Unarmed() {
-	m_Weapon = WEAPON_TYPES::UNARMED;
+	m_Weapon = WEAPON_TYPES::HOLSTERED;
 
 	currentBullet = 0;
 	bulletsSpare = 0;
 	bulletsInClip = 0;
 	clipSize = 0;
-	fireRate = 0.0f;
+	fireRate = sf::Time::Zero;
 }
 
 /**
@@ -33,7 +33,7 @@ Pistol::Pistol() {
 	bulletsSpare = INT_MAX;
 	bulletsInClip = 12;
 	clipSize = 12;
-	fireRate = 2.0f;
+	fireRate = sf::Time(sf::milliseconds(500));
 }
 
 /**
@@ -46,7 +46,7 @@ AssaultRifle::AssaultRifle() {
 	bulletsSpare = 63;
 	bulletsInClip = 32;
 	clipSize = 32;
-	fireRate = 5.0f;
+	fireRate = sf::Time(sf::milliseconds(200));
 }
 
 /**
@@ -59,7 +59,7 @@ Shotgun::Shotgun() {
 	bulletsSpare = 15;
 	bulletsInClip = 6;
 	clipSize = 6;
-	fireRate = 2.0f;
+	fireRate = sf::Time(sf::milliseconds(500));
 }
 
 /**
@@ -72,8 +72,48 @@ RPG::RPG() {
 	bulletsSpare = 9;
 	bulletsInClip = 1;
 	clipSize = 1;
-	fireRate = 1.0f;
+	fireRate = sf::Time(sf::milliseconds(1000));
 }
+
+/***-------------***\
+|	Weapon Firing	|
+\***-------------***/
+
+/**
+*	Fire a Bullet
+*/
+void Unarmed::fire() {
+
+}
+
+/**
+*	Fire a Bullet
+*/
+void Pistol::fire(sf::Time currentFrameTime) {
+
+}
+
+/**
+*	Fire a Bullet
+*/
+void AssaultRifle::fire() {
+
+}
+
+/**
+*	Fire a Bullet
+*/
+void Shotgun::fire() {
+
+}
+
+/**
+*	Fire a Bullet
+*/
+void RPG::fire() {
+
+}
+
 
 /***-----------------***\
 |	Weapon Functions	|
@@ -95,7 +135,7 @@ Bullet* Weapon::forgeBullet() {
 	Bullet* newBullet;
 
 	switch (this->m_Weapon) {
-	case WEAPON_TYPES::UNARMED:
+	case WEAPON_TYPES::HOLSTERED:
 		newBullet = new Bullet(0.0f);
 		break;
 	case WEAPON_TYPES::PISTOL:
@@ -117,4 +157,11 @@ Bullet* Weapon::forgeBullet() {
 	}
 
 	return(newBullet);
+}
+
+/**
+*	Create a new Weapon
+*/
+Weapon* Weapon::forgeWeapon() {
+
 }

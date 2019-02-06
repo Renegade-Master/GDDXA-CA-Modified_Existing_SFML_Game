@@ -26,11 +26,11 @@ void DevilSpawn::Draw() {
 		}
 
 		// Draw the Bullets in flight
-		/*for (std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
+		for (std::vector<Bullet*>::iterator it = m_Player.m_Weapon->m_Ammo.begin(); it != m_Player.m_Weapon->m_Ammo.end(); ++it) {
 			if ((*it)->isInFlight()) {
 				window.draw((*it)->getShape());
 			}
-		}*/
+		}
 
 		// Draw the player
 		window.draw(m_Player.getSprite());
