@@ -89,4 +89,15 @@ public:
 	}
 };
 
+/**
+*	Set the Character to Attacking
+*/
+class cmd_Reload : public Command {
+public:
+	virtual void execute(Player& pc, sf::Vector2f target, sf::Time ft) override {
+		pc.reload();
+		//std::cout << "Executing RELOAD Input" << std::endl;
+	}
+};
+
 #endif // !COMMAND_H

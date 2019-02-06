@@ -8,6 +8,7 @@
 #ifndef BULLET_H
 #define BULLET_H
 
+#include <cmath>
 #include <iostream>
 
 #include <SFML/Graphics.hpp>

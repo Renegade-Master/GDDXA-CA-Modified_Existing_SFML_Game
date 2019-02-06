@@ -24,6 +24,7 @@ void InputHandler::chooseScheme(sf::Uint32 scheme) {
 	key_A = new cmd_RunLeft();
 	key_S = new cmd_RunDown();;
 	key_D = new cmd_RunRight();
+	key_R = new cmd_Reload();
 	key_SPACE = nullptr;
 	key_RETURN = nullptr;
 	key_BCKSPACE = nullptr;
@@ -31,14 +32,14 @@ void InputHandler::chooseScheme(sf::Uint32 scheme) {
 
 	//	Mouse Buttons we want to use
 	mouse_LMB = new cmd_Attack();
-	mouse_RMB = nullptr;
+	mouse_RMB = new cmd_Reload();
 	mouse_MMB = nullptr;
 
 
 	if (scheme == ControlScheme::DEFAULT) {
 		//	Gamepad Buttons we want to use
 		cont_CROSS = nullptr;
-		cont_CIRCLE = nullptr;
+		cont_CIRCLE = new cmd_Reload();
 		cont_SQUARE = new cmd_Attack();
 		cont_TRIANGLE = nullptr;
 
@@ -66,7 +67,7 @@ void InputHandler::chooseScheme(sf::Uint32 scheme) {
 		cont_SQUARE = nullptr;
 		cont_TRIANGLE = nullptr;
 
-		cont_L1 = nullptr;
+		cont_L1 = new cmd_Reload();
 		cont_L2 = nullptr;
 		cont_R1 = new cmd_Attack();
 		cont_R2 = nullptr;
@@ -104,6 +105,9 @@ Command* InputHandler::handleInput(sf::Time t) {
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 			return(key_D);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
+			return(key_R);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 			return(key_SPACE);

@@ -43,6 +43,7 @@ private:
 	Command* key_A			= nullptr;
 	Command* key_S			= nullptr;
 	Command* key_D			= nullptr;
+	Command* key_R			= nullptr;
 	Command* key_SPACE		= nullptr;
 	Command* key_RETURN		= nullptr;
 	Command* key_BCKSPACE	= nullptr;

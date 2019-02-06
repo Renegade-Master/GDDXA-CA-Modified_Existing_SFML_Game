@@ -19,7 +19,7 @@ public:
 	int m_clipRemaining = 0;	// Bullets left in the current clip
 	int m_bulletsReserved;	// Bullets left in pouch
 	
-	sf::Time getTimeLastFired() { return(m_timeSinceFired); };
+	sf::Time getTimeLastFired() { return(m_timeLastFired); };
 	void reload();
 
 	Weapon* forgeWeapon(WEAPON_TYPES type);
@@ -33,7 +33,7 @@ protected:
 	int m_clipSize;			// How many Bullets fit in this clip
 
 	sf::Time fireRate = sf::Time::Zero;			// How fast can Bullets be fired
-	sf::Time m_timeSinceFired = sf::Time::Zero;
+	sf::Time m_timeLastFired = sf::Time::Zero;
 
 	void loadBullets(int amount);
 	Bullet* forgeBullet();

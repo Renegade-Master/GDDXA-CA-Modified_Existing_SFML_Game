@@ -66,7 +66,7 @@ void DevilSpawn::Input() {
 		cmd = m_InpHand.handleInput(m_FrameTime);
 
 		if (cmd) { 
-			cmd->execute(m_Player, sf::Vector2f(mouseScreenPosition), m_FrameTime);
+			cmd->execute(m_Player, sf::Vector2f(mouseScreenPosition), gameTimeTotal);
 		}
 
 		m_Player.lookAt(sf::Vector2f(mouseScreenPosition), resolution);

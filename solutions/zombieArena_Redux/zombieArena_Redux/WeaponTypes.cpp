@@ -77,18 +77,21 @@ RPG::RPG() {
 /**
 *	Fire a Bullet
 */
-void Weapon::fire(sf::Vector2f origin, sf::Vector2f target, sf::Time currentFrameTime) {
+void Weapon::fire(sf::Vector2f origin, sf::Vector2f target, sf::Time totalGameTime) {
 	if (this->m_Weapon == Weapon::WEAPON_TYPES::HOLSTERED) { return; }
 
-	this->m_timeSinceFired += currentFrameTime;
+	sf::Time restPeriod = sf::Time(
+		sf::microseconds(std::abs(
+			this->m_timeLastFired.asMicroseconds()
+			- totalGameTime.asMicroseconds())));
 
 	//	Ready to fire again?
-	if (this->m_timeSinceFired + currentFrameTime
-		> this->fireRate
+	if (restPeriod > this->fireRate
 		&& this->m_clipRemaining > 0) {
 
-		this->m_timeSinceFired = sf::Time::Zero;
+		this->m_timeLastFired = totalGameTime;
 		this->m_Ammo[this->m_currentBullet++]->shoot(origin, target);
+		this->m_clipRemaining--;
 
 		std::cout << "Firing!" << std::endl;
 	}
@@ -113,6 +116,7 @@ void Weapon::reload() {
 	}
 	else {
 		// NO ARROWS!!
+		std::cout << "Out of AMMO!" << std::endl;
 	}
 }
 
