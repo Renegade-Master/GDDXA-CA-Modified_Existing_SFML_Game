@@ -21,6 +21,9 @@ Unarmed::Unarmed() {
 	this->m_clipRemaining = 0;
 	this->m_clipSize = 0;
 	this->fireRate = sf::Time::Zero;
+
+	/*this->loadBullets(this->m_bulletsReserved);
+	this->m_bulletsReserved -= this->m_clipSize;*/
 }
 
 /**
@@ -30,10 +33,13 @@ Pistol::Pistol() {
 	this->m_Weapon = WEAPON_TYPES::PISTOL;
 
 	this->m_currentBullet = 0;
-	this->m_bulletsReserved = -1;
+	this->m_bulletsReserved = 5;
 	this->m_clipRemaining = 12;
 	this->m_clipSize = 12;
 	this->fireRate = sf::Time(sf::milliseconds(500));
+
+	this->loadBullets(this->m_bulletsReserved);
+	this->m_bulletsReserved -= this->m_clipSize;
 }
 
 /**
@@ -47,6 +53,9 @@ AssaultRifle::AssaultRifle() {
 	this->m_clipRemaining = 32;
 	this->m_clipSize = 32;
 	this->fireRate = sf::Time(sf::milliseconds(200));
+
+	this->loadBullets(this->m_bulletsReserved);
+	this->m_bulletsReserved -= this->m_clipSize;
 }
 
 /**
@@ -60,6 +69,9 @@ Shotgun::Shotgun() {
 	this->m_clipRemaining = 6;
 	this->m_clipSize = 6;
 	this->fireRate = sf::Time(sf::milliseconds(500));
+
+	this->loadBullets(this->m_bulletsReserved);
+	this->m_bulletsReserved -= this->m_clipSize;
 }
 
 /**
@@ -73,23 +85,21 @@ RPG::RPG() {
 	this->m_clipRemaining = 1;
 	this->m_clipSize = 1;
 	this->fireRate = sf::Time(sf::milliseconds(1000));
+
+	this->loadBullets(this->m_bulletsReserved);
+	this->m_bulletsReserved -= this->m_clipSize;
 }
 
-/***-------------***\
-|	Weapon Firing	|
-\***-------------***/
+/***-----------------***\
+|	Weapon Functions	|
+\***-----------------***/
 
 /**
 *	Fire a Bullet
 */
-void Unarmed::fire(sf::Time currentFrameTime) {
-	// Melee?
-}
+void Weapon::fire(sf::Vector2f origin, sf::Vector2f target, sf::Time currentFrameTime) {
+	if (this->m_Weapon == Weapon::WEAPON_TYPES::HOLSTERED) { return; }
 
-/**
-*	Fire a Bullet
-*/
-void Pistol::fire(sf::Time currentFrameTime) {
 	this->m_timeSinceFired += currentFrameTime;
 
 	//	Ready to fire again?
@@ -97,40 +107,15 @@ void Pistol::fire(sf::Time currentFrameTime) {
 		> this->fireRate
 		&& this->m_clipRemaining > 0) {
 
-		std::cout << "Firing!" << std::endl;
-
 		this->m_timeSinceFired = sf::Time::Zero;
+		this->m_Ammo[this->m_currentBullet++]->shoot(origin, target);
+
+		std::cout << "Firing!" << std::endl;
 	}
 	else {
 		std::cout << "Firing too soon!" << std::endl;
 	}
 }
-
-/**
-*	Fire a Bullet
-*/
-void AssaultRifle::fire(sf::Time currentFrameTime) {
-
-}
-
-/**
-*	Fire a Bullet
-*/
-void Shotgun::fire(sf::Time currentFrameTime) {
-
-}
-
-/**
-*	Fire a Bullet
-*/
-void RPG::fire(sf::Time currentFrameTime) {
-
-}
-
-
-/***-----------------***\
-|	Weapon Functions	|
-\***-----------------***/
 
 /**
 *	Reload this Weapon.
@@ -156,7 +141,7 @@ void Weapon::reload() {
 */
 void Weapon::loadBullets(int amount) {
 	for (int i = 0; i < amount; i++) {
-		m_Ammo.push_back(forgeBullet());
+		this->m_Ammo.push_back(this->forgeBullet());
 	}
 }
 

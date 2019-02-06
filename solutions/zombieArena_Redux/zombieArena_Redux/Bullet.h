@@ -56,8 +56,8 @@ public:
 	bool isInFlight();
 
 	// Launch a new bullet
-	void shoot(float startX, float startY,
-		float xTarget, float yTarget);
+	void shoot(sf::Vector2f origin,
+		sf::Vector2f target);
 
 	// Tell the calling code where the bullet is in the world
 	sf::FloatRect getPosition();

@@ -33,11 +33,11 @@ void DevilSpawn::Update() {
 		m_Player.update(m_FrameTime);
 
 		// Make a note of the players new position
-		sf::Vector2f playerPosition(m_Player.getCenter());
+		sf::Vector2f playerPosition(m_Player.getCentre());
 
 		// Make the view centre around the player				
-		mainView.setCenter(m_Player.getCenter());
-		miniMapView.setCenter(m_Player.getCenter());
+		mainView.setCenter(m_Player.getCentre());
+		miniMapView.setCenter(m_Player.getCentre());
 
 		// Loop through each Devil and update them
 		for (std::vector<Devil*>::iterator it = horde.begin(); it != horde.end(); ++it) {

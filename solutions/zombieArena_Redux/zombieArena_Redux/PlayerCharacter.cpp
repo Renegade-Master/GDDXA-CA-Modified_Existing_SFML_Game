@@ -38,53 +38,11 @@ void PlayerCharacter::update(sf::Time elapsedTime) {
 }
 
 /**
-*	Return the Position (Global Bounds) of the Sprite assigned to this Object.
-*/
-sf::FloatRect PlayerCharacter::getPosition() {
-	return this->m_Sprite.getGlobalBounds();
-}
-
-/**
-*	...
-*/
-sf::Vector2f PlayerCharacter::getCenter() {
-	return this->m_Position;
-}
-
-/**
-*	...
-*/
-int PlayerCharacter::getHealth() {
-	return this->m_Health;
-}
-
-/**
-*	...
-*/
-sf::Sprite PlayerCharacter::getSprite() {
-	return this->m_Sprite;
-}
-
-/**
-*	...
-*/
-sf::Time PlayerCharacter::getLastHitTime() {
-	return this->m_LastHit;
-}
-
-/**
 *	Is this PC alive?
 */
 bool PlayerCharacter::isAlive() {
 	if (this->m_Health > 0) { return true; }
 	else { return false; }
-}
-
-/**
-*	The the Weapon currently held by the PC
-*/
-void PlayerCharacter::shoot(sf::Time currentFrameTime) {
-	this->m_Weapon->fire(currentFrameTime);
 }
 
 /**

@@ -32,26 +32,27 @@ public:
 
 	//	What weapon is currently equipped?
 	Weapon* m_Weapon;
-	void shoot(sf::Time currentFrameTime);
 	void reload() { this->m_Weapon->reload(); };
+	void shoot(sf::Vector2f origin, sf::Vector2f target, sf::Time currentFrameTime)
+		{ this->m_Weapon->fire(origin, target, currentFrameTime); };
 
 	// Find out if the PC is alive
 	bool isAlive();
 
 	// Where is the PC
-	sf::FloatRect getPosition();
+	sf::FloatRect getPosition() { return this->m_Sprite.getGlobalBounds(); };
 
 	// Where is the center of the PC
-	sf::Vector2f getCenter();
+	sf::Vector2f getCentre() { return this->m_Position; };
 
 	// Send a copy of the sprite to main
-	sf::Sprite getSprite();
+	sf::Sprite getSprite() { return this->m_Sprite; };
 
 	// How much health has the PC currently got?
-	int getHealth();
+	int getHealth() { return this->m_Health; };
 
 	// How long ago was the player last hit
-	sf::Time getLastHitTime();
+	sf::Time getLastHitTime() { return this->m_LastHit; };
 	
 protected:
 	/***---------***\

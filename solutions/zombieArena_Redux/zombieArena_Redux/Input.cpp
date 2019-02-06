@@ -66,7 +66,7 @@ void DevilSpawn::Input() {
 		cmd = m_InpHand.handleInput(m_FrameTime);
 
 		if (cmd) { 
-			cmd->execute(m_Player, m_FrameTime);
+			cmd->execute(m_Player, sf::Vector2f(mouseScreenPosition), m_FrameTime);
 		}
 
 		m_Player.lookAt(sf::Vector2f(mouseScreenPosition), resolution);
@@ -81,7 +81,7 @@ void DevilSpawn::Input() {
 		//		// Pass the centre of the m_Player and the centre of the crosshair
 		//		// to the shoot function
 		//		bullets[m_Player.m_currentBullet++].shoot(
-		//			m_Player.getCenter().x, m_Player.getCenter().y,
+		//			m_Player.getCentre().x, m_Player.getCentre().y,
 		//			mouseWorldPosition.x, mouseWorldPosition.y);
 		//		if (m_Player.m_currentBullet > 99) {
 		//			m_Player.m_currentBullet = 0;

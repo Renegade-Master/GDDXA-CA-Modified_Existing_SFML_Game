@@ -21,7 +21,7 @@ public:
 
 	Weapon* forgeWeapon(WEAPON_TYPES type);
 
-	virtual void fire(sf::Time currentFrameTime) = 0;
+	void fire(sf::Vector2f origin, sf::Vector2f target, sf::Time currentFrameTime);
 
 protected:
 	WEAPON_TYPES m_Weapon = WEAPON_TYPES::HOLSTERED;
@@ -45,7 +45,6 @@ protected:
 class Unarmed : public Weapon {
 public:
 	Unarmed();
-	void fire(sf::Time currentFrameTime);
 
 	sf::String getClassName() { return(sf::String("Weapon::Unarmed")); };
 };
@@ -53,7 +52,6 @@ public:
 class Pistol : public Weapon {
 public:
 	Pistol();
-	void fire(sf::Time currentFrameTime);
 
 	sf::String getClassName() { return(sf::String("Weapon::Pistol")); };
 };
@@ -61,7 +59,6 @@ public:
 class AssaultRifle : public Weapon {
 public:
 	AssaultRifle();
-	void fire(sf::Time currentFrameTime);
 
 	sf::String getClassName() { return(sf::String("Weapon::AssaultRifle")); };
 };
@@ -69,7 +66,6 @@ public:
 class Shotgun : public Weapon {
 public:
 	Shotgun();
-	void fire(sf::Time currentFrameTime);
 
 	sf::String getClassName() { return(sf::String("Weapon::Shotgun")); };
 };
@@ -77,7 +73,6 @@ public:
 class RPG : public Weapon {
 public:
 	RPG();
-	void fire(sf::Time currentFrameTime);
 
 	sf::String getClassName() { return(sf::String("Weapon::RPG")); };
 };
