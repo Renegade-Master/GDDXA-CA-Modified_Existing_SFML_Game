@@ -80,17 +80,19 @@ RPG::RPG() {
 void Weapon::fire(sf::Vector2f origin, sf::Vector2f target, sf::Time totalGameTime) {
 	if (this->m_Weapon == Weapon::WEAPON_TYPES::HOLSTERED) { return; }
 
-	sf::Time restPeriod = sf::Time(
-		sf::microseconds(std::abs(
+	sf::Time restPeriod = sf::microseconds(std::abs(
 			this->m_timeLastFired.asMicroseconds()
-			- totalGameTime.asMicroseconds())));
+			- totalGameTime.asMicroseconds()));
 
 	//	Ready to fire again?
 	if (restPeriod > this->fireRate
-		&& this->m_clipRemaining > 0) {
+		&& this->m_clipRemaining > 0
+		&& !this->m_Ammo.empty()) {
 
 		this->m_timeLastFired = totalGameTime;
-		this->m_Ammo[this->m_currentBullet++]->shoot(origin, target);
+		this->m_Ammo.back()->shoot(origin, target);	//	Shoot a Bullet
+		//this->m_Ammo.pop_back();					//	Remove that Bullet
+
 		this->m_clipRemaining--;
 
 		std::cout << "Firing!" << std::endl;
@@ -143,19 +145,19 @@ Bullet* Weapon::forgeBullet() {
 
 	switch (this->m_Weapon) {
 	case WEAPON_TYPES::HOLSTERED:
-		newBullet = new Bullet(0.0f);
+		newBullet = new Bullet(0.0f, 1000);
 		break;
 	case WEAPON_TYPES::PISTOL:
-		newBullet = new Bullet(1.0f);
+		newBullet = new Bullet(1.0f, 1000);
 		break;
 	case WEAPON_TYPES::ASSAULTRIFLE:
-		newBullet = new Bullet(3.0f);
+		newBullet = new Bullet(3.0f, 1000);
 		break;
 	case WEAPON_TYPES::SHOTGUN:
-		newBullet = new Bullet(5.0f);
+		newBullet = new Bullet(5.0f, 1000);
 		break;
 	case WEAPON_TYPES::RPG:
-		newBullet = new Bullet(20.0f);
+		newBullet = new Bullet(20.0f, 1000);
 		break;
 	default:
 		//	Not a Weapon

@@ -27,8 +27,6 @@ private:
 	// How fast does a bullet travel?
 	float m_BulletSpeed;
 
-	float m_BulletDamage;
-
 	// What fraction of 1 pixel does the bullet travel, 
 	// Horizontally and vertically each frame?
 	// These values will be derived from m_BulletSpeed
@@ -48,7 +46,9 @@ private:
 // Public function prototypes go here
 public:
 	// The constructor
-	Bullet(float damage);
+	Bullet(float damage, float speed);
+
+	float m_BulletDamage;
 
 	// Stop the bullet
 	void stop();

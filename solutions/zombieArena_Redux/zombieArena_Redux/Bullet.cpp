@@ -9,9 +9,10 @@
 /**
 *	Default Constructor
 */
-Bullet::Bullet(float damage) {
+Bullet::Bullet(float damage, float speed) {
 	this->m_BulletShape.setSize(sf::Vector2f(2, 2));
 	this->m_BulletDamage = damage;
+	this->m_BulletSpeed = speed;
 }
 
 /**

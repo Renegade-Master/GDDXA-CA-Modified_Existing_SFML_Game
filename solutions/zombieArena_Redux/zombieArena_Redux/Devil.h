@@ -19,7 +19,7 @@ public:
 	virtual void update(sf::Time elapsedTime, sf::Vector2f playerLocation);
 
 	//	Handle the Enemy being hit
-	virtual bool onHit(sf::Time timeHit);
+	virtual bool onHit(sf::Time timeHit, Bullet* bullet);
 
 	virtual sf::String getClassName() = 0 { return(sf::String("Abstract PlayerCharacter::Devil")); };
 };

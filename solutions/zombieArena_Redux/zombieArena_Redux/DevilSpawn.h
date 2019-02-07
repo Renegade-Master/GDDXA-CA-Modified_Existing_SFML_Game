@@ -8,14 +8,14 @@
 #ifndef DEVILSPAWN_H
 #define DEVILSPAWN_H
 
-#include <vector>
 #include <fstream>
 #include <list>
 #include <iostream> // For Console Debugging
 #include <sstream>
+#include <vector>
 
-#include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "Bullet.h"
 #include "Button.h"
@@ -27,6 +27,10 @@
 #include "TextureHolder.h"
 
 class DevilSpawn {
+public:
+	DevilSpawn();
+	void runGame();
+
 private:
 	void Input();
 	void Update();
@@ -126,7 +130,7 @@ private:
 	// What time was the last update
 	sf::Time timeSinceLastUpdate;
 	// How often (in frames) should we update the HUD
-	int fpsMeasurementFrameInterval = 120;
+	int fpsUpdatePeriod = 60;
 
 	// For the home/game over screen
 	sf::Sprite spriteGameOver;
@@ -187,10 +191,6 @@ private:
 	sf::Sound pickup;
 	sf::SoundBuffer buttonClickBuffer;
 	sf::Sound buttonClick;
-
-public:
-	DevilSpawn();
-	void runGame();
 };
 
 #endif // DEVILSPAWN_H

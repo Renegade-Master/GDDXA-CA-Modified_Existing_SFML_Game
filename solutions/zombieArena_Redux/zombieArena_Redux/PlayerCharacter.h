@@ -92,7 +92,7 @@ protected:
 
 	// Handle hits in both directions
 	/*virtual sf::Time getLastHitTime() = 0;*/
-	virtual bool onHit(sf::Time timeHit) = 0;
+	virtual bool onHit(sf::Time timeHit);
 
 private:
 

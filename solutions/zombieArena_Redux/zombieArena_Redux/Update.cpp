@@ -63,13 +63,14 @@ void DevilSpawn::Update() {
 			for (std::vector<Devil*>::iterator it2 = horde.begin(); it2 != horde.end(); ++it2) {
 				if ((*it)->isInFlight() &&
 					(*it2)->isAlive()) {
+					
 					if ((*it)->getPosition().intersects
 					((*it2)->getPosition())) {
 						// Stop the bullet
 						(*it)->stop();
 
 						// Register the hit and see if it was a kill
-						if ((*it2)->onHit(m_FrameTime)) {
+						if ((*it2)->onHit(m_FrameTime, (*it))) {
 							// Not just a hit but a kill too
 							score += 10;
 							if (score >= hiScore) {
@@ -135,8 +136,8 @@ void DevilSpawn::Update() {
 		timeSinceLastUpdate += m_FrameTime;
 		// Increment the number of frames since the last HUD calculation
 		framesSinceLastHUDUpdate++;
-		// Calculate FPS every fpsMeasurementFrameInterval frames
-		if (framesSinceLastHUDUpdate > fpsMeasurementFrameInterval) {
+		// Calculate FPS every fpsUpdatePeriod frames
+		if (framesSinceLastHUDUpdate > fpsUpdatePeriod) {
 
 			// Update game HUD text
 			std::stringstream ssAmmo;

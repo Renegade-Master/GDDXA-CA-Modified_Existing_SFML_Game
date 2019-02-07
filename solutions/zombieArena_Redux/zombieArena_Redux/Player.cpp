@@ -17,7 +17,6 @@ Player::Player() {
 	this->m_Weapon = this->m_Weapon->forgeWeapon(Weapon::WEAPON_TYPES::PISTOL);
 
 	// Associate a texture with the sprite
-	// !!Watch this space!!
 	this->m_Sprite = sf::Sprite(TextureHolder::GetTexture(
 		"graphics\\player.png"));
 

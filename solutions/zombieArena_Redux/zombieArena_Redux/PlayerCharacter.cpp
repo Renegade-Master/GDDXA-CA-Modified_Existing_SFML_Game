@@ -50,8 +50,8 @@ bool PlayerCharacter::isAlive() {
 */
 bool PlayerCharacter::onHit(sf::Time timeHit) {
 	if (timeHit.asMilliseconds() - this->m_LastHit.asMilliseconds() > 200) {
-		this->m_LastHit = timeHit;
-		this->m_Health -= 10;
+		/*this->m_LastHit = timeHit;
+		this->m_Health -= 10;*/
 		
 		return(true);
 	}
