@@ -92,6 +92,17 @@ Command* InputHandler::handleInput(sf::Time t) {
 	
 	/*if (m_sinceLastInput > m_inputBlocker) {*/
 		m_sinceLastInput = sf::Time::Zero;
+
+		//	Mouse Input
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+			return(mouse_LMB);
+		}
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
+			return(mouse_RMB);
+		}
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Middle)) {
+			return(mouse_MMB);
+		}
 		
 		//	Keyboard Keys
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
@@ -120,17 +131,6 @@ Command* InputHandler::handleInput(sf::Time t) {
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
 			return(key_ESCAPE);
-		}
-
-		//	Mouse Input
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-			return(mouse_LMB);
-		}
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
-			return(mouse_RMB);
-		}
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Middle)) {
-			return(mouse_MMB);
 		}
 
 		//	Gamepad Joysticks

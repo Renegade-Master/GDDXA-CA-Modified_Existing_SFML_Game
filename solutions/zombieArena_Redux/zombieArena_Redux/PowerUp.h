@@ -28,13 +28,13 @@ public:
 	sf::Sprite getSprite() { return m_Sprite; };
 
 	// Let the pickup update itself each frame
-	void update(float elapsedTime);
+	void update(sf::Time elapsedTime);
 
 	// Is this pickup currently spawned?
 	bool isSpawned() { return m_Spawned; };
 
 	// Get the goodness from the pickup
-	int activated(PlayerCharacter& pc);
+	virtual void activated(PlayerCharacter* pc);
 
 	// Upgrade the value of each pickup
 	virtual void upgrade();
@@ -51,10 +51,10 @@ protected:
 
 	// Handle spawning and disappearing
 	bool m_Spawned;
-	float m_SecondsSinceSpawn;
-	float m_SecondsSinceDeSpawn;
-	float m_SecondsToLive;
-	float m_SecondsToWait;
+	sf::Time m_timeSinceSpawn;
+	sf::Time m_timeSinceDespawn;
+	sf::Time m_timeToLive;
+	sf::Time m_timeToWait;
 };
 
 /**
@@ -64,6 +64,7 @@ class AmmoPowerUp : public PowerUp {
 public:
 	AmmoPowerUp();
 	void upgrade();
+	void activated(PlayerCharacter* pc);
 };
 
 /**
@@ -73,6 +74,7 @@ class HealthPowerUp : public PowerUp {
 public:
 	HealthPowerUp();
 	void upgrade();
+	void activated(PlayerCharacter* pc);
 };
 
 /**
@@ -81,6 +83,7 @@ public:
 class WeaponPickUp : public PowerUp {
 public:
 	WeaponPickUp();
+	void activated(PlayerCharacter* pc);
 };
 
 #endif // POWERUP_H

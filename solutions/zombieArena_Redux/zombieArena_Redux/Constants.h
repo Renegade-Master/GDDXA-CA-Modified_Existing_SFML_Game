@@ -25,14 +25,14 @@ constexpr float PLAYER_START_HEALTH = 100.0f;
 \***-------------***/
 
 // How fast is each Enemy type?
-constexpr float BLOATER_SPEED = 40.0f;
+constexpr float DEMON_SPEED = 40.0f;
 constexpr float CHASER_SPEED = 80.0f;
 constexpr float CRAWLER_SPEED = 20.0f;
 
 // How tough is each Enemy type
-constexpr float BLOATER_HEALTH = 5.0f;
-constexpr float CHASER_HEALTH = 1.0f;
-constexpr float CRAWLER_HEALTH = 3.0f;
+constexpr float DEMON_HEALTH = 20.0f;
+constexpr float CHASER_HEALTH = 3.0f;
+constexpr float CRAWLER_HEALTH = 10.0f;
 
 // Make each Enemy vary its speed slightly
 constexpr int MAX_VARIANCE = 30;

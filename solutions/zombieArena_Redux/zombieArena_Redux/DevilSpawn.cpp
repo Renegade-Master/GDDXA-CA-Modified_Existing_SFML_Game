@@ -29,9 +29,9 @@ DevilSpawn::DevilSpawn() {
 	sprite_mouse.setOrigin(25, 25);
 
 	// Create a couple of pickups
-	ammoPickup = new AmmoPowerUp();
+	/*ammoPickup = new AmmoPowerUp();
 	healthPickup = new HealthPowerUp();
-	weaponPickup = new WeaponPickUp();
+	weaponPickup = new WeaponPickUp();*/
 
 	// For the home/game over screen
 	spriteGameOver.setTexture(textureGameOver);

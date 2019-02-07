@@ -100,7 +100,7 @@ private:
 	int hordeSize;
 	int numHordeAlive;
 	std::vector<Devil*> horde;
-	void createHorde(int numDevils, sf::IntRect arena);
+	void createHorde(int numDevils, sf::IntRect* arena);
 	Devil* summonDevil(sf::Vector2f pos, int type);
 
 	// Clock for timings
@@ -117,9 +117,12 @@ private:
 	sf::Texture texture_mouse;
 
 	// Create a couple of pickups
-	PowerUp* ammoPickup;
+	std::vector<PowerUp*> powerUps;
+	void generatePowerUps(int count, sf::IntRect* arena);
+	PowerUp* newPowerUp(sf::Vector2i pos, int type);
+	/*PowerUp* ammoPickup;
 	PowerUp* healthPickup;
-	PowerUp* weaponPickup;
+	PowerUp* weaponPickup;*/
 
 	// About the game
 	int wave = 0;

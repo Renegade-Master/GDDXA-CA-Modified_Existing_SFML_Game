@@ -7,14 +7,14 @@
 #include "DevilTypes.h"
 
 /**
-*	Bloater Devil Class
+*	Demon Devil Class
 */
-Bloater::Bloater() {
+Demon::Demon() {
 	this->m_Sprite = sf::Sprite(TextureHolder::GetTexture(
 		"graphics\\demonEnemy_01.png"));
 
-	this->m_Speed = 40;
-	this->m_Health = 5;
+	this->m_Speed = DEMON_SPEED;
+	this->m_Health = DEMON_HEALTH;
 }
 
 /**
@@ -24,8 +24,8 @@ Chaser::Chaser() {
 	this->m_Sprite = sf::Sprite(TextureHolder::GetTexture(
 		"graphics\\chaser_headless.png"));
 
-	this->m_Speed = 70;
-	this->m_Health = 1;
+	this->m_Speed = CHASER_SPEED;
+	this->m_Health = CHASER_HEALTH;
 }
 
 /**
@@ -35,6 +35,6 @@ Crawler::Crawler() {
 	this->m_Sprite = sf::Sprite(TextureHolder::GetTexture(
 		"graphics\\crawler.png"));
 
-	this->m_Speed = 20;
-	this->m_Health = 3;
+	this->m_Speed = CRAWLER_SPEED;
+	this->m_Health = CRAWLER_HEALTH;
 }

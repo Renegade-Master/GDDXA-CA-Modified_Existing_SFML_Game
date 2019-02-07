@@ -86,6 +86,8 @@ protected:
 	|	Functions	|
 	\***---------***/
 
+	void init();
+
 	virtual void spawn(float posX, float posY) = 0;
 	virtual void update(sf::Time elapsedTime);
 	virtual sf::String getClassName() = 0 { return(sf::String("PlayerCharacter")); };
