@@ -14,7 +14,7 @@ void PlayerCharacter::spawn(float posX, float posY) {
 }
 
 /**
-*
+*	Move the PC depending on their Movement states.
 */
 void PlayerCharacter::update(sf::Time elapsedTime) {
 	//	Handle Vertical Movements
@@ -38,41 +38,6 @@ void PlayerCharacter::update(sf::Time elapsedTime) {
 }
 
 /**
-*	Return the Position (Global Bounds) of the Sprite assigned to this Object.
-*/
-sf::FloatRect PlayerCharacter::getPosition() {
-	return this->m_Sprite.getGlobalBounds();
-}
-
-/**
-*	...
-*/
-sf::Vector2f PlayerCharacter::getCenter() {
-	return this->m_Position;
-}
-
-/**
-*	...
-*/
-int PlayerCharacter::getHealth() {
-	return this->m_Health;
-}
-
-/**
-*	...
-*/
-sf::Sprite PlayerCharacter::getSprite() {
-	return this->m_Sprite;
-}
-
-/**
-*	...
-*/
-sf::Time PlayerCharacter::getLastHitTime() {
-	return this->m_LastHit;
-}
-
-/**
 *	Is this PC alive?
 */
 bool PlayerCharacter::isAlive() {
@@ -84,10 +49,8 @@ bool PlayerCharacter::isAlive() {
 *	Should this PC be hit, or has it been too soon?
 */
 bool PlayerCharacter::onHit(sf::Time timeHit) {
-	if (timeHit.asMilliseconds() - this->m_LastHit.asMilliseconds() > 200) {
+	if (timeHit - this->m_LastHit > sf::milliseconds(300)) {
 		this->m_LastHit = timeHit;
-		this->m_Health -= 10;
-		
 		return(true);
 	}
 	else {

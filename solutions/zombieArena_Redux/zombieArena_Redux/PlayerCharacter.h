@@ -14,6 +14,7 @@
 
 #include "Constants.h"
 #include "TextureHolder.h"
+#include "WeaponTypes.h"
 
 class PlayerCharacter abstract {
 public:
@@ -29,23 +30,29 @@ public:
 	Movement_H m_Movement_H = Movement_H::IDLE;
 	Action m_Action = Action::IDLE;
 
+	//	What weapon is currently equipped?
+	Weapon* m_Weapon;
+	void reload() { this->m_Weapon->reload(); };
+	void shoot(sf::Vector2f origin, sf::Vector2f target, sf::Time currentFrameTime)
+		{ this->m_Weapon->fire(origin, target, currentFrameTime); };
+
 	// Find out if the PC is alive
 	bool isAlive();
 
 	// Where is the PC
-	sf::FloatRect getPosition();
+	sf::FloatRect getPosition() { return this->m_Sprite.getGlobalBounds(); };
 
 	// Where is the center of the PC
-	sf::Vector2f getCenter();
+	sf::Vector2f getCentre() { return this->m_Position; };
 
 	// Send a copy of the sprite to main
-	sf::Sprite getSprite();
+	sf::Sprite getSprite() { return this->m_Sprite; };
 
 	// How much health has the PC currently got?
-	int getHealth();
+	int getHealth() { return this->m_Health; };
 
 	// How long ago was the player last hit
-	sf::Time getLastHitTime();
+	sf::Time getLastHitTime() { return this->m_LastHit; };
 	
 protected:
 	/***---------***\
@@ -81,11 +88,11 @@ protected:
 
 	virtual void spawn(float posX, float posY) = 0;
 	virtual void update(sf::Time elapsedTime);
-	virtual sf::String getClassName() = 0 { return(sf::String("\nAbstract PlayerCharacter Class.\n")); };
+	virtual sf::String getClassName() = 0 { return(sf::String("PlayerCharacter")); };
 
 	// Handle hits in both directions
 	/*virtual sf::Time getLastHitTime() = 0;*/
-	virtual bool onHit(sf::Time timeHit) = 0;
+	virtual bool onHit(sf::Time timeHit);
 
 private:
 

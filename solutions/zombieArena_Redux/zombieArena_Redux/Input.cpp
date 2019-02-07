@@ -26,7 +26,7 @@ void DevilSpawn::Input() {
 				m_gameState == GameState::PAUSED) {
 				m_gameState = GameState::PLAYING;
 				// Reset the clock so there isn't a frame jump
-				clock.restart();
+				m_GameClock.restart();
 			}
 
 			// Quit while Paused
@@ -40,19 +40,6 @@ void DevilSpawn::Input() {
 				m_gameState == GameState::SETTINGS) {
 				m_gameState = GameState::MAIN_MENU;
 			}
-
-			// Handle Events in PLAYING m_gameState
-			if (m_gameState == GameState::PLAYING) {
-				// Reloading
-				if (evnt.key.code == sf::Keyboard::R) {
-					if (m_Player.reload()) {
-						reload.play();
-					}
-					else {
-						reloadFailed.play();
-					}
-				}
-			} // End Handling Events in PLAYING m_gameState
 		}
 		// Handle Mouse Events
 		else if (evnt.type == sf::Event::MouseButtonPressed) {
@@ -63,34 +50,18 @@ void DevilSpawn::Input() {
 	// Handle controls while playing
 	if (m_gameState == GameState::PLAYING) {
 
-		cmd = m_InpHand.handleInput(dt);
+		cmd = m_InpHand.handleInput(m_FrameTime);
+
+		if (m_Player.m_Weapon->m_Ammo.empty()) {
+			m_Player.m_Weapon->forgeWeapon(Weapon::WEAPON_TYPES::PISTOL);
+		}
 
 		if (cmd) { 
-			cmd->execute(m_Player);
+			cmd->execute(m_Player, sf::Vector2f(mouseWorldPosition), gameTimeTotal);
 		}
 
 		m_Player.lookAt(sf::Vector2f(mouseScreenPosition), resolution);
 
-		//// Fire a bullet
-		//if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-
-		//	if (gameTimeTotal.asMilliseconds()
-		//		- lastPressed.asMilliseconds()
-		//			> 1000 / m_Player.fireRate && m_Player.bulletsInClip > 0) {
-
-		//		// Pass the centre of the m_Player and the centre of the crosshair
-		//		// to the shoot function
-		//		bullets[m_Player.currentBullet++].shoot(
-		//			m_Player.getCenter().x, m_Player.getCenter().y,
-		//			mouseWorldPosition.x, mouseWorldPosition.y);
-		//		if (m_Player.currentBullet > 99) {
-		//			m_Player.currentBullet = 0;
-		//		}
-		//		lastPressed = gameTimeTotal;
-		//		shoot.play();
-		//		m_Player.bulletsInClip--;
-		//	}
-		//}// End fire a bullet
 	}// End handling controls while playing
 
 	// Handle the Paused controls
@@ -143,14 +114,14 @@ void DevilSpawn::Input() {
 				case 0: // Rate of Fire Upgrade Button
 					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();// Increase fire rate
-						m_Player.fireRate++;
+						//m_Player.fireRate++;
 						m_gameState = GameState::PLAYING;
 					}
 					break;
 				case 1: // Clip Size Upgrade Button
 					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();// Increase clip size
-						m_Player.clipSize += m_Player.clipSize;
+						//m_Player.m_clipSize += m_Player.m_clipSize;
 						m_gameState = GameState::PLAYING;
 					}
 					break;
@@ -225,7 +196,7 @@ void DevilSpawn::Input() {
 			powerup.play();
 
 			// Reset the clock so there isn't a frame jump
-			clock.restart();
+			m_GameClock.restart();
 		}
 	}// End handling controls while levelling up
 

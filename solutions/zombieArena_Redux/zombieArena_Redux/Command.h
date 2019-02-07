@@ -18,7 +18,7 @@
 class Command {
 public:
 	virtual ~Command() { /*delete this;*/ }
-	virtual void execute(Player& pc) = 0;
+	virtual void execute(Player& pc, sf::Vector2f target, sf::Time ft) = 0;
 };
 
 /*
@@ -26,10 +26,10 @@ public:
 */
 class cmd_Null : public Command {
 public:
-	virtual void execute(Player& pc) override {
+	virtual void execute(Player& pc, sf::Vector2f target, sf::Time ft) override {
 		pc.m_Movement_V = PlayerCharacter::Movement_V::IDLE;
 		pc.m_Movement_H = PlayerCharacter::Movement_H::IDLE;
-		std::cout << "Executing NULL Input" << std::endl;
+		//std::cout << "Executing NULL Input" << std::endl;
 	}
 };
 
@@ -38,9 +38,9 @@ public:
 */
 class cmd_RunUp : public Command {
 public:
-	virtual void execute(Player& pc) override {
+	virtual void execute(Player& pc, sf::Vector2f target, sf::Time ft) override {
 		pc.m_Movement_V = PlayerCharacter::Movement_V::UP;
-		std::cout << "Executing RUN UP Input" << std::endl;
+		//std::cout << "Executing RUN UP Input" << std::endl;
 	}
 };
 
@@ -49,9 +49,9 @@ public:
 */
 class cmd_RunLeft : public Command {
 public:
-	virtual void execute(Player& pc) override {
+	virtual void execute(Player& pc, sf::Vector2f target, sf::Time ft) override {
 		pc.m_Movement_H = PlayerCharacter::Movement_H::LEFT;
-		std::cout << "Executing RUN LEFT Input" << std::endl;
+		//std::cout << "Executing RUN LEFT Input" << std::endl;
 	}
 };
 
@@ -60,9 +60,9 @@ public:
 */
 class cmd_RunDown : public Command {
 public:
-	virtual void execute(Player& pc) override {
+	virtual void execute(Player& pc, sf::Vector2f target, sf::Time ft) override {
 		pc.m_Movement_V = PlayerCharacter::Movement_V::DOWN;
-		std::cout << "Executing RUN DOWN Input" << std::endl;
+		//std::cout << "Executing RUN DOWN Input" << std::endl;
 	}
 };
 
@@ -71,9 +71,9 @@ public:
 */
 class cmd_RunRight : public Command {
 public:
-	virtual void execute(Player& pc) override {
+	virtual void execute(Player& pc, sf::Vector2f target, sf::Time ft) override {
 		pc.m_Movement_H = PlayerCharacter::Movement_H::RIGHT;
-		std::cout << "Executing RUN RIGHT Input" << std::endl;
+		//std::cout << "Executing RUN RIGHT Input" << std::endl;
 	}
 };
 
@@ -82,9 +82,21 @@ public:
 */
 class cmd_Attack : public Command {
 public:
-	virtual void execute(Player& pc) override {
+	virtual void execute(Player& pc, sf::Vector2f target, sf::Time ft) override {
 		pc.m_Action = PlayerCharacter::Action::ATTACKING;
-		std::cout << "Executing ATTACK Input" << std::endl;
+		pc.shoot(pc.getCentre(), target, ft);
+		//std::cout << "Executing ATTACK Input" << std::endl;
+	}
+};
+
+/**
+*	Set the Character to Attacking
+*/
+class cmd_Reload : public Command {
+public:
+	virtual void execute(Player& pc, sf::Vector2f target, sf::Time ft) override {
+		pc.reload();
+		//std::cout << "Executing RELOAD Input" << std::endl;
 	}
 };
 

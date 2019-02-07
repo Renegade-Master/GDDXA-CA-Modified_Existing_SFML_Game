@@ -146,6 +146,7 @@
     <ClCompile Include="Devil.cpp" />
     <ClCompile Include="DevilSpawn.cpp" />
     <ClCompile Include="Update.cpp" />
+    <ClCompile Include="WeaponTypes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="TextureHolder.h" />
     <ClInclude Include="Devil.h" />
     <ClInclude Include="DevilSpawn.h" />
+    <ClInclude Include="WeaponTypes.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Graphics\ammo_icon.png" />

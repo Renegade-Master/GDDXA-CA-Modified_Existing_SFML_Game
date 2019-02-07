@@ -24,17 +24,21 @@ void Devil::spawn(float posX, float posY) {
 	this->m_Sprite.setPosition(this->m_Position);
 }
 
-bool Devil::onHit(sf::Time timeHit) {
-	if (!this->isAlive()) {
-		// dead
-		this->m_Sprite.setTexture(TextureHolder::GetTexture(
-			"graphics\\blood.png"));
+bool Devil::onHit(sf::Time timeHit, Bullet* bullet) {
+	if (PlayerCharacter::onHit(timeHit)) {
+		this->m_Health -= bullet->m_BulletDamage;
 
-		return(true);
+		if (!this->isAlive()) {
+			// dead
+			this->m_Sprite.setTexture(TextureHolder::GetTexture(
+				"graphics\\blood.png"));
+
+			return(true);
+		}
+
+		// injured but not dead yet
+		return false;
 	}
-
-	// injured but not dead yet
-	return false;
 }
 
 void Devil::update(sf::Time elapsedTime, sf::Vector2f playerLocation) {

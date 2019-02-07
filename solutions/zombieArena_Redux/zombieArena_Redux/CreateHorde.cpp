@@ -75,5 +75,4 @@ Devil* DevilSpawn::summonDevil(sf::Vector2f pos, int type) {
 	thrall->spawn(pos.x, pos.y);
 
 	return(thrall);
-
 }

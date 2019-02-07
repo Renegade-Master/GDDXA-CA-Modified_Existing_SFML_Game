@@ -11,7 +11,7 @@
 */
 Bloater::Bloater() {
 	this->m_Sprite = sf::Sprite(TextureHolder::GetTexture(
-		"graphics/demonEnemy_01.png"));
+		"graphics\\demonEnemy_01.png"));
 
 	this->m_Speed = 40;
 	this->m_Health = 5;
@@ -22,7 +22,7 @@ Bloater::Bloater() {
 */
 Chaser::Chaser() {
 	this->m_Sprite = sf::Sprite(TextureHolder::GetTexture(
-		"graphics/chaser_headless.png"));
+		"graphics\\chaser_headless.png"));
 
 	this->m_Speed = 70;
 	this->m_Health = 1;
@@ -33,7 +33,7 @@ Chaser::Chaser() {
 */
 Crawler::Crawler() {
 	this->m_Sprite = sf::Sprite(TextureHolder::GetTexture(
-		"graphics/crawler.png"));
+		"graphics\\crawler.png"));
 
 	this->m_Speed = 20;
 	this->m_Health = 3;

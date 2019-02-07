@@ -30,46 +30,47 @@ void DevilSpawn::Update() {
 		sprite_mouse.setPosition(mouseWorldPosition);
 
 		// Update the player
-		m_Player.update(dt);
+		m_Player.update(m_FrameTime);
 
 		// Make a note of the players new position
-		sf::Vector2f playerPosition(m_Player.getCenter());
+		sf::Vector2f playerPosition(m_Player.getCentre());
 
 		// Make the view centre around the player				
-		mainView.setCenter(m_Player.getCenter());
-		miniMapView.setCenter(m_Player.getCenter());
+		mainView.setCenter(m_Player.getCentre());
+		miniMapView.setCenter(m_Player.getCentre());
 
 		// Loop through each Devil and update them
 		for (std::vector<Devil*>::iterator it = horde.begin(); it != horde.end(); ++it) {
 			if ((*it)->isAlive()) {
-				(*it)->update(dt, playerPosition);
+				(*it)->update(m_FrameTime, playerPosition);
 			}
 		}
 
 		// Update any bullets that are in-flight
-		for (std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
+		for (std::vector<Bullet*>::iterator it = m_Player.m_Weapon->m_Ammo.begin(); it != m_Player.m_Weapon->m_Ammo.end(); ++it) {
 			if ((*it)->isInFlight()) {
-				(*it)->update(dt.asSeconds());
+				(*it)->update(m_FrameTime.asSeconds());
 			}
 		}
 
 		// Update the pickups
-		healthPickup.update(dt.asSeconds());
-		ammoPickup.update(dt.asSeconds());
+		healthPickup.update(m_FrameTime.asSeconds());
+		ammoPickup.update(m_FrameTime.asSeconds());
 
 		// Collision detection
 		// Have any horde been shot?
-		for (std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
+		for (std::vector<Bullet*>::iterator it = m_Player.m_Weapon->m_Ammo.begin(); it != m_Player.m_Weapon->m_Ammo.end(); ++it) {
 			for (std::vector<Devil*>::iterator it2 = horde.begin(); it2 != horde.end(); ++it2) {
 				if ((*it)->isInFlight() &&
 					(*it2)->isAlive()) {
+					
 					if ((*it)->getPosition().intersects
 					((*it2)->getPosition())) {
 						// Stop the bullet
 						(*it)->stop();
 
 						// Register the hit and see if it was a kill
-						if ((*it2)->onHit(dt)) {
+						if ((*it2)->onHit(gameTimeTotal, (*it))) {
 							// Not just a hit but a kill too
 							score += 10;
 							if (score >= hiScore) {
@@ -122,7 +123,7 @@ void DevilSpawn::Update() {
 		// Has the player touched ammo pickup
 		if (m_Player.getPosition().intersects
 		(ammoPickup.getPosition()) && ammoPickup.isSpawned()) {
-			m_Player.bulletsSpare += ammoPickup.gotIt();
+			//m_Player.m_bulletsReserved += ammoPickup.gotIt();
 			// Play a sound
 			reload.play();
 		}
@@ -132,11 +133,11 @@ void DevilSpawn::Update() {
 		healthBar.setOrigin(healthBar.getSize().x / 2, healthBar.getSize().y / 2);
 
 		// Increment the amount of time since the last HUD update
-		timeSinceLastUpdate += dt;
+		timeSinceLastUpdate += m_FrameTime;
 		// Increment the number of frames since the last HUD calculation
 		framesSinceLastHUDUpdate++;
-		// Calculate FPS every fpsMeasurementFrameInterval frames
-		if (framesSinceLastHUDUpdate > fpsMeasurementFrameInterval) {
+		// Calculate FPS every fpsUpdatePeriod frames
+		if (framesSinceLastHUDUpdate > fpsUpdatePeriod) {
 
 			// Update game HUD text
 			std::stringstream ssAmmo;
@@ -146,7 +147,7 @@ void DevilSpawn::Update() {
 			std::stringstream ssHordeAlive;
 
 			// Update the ammo text
-			ssAmmo << m_Player.bulletsInClip << "/" << m_Player.bulletsSpare;
+			ssAmmo << m_Player.m_Weapon->m_clipRemaining << "/" << m_Player.m_Weapon->m_bulletsReserved;
 			ammoText.setString(ssAmmo.str());
 
 			// Update the score text
@@ -179,7 +180,7 @@ void DevilSpawn::Update() {
 
 	// Update while in Main Menu
 	else if (m_gameState == GameState::MAIN_MENU) {
-		//mainView.reset(sf::FloatRect(0, 0, resolution.x, resolution.y));
+		mainView.reset(sf::FloatRect(0, 0, resolution.x, resolution.y));
 
 		// Change Mouse to Menu Mouse
 		window.setMouseCursorVisible(true);

@@ -8,6 +8,9 @@
 #ifndef BULLET_H
 #define BULLET_H
 
+#include <cmath>
+#include <iostream>
+
 #include <SFML/Graphics.hpp>
 
 class Bullet {
@@ -22,7 +25,7 @@ private:
 	bool m_InFlight = false;
 
 	// How fast does a bullet travel?
-	float m_BulletSpeed = 1000;
+	float m_BulletSpeed;
 
 	// What fraction of 1 pixel does the bullet travel, 
 	// Horizontally and vertically each frame?
@@ -43,7 +46,9 @@ private:
 // Public function prototypes go here
 public:
 	// The constructor
-	Bullet();
+	Bullet(float damage, float speed);
+
+	float m_BulletDamage;
 
 	// Stop the bullet
 	void stop();
@@ -52,8 +57,8 @@ public:
 	bool isInFlight();
 
 	// Launch a new bullet
-	void shoot(float startX, float startY,
-		float xTarget, float yTarget);
+	void shoot(sf::Vector2f origin,
+		sf::Vector2f target);
 
 	// Tell the calling code where the bullet is in the world
 	sf::FloatRect getPosition();

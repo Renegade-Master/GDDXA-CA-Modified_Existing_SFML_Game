@@ -8,14 +8,14 @@
 #ifndef DEVILSPAWN_H
 #define DEVILSPAWN_H
 
-#include <vector>
 #include <fstream>
 #include <list>
 #include <iostream> // For Console Debugging
 #include <sstream>
+#include <vector>
 
-#include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "Bullet.h"
 #include "Button.h"
@@ -81,12 +81,6 @@ private:
 	// Hold Events betwen frames
 	sf::Event evnt;
 
-	// Clock for timings
-	sf::Clock clock;
-	// How long has the PLAYING m_gameState been active
-	sf::Time gameTimeTotal;
-	sf::Time dt;
-
 	// Where is the mouse in relation to world coordinates
 	sf::Vector2f mouseWorldPosition;
 	// Where is the mouse in relation to screen coordinates
@@ -109,10 +103,11 @@ private:
 	void createHorde(int numDevils, sf::IntRect arena);
 	Devil* summonDevil(sf::Vector2f pos, int type);
 
-	// Set a container for the Bullets
-	std::vector<Bullet*> bullets;
-	void loadBullets(int amount);
-	Bullet* forgeBullet();
+	// Clock for timings
+	sf::Clock m_GameClock;
+	// How long has the PLAYING m_gameState been active
+	sf::Time gameTimeTotal;
+	sf::Time m_FrameTime;
 
 	// When was the fire button last pressed?
 	sf::Time lastPressed;
@@ -135,7 +130,7 @@ private:
 	// What time was the last update
 	sf::Time timeSinceLastUpdate;
 	// How often (in frames) should we update the HUD
-	int fpsMeasurementFrameInterval = 500;
+	int fpsUpdatePeriod = 60;
 
 	// For the home/game over screen
 	sf::Sprite spriteGameOver;
