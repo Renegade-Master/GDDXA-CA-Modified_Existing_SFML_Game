@@ -15,7 +15,7 @@ Player::Player() {
 	this->m_Health = PLAYER_START_HEALTH;
 	this->m_MaxHealth = PLAYER_START_HEALTH;
 	this->m_Weapon = this->m_Weapon->
-		forgeWeapon(Weapon::WEAPON_TYPES::PISTOL);
+		forgeWeapon(Weapon::WEAPON_TYPES::HOLSTERED);
 
 	// Associate a texture with the sprite
 	this->m_Sprite = sf::Sprite(TextureHolder::GetTexture(
@@ -36,7 +36,7 @@ void Player::resetPlayerStats() {
 	this->m_Health = PLAYER_START_HEALTH;
 	this->m_MaxHealth = PLAYER_START_HEALTH;
 	this->m_Weapon = this->m_Weapon->
-		forgeWeapon(Weapon::WEAPON_TYPES::SHOTGUN);
+		forgeWeapon(Weapon::WEAPON_TYPES::ASSAULTRIFLE);
 }
 
 /**

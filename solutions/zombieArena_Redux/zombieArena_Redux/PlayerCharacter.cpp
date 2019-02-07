@@ -49,10 +49,8 @@ bool PlayerCharacter::isAlive() {
 *	Should this PC be hit, or has it been too soon?
 */
 bool PlayerCharacter::onHit(sf::Time timeHit) {
-	if (timeHit.asMilliseconds() - this->m_LastHit.asMilliseconds() > 200) {
-		/*this->m_LastHit = timeHit;
-		this->m_Health -= 10;*/
-		
+	if (timeHit - this->m_LastHit > sf::milliseconds(300)) {
+		this->m_LastHit = timeHit;
 		return(true);
 	}
 	else {

@@ -70,7 +70,7 @@ void DevilSpawn::Update() {
 						(*it)->stop();
 
 						// Register the hit and see if it was a kill
-						if ((*it2)->onHit(m_FrameTime, (*it))) {
+						if ((*it2)->onHit(gameTimeTotal, (*it))) {
 							// Not just a hit but a kill too
 							score += 10;
 							if (score >= hiScore) {
