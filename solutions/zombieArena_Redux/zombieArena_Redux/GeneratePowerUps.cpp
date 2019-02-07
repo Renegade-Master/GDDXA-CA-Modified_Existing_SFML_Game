@@ -30,10 +30,10 @@ void DevilSpawn::generatePowerUps(int count, sf::IntRect* arena) {
 PowerUp* DevilSpawn::newPowerUp(sf::Vector2i pos, int type) {
 	PowerUp* pUp = nullptr;
 
-	if (type < 1) {
+	if (type < 4) {
 		pUp = new AmmoPowerUp();
 	}
-	else if (type < 2) {
+	else if (type < 8) {
 		pUp = new HealthPowerUp();
 	}
 	else/* if (type > 8) */{

@@ -22,6 +22,7 @@ public:
 	sf::Time getTimeLastFired() { return(m_timeLastFired); };
 	void reload();
 
+	void loadBullets(int amount);
 	Weapon* forgeWeapon(WEAPON_TYPES type);
 
 	void fire(sf::Vector2f origin, sf::Vector2f target, sf::Time currentFrameTime);
@@ -35,7 +36,6 @@ protected:
 	sf::Time fireRate = sf::Time::Zero;			// How fast can Bullets be fired
 	sf::Time m_timeLastFired = sf::Time::Zero;
 
-	void loadBullets(int amount);
 	Bullet* forgeBullet();
 
 	virtual ~Weapon() = 0 { /*delete m_Ammo;*/ };

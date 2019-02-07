@@ -98,7 +98,8 @@ AmmoPowerUp::AmmoPowerUp() {
 *
 */
 void AmmoPowerUp::activated(PlayerCharacter* pc) {
-
+	this->PowerUp::activated(pc);
+	pc->m_Weapon->loadBullets(this->m_Value);
 
 	std::cout << "Ammo PowerUp Activated!" << std::endl;
 }
@@ -130,7 +131,8 @@ HealthPowerUp::HealthPowerUp() {
 *
 */
 void HealthPowerUp::activated(PlayerCharacter* pc) {
-
+	this->PowerUp::activated(pc);
+	pc->m_Health += this->m_Value;
 
 	std::cout << "Health PowerUp Activated!" << std::endl;
 }
