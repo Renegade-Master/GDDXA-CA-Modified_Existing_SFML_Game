@@ -22,7 +22,7 @@
 #include "Devil.h"
 #include "DevilSpawn.h"
 #include "InputHandler.h"
-#include "Pickup.h"
+#include "PowerUp.h"
 #include "Player.h"
 #include "TextureHolder.h"
 
@@ -117,8 +117,8 @@ private:
 	sf::Texture texture_mouse;
 
 	// Create a couple of pickups
-	Pickup healthPickup;
-	Pickup ammoPickup;
+	PowerUp healthPickup;
+	PowerUp ammoPickup;
 
 	// About the game
 	int wave = 0;

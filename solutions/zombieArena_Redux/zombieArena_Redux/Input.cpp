@@ -139,14 +139,14 @@ void DevilSpawn::Input() {
 						m_gameState = GameState::PLAYING;
 					}
 					break;
-				case 4: // Health Pickup Upgrade Button
+				case 4: // Health PowerUp Upgrade Button
 					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();
 						healthPickup.upgrade();
 						m_gameState = GameState::PLAYING;
 					}
 					break;
-				case 5: // Ammo Pickup Upgrade Button
+				case 5: // Ammo PowerUp Upgrade Button
 					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();
 						ammoPickup.upgrade();

@@ -4,14 +4,14 @@
 *	@description	...
 */
 
-#include "Pickup.h"
+#include "PowerUp.h"
 #include "TextureHolder.h"
 
-Pickup::Pickup() {
+PowerUp::PowerUp() {
 	//ctor
 }
 
-Pickup::Pickup(int type) {
+PowerUp::PowerUp(int type) {
 	// Store the type of this pickup
 	m_Type = type;
 
@@ -40,7 +40,7 @@ Pickup::Pickup(int type) {
 	m_SecondsToWait = START_WAIT_TIME;
 }
 
-void Pickup::setArena(sf::IntRect arena) {
+void PowerUp::setArena(sf::IntRect arena) {
 	// Copy the details of the arena to the pickup's m_Arena
 	m_Arena.left = arena.left + 50;
 	m_Arena.width = arena.width - 50;
@@ -50,7 +50,7 @@ void Pickup::setArena(sf::IntRect arena) {
 	spawn();
 }
 
-void Pickup::spawn() {
+void PowerUp::spawn() {
 	// Spawn at a random location
 	//srand((int)time(0) / m_Type);
 	int x = (rand() % m_Arena.width);
@@ -65,25 +65,25 @@ void Pickup::spawn() {
 	m_Sprite.setPosition(x, y);
 }
 
-sf::FloatRect Pickup::getPosition() {
+sf::FloatRect PowerUp::getPosition() {
 	return m_Sprite.getGlobalBounds();
 }
 
-sf::Sprite Pickup::getSprite() {
+sf::Sprite PowerUp::getSprite() {
 	return m_Sprite;
 }
 
-bool Pickup::isSpawned() {
+bool PowerUp::isSpawned() {
 	return m_Spawned;
 }
 
-int Pickup::gotIt() {
+int PowerUp::gotIt() {
 	m_Spawned = false;
 	m_SecondsSinceDeSpawn = 0;
 	return m_Value;
 }
 
-void Pickup::update(float elapsedTime) {
+void PowerUp::update(float elapsedTime) {
 	if (m_Spawned) {
 		m_SecondsSinceSpawn += elapsedTime;
 	}
@@ -105,7 +105,7 @@ void Pickup::update(float elapsedTime) {
 	}
 }
 
-void Pickup::upgrade() {
+void PowerUp::upgrade() {
 	if (m_Type == 1) {
 		m_Value += (HEALTH_START_VALUE * .5);
 	}

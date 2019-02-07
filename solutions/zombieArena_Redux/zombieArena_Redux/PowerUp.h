@@ -5,12 +5,12 @@
 */
 
 #pragma once
-#ifndef PICKUP_H
-#define PICKUP_H
+#ifndef POWERUP_H
+#define POWERUP_H
 
 #include <SFML/Graphics.hpp>
 
-class Pickup {
+class PowerUp {
 private:
 	//Start value for health pickups
 	const int HEALTH_START_VALUE = 50;
@@ -40,8 +40,8 @@ private:
 
 // Public prototypes go here
 public:
-	Pickup();
-	Pickup(int type);
+	PowerUp();
+	PowerUp(int type);
 
 	// Prepare a new pickup
 	void setArena(sf::IntRect arena);
@@ -67,4 +67,4 @@ public:
 	void upgrade();
 };
 
-#endif // PICKUP_H
+#endif // POWERUP_H
