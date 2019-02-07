@@ -98,7 +98,7 @@ void Weapon::fire(sf::Vector2f origin, sf::Vector2f target, sf::Time totalGameTi
 		std::cout << "Firing!" << std::endl;
 	}
 	else {
-		std::cout << "Firing too soon!" << std::endl;
+		//std::cout << "Firing too soon!" << std::endl;
 	}
 }
 

@@ -14,10 +14,10 @@ class Weapon abstract {
 public:
 	enum class WEAPON_TYPES { HOLSTERED, PISTOL, ASSAULTRIFLE, SHOTGUN, RPG };
 	
-	std::vector<Bullet*> m_Ammo;	// A collection of Bullets
+	std::vector<Bullet*> m_Ammo;// A collection of Bullets
 	int m_currentBullet = 0;	// Bullet currently in chamber
 	int m_clipRemaining = 0;	// Bullets left in the current clip
-	int m_bulletsReserved;	// Bullets left in pouch
+	int m_bulletsReserved;		// Bullets left in pouch
 	
 	sf::Time getTimeLastFired() { return(m_timeLastFired); };
 	void reload();

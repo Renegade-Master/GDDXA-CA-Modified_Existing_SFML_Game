@@ -90,7 +90,7 @@ void InputHandler::chooseScheme(sf::Uint32 scheme) {
 Command* InputHandler::handleInput(sf::Time t) {
 	m_sinceLastInput += t;
 	
-	if (m_sinceLastInput > m_inputBlocker) {
+	/*if (m_sinceLastInput > m_inputBlocker) {*/
 		m_sinceLastInput = sf::Time::Zero;
 		
 		//	Keyboard Keys
@@ -189,7 +189,7 @@ Command* InputHandler::handleInput(sf::Time t) {
 		if (sf::Joystick::isButtonPressed(1, 5)) {
 			return(cont_R1);
 		}
-	}
+	/*}*/
 
 	//	Nothing was pressed
 	return(noInput);
