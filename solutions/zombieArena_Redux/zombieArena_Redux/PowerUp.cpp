@@ -5,115 +5,102 @@
 */
 
 #include "PowerUp.h"
-#include "TextureHolder.h"
+
+//PowerUp::PowerUp() {
+//	//ctor
+//}
 
 PowerUp::PowerUp() {
-	//ctor
+	this->m_Sprite.setOrigin(25, 25);
+
+	this->m_SecondsToLive = START_SECONDS_TO_LIVE;
+	this->m_SecondsToWait = START_WAIT_TIME;
 }
 
-PowerUp::PowerUp(int type) {
-	// Store the type of this pickup
-	m_Type = type;
-
-	// Associate the texture with the sprite
-	switch (m_Type) {
-	case 1:
-		m_Sprite = sf::Sprite(TextureHolder::GetTexture(
-			"graphics\\health_pickup.png"));
-
-		// How much is pickup worth
-		m_Value = HEALTH_START_VALUE;
-		break;
-
-	case 2:
-		m_Sprite = sf::Sprite(TextureHolder::GetTexture(
-			"graphics\\ammo_pickup.png"));
-
-		// How much is pickup worth
-		m_Value = AMMO_START_VALUE;
-		break;
-	}
-
-	m_Sprite.setOrigin(25, 25);
-
-	m_SecondsToLive = START_SECONDS_TO_LIVE;
-	m_SecondsToWait = START_WAIT_TIME;
-}
-
-void PowerUp::setArena(sf::IntRect arena) {
-	// Copy the details of the arena to the pickup's m_Arena
-	m_Arena.left = arena.left + 50;
-	m_Arena.width = arena.width - 50;
-	m_Arena.top = arena.top + 50;
-	m_Arena.height = arena.height - 50;
-
-	spawn();
-}
-
-void PowerUp::spawn() {
+void PowerUp::spawn(sf::Vector2i pos) {
 	// Spawn at a random location
-	//srand((int)time(0) / m_Type);
-	int x = (rand() % m_Arena.width);
-	//srand((int)time(0) * m_Type);
-	int y = (rand() % m_Arena.height);
+	int x = (rand() % pos.x);
+	int y = (rand() % pos.y);
 
 	// Not currently spawned
-	//m_Spawned = false;
-	m_SecondsSinceSpawn = 0;
-	m_Spawned = true;
+	//this->m_Spawned = false;
+	this->m_SecondsSinceSpawn = 0;
+	this->m_Spawned = true;
 	
-	m_Sprite.setPosition(x, y);
-}
-
-sf::FloatRect PowerUp::getPosition() {
-	return m_Sprite.getGlobalBounds();
-}
-
-sf::Sprite PowerUp::getSprite() {
-	return m_Sprite;
-}
-
-bool PowerUp::isSpawned() {
-	return m_Spawned;
-}
-
-int PowerUp::gotIt() {
-	m_Spawned = false;
-	m_SecondsSinceDeSpawn = 0;
-	return m_Value;
-}
-
-void PowerUp::update(float elapsedTime) {
-	if (m_Spawned) {
-		m_SecondsSinceSpawn += elapsedTime;
-	}
-	else {
-		m_SecondsSinceDeSpawn += elapsedTime;
-	}
-
-	// Do we need to hide a pickup?
-	if (m_SecondsSinceSpawn > m_SecondsToLive && m_Spawned)	{
-		// Revove the pickup and put it somewhere else
-		m_Spawned = false;
-		m_SecondsSinceDeSpawn = 0;
-	}
-
-	// Do we need to spawn a pickup
-	if (m_SecondsSinceDeSpawn > m_SecondsToWait && !m_Spawned) {
-		// spawn the pickup and reset the timer
-		spawn();
-	}
+	this->m_Sprite.setPosition(x, y);
 }
 
 void PowerUp::upgrade() {
-	if (m_Type == 1) {
-		m_Value += (HEALTH_START_VALUE * .5);
+	// Make them more frequent and last longer
+	this->m_SecondsToLive += (START_SECONDS_TO_LIVE / 10);
+	this->m_SecondsToWait -= (START_WAIT_TIME / 10);
+}
+
+int PowerUp::activated(PlayerCharacter& pc) {
+	this->m_Spawned = false;
+	this->m_SecondsSinceDeSpawn = 0;
+	return this->m_Value;
+}
+
+void PowerUp::update(float elapsedTime) {
+	if (this->m_Spawned) {
+		this->m_SecondsSinceSpawn += elapsedTime;
 	}
 	else {
-		m_Value += (AMMO_START_VALUE * .5);
+		this->m_SecondsSinceDeSpawn += elapsedTime;
+	}
+	
+	// Do we need to hide a pickup?
+	if (this->m_SecondsSinceSpawn > this->m_SecondsToLive && this->m_Spawned)	{
+		// Revove the pickup and put it somewhere else
+		this->m_Spawned = false;
+		this->m_SecondsSinceDeSpawn = 0;
 	}
 
-	// Make them more frequent and last longer
-	m_SecondsToLive += (START_SECONDS_TO_LIVE / 10);
-	m_SecondsToWait -= (START_WAIT_TIME / 10);
+	// Do we need to spawn a pickup
+	if (this->m_SecondsSinceDeSpawn > this->m_SecondsToWait && !this->m_Spawned) {
+		// spawn the pickup and reset the timer
+		spawn(sf::Vector2i(1000, 1000));
+	}
+}
+
+AmmoPowerUp::AmmoPowerUp() {
+	// Associate HEALTHtexture witHEALTHe sprite
+	this->m_Sprite = sf::Sprite(TextureHolder::GetTexture(
+		"graphics\\ammo_pickup.png"));
+
+	// How much is pickup worth
+	this->m_Value = AMMO_START_VALUE;
+}
+
+HealthPowerUp::HealthPowerUp() {
+	this->m_Sprite = sf::Sprite(TextureHolder::GetTexture(
+		"graphics\\health_pickup.png"));
+
+	// How much is pickup worth
+	this->m_Value = HEALTH_START_VALUE;
+}
+
+WeaponPickUp::WeaponPickUp() {
+	this->m_Sprite = sf::Sprite(TextureHolder::GetTexture(
+		"graphics\\weapon_pickup.png"));
+
+	// How much is pickup worth
+	//this->m_Value = HEALTH_START_VALUE;
+}
+
+/**
+*	Increase the amount of Ammunition restored
+*/
+void AmmoPowerUp::upgrade() {
+	this->m_Value += (AMMO_START_VALUE * .5);
+	this->PowerUp::upgrade();
+}
+
+/**
+*	Increase the amount of Health restored
+*/
+void HealthPowerUp::upgrade() {
+	this->m_Value += (HEALTH_START_VALUE * .5);
+	this->PowerUp::upgrade();
 }

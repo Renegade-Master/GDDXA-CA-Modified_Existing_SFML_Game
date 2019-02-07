@@ -54,8 +54,8 @@ void DevilSpawn::Update() {
 		}
 
 		// Update the pickups
-		healthPickup.update(m_FrameTime.asSeconds());
-		ammoPickup.update(m_FrameTime.asSeconds());
+		healthPickup->update(m_FrameTime.asSeconds());
+		ammoPickup->update(m_FrameTime.asSeconds());
 
 		// Collision detection
 		// Have any horde been shot?
@@ -114,16 +114,16 @@ void DevilSpawn::Update() {
 
 		// Has the player touched health pickup
 		if (m_Player.getPosition().intersects
-		(healthPickup.getPosition()) && healthPickup.isSpawned()) {
-			m_Player.increaseHealthLevel(healthPickup.gotIt());
+		(healthPickup->getPosition()) && healthPickup->isSpawned()) {
+			m_Player.increaseHealthLevel(healthPickup->activated(m_Player));
 			// Play a sound
 			pickup.play();
 		}
 
 		// Has the player touched ammo pickup
 		if (m_Player.getPosition().intersects
-		(ammoPickup.getPosition()) && ammoPickup.isSpawned()) {
-			//m_Player.m_bulletsReserved += ammoPickup.gotIt();
+		(ammoPickup->getPosition()) && ammoPickup->isSpawned()) {
+			//m_Player.m_bulletsReserved += ammoPickup->activated();
 			// Play a sound
 			reload.play();
 		}

@@ -8,28 +8,46 @@
 #ifndef POWERUP_H
 #define POWERUP_H
 
-#include <SFML/Graphics.hpp>
+#include "Constants.h"
+#include "PlayerCharacter.h"
+#include "TextureHolder.h"
 
-class PowerUp {
-private:
-	//Start value for health pickups
-	const int HEALTH_START_VALUE = 50;
-	const int AMMO_START_VALUE = 12;
-	const int START_WAIT_TIME = 10;
-	const int START_SECONDS_TO_LIVE = 5;
+/**
+*	Abstract Super PowerUp Class.
+*/
+class PowerUp abstract {
+public:
+	PowerUp();
 
+	void spawn(sf::Vector2i pos);
+
+	// Check the position of a pickup
+	sf::FloatRect getPosition() { return m_Sprite.getGlobalBounds(); };
+
+	// Get the sprite for drawing
+	sf::Sprite getSprite() { return m_Sprite; };
+
+	// Let the pickup update itself each frame
+	void update(float elapsedTime);
+
+	// Is this pickup currently spawned?
+	bool isSpawned() { return m_Spawned; };
+
+	// Get the goodness from the pickup
+	int activated(PlayerCharacter& pc);
+
+	// Upgrade the value of each pickup
+	virtual void upgrade();
+
+protected:
 	// The sprite that represents this pickup
 	sf::Sprite m_Sprite;
 
 	// The arena it exists in
-	sf::IntRect m_Arena;
+	//sf::IntRect m_Arena;
 
 	// How much is this pickup worth?
 	int m_Value;
-
-	// What type of pickup is this? 
-	// 1 = health, 2 = ammo
-	int m_Type;
 
 	// Handle spawning and disappearing
 	bool m_Spawned;
@@ -37,34 +55,32 @@ private:
 	float m_SecondsSinceDeSpawn;
 	float m_SecondsToLive;
 	float m_SecondsToWait;
+};
 
-// Public prototypes go here
+/**
+*	Restores ammo to maximum
+*/
+class AmmoPowerUp : public PowerUp {
 public:
-	PowerUp();
-	PowerUp(int type);
-
-	// Prepare a new pickup
-	void setArena(sf::IntRect arena);
-
-	void spawn();
-
-	// Check the position of a pickup
-	sf::FloatRect getPosition();
-
-	// Get the sprite for drawing
-	sf::Sprite getSprite();
-
-	// Let the pickup update itself each frame
-	void update(float elapsedTime);
-
-	// Is this pickup currently spawned?
-	bool isSpawned();
-
-	// Get the goodness from the pickup
-	int gotIt();
-
-	// Upgrade the value of each pickup
+	AmmoPowerUp();
 	void upgrade();
+};
+
+/**
+*	Restores some health
+*/
+class HealthPowerUp : public PowerUp {
+public:
+	HealthPowerUp();
+	void upgrade();
+};
+
+/**
+*	Assigns a random new Weapon.
+*/
+class WeaponPickUp : public PowerUp {
+public:
+	WeaponPickUp();
 };
 
 #endif // POWERUP_H

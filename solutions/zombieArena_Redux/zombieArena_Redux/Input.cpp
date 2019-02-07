@@ -142,14 +142,14 @@ void DevilSpawn::Input() {
 				case 4: // Health PowerUp Upgrade Button
 					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();
-						healthPickup.upgrade();
+						healthPickup->upgrade();
 						m_gameState = GameState::PLAYING;
 					}
 					break;
 				case 5: // Ammo PowerUp Upgrade Button
 					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();
-						ammoPickup.upgrade();
+						ammoPickup->upgrade();
 						m_gameState = GameState::PLAYING;
 					}
 					break;
@@ -181,8 +181,8 @@ void DevilSpawn::Input() {
 			m_Player.spawn(250,50);
 
 			// Configure the pick-ups
-			healthPickup.setArena(arena);
-			ammoPickup.setArena(arena);
+			/*healthPickup->setArena(arena);
+			ammoPickup->setArena(arena);*/
 
 			// Create a horde of zombies
 			hordeSize = 5 * wave;

@@ -36,11 +36,11 @@ void DevilSpawn::Draw() {
 		window.draw(m_Player.getSprite());
 
 		// Draw the pickups if currently spawned
-		if (ammoPickup.isSpawned()) {
-			window.draw(ammoPickup.getSprite());
+		if (ammoPickup->isSpawned()) {
+			window.draw(ammoPickup->getSprite());
 		}
-		if (healthPickup.isSpawned()) {
-			window.draw(healthPickup.getSprite());
+		if (healthPickup->isSpawned()) {
+			window.draw(healthPickup->getSprite());
 		}
 
 		//Draw the crosshair - MUST BE DRAWN TO MAINVIEW

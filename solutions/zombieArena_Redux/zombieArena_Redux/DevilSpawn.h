@@ -15,16 +15,16 @@
 #include <vector>
 
 #include <SFML/Audio.hpp>
-#include <SFML/Graphics.hpp>
+//#include <SFML/Graphics.hpp>
 
-#include "Bullet.h"
+//#include "Bullet.h"
 #include "Button.h"
 #include "Devil.h"
-#include "DevilSpawn.h"
+//#include "DevilSpawn.h"
 #include "InputHandler.h"
 #include "PowerUp.h"
-#include "Player.h"
-#include "TextureHolder.h"
+//#include "Player.h"
+//#include "TextureHolder.h"
 
 class DevilSpawn {
 public:
@@ -117,8 +117,9 @@ private:
 	sf::Texture texture_mouse;
 
 	// Create a couple of pickups
-	PowerUp healthPickup;
-	PowerUp ammoPickup;
+	PowerUp* ammoPickup;
+	PowerUp* healthPickup;
+	PowerUp* weaponPickup;
 
 	// About the game
 	int wave = 0;

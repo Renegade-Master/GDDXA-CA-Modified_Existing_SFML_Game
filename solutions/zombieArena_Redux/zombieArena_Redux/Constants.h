@@ -38,5 +38,11 @@ constexpr float CRAWLER_HEALTH = 3.0f;
 constexpr int MAX_VARIANCE = 30;
 constexpr int OFFSET = 101 - MAX_VARIANCE;
 
+// Start value for PowerUps
+constexpr int HEALTH_START_VALUE = 50;
+constexpr int AMMO_START_VALUE = 12;
+constexpr int START_WAIT_TIME = 10;
+constexpr int START_SECONDS_TO_LIVE = 5;
+
 #endif // !CONSTANTS_H
 
