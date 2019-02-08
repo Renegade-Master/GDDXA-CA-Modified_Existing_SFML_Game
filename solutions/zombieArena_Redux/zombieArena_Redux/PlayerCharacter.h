@@ -39,6 +39,9 @@ public:
 	// How much health has the PC got?
 	int m_Health;
 
+	// What is the maximum health the PC can have
+	int m_MaxHealth;
+
 	// Find out if the PC is alive
 	bool isAlive();
 
@@ -61,9 +64,6 @@ protected:
 	/***---------***\
 	|	Variables	|
 	\***---------***/
-
-	// What is the maximum health the PC can have
-	int m_MaxHealth;
 
 	// Speed in pixels per second
 	float m_Speed;

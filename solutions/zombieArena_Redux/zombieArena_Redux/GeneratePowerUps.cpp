@@ -14,8 +14,8 @@ void DevilSpawn::generatePowerUps(int count, sf::IntRect* arena) {
 
 	for (int i = 0; i < count; i++) {
 		sf::Vector2i spawnLoc = sf::Vector2i(
-			(rand() % arena->height - 50) + 50,
-			(rand() % arena->width - 50) + 50);
+			(rand() % arena->height - 75) + 50,
+			(rand() % arena->width - 75) + 50);
 
 		int type = (rand() % 10);
 

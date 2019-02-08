@@ -18,22 +18,21 @@ PowerUp::PowerUp() {
 		this->m_Sprite.getTextureRect().width / 2,
 		this->m_Sprite.getTextureRect().height / 2);
 
-	this->m_timeToLive = sf::seconds(START_SECONDS_TO_LIVE);
-	this->m_timeToWait = sf::seconds(START_WAIT_TIME);
+	int offset = (rand() % 7) - 3;	// Range between [-3, +3]
+	this->m_timeToLive = sf::seconds(START_SECONDS_TO_LIVE + offset);
+
+	offset = (rand() % 7) - 3;
+	this->m_timeToWait = sf::seconds(START_WAIT_TIME + offset);
 }
 
 /**
 *	Spawn the PowerUp into the Game World
 */
 void PowerUp::spawn(sf::Vector2i pos) {
-	// Spawn at a random location
-	int x = (rand() % pos.x);
-	int y = (rand() % pos.y);
-
 	this->m_timeSinceSpawn = sf::Time::Zero;
 	this->m_Spawned = true;
 	
-	this->m_Sprite.setPosition(x, y);
+	this->m_Sprite.setPosition(pos.x, pos.y);
 }
 
 /**
@@ -132,7 +131,10 @@ HealthPowerUp::HealthPowerUp() {
 */
 void HealthPowerUp::activated(PlayerCharacter* pc) {
 	this->PowerUp::activated(pc);
-	pc->m_Health += this->m_Value;
+
+	if (pc->m_Health + this->m_Value < pc->m_MaxHealth) {
+		pc->m_Health += this->m_Value;
+	}
 
 	std::cout << "Health PowerUp Activated!" << std::endl;
 }
