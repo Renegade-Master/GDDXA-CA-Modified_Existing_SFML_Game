@@ -1,1 +1,5 @@
-Buttons	- https://pushbuttonreceivecode.com/blog/how-to-create-simple-buttons-for-your-sfml-game
+Programmatic:
+	Buttons	- https://pushbuttonreceivecode.com/blog/how-to-create-simple-buttons-for-your-sfml-game
+
+Assets:
+	Pistol	- https://opengameart.org/content/pistol-1

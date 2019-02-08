@@ -36,6 +36,12 @@ public:
 	void shoot(sf::Vector2f origin, sf::Vector2f target, sf::Time currentFrameTime)
 		{ this->m_Weapon->fire(origin, target, currentFrameTime); };
 
+	// How much health has the PC got?
+	int m_Health;
+
+	// What is the maximum health the PC can have
+	int m_MaxHealth;
+
 	// Find out if the PC is alive
 	bool isAlive();
 
@@ -59,12 +65,6 @@ protected:
 	|	Variables	|
 	\***---------***/
 
-	// How much health has the PC got?
-	int m_Health;
-
-	// What is the maximum health the PC can have
-	int m_MaxHealth;
-
 	// Speed in pixels per second
 	float m_Speed;
 
@@ -86,6 +86,8 @@ protected:
 	|	Functions	|
 	\***---------***/
 
+	void init();
+
 	virtual void spawn(float posX, float posY) = 0;
 	virtual void update(sf::Time elapsedTime);
 	virtual sf::String getClassName() = 0 { return(sf::String("PlayerCharacter")); };
@@ -93,9 +95,6 @@ protected:
 	// Handle hits in both directions
 	/*virtual sf::Time getLastHitTime() = 0;*/
 	virtual bool onHit(sf::Time timeHit);
-
-private:
-
 };
 
 #endif // !PLAYERCHARACTER_H

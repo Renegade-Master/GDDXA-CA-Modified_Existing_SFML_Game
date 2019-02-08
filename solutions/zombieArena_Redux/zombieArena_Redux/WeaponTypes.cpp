@@ -145,7 +145,7 @@ Bullet* Weapon::forgeBullet() {
 
 	switch (this->m_Weapon) {
 	case WEAPON_TYPES::HOLSTERED:
-		newBullet = new Bullet(0.0f, 1000);
+		newBullet = new Bullet(0.0f, 0);
 		break;
 	case WEAPON_TYPES::PISTOL:
 		newBullet = new Bullet(1.0f, 1000);
@@ -154,10 +154,10 @@ Bullet* Weapon::forgeBullet() {
 		newBullet = new Bullet(3.0f, 1000);
 		break;
 	case WEAPON_TYPES::SHOTGUN:
-		newBullet = new Bullet(5.0f, 1000);
+		newBullet = new Bullet(5.0f, 750);
 		break;
 	case WEAPON_TYPES::RPG:
-		newBullet = new Bullet(20.0f, 1000);
+		newBullet = new Bullet(20.0f, 500);
 		break;
 	default:
 		//	Not a Weapon

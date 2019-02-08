@@ -15,16 +15,16 @@
 #include <vector>
 
 #include <SFML/Audio.hpp>
-#include <SFML/Graphics.hpp>
+//#include <SFML/Graphics.hpp>
 
-#include "Bullet.h"
+//#include "Bullet.h"
 #include "Button.h"
 #include "Devil.h"
-#include "DevilSpawn.h"
+//#include "DevilSpawn.h"
 #include "InputHandler.h"
-#include "Pickup.h"
-#include "Player.h"
-#include "TextureHolder.h"
+#include "PowerUp.h"
+//#include "Player.h"
+//#include "TextureHolder.h"
 
 class DevilSpawn {
 public:
@@ -100,7 +100,7 @@ private:
 	int hordeSize;
 	int numHordeAlive;
 	std::vector<Devil*> horde;
-	void createHorde(int numDevils, sf::IntRect arena);
+	void createHorde(int numDevils, sf::IntRect* arena);
 	Devil* summonDevil(sf::Vector2f pos, int type);
 
 	// Clock for timings
@@ -117,8 +117,12 @@ private:
 	sf::Texture texture_mouse;
 
 	// Create a couple of pickups
-	Pickup healthPickup;
-	Pickup ammoPickup;
+	std::vector<PowerUp*> powerUps;
+	void generatePowerUps(int count, sf::IntRect* arena);
+	PowerUp* newPowerUp(sf::Vector2i pos, int type);
+	/*PowerUp* ammoPickup;
+	PowerUp* healthPickup;
+	PowerUp* weaponPickup;*/
 
 	// About the game
 	int wave = 0;

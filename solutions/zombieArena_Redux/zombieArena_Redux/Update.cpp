@@ -54,8 +54,9 @@ void DevilSpawn::Update() {
 		}
 
 		// Update the pickups
-		healthPickup.update(m_FrameTime.asSeconds());
-		ammoPickup.update(m_FrameTime.asSeconds());
+		for (std::vector<PowerUp*>::iterator it = powerUps.begin(); it != powerUps.end(); ++it) {
+			(*it)->update(m_FrameTime);
+		}
 
 		// Collision detection
 		// Have any horde been shot?
@@ -112,20 +113,16 @@ void DevilSpawn::Update() {
 			}
 		}// End player touched
 
-		// Has the player touched health pickup
-		if (m_Player.getPosition().intersects
-		(healthPickup.getPosition()) && healthPickup.isSpawned()) {
-			m_Player.increaseHealthLevel(healthPickup.gotIt());
-			// Play a sound
-			pickup.play();
-		}
-
-		// Has the player touched ammo pickup
-		if (m_Player.getPosition().intersects
-		(ammoPickup.getPosition()) && ammoPickup.isSpawned()) {
-			//m_Player.m_bulletsReserved += ammoPickup.gotIt();
-			// Play a sound
-			reload.play();
+		// Has the player touched a PowerUp
+		for (std::vector<PowerUp*>::iterator it = powerUps.begin(); it != powerUps.end(); ++it) {
+			if (m_Player.getPosition().intersects
+				((*it)->getPosition()) && (*it)->isSpawned()) {
+				
+				(*it)->activated(&m_Player);
+				
+				// Play a sound
+				pickup.play();
+			}
 		}
 
 		// size up the health bar

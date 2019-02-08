@@ -139,17 +139,17 @@ void DevilSpawn::Input() {
 						m_gameState = GameState::PLAYING;
 					}
 					break;
-				case 4: // Health Pickup Upgrade Button
+				case 4: // Health PowerUp Upgrade Button
 					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();
-						healthPickup.upgrade();
+						//healthPickup->upgrade();
 						m_gameState = GameState::PLAYING;
 					}
 					break;
-				case 5: // Ammo Pickup Upgrade Button
+				case 5: // Ammo PowerUp Upgrade Button
 					if (it->getState() == GUI::ButtonState::clicked) {
 						buttonClick.play();
-						ammoPickup.upgrade();
+						//ammoPickup->upgrade();
 						m_gameState = GameState::PLAYING;
 					}
 					break;
@@ -178,19 +178,18 @@ void DevilSpawn::Input() {
 			int tileSize = createBackground(background, arena);
 
 			// Spawn the player in the middle of the arena
-			m_Player.spawn(250,50);
-
-			// Configure the pick-ups
-			healthPickup.setArena(arena);
-			ammoPickup.setArena(arena);
+			m_Player.spawn(arena.width / 2, arena.height / 2);
 
 			// Create a horde of zombies
 			hordeSize = 5 * wave;
 
 			// Delete the previously allocated memory (if it exists)
 			horde.clear();
-			createHorde(hordeSize, arena);
+			createHorde(hordeSize, &arena);
 			numHordeAlive = hordeSize;
+
+			// Create a couple of pickups
+			generatePowerUps(5, &arena);
 
 			// Play the powerup sound
 			powerup.play();

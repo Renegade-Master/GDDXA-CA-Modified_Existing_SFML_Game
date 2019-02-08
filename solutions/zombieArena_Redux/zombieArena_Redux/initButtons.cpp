@@ -97,7 +97,7 @@ void DevilSpawn::initButtons() {
 		GUI::ButtonStyle::none));
 
 	btnLst_levelUp.push_back(GUI::Button(
-		"Health Pickup ++", 
+		"Health PowerUp ++", 
 		font, 
 		sf::Vector2f(
 			resolution.x * 0.5f, 
@@ -105,7 +105,7 @@ void DevilSpawn::initButtons() {
 		GUI::ButtonStyle::none));
 
 	btnLst_levelUp.push_back(GUI::Button(
-		"Ammo Pickup ++", 
+		"Ammo PowerUp ++", 
 		font, 
 		sf::Vector2f(
 			resolution.x * 0.5f, 

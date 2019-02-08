@@ -19,13 +19,9 @@ Player::Player() {
 
 	// Associate a texture with the sprite
 	this->m_Sprite = sf::Sprite(TextureHolder::GetTexture(
-		"graphics\\player.png"));
+		"graphics\\player_new.png"));
 
-	// Set the origin of the sprite to the centre, 
-	// for smooth rotation
-	this->m_Sprite.setOrigin(
-		m_Sprite.getTextureRect().width / 2,
-		m_Sprite.getTextureRect().height / 2);
+	this->PlayerCharacter::init();
 }
 
 /**

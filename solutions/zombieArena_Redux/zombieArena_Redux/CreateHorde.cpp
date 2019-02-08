@@ -7,13 +7,13 @@
 #include "DevilSpawn.h"
 #include "DevilTypes.h"
 
-void DevilSpawn::createHorde(int numDevils, sf::IntRect arena) {
+void DevilSpawn::createHorde(int numDevils, sf::IntRect* arena) {
 	//	THIS NEEDS REPLACING FAST
 	srand((int)time(0));
-	int maxY = arena.height - 20;
-	int minY = arena.top + 20;
-	int maxX = arena.width - 20;
-	int minX = arena.left + 20;
+	int maxY = arena->height - 20;
+	int minY = arena->top + 20;
+	int maxX = arena->width - 20;
+	int minX = arena->left + 20;
 
 	for (int i = 0; i < numDevils; i++) {
 		// Which side should the Enemy spawn
@@ -46,7 +46,7 @@ void DevilSpawn::createHorde(int numDevils, sf::IntRect arena) {
 				break;
 		}
 
-		// Bloater, crawler or runner
+		// Demon, crawler or runner
 		//srand((int)time(0) * 2);
 		int type = (rand() % 3);
 
@@ -55,11 +55,11 @@ void DevilSpawn::createHorde(int numDevils, sf::IntRect arena) {
 }
 
 Devil* DevilSpawn::summonDevil(sf::Vector2f pos, int type) {
-	Devil* thrall = NULL;
+	Devil* thrall = nullptr;
 
 	switch (type) {
 	case 0:
-		thrall = new Bloater();
+		thrall = new Demon();
 		break;
 	case 1:
 		thrall = new Chaser();

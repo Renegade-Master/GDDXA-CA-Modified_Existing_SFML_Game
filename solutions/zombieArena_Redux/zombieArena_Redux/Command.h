@@ -84,6 +84,8 @@ class cmd_Attack : public Command {
 public:
 	virtual void execute(Player& pc, sf::Vector2f target, sf::Time ft) override {
 		pc.m_Action = PlayerCharacter::Action::ATTACKING;
+		pc.m_Movement_V = PlayerCharacter::Movement_V::IDLE;
+		pc.m_Movement_H = PlayerCharacter::Movement_H::IDLE;
 		pc.shoot(pc.getCentre(), target, ft);
 		//std::cout << "Executing ATTACK Input" << std::endl;
 	}

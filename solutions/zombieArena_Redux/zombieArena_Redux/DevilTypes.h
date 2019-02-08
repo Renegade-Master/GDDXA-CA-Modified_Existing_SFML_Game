@@ -10,10 +10,10 @@
 
 #include "Devil.h"
 
-class Bloater : public Devil {
+class Demon : public Devil {
 public:
-	Bloater();
-	sf::String getClassName() { return(sf::String("PlayerCharacter::Devil::Bloater")); };
+	Demon();
+	sf::String getClassName() { return(sf::String("PlayerCharacter::Devil::Demon")); };
 };
 
 class Chaser : public Devil {

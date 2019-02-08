@@ -7,6 +7,17 @@
 #include "PlayerCharacter.h"
 
 /**
+*	Used to initialise values that do not differ between Child Classes.
+*/
+void PlayerCharacter::init() {
+	// Set the origin of the sprite to the centre, 
+	// for smooth rotation
+	this->m_Sprite.setOrigin(
+		this->m_Sprite.getTextureRect().width / 2,
+		this->m_Sprite.getTextureRect().height / 2);
+}
+
+/**
 *	...
 */
 void PlayerCharacter::spawn(float posX, float posY) {
