@@ -4,9 +4,9 @@
 *	@description	...
 */
 
-#include "DevilSpawn.h"
+#include "SoundBoard.h"
 
-void DevilSpawn::initSounds() {
+void SoundBoard::initSounds() {
 	// Prepare the hit sound
 	hitBuffer.loadFromFile(
 		"Audio\\IMPACT_Generic_09_Short_mono.wav");

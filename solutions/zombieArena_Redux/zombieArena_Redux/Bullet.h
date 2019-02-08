@@ -51,20 +51,20 @@ public:
 	float m_BulletDamage;
 
 	// Stop the bullet
-	void stop();
+	void stop() { this->m_InFlight = false; };
 
 	// Returns the value of m_InFlight
-	bool isInFlight();
+	bool isInFlight() { return this->m_InFlight; };
 
 	// Launch a new bullet
 	void shoot(sf::Vector2f origin,
 		sf::Vector2f target);
 
 	// Tell the calling code where the bullet is in the world
-	sf::FloatRect getPosition();
+	sf::FloatRect getPosition() { return this->m_BulletShape.getGlobalBounds(); };
 
 	// Return the actual shape (for drawing)
-	sf::RectangleShape getShape();
+	sf::RectangleShape getShape() { return this->m_BulletShape; };
 
 	// Update the bullet each frame
 	void update(float elapsedTime);
