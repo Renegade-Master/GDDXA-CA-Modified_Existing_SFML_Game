@@ -16,24 +16,30 @@
 class SoundBoard : public Observer {
 public:
 	enum class SFX {
+		// UI Sounds
 		CLICK_BUTTON,
 
+		// Hit Sounds
 		HIT_UNARMED,
 		HIT_PISTOL,
 		HIT_ASSAULTRIFLE,
 		HIT_SHOTGUN,
 		HIT_RPG,
+	
 		HIT_KILL,
 
+		// Fire Sounds
 		FIRE_UNARMED,
 		FIRE_PISTOL,
 		FIRE_ASSAULTRIFLE,
 		FIRE_SHOTGUN,
 		FIRE_RPG,
 
+		// Reload Sounds
 		RELOAD_SUCCESS,
 		RELOAD_FAILED,
 
+		// PowerUp Sounds
 		POWERUP_SPAWN,
 		POWERUP_PICKUP		
 	};
@@ -47,24 +53,50 @@ private:
 	//virtual void play() = 0;
 
 	// Sound Buffers
-	sf::SoundBuffer hitBuffer;	
-	sf::SoundBuffer splatBuffer;	
-	sf::SoundBuffer shootBuffer;	
-	sf::SoundBuffer reloadBuffer;	
-	sf::SoundBuffer reloadFailedBuffer;	
-	sf::SoundBuffer powerupBuffer;	
-	sf::SoundBuffer pickupBuffer;	
-	sf::SoundBuffer buttonClickBuffer;
+	sf::SoundBuffer ui_ButtonClickBuffer;
+
+	sf::SoundBuffer hit_UnarmedBuffer;
+	sf::SoundBuffer hit_PistolBuffer;
+	sf::SoundBuffer hit_AssaultRifleBuffer;
+	sf::SoundBuffer hit_ShotgunBuffer;
+	sf::SoundBuffer hit_RPGBuffer;
+
+	sf::SoundBuffer hit_KillBuffer;
+
+	sf::SoundBuffer fire_UnarmedBuffer;
+	sf::SoundBuffer fire_PistolBuffer;
+	sf::SoundBuffer fire_AssaultRifleBuffer;
+	sf::SoundBuffer fire_ShotgunBuffer;
+	sf::SoundBuffer fire_RPGBuffer;
+
+	sf::SoundBuffer reload_SuccessBuffer;
+	sf::SoundBuffer reload_FailedBuffer;
+
+	sf::SoundBuffer powerUp_SpawnBuffer;
+	sf::SoundBuffer powerUp_PickupBuffer;
 	
 	// Sounds
-	sf::Sound hit;
-	sf::Sound splat;
-	sf::Sound shoot;
-	sf::Sound reload;
-	sf::Sound reloadFailed;
-	sf::Sound powerup;
-	sf::Sound pickup;
-	sf::Sound buttonClick;
+	sf::Sound ui_ButtonClick;
+
+	sf::Sound hit_Unarmed;
+	sf::Sound hit_Pistol;
+	sf::Sound hit_AssaultRifle;
+	sf::Sound hit_Shotgun;
+	sf::Sound hit_RPG;
+
+	sf::Sound hit_Kill;
+
+	sf::Sound fire_Unarmed;
+	sf::Sound fire_Pistol;
+	sf::Sound fire_AssaultRifle;
+	sf::Sound fire_Shotgun;
+	sf::Sound fire_RPG;
+
+	sf::Sound reload_Success;
+	sf::Sound reload_Failed;
+
+	sf::Sound powerUp_Spawn;
+	sf::Sound powerUp_Pickup;
 };
 
 #endif // !SOUNDBOARD_H

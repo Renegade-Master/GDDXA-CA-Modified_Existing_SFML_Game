@@ -19,67 +19,67 @@ void SoundBoard::onNotify(SFX sound) {
 	*	UI Sounds
 	*/
 	case SFX::CLICK_BUTTON:
-		this->buttonClick.play();
+		this->ui_ButtonClick.play();
 
 	/**
 	*	Hit Sounds
 	*/
 	case SFX::HIT_UNARMED:
-		this->hit.play();
+		this->hit_Unarmed.play();
 		break;
 	case SFX::HIT_PISTOL:
-		this->hit.play();
+		this->hit_Pistol.play();
 		break;
 	case SFX::HIT_ASSAULTRIFLE:
-		this->hit.play();
+		this->hit_AssaultRifle.play();
 		break;
 	case SFX::HIT_SHOTGUN:
-		this->hit.play();
+		this->hit_Shotgun.play();
 		break;
 	case SFX::HIT_RPG:
-		this->hit.play();
+		this->hit_RPG.play();
 		break;
 	case SFX::HIT_KILL:
-		this->splat.play();
+		this->hit_Kill.play();
 		break;
 
 	/**
 	*	Firing Sounds
 	*/
 	case SFX::FIRE_UNARMED:
-		this->splat.play();
+		this->fire_Unarmed.play();
 		break;
 	case SFX::FIRE_PISTOL:
-		this->hit.play();
+		this->fire_Pistol.play();
 		break;
 	case SFX::FIRE_ASSAULTRIFLE:
-		this->hit.play();
+		this->fire_AssaultRifle.play();
 		break;
 	case SFX::FIRE_SHOTGUN:
-		this->hit.play();
+		this->fire_Shotgun.play();
 		break;
 	case SFX::FIRE_RPG:
-		this->hit.play();
+		this->fire_RPG.play();
 		break;
 
 	/**
 	*	Reload Sounds
 	*/
 	case SFX::RELOAD_SUCCESS:
-		this->reload.play();
+		this->reload_Success.play();
 		break;
 	case SFX::RELOAD_FAILED:
-		this->reloadFailed.play();
+		this->reload_Failed.play();
 		break;
 
 	/**
 	*	PowerUp Sounds
 	*/
 	case SFX::POWERUP_SPAWN:
-		this->powerup.play();
+		this->powerUp_Spawn.play();
 		break;
 	case SFX::POWERUP_PICKUP:
-		this->pickup.play();
+		this->powerUp_Pickup.play();
 		break;
 	}
 }
