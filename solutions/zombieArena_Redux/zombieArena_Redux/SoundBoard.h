@@ -17,9 +17,10 @@ class SoundBoard : public Observer {
 public:
 	enum class SFX {
 		// UI Sounds
-		CLICK_BUTTON,
+		UI_BUTTONCLICK,
 
 		// Hit Sounds
+		HIT_PLAYER,
 		HIT_UNARMED,
 		HIT_PISTOL,
 		HIT_ASSAULTRIFLE,
@@ -55,13 +56,14 @@ private:
 	// Sound Buffers
 	sf::SoundBuffer ui_ButtonClickBuffer;
 
-	sf::SoundBuffer hit_UnarmedBuffer;
+	sf::SoundBuffer hit_PlayerBuffer;
+	std::vector<sf::SoundBuffer> hit_UnarmedBuffer;	// 2
 	sf::SoundBuffer hit_PistolBuffer;
 	sf::SoundBuffer hit_AssaultRifleBuffer;
 	sf::SoundBuffer hit_ShotgunBuffer;
 	sf::SoundBuffer hit_RPGBuffer;
 
-	sf::SoundBuffer hit_KillBuffer;
+	std::vector<sf::SoundBuffer> hit_KillBuffer;	// 3
 
 	sf::SoundBuffer fire_UnarmedBuffer;
 	sf::SoundBuffer fire_PistolBuffer;
@@ -78,13 +80,14 @@ private:
 	// Sounds
 	sf::Sound ui_ButtonClick;
 
-	sf::Sound hit_Unarmed;
+	sf::Sound hit_Player;
+	std::vector<sf::Sound> hit_Unarmed;	// 2
 	sf::Sound hit_Pistol;
 	sf::Sound hit_AssaultRifle;
 	sf::Sound hit_Shotgun;
 	sf::Sound hit_RPG;
 
-	sf::Sound hit_Kill;
+	std::vector<sf::Sound> hit_Kill;	// 3
 
 	sf::Sound fire_Unarmed;
 	sf::Sound fire_Pistol;

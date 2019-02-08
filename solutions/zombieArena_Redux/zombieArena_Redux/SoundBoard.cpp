@@ -14,18 +14,24 @@ SoundBoard::SoundBoard() {
 }
 
 void SoundBoard::onNotify(SFX sound) {
+	int i = 0; //	Used to randomly select between SFX
+
 	switch (sound) {
 	/**
 	*	UI Sounds
 	*/
-	case SFX::CLICK_BUTTON:
+	case SFX::UI_BUTTONCLICK:
 		this->ui_ButtonClick.play();
 
 	/**
 	*	Hit Sounds
 	*/
+	case SFX::HIT_PLAYER:
+		this->hit_Player.play();
+		break;
 	case SFX::HIT_UNARMED:
-		this->hit_Unarmed.play();
+		i = rand() % this->hit_Unarmed.size();
+		this->hit_Unarmed.at(i).play();
 		break;
 	case SFX::HIT_PISTOL:
 		this->hit_Pistol.play();
@@ -40,7 +46,8 @@ void SoundBoard::onNotify(SFX sound) {
 		this->hit_RPG.play();
 		break;
 	case SFX::HIT_KILL:
-		this->hit_Kill.play();
+		i = rand() % this->hit_Kill.size();
+		this->hit_Kill.at(i).play();
 		break;
 
 	/**

@@ -7,17 +7,30 @@
 #include "SoundBoard.h"
 
 void SoundBoard::initSounds() {
+	sf::SoundBuffer tempBuf;// = new sf::SoundBuffer();
+	sf::Sound tempSnd;// = new sf::Sound();
+
+	hit_UnarmedBuffer = std::vector<sf::SoundBuffer>(2);
+	hit_Unarmed = std::vector<sf::Sound>(2);
+	hit_KillBuffer = std::vector<sf::SoundBuffer>(3);
+	hit_Kill = std::vector<sf::Sound>(3);
+
 	/**
 	*	UI Sounds
 	*/
-	this->ui_ButtonClickBuffer.loadFromFile("Audio\\");
+	this->ui_ButtonClickBuffer.loadFromFile("Audio\\ui_ButtonClick.wav");
 	this->ui_ButtonClick.setBuffer(this->ui_ButtonClickBuffer);
 
 	/**
 	*	Hit Sounds
 	*/
-	this->hit_UnarmedBuffer.loadFromFile("Audio\\");
-	this->hit_Unarmed.setBuffer(this->hit_UnarmedBuffer);
+	this->hit_PlayerBuffer.loadFromFile("Audio\\");
+	this->hit_Player.setBuffer(hit_PlayerBuffer);
+
+	this->hit_UnarmedBuffer.at(0).loadFromFile("Audio\\onEnemyHit_01.wav");
+	this->hit_Unarmed.at(0).setBuffer(this->hit_UnarmedBuffer.at(0));
+	this->hit_UnarmedBuffer.at(1).loadFromFile("Audio\\onEnemyHit_02.wav");
+	this->hit_Unarmed.at(1).setBuffer(this->hit_UnarmedBuffer.at(1));
 
 	this->hit_PistolBuffer.loadFromFile("Audio\\");
 	this->hit_Pistol.setBuffer(this->hit_PistolBuffer);
@@ -30,9 +43,13 @@ void SoundBoard::initSounds() {
 
 	this->hit_RPGBuffer.loadFromFile("Audio\\");
 	this->hit_RPG.setBuffer(this->hit_RPGBuffer);
-	
-	this->hit_KillBuffer.loadFromFile("Audio\\");
-	this->hit_Kill.setBuffer(this->hit_KillBuffer);
+
+	this->hit_KillBuffer.at(0).loadFromFile("Audio\\onEnemyDeath_01.wav");
+	this->hit_Kill.at(0).setBuffer(this->hit_KillBuffer.at(0));
+	this->hit_KillBuffer.at(1).loadFromFile("Audio\\onEnemyDeath_02.wav");
+	this->hit_Kill.at(1).setBuffer(this->hit_KillBuffer.at(1));
+	this->hit_KillBuffer.at(2).loadFromFile("Audio\\onEnemyDeath_03.wav");
+	this->hit_Kill.at(2).setBuffer(this->hit_KillBuffer.at(2));
 
 	/**
 	*	Firing Sounds
