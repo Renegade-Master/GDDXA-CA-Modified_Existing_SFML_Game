@@ -15,7 +15,7 @@
 class Player : public PlayerCharacter {
 public:
 	//	Constructor
-	Player();
+	Player(SoundBoard& audio);
 
 	// Call this at the end of every game
 	void resetPlayerStats();

@@ -10,18 +10,17 @@
 /**
 *	Default Constructor
 */
-Player::Player() {
+Player::Player(SoundBoard& audio) {
+	this->PlayerCharacter::init(audio);
 	this->m_Speed = PLAYER_START_SPEED;
 	this->m_Health = PLAYER_START_HEALTH;
 	this->m_MaxHealth = PLAYER_START_HEALTH;
 	this->m_Weapon = this->m_Weapon->
-		forgeWeapon(Weapon::WEAPON_TYPES::HOLSTERED);
+		forgeWeapon(audio, Weapon::WEAPON_TYPES::HOLSTERED);
 
 	// Associate a texture with the sprite
 	this->m_Sprite = sf::Sprite(TextureHolder::GetTexture(
 		"graphics\\player_new.png"));
-
-	this->PlayerCharacter::init();
 }
 
 /**
@@ -32,7 +31,7 @@ void Player::resetPlayerStats() {
 	this->m_Health = PLAYER_START_HEALTH;
 	this->m_MaxHealth = PLAYER_START_HEALTH;
 	this->m_Weapon = this->m_Weapon->
-		forgeWeapon(Weapon::WEAPON_TYPES::ASSAULTRIFLE);
+		forgeWeapon(*m_Audio, Weapon::WEAPON_TYPES::ASSAULTRIFLE);
 }
 
 /**

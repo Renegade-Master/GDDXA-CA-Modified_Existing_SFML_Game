@@ -9,12 +9,14 @@
 /**
 *	Used to initialise values that do not differ between Child Classes.
 */
-void PlayerCharacter::init() {
+void PlayerCharacter::init(SoundBoard& audio) {
 	// Set the origin of the sprite to the centre, 
 	// for smooth rotation
 	this->m_Sprite.setOrigin(
 		this->m_Sprite.getTextureRect().width / 2,
 		this->m_Sprite.getTextureRect().height / 2);
+
+	this->m_Audio = &audio;
 }
 
 /**

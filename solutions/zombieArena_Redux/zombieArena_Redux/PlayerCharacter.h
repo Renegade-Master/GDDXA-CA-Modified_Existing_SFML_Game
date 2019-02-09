@@ -59,6 +59,9 @@ public:
 
 	// How long ago was the player last hit
 	sf::Time getLastHitTime() { return this->m_LastHit; };
+
+	// A SoundBoard
+	SoundBoard* m_Audio;
 	
 protected:
 	/***---------***\
@@ -86,7 +89,7 @@ protected:
 	|	Functions	|
 	\***---------***/
 
-	void init();
+	void init(SoundBoard& audio);
 
 	virtual void spawn(float posX, float posY) = 0;
 	virtual void update(sf::Time elapsedTime);

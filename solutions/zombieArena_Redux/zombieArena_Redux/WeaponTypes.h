@@ -23,7 +23,7 @@ public:
 	void reload();
 
 	void loadBullets(int amount);
-	Weapon* forgeWeapon(WEAPON_TYPES type);
+	Weapon* forgeWeapon(SoundBoard& audio, WEAPON_TYPES type);
 
 	void fire(sf::Vector2f origin, sf::Vector2f target, sf::Time currentFrameTime);
 
@@ -43,7 +43,7 @@ protected:
 	virtual sf::String getClassName() = 0 { return(sf::String("Weapon")); };
 
 	//	A Sound Manager
-	SoundBoard m_audio;
+	SoundBoard* m_audio;
 };
 
 class Unarmed : public Weapon {
