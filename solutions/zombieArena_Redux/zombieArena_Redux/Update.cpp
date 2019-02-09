@@ -13,6 +13,7 @@ void DevilSpawn::Update() {
 
 		// Update while Playing
 	if (m_gameState == GameState::PLAYING) {
+		m_audio.onNotify(SoundBoard::SFX::MUSIC_GAME);
 		// Change the mouse to the GAME mouse
 		window.setMouseCursorVisible(false);
 		texture_mouse = TextureHolder::GetTexture("Graphics\\crosshair.png");
@@ -178,6 +179,7 @@ void DevilSpawn::Update() {
 
 	// Update while in Main Menu
 	else if (m_gameState == GameState::MAIN_MENU) {
+		m_audio.onNotify(SoundBoard::SFX::MUSIC_MAINMENU);
 		mainView.reset(sf::FloatRect(0, 0, resolution.x, resolution.y));
 
 		// Change Mouse to Menu Mouse

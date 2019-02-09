@@ -17,6 +17,24 @@ void SoundBoard::onNotify(SFX sound) {
 	int i = 0; //	Used to randomly select between SFX
 
 	switch (sound) {
+		/**
+		*	Music Sounds
+		*/
+	case SFX::MUSIC_MAINMENU:
+		this->music_Game.stop();
+		if (this->music_MainMenu.getStatus() != sf::Sound::Status::Playing) {
+			this->music_MainMenu.setLoop(true);
+			this->music_MainMenu.play();
+		}
+		break;
+	case SFX::MUSIC_GAME:
+		this->music_MainMenu.stop();
+		if (this->music_Game.getStatus() != sf::Sound::Status::Playing) {
+			this->music_Game.setLoop(true);
+			this->music_Game.play();
+		}
+		break;
+
 	/**
 	*	UI Sounds
 	*/
