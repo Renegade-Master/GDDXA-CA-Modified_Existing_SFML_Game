@@ -169,13 +169,13 @@ void WeaponPickUp::activated(PlayerCharacter* pc) {
 	int type = (rand() % 10);
 
 	if (type < 4) {
-		pc->m_Weapon = pc->m_Weapon->forgeWeapon(Weapon::WEAPON_TYPES::ASSAULTRIFLE);
+		pc->m_Weapon = pc->m_Weapon->forgeWeapon(*pc->m_Audio, Weapon::WEAPON_TYPES::ASSAULTRIFLE);
 	}
 	else if (type < 8) {
-		pc->m_Weapon = pc->m_Weapon->forgeWeapon(Weapon::WEAPON_TYPES::SHOTGUN);
+		pc->m_Weapon = pc->m_Weapon->forgeWeapon(*pc->m_Audio, Weapon::WEAPON_TYPES::SHOTGUN);
 	}
 	else/* if (type > 8) */ {
-		pc->m_Weapon = pc->m_Weapon->forgeWeapon(Weapon::WEAPON_TYPES::RPG);
+		pc->m_Weapon = pc->m_Weapon->forgeWeapon(*pc->m_Audio, Weapon::WEAPON_TYPES::RPG);
 	}
 
 	std::cout << "Weapon PowerUp Activated!" << std::endl;

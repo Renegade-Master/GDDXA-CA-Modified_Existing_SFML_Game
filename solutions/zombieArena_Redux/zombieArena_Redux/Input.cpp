@@ -52,15 +52,15 @@ void DevilSpawn::Input() {
 
 		cmd = m_InpHand.handleInput(m_FrameTime);
 
-		if (m_Player.m_Weapon->m_Ammo.empty()) {
-			m_Player.m_Weapon->forgeWeapon(Weapon::WEAPON_TYPES::PISTOL);
+		if (m_Player->m_Weapon->m_Ammo.empty()) {
+			m_Player->m_Weapon->forgeWeapon(m_audio, Weapon::WEAPON_TYPES::PISTOL);
 		}
 
 		if (cmd) { 
-			cmd->execute(m_Player, sf::Vector2f(mouseWorldPosition), gameTimeTotal);
+			cmd->execute(*m_Player, sf::Vector2f(mouseWorldPosition), gameTimeTotal);
 		}
 
-		m_Player.lookAt(sf::Vector2f(mouseScreenPosition), resolution);
+		m_Player->lookAt(sf::Vector2f(mouseScreenPosition), resolution);
 
 	}// End handling controls while playing
 
@@ -84,7 +84,9 @@ void DevilSpawn::Input() {
 						score = 0;
 
 						// Reset the player's stats
-						m_Player.resetPlayerStats();
+						delete m_Player;
+						m_Player = new Player(m_audio);
+						m_Player->resetPlayerStats();
 					}
 					break;
 				case 1: // Settings Button
@@ -114,28 +116,28 @@ void DevilSpawn::Input() {
 				case 0: // Rate of Fire Upgrade Button
 					if (it->getState() == GUI::ButtonState::clicked) {
 						m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);// Increase fire rate
-						//m_Player.fireRate++;
+						//m_Player->fireRate++;
 						m_gameState = GameState::PLAYING;
 					}
 					break;
 				case 1: // Clip Size Upgrade Button
 					if (it->getState() == GUI::ButtonState::clicked) {
 						m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);// Increase clip size
-						//m_Player.m_clipSize += m_Player.m_clipSize;
+						//m_Player->m_clipSize += m_Player->m_clipSize;
 						m_gameState = GameState::PLAYING;
 					}
 					break;
 				case 2: // Health Upgrade Button
 					if (it->getState() == GUI::ButtonState::clicked) {
 						m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);// Increase health
-						m_Player.upgradeHealth();
+						m_Player->upgradeHealth();
 						m_gameState = GameState::PLAYING;
 					}
 					break;
 				case 3: // Run Speed Upgrade Button
 					if (it->getState() == GUI::ButtonState::clicked) {
 						m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);// Increase speed
-						m_Player.upgradeSpeed();
+						m_Player->upgradeSpeed();
 						m_gameState = GameState::PLAYING;
 					}
 					break;
@@ -178,7 +180,7 @@ void DevilSpawn::Input() {
 			int tileSize = createBackground(background, arena);
 
 			// Spawn the player in the middle of the arena
-			m_Player.spawn(arena.width / 2, arena.height / 2);
+			m_Player->spawn(arena.width / 2, arena.height / 2);
 
 			// Create a horde of zombies
 			hordeSize = 5 * wave;
@@ -342,7 +344,7 @@ void DevilSpawn::Input() {
 						score = 0;
 
 						// Reset the player's stats
-						m_Player.resetPlayerStats();
+						m_Player->resetPlayerStats();
 					}
 					break;
 				case 1: // Main Menu Button

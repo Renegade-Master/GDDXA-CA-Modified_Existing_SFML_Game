@@ -30,7 +30,6 @@ private:
 
 	void initButtons();
 	void initText();
-	void initSounds();
 
 	int createBackground(sf::VertexArray& rVA, sf::IntRect arena);
 	   
@@ -82,7 +81,7 @@ private:
 	sf::Vector2i mouseScreenPosition;
 
 	// Create an instance of the Player class
-	Player m_Player;
+	Player* m_Player;
 
 	// The boundaries of the arena
 	sf::IntRect arena;

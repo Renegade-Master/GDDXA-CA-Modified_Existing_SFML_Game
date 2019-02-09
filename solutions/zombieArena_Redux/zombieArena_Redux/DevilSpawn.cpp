@@ -28,11 +28,6 @@ DevilSpawn::DevilSpawn() {
 	window.setMouseCursorVisible(true);
 	sprite_mouse.setOrigin(25, 25);
 
-	// Create a couple of pickups
-	/*ammoPickup = new AmmoPowerUp();
-	healthPickup = new HealthPowerUp();
-	weaponPickup = new WeaponPickUp();*/
-
 	// For the home/game over screen
 	spriteGameOver.setTexture(textureGameOver);
 	spriteGameOver.setPosition(0, 0);
@@ -64,6 +59,7 @@ DevilSpawn::DevilSpawn() {
 	healthBar.setFillColor(sf::Color::Red);
 	healthBar.setPosition(resolution.x / 2, resolution.y - 60);
 
+	m_Player = new Player(m_audio);
 }
 
 /**
