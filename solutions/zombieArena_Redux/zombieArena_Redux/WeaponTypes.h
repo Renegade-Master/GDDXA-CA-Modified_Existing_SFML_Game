@@ -29,6 +29,7 @@ public:
 
 protected:
 	WEAPON_TYPES m_Weapon = WEAPON_TYPES::HOLSTERED;
+	SoundBoard::SFX m_fireSound = SoundBoard::SFX::FIRE_UNARMED;
 
 	//	Ammunition
 	int m_clipSize;			// How many Bullets fit in this clip
@@ -40,6 +41,9 @@ protected:
 
 	virtual ~Weapon() = 0 { /*delete m_Ammo;*/ };
 	virtual sf::String getClassName() = 0 { return(sf::String("Weapon")); };
+
+	//	A Sound Manager
+	SoundBoard m_audio;
 };
 
 class Unarmed : public Weapon {

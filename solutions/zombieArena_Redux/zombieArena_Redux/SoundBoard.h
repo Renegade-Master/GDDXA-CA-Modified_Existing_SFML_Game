@@ -51,19 +51,17 @@ public:
 	void onNotify(SFX sound);
 
 private:
-	//virtual void play() = 0;
-
 	// Sound Buffers
+	std::vector<sf::SoundBuffer> hit_UnarmedBuffer;
+	std::vector<sf::SoundBuffer> hit_KillBuffer;
+
 	sf::SoundBuffer ui_ButtonClickBuffer;
 
 	sf::SoundBuffer hit_PlayerBuffer;
-	std::vector<sf::SoundBuffer> hit_UnarmedBuffer;	// 2
 	sf::SoundBuffer hit_PistolBuffer;
 	sf::SoundBuffer hit_AssaultRifleBuffer;
 	sf::SoundBuffer hit_ShotgunBuffer;
 	sf::SoundBuffer hit_RPGBuffer;
-
-	std::vector<sf::SoundBuffer> hit_KillBuffer;	// 3
 
 	sf::SoundBuffer fire_UnarmedBuffer;
 	sf::SoundBuffer fire_PistolBuffer;
@@ -81,13 +79,13 @@ private:
 	sf::Sound ui_ButtonClick;
 
 	sf::Sound hit_Player;
-	std::vector<sf::Sound> hit_Unarmed;	// 2
+	std::vector<sf::Sound> hit_Unarmed;
 	sf::Sound hit_Pistol;
 	sf::Sound hit_AssaultRifle;
 	sf::Sound hit_Shotgun;
 	sf::Sound hit_RPG;
 
-	std::vector<sf::Sound> hit_Kill;	// 3
+	std::vector<sf::Sound> hit_Kill;
 
 	sf::Sound fire_Unarmed;
 	sf::Sound fire_Pistol;

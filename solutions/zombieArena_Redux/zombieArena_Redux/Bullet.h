@@ -13,6 +13,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "SoundBoard.h"
+
 class Bullet {
 private:
 	// Where is the bullet?
@@ -43,7 +45,6 @@ private:
 	float m_MaxY;
 	float m_MinY;
 
-// Public function prototypes go here
 public:
 	// The constructor
 	Bullet(float damage, float speed);

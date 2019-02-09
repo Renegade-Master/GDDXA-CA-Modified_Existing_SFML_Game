@@ -22,6 +22,7 @@ void SoundBoard::onNotify(SFX sound) {
 	*/
 	case SFX::UI_BUTTONCLICK:
 		this->ui_ButtonClick.play();
+		break;
 
 	/**
 	*	Hit Sounds
