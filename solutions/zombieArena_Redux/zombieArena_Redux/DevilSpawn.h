@@ -30,7 +30,6 @@ private:
 
 	void initButtons();
 	void initText();
-	void initSounds();
 
 	int createBackground(sf::VertexArray& rVA, sf::IntRect arena);
 	   

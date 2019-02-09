@@ -84,6 +84,7 @@ void DevilSpawn::Input() {
 						score = 0;
 
 						// Reset the player's stats
+						delete m_Player;
 						m_Player = new Player(m_audio);
 						m_Player->resetPlayerStats();
 					}

@@ -11,7 +11,6 @@
 *	Default Constructor
 */
 Player::Player(SoundBoard& audio) {
-	this->PlayerCharacter::init(audio);
 	this->m_Speed = PLAYER_START_SPEED;
 	this->m_Health = PLAYER_START_HEALTH;
 	this->m_MaxHealth = PLAYER_START_HEALTH;
@@ -21,6 +20,7 @@ Player::Player(SoundBoard& audio) {
 	// Associate a texture with the sprite
 	this->m_Sprite = sf::Sprite(TextureHolder::GetTexture(
 		"graphics\\player_new.png"));
+	this->PlayerCharacter::init(audio);
 }
 
 /**

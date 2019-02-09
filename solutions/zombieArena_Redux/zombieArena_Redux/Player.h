@@ -20,11 +20,11 @@ public:
 	// Call this at the end of every game
 	void resetPlayerStats();
 
-	/*virtual*/ void spawn(float posX, float posY);
-	/*virtual*/ void update(sf::Time elapsedTime);
-	/*virtual*/ sf::String getClassName() { return(sf::String("PlayerCharacter::Player")); };
+	void spawn(float posX, float posY);
+	void update(sf::Time elapsedTime);
+	sf::String getClassName() { return(sf::String("PlayerCharacter::Player")); };
 
-	/*virtual*/ bool onHit(sf::Time timeHit);
+	bool onHit(sf::Time timeHit);
 
 	//	Face the Player towards the mouse
 	void lookAt(sf::Vector2f mousePosition, sf::Vector2f resolution);
