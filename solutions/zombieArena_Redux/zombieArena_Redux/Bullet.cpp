@@ -68,34 +68,6 @@ void Bullet::shoot(sf::Vector2f origin, sf::Vector2f target) {
 /**
 *	...
 */
-void Bullet::stop() {
-	this->m_InFlight = false;
-}
-
-/**
-*	...
-*/
-bool Bullet::isInFlight() {
-	return this->m_InFlight;
-}
-
-/**
-*	...
-*/
-sf::FloatRect Bullet::getPosition() {
-	return this->m_BulletShape.getGlobalBounds();
-}
-
-/**
-*	...
-*/
-sf::RectangleShape Bullet::getShape() {
-	return this->m_BulletShape;
-}
-
-/**
-*	...
-*/
 void Bullet::update(float elapsedTime) {
 	// Update the bullet position variables
 	this->m_Position.x += this->m_BulletDistanceX * elapsedTime;

@@ -10,21 +10,13 @@
 
 #include <fstream>
 #include <list>
-#include <iostream> // For Console Debugging
 #include <sstream>
-#include <vector>
 
-#include <SFML/Audio.hpp>
-//#include <SFML/Graphics.hpp>
-
-//#include "Bullet.h"
 #include "Button.h"
 #include "Devil.h"
-//#include "DevilSpawn.h"
 #include "InputHandler.h"
 #include "PowerUp.h"
-//#include "Player.h"
-//#include "TextureHolder.h"
+#include "SoundBoard.h"
 
 class DevilSpawn {
 public:
@@ -78,6 +70,9 @@ private:
 	InputHandler m_InpHand;
 	Command* cmd;
 
+	//	A Sound Manager
+	SoundBoard m_audio;
+
 	// Hold Events betwen frames
 	sf::Event evnt;
 
@@ -120,9 +115,6 @@ private:
 	std::vector<PowerUp*> powerUps;
 	void generatePowerUps(int count, sf::IntRect* arena);
 	PowerUp* newPowerUp(sf::Vector2i pos, int type);
-	/*PowerUp* ammoPickup;
-	PowerUp* healthPickup;
-	PowerUp* weaponPickup;*/
 
 	// About the game
 	int wave = 0;
@@ -177,24 +169,6 @@ private:
 	sf::RectangleShape pausedShader;
 	sf::RectangleShape miniMapBorder;
 	sf::RectangleShape healthBar;
-
-	// Declare Sounds
-	sf::SoundBuffer hitBuffer;
-	sf::Sound hit;
-	sf::SoundBuffer splatBuffer;
-	sf::Sound splat;
-	sf::SoundBuffer shootBuffer;
-	sf::Sound shoot;
-	sf::SoundBuffer reloadBuffer;
-	sf::Sound reload;
-	sf::SoundBuffer reloadFailedBuffer;
-	sf::Sound reloadFailed;
-	sf::SoundBuffer powerupBuffer;
-	sf::Sound powerup;
-	sf::SoundBuffer pickupBuffer;
-	sf::Sound pickup;
-	sf::SoundBuffer buttonClickBuffer;
-	sf::Sound buttonClick;
 };
 
 #endif // DEVILSPAWN_H

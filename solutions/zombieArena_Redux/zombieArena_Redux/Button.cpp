@@ -1,5 +1,5 @@
 /**
-*	@author			[NAME]
+*	@author			Ciaran Bent	[K00221230]
 *	@creationDate	XXXX/XX/XX	YYYY/MM/DD
 *	@description
 */

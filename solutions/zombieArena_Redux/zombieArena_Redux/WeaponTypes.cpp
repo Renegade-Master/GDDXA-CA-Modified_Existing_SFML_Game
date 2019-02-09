@@ -15,6 +15,7 @@
 */
 Unarmed::Unarmed() {
 	this->m_Weapon = WEAPON_TYPES::HOLSTERED;
+	this->m_fireSound = SoundBoard::SFX::FIRE_UNARMED;
 
 	this->m_clipSize = 0;
 	this->fireRate = sf::Time::Zero;
@@ -27,6 +28,7 @@ Unarmed::Unarmed() {
 */
 Pistol::Pistol() {
 	this->m_Weapon = WEAPON_TYPES::PISTOL;
+	this->m_fireSound = SoundBoard::SFX::FIRE_PISTOL;
 
 	this->m_clipSize = 6;
 	this->fireRate = sf::Time(sf::milliseconds(500));
@@ -39,6 +41,7 @@ Pistol::Pistol() {
 */
 AssaultRifle::AssaultRifle() {
 	this->m_Weapon = WEAPON_TYPES::ASSAULTRIFLE;
+	this->m_fireSound = SoundBoard::SFX::FIRE_ASSAULTRIFLE;
 
 	this->m_clipSize = 32;
 	this->fireRate = sf::Time(sf::milliseconds(200));
@@ -51,6 +54,7 @@ AssaultRifle::AssaultRifle() {
 */
 Shotgun::Shotgun() {
 	this->m_Weapon = WEAPON_TYPES::SHOTGUN;
+	this->m_fireSound = SoundBoard::SFX::FIRE_SHOTGUN;
 
 	this->m_clipSize = 6;
 	this->fireRate = sf::Time(sf::milliseconds(500));
@@ -63,6 +67,7 @@ Shotgun::Shotgun() {
 */
 RPG::RPG() {
 	this->m_Weapon = WEAPON_TYPES::RPG;
+	this->m_fireSound = SoundBoard::SFX::FIRE_RPG;
 
 	this->m_clipSize = 1;
 	this->fireRate = sf::Time(sf::milliseconds(1000));
@@ -89,6 +94,7 @@ void Weapon::fire(sf::Vector2f origin, sf::Vector2f target, sf::Time totalGameTi
 		&& this->m_clipRemaining > 0
 		&& !this->m_Ammo.empty()) {
 
+		m_audio.onNotify(this->m_fireSound);
 		this->m_timeLastFired = totalGameTime;
 		this->m_Ammo.back()->shoot(origin, target);	//	Shoot a Bullet
 		//this->m_Ammo.pop_back();					//	Remove that Bullet
@@ -108,16 +114,19 @@ void Weapon::fire(sf::Vector2f origin, sf::Vector2f target, sf::Time totalGameTi
 void Weapon::reload() {
 	if (this->m_bulletsReserved >= this->m_clipSize) {
 		// Plenty of bullets. Reload.
+		m_audio.onNotify(SoundBoard::SFX::RELOAD_SUCCESS);
 		this->m_bulletsReserved -= (this->m_clipSize - this->m_clipRemaining);
 		this->m_clipRemaining = this->m_clipSize;
 	}
 	else if (this->m_bulletsReserved > 0) {
 		// Less than a clip remaining
+		m_audio.onNotify(SoundBoard::SFX::RELOAD_SUCCESS);
 		this->m_clipRemaining = this->m_bulletsReserved;
 		this->m_bulletsReserved = 0;
 	}
 	else {
 		// NO ARROWS!!
+		m_audio.onNotify(SoundBoard::SFX::RELOAD_FAILED);
 		std::cout << "Out of AMMO!" << std::endl;
 	}
 }
@@ -195,6 +204,8 @@ Weapon* Weapon::forgeWeapon(WEAPON_TYPES type) {
 		freshWeapon = nullptr;
 		break;
 	}
+
+	freshWeapon->m_audio.initSounds();
 
 	return(freshWeapon);
 }

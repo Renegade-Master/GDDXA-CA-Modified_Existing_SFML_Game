@@ -73,6 +73,7 @@ void DevilSpawn::Update() {
 						// Register the hit and see if it was a kill
 						if ((*it2)->onHit(gameTimeTotal, (*it))) {
 							// Not just a hit but a kill too
+							m_audio.onNotify(SoundBoard::SFX::HIT_KILL);
 							score += 10;
 							if (score >= hiScore) {
 								hiScore = score;
@@ -87,7 +88,7 @@ void DevilSpawn::Update() {
 						}
 
 						// Make a splat sound
-						splat.play();
+						m_audio.onNotify(SoundBoard::SFX::HIT_UNARMED);
 					}
 				}
 			}
@@ -100,7 +101,7 @@ void DevilSpawn::Update() {
 
 				if (m_Player.onHit(gameTimeTotal)) {
 					// More here later
-					hit.play();
+					m_audio.onNotify(SoundBoard::SFX::HIT_PLAYER);
 				}
 
 				if (m_Player.getHealth() <= 0) {
@@ -121,7 +122,7 @@ void DevilSpawn::Update() {
 				(*it)->activated(&m_Player);
 				
 				// Play a sound
-				pickup.play();
+				m_audio.onNotify(SoundBoard::SFX::POWERUP_PICKUP);
 			}
 		}
 

@@ -4,46 +4,84 @@
 *	@description	...
 */
 
-#include "DevilSpawn.h"
+#include "SoundBoard.h"
 
-void DevilSpawn::initSounds() {
-	// Prepare the hit sound
-	hitBuffer.loadFromFile(
-		"Audio\\IMPACT_Generic_09_Short_mono.wav");
-	hit.setBuffer(hitBuffer);
+void SoundBoard::initSounds() {
+	// Initialise Sound Vectors
+	hit_UnarmedBuffer = std::vector<sf::SoundBuffer>(2);
+	hit_Unarmed = std::vector<sf::Sound>(2);
+	hit_KillBuffer = std::vector<sf::SoundBuffer>(3);
+	hit_Kill = std::vector<sf::Sound>(3);
 
-	// Prepare the splat sound
-	splatBuffer.loadFromFile(
-		"Audio\\GORE_Splat_Hit_Short_mono.wav");
-	splat.setBuffer(splatBuffer);
+	/**
+	*	UI Sounds
+	*/
+	this->ui_ButtonClickBuffer.loadFromFile("Audio\\ui_ButtonClick.wav");
+	this->ui_ButtonClick.setBuffer(this->ui_ButtonClickBuffer);
 
-	// Prepare the shoot sound
-	shootBuffer.loadFromFile(
-		"Audio\\FIREARM_Handgun_B_FS92_9mm_Fire_Short_Reverb_Tail_RR2_stereo.wav");
-	shoot.setBuffer(shootBuffer);
+	/**
+	*	Hit Sounds
+	*/
+	this->hit_PlayerBuffer.loadFromFile("Audio\\onPlayerHit.wav");
+	this->hit_Player.setBuffer(hit_PlayerBuffer);
 
-	// Prepare the reload sound
-	reloadBuffer.loadFromFile(
-		"Audio\\RELOAD_Clicks_Double_mono.wav");
-	reload.setBuffer(reloadBuffer);
+	this->hit_UnarmedBuffer.at(0).loadFromFile("Audio\\onEnemyHit_01.wav");
+	this->hit_Unarmed.at(0).setBuffer(this->hit_UnarmedBuffer.at(0));
+	this->hit_UnarmedBuffer.at(1).loadFromFile("Audio\\onEnemyHit_02.wav");
+	this->hit_Unarmed.at(1).setBuffer(this->hit_UnarmedBuffer.at(1));
 
-	// Prepare the failed sound
-	reloadFailedBuffer.loadFromFile(
-		"Audio\\RELOAD_Dry_Fire_stereo.wav");
-	reloadFailed.setBuffer(reloadFailedBuffer);
+	this->hit_PistolBuffer.loadFromFile("Audio\\hit_Pistol.wav");
+	this->hit_Pistol.setBuffer(this->hit_PistolBuffer);
 
-	// Prepare the powerup sound
-	powerupBuffer.loadFromFile(
-		"Audio\\CHARGE_Sci-Fi_High_Pass_Sweep_12_Semi_Up_500ms_stereo.wav");
-	powerup.setBuffer(powerupBuffer);
+	this->hit_AssaultRifleBuffer.loadFromFile("Audio\\hit_AssaultRifle.wav");
+	this->hit_AssaultRifle.setBuffer(this->hit_AssaultRifleBuffer);
 
-	// Prepare the pickup sound
-	pickupBuffer.loadFromFile(
-		"Audio\\8BIT_RETRO_Coin_Collect_Two_Note_Deep_Twinkle_mono.wav");
-	pickup.setBuffer(pickupBuffer);
+	this->hit_ShotgunBuffer.loadFromFile("Audio\\hit_Shotgun.wav");
+	this->hit_Shotgun.setBuffer(this->hit_ShotgunBuffer);
 
-	// Prepare the button sound
-	buttonClickBuffer.loadFromFile(
-		"Audio\\UI_Click_Organic_49_Dry_Mono.wav");
-	buttonClick.setBuffer(buttonClickBuffer);
+	this->hit_RPGBuffer.loadFromFile("Audio\\hit_RPG.wav");
+	this->hit_RPG.setBuffer(this->hit_RPGBuffer);
+
+	this->hit_KillBuffer.at(0).loadFromFile("Audio\\onEnemyDeath_01.wav");
+	this->hit_Kill.at(0).setBuffer(this->hit_KillBuffer.at(0));
+	this->hit_KillBuffer.at(1).loadFromFile("Audio\\onEnemyDeath_02.wav");
+	this->hit_Kill.at(1).setBuffer(this->hit_KillBuffer.at(1));
+	this->hit_KillBuffer.at(2).loadFromFile("Audio\\onEnemyDeath_03.wav");
+	this->hit_Kill.at(2).setBuffer(this->hit_KillBuffer.at(2));
+
+	/**
+	*	Firing Sounds
+	*/
+	this->fire_UnarmedBuffer.loadFromFile("Audio\\hit_Unarmed.wav");
+	this->fire_Unarmed.setBuffer(this->fire_UnarmedBuffer);
+
+	this->fire_PistolBuffer.loadFromFile("Audio\\fire_Pistol.wav");
+	this->fire_Pistol.setBuffer(this->fire_PistolBuffer);
+
+	this->fire_AssaultRifleBuffer.loadFromFile("Audio\\fire_AssaultRifle.wav");
+	this->fire_AssaultRifle.setBuffer(this->fire_AssaultRifleBuffer);
+
+	this->fire_ShotgunBuffer.loadFromFile("Audio\\fire_Shotgun.wav");
+	this->fire_Shotgun.setBuffer(this->fire_ShotgunBuffer);
+
+	this->fire_RPGBuffer.loadFromFile("Audio\\fire_RPG.wav");
+	this->fire_RPG.setBuffer(this->fire_RPGBuffer);
+
+	/**
+	*	Reload Sounds
+	*/
+	this->reload_SuccessBuffer.loadFromFile("Audio\\reload_Success.wav");
+	this->reload_Success.setBuffer(this->reload_SuccessBuffer);
+
+	this->reload_FailedBuffer.loadFromFile("Audio\\reload_Failed.wav");
+	this->reload_Failed.setBuffer(this->reload_FailedBuffer);
+
+	/**
+	*	PowerUp Sounds
+	*/
+	this->powerUp_SpawnBuffer.loadFromFile("Audio\\powerUp_Spawn.wav");
+	this->powerUp_Spawn.setBuffer(this->powerUp_SpawnBuffer);
+
+	this->powerUp_PickupBuffer.loadFromFile("Audio\\powerUp_Pickup.wav");
+	this->powerUp_Pickup.setBuffer(this->powerUp_PickupBuffer);
 }
