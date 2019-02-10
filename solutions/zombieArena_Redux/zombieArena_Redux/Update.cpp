@@ -36,7 +36,6 @@ void DevilSpawn::Update() {
 
 		// Make the view centre around the player				
 		mainView.setCenter(m_Player->getCentre());
-		miniMapView.setCenter(m_Player->getCentre());
 
 		// Loop through each Devil and update them
 		for (std::vector<Devil*>::iterator it = horde.begin(); it != horde.end(); ++it) {

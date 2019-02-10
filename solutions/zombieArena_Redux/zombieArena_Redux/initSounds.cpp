@@ -16,8 +16,7 @@ void SoundBoard::initSounds() {
 	/**
 	*	Music Sounds
 	*/
-	//this->music_MainMenuBuffer.loadFromFile("Audio\\music_MainMenu.ogg");
-	this->music_MainMenuBuffer.loadFromFile("Audio\\Phat Planet.ogg");
+	this->music_MainMenuBuffer.loadFromFile("Audio\\music_menu.ogg");
 	this->music_MainMenu.setBuffer(this->music_MainMenuBuffer);
 	this->music_MainMenu.setVolume(50.0f);
 

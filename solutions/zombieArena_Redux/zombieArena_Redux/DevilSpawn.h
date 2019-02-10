@@ -45,11 +45,10 @@ private:
 
 	// Set the screen resolution and create an SFML window
 	sf::Vector2f resolution;
-	sf::Vector2f miniRes;
 
 	sf::RenderWindow window;
 
-	sf::Uint32 m_windowedStatus = sf::Style::Default;
+	sf::Uint32 m_windowedStatus = sf::Style::Fullscreen;
 	unsigned int m_frameRate = 60;
 	bool m_vSyncActive = false;
 
@@ -59,8 +58,6 @@ private:
 	sf::View mainView;
 	// Create a view for the HUD
 	sf::View hudView;
-	// Create a view for the MiniMap
-	sf::View miniMapView;
 
 	// Instance of TextureHolder
 	TextureHolder holder;

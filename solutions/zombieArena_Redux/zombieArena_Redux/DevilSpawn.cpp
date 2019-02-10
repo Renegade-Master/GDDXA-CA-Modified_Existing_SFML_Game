@@ -13,10 +13,10 @@ DevilSpawn::DevilSpawn() {
 
 	/*resolution.x = sf::VideoMode::getDesktopMode().width;
 	resolution.y = sf::VideoMode::getDesktopMode().height;*/
-	resolution.x = 1280;
-	resolution.y = 720;
-	miniRes.x = 256;
-	miniRes.y = 256;
+	/*resolution.x = 1280;
+	resolution.y = 720;*/
+	resolution.x = 2560;
+	resolution.y = 1440;
 
 	refreshWindow();
 
@@ -101,11 +101,15 @@ void DevilSpawn::refreshWindow() {
 
 	// Create a view for the HUD
 	hudView = sf::View(sf::FloatRect(0, 0, resolution.x, resolution.y));
-	//hudView.reset(sf::FloatRect(0, 0, resolution.x, resolution.y));
 	mainView.setViewport(sf::FloatRect(0, 0, 1, 1));
 
-	// Create a view for the MiniMap
-	/*miniMapView.setSize(miniRes);
-	miniMapView.setViewport(sf::FloatRect(0.0f, 0.75f, 0.25f, 0.25f));*/
-	//miniMapView.reset(sf::FloatRect(0, resolution.y - miniRes.y, miniRes.x, miniRes.y));
+	// Change the background
+	if (m_windowedStatus == sf::Style::Fullscreen) {
+		textureGameOver = TextureHolder::GetTexture(
+			"Graphics\\background_Large.jpg");
+	}
+	else {
+		textureGameOver = TextureHolder::GetTexture(
+			"Graphics\\background_Small.jpg");
+	}
 }
