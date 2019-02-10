@@ -1,238 +1,269 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Bullet" Collapsed="true">
-    <Position X="16.75" Y="0.5" Width="1.5" />
+    <Position X="21.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACIAAEAWgAIAIAAAAAAAAgAAAgQAAAAAAAEQQUAAA=</HashCode>
       <FileName>Bullet.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Command" Collapsed="true">
-    <Position X="7.5" Y="0.5" Width="1.5" />
+  <Class Name="Command">
+    <Position X="7.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Command.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="cmd_Null" Collapsed="true">
-    <Position X="5.25" Y="1.75" Width="1.5" />
+  <Class Name="cmd_Null">
+    <Position X="5.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Command.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="cmd_RunUp" Collapsed="true">
-    <Position X="9.75" Y="1.75" Width="1.5" />
+  <Class Name="cmd_RunUp">
+    <Position X="10" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Command.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="cmd_RunLeft" Collapsed="true">
-    <Position X="12" Y="1.75" Width="1.5" />
+  <Class Name="cmd_RunLeft">
+    <Position X="12.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Command.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="cmd_RunDown" Collapsed="true">
-    <Position X="14.25" Y="1.75" Width="1.5" />
+  <Class Name="cmd_RunDown">
+    <Position X="14.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Command.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="cmd_RunRight" Collapsed="true">
-    <Position X="0.75" Y="1.75" Width="1.5" />
+  <Class Name="cmd_RunRight">
+    <Position X="1" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Command.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="cmd_Attack" Collapsed="true">
-    <Position X="3" Y="1.75" Width="1.5" />
+  <Class Name="cmd_Attack">
+    <Position X="3.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Command.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="cmd_Reload" Collapsed="true">
-    <Position X="7.5" Y="1.75" Width="1.5" />
+  <Class Name="cmd_Reload">
+    <Position X="7.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Command.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Demon" Collapsed="true">
-    <Position X="2" Y="7.75" Width="1.5" />
+  <Class Name="Demon">
+    <Position X="14.25" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAQAAA=</HashCode>
       <FileName>DevilTypes.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Chaser" Collapsed="true">
-    <Position X="4.25" Y="7.75" Width="1.5" />
+  <Class Name="Chaser">
+    <Position X="16.5" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DevilTypes.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Crawler" Collapsed="true">
-    <Position X="6.5" Y="7.75" Width="1.5" />
+  <Class Name="Crawler">
+    <Position X="18.75" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAEAAA=</HashCode>
       <FileName>DevilTypes.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="InputHandler" Collapsed="true">
-    <Position X="16.75" Y="1.5" Width="1.5" />
+    <Position X="21.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIBABoIYBQAAQAAAEAjwAAAQQIAAAEgAIAgAgiGhACA=</HashCode>
       <FileName>InputHandler.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Observer" Collapsed="true">
-    <Position X="12" Y="2.75" Width="1.5" />
+  <Class Name="Observer">
+    <Position X="16.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
       <FileName>Observer.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PowerUp" Collapsed="true">
-    <Position X="9.75" Y="5" Width="1.5" />
+    <Position X="5.5" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAIAABAAAAAAEAABAAQAQhIAQAAgAAAAAAAACEAAA=</HashCode>
       <FileName>PowerUp.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AmmoPowerUp" Collapsed="true">
-    <Position X="7.5" Y="6.25" Width="1.5" />
+  <Class Name="AmmoPowerUp">
+    <Position X="3.25" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAIAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>PowerUp.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="HealthPowerUp" Collapsed="true">
-    <Position X="9.75" Y="6.25" Width="1.5" />
+  <Class Name="HealthPowerUp">
+    <Position X="5.5" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAAAAAAAAQAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>PowerUp.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="WeaponPickUp" Collapsed="true">
-    <Position X="12" Y="6.25" Width="1.5" />
+  <Class Name="WeaponPickUp">
+    <Position X="7.75" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
       <FileName>PowerUp.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Player" Collapsed="true">
-    <Position X="1.75" Y="6.25" Width="1.5" />
+  <Class Name="Player">
+    <Position X="12" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAoAAAAAAAAAAgAAAAAAxAEAAAAAAQAAAQQAEAAA=</HashCode>
       <FileName>Player.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PlayerCharacter" Collapsed="true">
-    <Position X="3" Y="5" Width="1.5" />
+    <Position X="15.25" Y="4.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="PlayerCharacter::Movement_V" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>PlayerCharacter.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="PlayerCharacter::Movement_H" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>PlayerCharacter.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="PlayerCharacter::Action" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>PlayerCharacter.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
     <TypeIdentifier>
       <HashCode>AAAAIQAMACEwgQAAABAQgQAhAAAIAgIAIAAAQAEEAAA=</HashCode>
       <FileName>PlayerCharacter.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SoundBoard" Collapsed="true">
-    <Position X="12" Y="4" Width="1.5" />
+    <Position X="16.5" Y="2.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="SoundBoard::SFX" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>SoundBoard.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
     <TypeIdentifier>
       <HashCode>AAgAYEAAQAAQAQhEAAAQBGgiEgAAAFCQAwAkWQIKpIA=</HashCode>
       <FileName>SoundBoard.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TextureHolder" Collapsed="true">
-    <Position X="18.5" Y="1.5" Width="1.5" />
+    <Position X="23" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAgAAAAAAAAAQAAAAAg=</HashCode>
       <FileName>TextureHolder.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Devil" Collapsed="true">
-    <Position X="4.25" Y="6.25" Width="1.5" />
+  <Class Name="Devil">
+    <Position X="16.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAhAAAAAAAAAAAAQAAEAAA=</HashCode>
       <FileName>Devil.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DevilSpawn" Collapsed="true">
-    <Position X="20.25" Y="0.5" Width="1.5" />
+    <Position X="24.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IG4AQVIa0CBgSx5AHAwdEGCBEBGDEaEKAUgyggAyIAA=</HashCode>
       <FileName>DevilSpawn.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Weapon" Collapsed="true">
-    <Position X="5.25" Y="2.75" Width="1.5" />
+    <Position X="5.5" Y="4.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Weapon::WEAPON_TYPES" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>WeaponTypes.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
     <TypeIdentifier>
       <HashCode>BBEAAYBJOAAQAQAgAAAAgAAgAAAIAAAADAAAAAAAABA=</HashCode>
       <FileName>WeaponTypes.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Unarmed" Collapsed="true">
-    <Position X="0.75" Y="4" Width="1.5" />
+  <Class Name="Unarmed">
+    <Position X="1" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAQAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>WeaponTypes.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Pistol" Collapsed="true">
-    <Position X="3" Y="4" Width="1.5" />
+  <Class Name="Pistol">
+    <Position X="3.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAEAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>WeaponTypes.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AssaultRifle" Collapsed="true">
-    <Position X="5.25" Y="4" Width="1.5" />
+  <Class Name="AssaultRifle">
+    <Position X="5.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAQAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>WeaponTypes.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Shotgun" Collapsed="true">
-    <Position X="7.5" Y="4" Width="1.5" />
+  <Class Name="Shotgun">
+    <Position X="7.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAEAAAAAAAAAAAAAAA=</HashCode>
       <FileName>WeaponTypes.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="RPG" Collapsed="true">
-    <Position X="9.75" Y="4" Width="1.5" />
+  <Class Name="RPG">
+    <Position X="10" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAABAAAAAAAAAAAAAAA=</HashCode>
       <FileName>WeaponTypes.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GUI::Button" Collapsed="true">
-    <Position X="18.5" Y="0.5" Width="1.5" />
+    <Position X="23" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>RECEIIAAMHBAggkgAAYABACSAIAggCQBCANAkAcEAAA=</HashCode>
       <FileName>Button.h</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="GUI::ButtonStyle::__unnamed_enum_0004_1" Collapsed="true">
-    <Position X="16.75" Y="2.75" Width="1.5" />
+    <Position X="21.25" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AABAAgAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
       <FileName>Button.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="GUI::ButtonState::__unnamed_enum_0004_2" Collapsed="true">
-    <Position X="18.5" Y="2.75" Width="1.5" />
+    <Position X="23" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAgAABAAAAA=</HashCode>
       <FileName>Button.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="ControlScheme::__unnamed_enum_00ef_1" Collapsed="true">
-    <Position X="20.25" Y="2.75" Width="1.5" />
+    <Position X="24.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAQAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>InputHandler.h</FileName>
