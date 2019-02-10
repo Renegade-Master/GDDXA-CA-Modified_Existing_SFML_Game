@@ -29,6 +29,9 @@ private:
 	// How fast does a bullet travel?
 	float m_BulletSpeed;
 
+	// How far does a Bullet travel?
+	float m_Range;
+
 	// What fraction of 1 pixel does the bullet travel, 
 	// Horizontally and vertically each frame?
 	// These values will be derived from m_BulletSpeed
@@ -47,7 +50,7 @@ private:
 
 public:
 	// The constructor
-	Bullet(float damage, float speed);
+	Bullet(float damage, float speed, float range);
 
 	float m_BulletDamage;
 

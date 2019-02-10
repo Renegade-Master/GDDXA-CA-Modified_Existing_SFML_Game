@@ -55,7 +55,7 @@ void PowerUp::activated(PlayerCharacter* pc) {
 /*
 *	Update the PowerUp
 */
-void PowerUp::update(sf::Time elapsedTime) {
+bool PowerUp::update(sf::Time elapsedTime, sf::IntRect& bounds) {
 	if (this->m_Spawned) {
 		this->m_timeSinceSpawn += elapsedTime;
 	}
@@ -72,9 +72,14 @@ void PowerUp::update(sf::Time elapsedTime) {
 
 	// Do we need to spawn a pickup
 	if (this->m_timeSinceDespawn > this->m_timeToWait && !this->m_Spawned) {
-		// spawn the pickup and reset the timer
-		spawn(sf::Vector2i(1000, 1000));
+		// spawn the pickup
+		sf::Vector2i spawnLoc = sf::Vector2i(
+			(rand() % bounds.height - 75) + 50,
+			(rand() % bounds.width - 75) + 50);
+		spawn(spawnLoc);
+		return(true);
 	}
+	return(false);
 }
 
 /***-------------***\
@@ -127,13 +132,16 @@ HealthPowerUp::HealthPowerUp() {
 }
 
 /**
-*
+*	Add the value of this PowerUp to the PlayerCharacter Health
 */
 void HealthPowerUp::activated(PlayerCharacter* pc) {
 	this->PowerUp::activated(pc);
 
 	if (pc->m_Health + this->m_Value < pc->m_MaxHealth) {
 		pc->m_Health += this->m_Value;
+	}
+	else {
+		pc->m_Health = pc->m_MaxHealth;
 	}
 
 	std::cout << "Health PowerUp Activated!" << std::endl;
@@ -160,7 +168,7 @@ WeaponPickUp::WeaponPickUp() {
 }
 
 /**
-*
+*	Randomly select between 3 weapons.
 */
 void WeaponPickUp::activated(PlayerCharacter* pc) {
 	this->PowerUp::activated(pc);

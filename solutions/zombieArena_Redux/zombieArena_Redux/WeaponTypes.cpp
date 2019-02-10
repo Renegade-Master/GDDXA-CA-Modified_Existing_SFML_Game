@@ -18,7 +18,7 @@ Unarmed::Unarmed() {
 	this->m_fireSound = SoundBoard::SFX::FIRE_UNARMED;
 
 	this->m_clipSize = 0;
-	this->fireRate = sf::Time::Zero;
+	this->m_fireRate = sf::Time::Zero;
 
 	this->loadBullets(this->m_clipSize);
 }
@@ -31,7 +31,7 @@ Pistol::Pistol() {
 	this->m_fireSound = SoundBoard::SFX::FIRE_PISTOL;
 
 	this->m_clipSize = 6;
-	this->fireRate = sf::Time(sf::milliseconds(500));
+	this->m_fireRate = sf::Time(sf::milliseconds(500));
 
 	this->loadBullets(this->m_clipSize);
 }
@@ -44,7 +44,7 @@ AssaultRifle::AssaultRifle() {
 	this->m_fireSound = SoundBoard::SFX::FIRE_ASSAULTRIFLE;
 
 	this->m_clipSize = 32;
-	this->fireRate = sf::Time(sf::milliseconds(200));
+	this->m_fireRate = sf::Time(sf::milliseconds(200));
 
 	this->loadBullets(this->m_clipSize);
 }
@@ -57,7 +57,7 @@ Shotgun::Shotgun() {
 	this->m_fireSound = SoundBoard::SFX::FIRE_SHOTGUN;
 
 	this->m_clipSize = 6;
-	this->fireRate = sf::Time(sf::milliseconds(500));
+	this->m_fireRate = sf::Time(sf::milliseconds(500));
 
 	this->loadBullets(this->m_clipSize);
 }
@@ -70,7 +70,7 @@ RPG::RPG() {
 	this->m_fireSound = SoundBoard::SFX::FIRE_RPG;
 
 	this->m_clipSize = 1;
-	this->fireRate = sf::Time(sf::milliseconds(1000));
+	this->m_fireRate = sf::Time(sf::milliseconds(1000));
 
 	this->loadBullets(this->m_clipSize);
 }
@@ -90,7 +90,7 @@ void Weapon::fire(sf::Vector2f origin, sf::Vector2f target, sf::Time totalGameTi
 			- totalGameTime.asMicroseconds()));
 
 	//	Ready to fire again?
-	if (restPeriod > this->fireRate
+	if (restPeriod > this->m_fireRate
 		&& this->m_clipRemaining > 0
 		&& !this->m_Ammo.empty()) {
 
@@ -154,19 +154,19 @@ Bullet* Weapon::forgeBullet() {
 
 	switch (this->m_Weapon) {
 	case WEAPON_TYPES::HOLSTERED:
-		newBullet = new Bullet(0.0f, 0);
+		newBullet = new Bullet(0.0f, 0.0f, 0.0f);
 		break;
 	case WEAPON_TYPES::PISTOL:
-		newBullet = new Bullet(1.0f, 1000);
+		newBullet = new Bullet(1.0f, 1000.0f, 1000.0f);
 		break;
 	case WEAPON_TYPES::ASSAULTRIFLE:
-		newBullet = new Bullet(3.0f, 1000);
+		newBullet = new Bullet(3.0f, 1000.0f, 2000.0f);
 		break;
 	case WEAPON_TYPES::SHOTGUN:
-		newBullet = new Bullet(5.0f, 750);
+		newBullet = new Bullet(5.0f, 750.0f, 750.0f);
 		break;
 	case WEAPON_TYPES::RPG:
-		newBullet = new Bullet(20.0f, 500);
+		newBullet = new Bullet(20.0f, 500.0f, 5000.0f);
 		break;
 	default:
 		//	Not a Weapon
@@ -206,7 +206,32 @@ Weapon* Weapon::forgeWeapon(SoundBoard& audio, WEAPON_TYPES type) {
 	}
 
 	freshWeapon->m_audio = &audio;
-	//freshWeapon->m_audio.initSounds();
 
 	return(freshWeapon);
+}
+
+/***-------------***\
+|	Weapon Upgrades	|
+\***-------------***/
+
+/**
+*	Upgrade the FireRate of this Weapon
+*/
+void Weapon::upgradeClipSize() {
+	//	If the weapon is appropriate for an Upgrade
+	if (this->m_Weapon != WEAPON_TYPES::HOLSTERED) {
+		//	Make the Weapon hold 10% more Ammo
+		this->m_clipSize += (this->m_clipSize / 10.0f);
+	}
+}
+
+/**
+*	Upgrade the Clipsize of this Weapon
+*/
+void Weapon::upgradeFireRate() {
+	//	If the weapon is appropriate for an Upgrade
+	if(this->m_Weapon != WEAPON_TYPES::HOLSTERED) {
+		//	Make the Weapon 10% faster
+		this->m_fireRate -= (this->m_fireRate / 10.0f);
+	}
 }

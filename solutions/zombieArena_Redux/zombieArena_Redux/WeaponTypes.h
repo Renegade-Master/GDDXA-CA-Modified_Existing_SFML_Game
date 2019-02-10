@@ -27,6 +27,9 @@ public:
 
 	void fire(sf::Vector2f origin, sf::Vector2f target, sf::Time currentFrameTime);
 
+	void upgradeClipSize();
+	void upgradeFireRate();
+
 protected:
 	WEAPON_TYPES m_Weapon = WEAPON_TYPES::HOLSTERED;
 	SoundBoard::SFX m_fireSound = SoundBoard::SFX::FIRE_UNARMED;
@@ -34,7 +37,7 @@ protected:
 	//	Ammunition
 	int m_clipSize;			// How many Bullets fit in this clip
 
-	sf::Time fireRate = sf::Time::Zero;			// How fast can Bullets be fired
+	sf::Time m_fireRate = sf::Time::Zero;			// How fast can Bullets be fired
 	sf::Time m_timeLastFired = sf::Time::Zero;
 
 	Bullet* forgeBullet();

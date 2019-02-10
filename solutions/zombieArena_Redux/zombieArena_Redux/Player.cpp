@@ -47,7 +47,12 @@ void Player::spawn(float posX, float posY) {
 *	Handle the Player being Hit.
 */
 bool Player::onHit(sf::Time timeHit) {
-	return(this->PlayerCharacter::onHit(timeHit));
+	if (this->PlayerCharacter::onHit(timeHit)) {
+		this->m_Health -= 10;
+
+		return(true);
+	}
+	return(false);
 }
 
 /**

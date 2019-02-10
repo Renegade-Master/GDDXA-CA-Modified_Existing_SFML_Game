@@ -77,7 +77,7 @@ void DevilSpawn::Input() {
 			for (std::list<GUI::Button>::iterator it = btnLst_mainMenu.begin(); it != btnLst_mainMenu.end(); ++it) {
 				switch (i++) {
 				case 0: // Play Button
-					if (it->getState() == GUI::ButtonState::clicked) {
+					if (it->getState() == GUI::ButtonState::CLICKED) {
 						m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);
 						m_gameState = GameState::LEVELING_UP;
 						wave = 0;
@@ -90,13 +90,13 @@ void DevilSpawn::Input() {
 					}
 					break;
 				case 1: // Settings Button
-					if (it->getState() == GUI::ButtonState::clicked) {
+					if (it->getState() == GUI::ButtonState::CLICKED) {
 						m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);
 						m_gameState = GameState::SETTINGS;
 					}
 					break;
 				case 2: // Quit Button
-					if (it->getState() == GUI::ButtonState::clicked) {
+					if (it->getState() == GUI::ButtonState::CLICKED) {
 						m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);
 						window.close();
 					}
@@ -114,49 +114,56 @@ void DevilSpawn::Input() {
 			for (std::list<GUI::Button>::iterator it = btnLst_levelUp.begin(); it != btnLst_levelUp.end(); ++it) {
 				switch (i++) {
 				case 0: // Rate of Fire Upgrade Button
-					if (it->getState() == GUI::ButtonState::clicked) {
-						m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);// Increase fire rate
-						//m_Player->fireRate++;
+					if (it->getState() == GUI::ButtonState::CLICKED) {
+						m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);
+
+						// Increase fire rate
+						m_Player->m_Weapon->upgradeFireRate();
 						m_gameState = GameState::PLAYING;
 					}
 					break;
 				case 1: // Clip Size Upgrade Button
-					if (it->getState() == GUI::ButtonState::clicked) {
-						m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);// Increase clip size
-						//m_Player->m_clipSize += m_Player->m_clipSize;
+					if (it->getState() == GUI::ButtonState::CLICKED) {
+						m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);
+						
+						// Increase clip size
 						m_gameState = GameState::PLAYING;
 					}
 					break;
 				case 2: // Health Upgrade Button
-					if (it->getState() == GUI::ButtonState::clicked) {
-						m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);// Increase health
+					if (it->getState() == GUI::ButtonState::CLICKED) {
+						m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);
+						
+						// Increase health
 						m_Player->upgradeHealth();
 						m_gameState = GameState::PLAYING;
 					}
 					break;
 				case 3: // Run Speed Upgrade Button
-					if (it->getState() == GUI::ButtonState::clicked) {
-						m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);// Increase speed
+					if (it->getState() == GUI::ButtonState::CLICKED) {
+						m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);
+						
+						// Increase speed
 						m_Player->upgradeSpeed();
 						m_gameState = GameState::PLAYING;
 					}
 					break;
 				case 4: // Health PowerUp Upgrade Button
-					if (it->getState() == GUI::ButtonState::clicked) {
+					if (it->getState() == GUI::ButtonState::CLICKED) {
 						m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);
-						//healthPickup->upgrade();
+						//HealthPowerUp::upgrade();
 						m_gameState = GameState::PLAYING;
 					}
 					break;
 				case 5: // Ammo PowerUp Upgrade Button
-					if (it->getState() == GUI::ButtonState::clicked) {
+					if (it->getState() == GUI::ButtonState::CLICKED) {
 						m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);
-						//ammoPickup->upgrade();
+						//AmmoPowerUp::upgrade();
 						m_gameState = GameState::PLAYING;
 					}
 					break;
 				case 6: // Back Button
-					if (it->getState() == GUI::ButtonState::clicked) {
+					if (it->getState() == GUI::ButtonState::CLICKED) {
 						m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);
 						m_gameState = GameState::MAIN_MENU;
 					}
@@ -168,10 +175,9 @@ void DevilSpawn::Input() {
 			// Increase the wave number
 			wave++;
 
-			// Prepare thelevel
-			// We will modify the next two lines later
-			arena.width = 500 * wave;
-			arena.height = 500 * wave;
+			// Prepare the level
+			arena.width = 1024 + (wave * 128);
+			arena.height = 1024 + (wave * 128);
 			arena.left = 0;
 			arena.top = 0;
 
@@ -182,8 +188,8 @@ void DevilSpawn::Input() {
 			// Spawn the player in the middle of the arena
 			m_Player->spawn(arena.width / 2, arena.height / 2);
 
-			// Create a horde of zombies
-			hordeSize = 5 * wave;
+			// Create a horde of Devils
+			hordeSize = 10 * wave;
 
 			// Delete the previously allocated memory (if it exists)
 			horde.clear();
@@ -210,28 +216,28 @@ void DevilSpawn::Input() {
 				for (std::list<GUI::Button>::iterator it = btnLst_allSettings.begin(); it != btnLst_allSettings.end(); ++it) {
 					switch (i++) {
 					case 0: // Graphics Settings Button
-						if (it->getState() == GUI::ButtonState::clicked) {
+						if (it->getState() == GUI::ButtonState::CLICKED) {
 							m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);
 							//std::cout << "No Graphics Settings Yet." << std::endl;
 							m_currentSettingsPage = SettingsPage::GRAPHICS;
 						}
 						break;
 					case 1: // Audio Settings Button
-						if (it->getState() == GUI::ButtonState::clicked) {
+						if (it->getState() == GUI::ButtonState::CLICKED) {
 							m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);
 							//std::cout << "No Gameplay Settings Yet." << std::endl;
 							m_currentSettingsPage = SettingsPage::AUDIO;
 						}
 						break;
 					case 2: // GamePlay Settings Button
-						if (it->getState() == GUI::ButtonState::clicked) {
+						if (it->getState() == GUI::ButtonState::CLICKED) {
 							m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);
 							//std::cout << "No Audio Settings Yet." << std::endl;
 							m_currentSettingsPage = SettingsPage::GAMEPLAY;
 						}
 						break;
 					case 3: // Back Button
-						if (it->getState() == GUI::ButtonState::clicked) {
+						if (it->getState() == GUI::ButtonState::CLICKED) {
 							m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);
 							m_gameState = GameState::MAIN_MENU;
 						}
@@ -243,7 +249,7 @@ void DevilSpawn::Input() {
 				for (std::list<GUI::Button>::iterator it = btnLst_graphicsSettings.begin(); it != btnLst_graphicsSettings.end(); ++it) {
 					switch (i++) {
 					case 0: // Fullscreen Button
-						if (it->getState() == GUI::ButtonState::clicked) {
+						if (it->getState() == GUI::ButtonState::CLICKED) {
 							m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);
 							m_windowedStatus = sf::Style::Fullscreen;
 							resolution = sf::Vector2f(
@@ -253,7 +259,7 @@ void DevilSpawn::Input() {
 						}
 						break;
 					case 1: // Windowed Button
-						if (it->getState() == GUI::ButtonState::clicked) {
+						if (it->getState() == GUI::ButtonState::CLICKED) {
 							m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);
 							m_windowedStatus = sf::Style::Default;
 							resolution = sf::Vector2f(
@@ -263,21 +269,21 @@ void DevilSpawn::Input() {
 						}
 						break;
 					case 2: // 30 FPS Button
-						if (it->getState() == GUI::ButtonState::clicked) {
+						if (it->getState() == GUI::ButtonState::CLICKED) {
 							m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);
 							m_frameRate = 30;
 							refreshWindow();
 						}
 						break;
 					case 3: // 60 FPS Button
-						if (it->getState() == GUI::ButtonState::clicked) {
+						if (it->getState() == GUI::ButtonState::CLICKED) {
 							m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);
 							m_frameRate = 60;
 							refreshWindow();
 						}
 						break;
 					case 4: // VSync ON Button
-						if (it->getState() == GUI::ButtonState::clicked) {
+						if (it->getState() == GUI::ButtonState::CLICKED) {
 							m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);
 							m_vSyncActive = true;
 							m_frameRate = 0;
@@ -285,7 +291,7 @@ void DevilSpawn::Input() {
 						}
 						break;
 					case 5: // VSync OFF Button
-						if (it->getState() == GUI::ButtonState::clicked) {
+						if (it->getState() == GUI::ButtonState::CLICKED) {
 							m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);
 							m_vSyncActive = false;
 							m_frameRate = 0;
@@ -293,7 +299,7 @@ void DevilSpawn::Input() {
 						}
 						break;
 					case 6: // Back Button
-						if (it->getState() == GUI::ButtonState::clicked) {
+						if (it->getState() == GUI::ButtonState::CLICKED) {
 							m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);
 							refreshWindow();
 							m_currentSettingsPage = SettingsPage::LIST;
@@ -306,7 +312,7 @@ void DevilSpawn::Input() {
 				for (std::list<GUI::Button>::iterator it = btnLst_audioSettings.begin(); it != btnLst_audioSettings.end(); ++it) {
 					switch (i++) {
 					case 0: // Back Button
-						if (it->getState() == GUI::ButtonState::clicked) {
+						if (it->getState() == GUI::ButtonState::CLICKED) {
 							m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);
 							m_currentSettingsPage = SettingsPage::LIST;
 						}
@@ -318,7 +324,7 @@ void DevilSpawn::Input() {
 				for (std::list<GUI::Button>::iterator it = btnLst_gameplaySettings.begin(); it != btnLst_gameplaySettings.end(); ++it) {
 					switch (i++) {
 					case 0: // Back Button
-						if (it->getState() == GUI::ButtonState::clicked) {
+						if (it->getState() == GUI::ButtonState::CLICKED) {
 							m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);
 							m_currentSettingsPage = SettingsPage::LIST;
 						}
@@ -337,7 +343,7 @@ void DevilSpawn::Input() {
 			for (std::list<GUI::Button>::iterator it = btnLst_gameOver.begin(); it != btnLst_gameOver.end(); ++it) {
 				switch (i++) {
 				case 0: // Retry Button
-					if (it->getState() == GUI::ButtonState::clicked) {
+					if (it->getState() == GUI::ButtonState::CLICKED) {
 						m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);
 						m_gameState = GameState::LEVELING_UP;
 						wave = 0;
@@ -348,7 +354,7 @@ void DevilSpawn::Input() {
 					}
 					break;
 				case 1: // Main Menu Button
-					if (it->getState() == GUI::ButtonState::clicked) {
+					if (it->getState() == GUI::ButtonState::CLICKED) {
 						m_audio.onNotify(SoundBoard::SFX::UI_BUTTONCLICK);
 						m_gameState = GameState::MAIN_MENU;
 					}

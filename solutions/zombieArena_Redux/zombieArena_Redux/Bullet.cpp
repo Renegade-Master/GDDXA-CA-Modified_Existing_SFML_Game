@@ -9,9 +9,10 @@
 /**
 *	Default Constructor
 */
-Bullet::Bullet(float damage, float speed) {
+Bullet::Bullet(float damage, float speed, float range) {
 	this->m_BulletDamage = damage;
 	this->m_BulletSpeed = speed;
+	this->m_Range = range;
 	this->m_BulletShape.setSize(
 		sf::Vector2f(2.0f * damage, 2.0f * damage));
 }
@@ -54,12 +55,11 @@ void Bullet::shoot(sf::Vector2f origin, sf::Vector2f target) {
 	this->m_XTarget = target.x;
 	this->m_YTarget = target.y;
 
-	// Set a max range of 1000 pixels
-	float range = 1000;
-	this->m_MinX = origin.x - range;
-	this->m_MaxX = origin.x + range;
-	this->m_MinY = origin.y - range;
-	this->m_MaxY = origin.y + range;
+	// Set the range of the bullet
+	this->m_MinX = origin.x - m_Range;
+	this->m_MaxX = origin.x + m_Range;
+	this->m_MinY = origin.y - m_Range;
+	this->m_MaxY = origin.y + m_Range;
 	
 	// Position the bullet ready to be drawn
 	this->m_BulletShape.setPosition(this->m_Position);

@@ -28,7 +28,7 @@ public:
 	sf::Sprite getSprite() { return m_Sprite; };
 
 	// Let the pickup update itself each frame
-	void update(sf::Time elapsedTime);
+	bool update(sf::Time elapsedTime, sf::IntRect& bounds);
 
 	// Is this pickup currently spawned?
 	bool isSpawned() { return m_Spawned; };

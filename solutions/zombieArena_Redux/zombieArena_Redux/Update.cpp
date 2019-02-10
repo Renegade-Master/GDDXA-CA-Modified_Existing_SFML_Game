@@ -14,6 +14,7 @@ void DevilSpawn::Update() {
 		// Update while Playing
 	if (m_gameState == GameState::PLAYING) {
 		m_audio.onNotify(SoundBoard::SFX::MUSIC_GAME);
+		
 		// Change the mouse to the GAME mouse
 		window.setMouseCursorVisible(false);
 		texture_mouse = TextureHolder::GetTexture("Graphics\\crosshair.png");
@@ -33,9 +34,6 @@ void DevilSpawn::Update() {
 		// Update the player
 		m_Player->update(m_FrameTime);
 
-		// Make a note of the players new position
-		sf::Vector2f playerPosition(m_Player->getCentre());
-
 		// Make the view centre around the player				
 		mainView.setCenter(m_Player->getCentre());
 		miniMapView.setCenter(m_Player->getCentre());
@@ -43,20 +41,29 @@ void DevilSpawn::Update() {
 		// Loop through each Devil and update them
 		for (std::vector<Devil*>::iterator it = horde.begin(); it != horde.end(); ++it) {
 			if ((*it)->isAlive()) {
-				(*it)->update(m_FrameTime, playerPosition);
+				(*it)->update(m_FrameTime, m_Player->getCentre());
 			}
 		}
 
 		// Update any bullets that are in-flight
 		for (std::vector<Bullet*>::iterator it = m_Player->m_Weapon->m_Ammo.begin(); it != m_Player->m_Weapon->m_Ammo.end(); ++it) {
-			if ((*it)->isInFlight()) {
+			if ((*it)->getPosition().left < 0
+				|| (*it)->getPosition().left > arena.width
+				|| (*it)->getPosition().top < 0
+				|| (*it)->getPosition().top > arena.height) {
+
+				(*it)->stop();
+			}
+			else if ((*it)->isInFlight()) {
 				(*it)->update(m_FrameTime.asSeconds());
 			}
 		}
 
-		// Update the pickups
+		// Update the PowerUps
 		for (std::vector<PowerUp*>::iterator it = powerUps.begin(); it != powerUps.end(); ++it) {
-			(*it)->update(m_FrameTime);
+			if ((*it)->update(m_FrameTime, arena)) {
+				m_audio.onNotify(SoundBoard::SFX::POWERUP_SPAWN);
+			}
 		}
 
 		// Collision detection
@@ -95,13 +102,27 @@ void DevilSpawn::Update() {
 			}
 		}// End zombie being shot
 
+		// Has the Player Wandered out of the Zone?
+		if (m_Player->getCentre().x < 0) {
+			m_Player->onHit(gameTimeTotal);
+		}
+		else if (m_Player->getCentre().x > arena.width) {
+			m_Player->onHit(gameTimeTotal);
+		}
+			
+		if (m_Player->getCentre().y < 0) {
+			m_Player->onHit(gameTimeTotal);
+		}
+		else if (m_Player->getCentre().y > arena.height) {
+			m_Player->onHit(gameTimeTotal);
+		}// End player wondering
+
 		// Have any horde touched the player			
 		for (std::vector<Devil*>::iterator it = horde.begin(); it != horde.end(); ++it) {
 			if (m_Player->getPosition().intersects
 			((*it)->getPosition()) && (*it)->isAlive()) {
 
 				if (m_Player->onHit(gameTimeTotal)) {
-					// More here later
 					m_audio.onNotify(SoundBoard::SFX::HIT_PLAYER);
 				}
 
@@ -127,7 +148,7 @@ void DevilSpawn::Update() {
 			}
 		}
 
-		// size up the health bar
+		// Resize the health bar
 		healthBar.setSize(sf::Vector2f(m_Player->getHealth() * 3, 70));
 		healthBar.setOrigin(healthBar.getSize().x / 2, healthBar.getSize().y / 2);
 
@@ -214,17 +235,11 @@ void DevilSpawn::Update() {
 			for (std::list<GUI::Button>::iterator it = btnLst_graphicsSettings.begin(); it != btnLst_graphicsSettings.end(); ++it) {
 				it->update(evnt, gameTimeTotal, window);
 			}
-
-			// Update Settings to Newly set Values
-			//window.setSize(sf::Vector2u(resolution));
-			//window.setFramerateLimit(m_frameRate);
-			//window.setVerticalSyncEnabled(m_vSyncActive);
-			//mainView.reset(sf::FloatRect(0, 0, resolution.x, resolution.y));
 			
-			std::cout
+			/*std::cout
 				<< "Current Resolution:\t" << resolution.x << " x " << resolution.y << std::endl
 				<< "Framerate:\t\t" << m_frameRate << std::endl
-				<< "V-Sync Status:\t\t" << m_vSyncActive << std::endl << std::endl;;
+				<< "V-Sync Status:\t\t" << m_vSyncActive << std::endl << std::endl;;*/
 		}
 		else if (m_currentSettingsPage == SettingsPage::AUDIO) {
 			for (std::list<GUI::Button>::iterator it = btnLst_audioSettings.begin(); it != btnLst_audioSettings.end(); ++it) {

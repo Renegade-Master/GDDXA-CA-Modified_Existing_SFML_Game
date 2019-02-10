@@ -13,8 +13,8 @@ void DevilSpawn::Draw() {
 
 	window.clear();
 
-	if (m_gameState == GameState::PLAYING) {// set the mainView to be displayed in the window
-		// And draw everything related to it
+	if (m_gameState == GameState::PLAYING) {
+		// set the mainView to be displayed in the window
 		window.setView(mainView);
 
 		// Draw the background
@@ -44,11 +44,6 @@ void DevilSpawn::Draw() {
 
 		//Draw the crosshair - MUST BE DRAWN TO MAINVIEW
 		window.draw(sprite_mouse);
-
-		// Draw the MiniMap
-		//window.setView(miniMapView);
-
-		//window.draw(miniMapBorder);
 
 		// Switch to the HUD view
 		window.setView(hudView);

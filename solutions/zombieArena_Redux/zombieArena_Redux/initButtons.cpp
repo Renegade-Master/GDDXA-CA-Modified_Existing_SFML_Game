@@ -26,7 +26,7 @@ void DevilSpawn::initButtons() {
 		sf::Vector2f(
 			resolution.x * 0.25f, 
 			resolution.y * 0.5f), 
-		GUI::ButtonStyle::clean));
+		GUI::ButtonStyle::CLEAN));
 
 	btnLst_mainMenu.push_back(GUI::Button(
 		"Settings", 
@@ -34,7 +34,7 @@ void DevilSpawn::initButtons() {
 		sf::Vector2f(
 			resolution.x * 0.25f, 
 			resolution.y * 0.6f), 
-		GUI::ButtonStyle::none));
+		GUI::ButtonStyle::NONE));
 
 	btnLst_mainMenu.push_back(GUI::Button(
 		"Quit", 
@@ -42,7 +42,7 @@ void DevilSpawn::initButtons() {
 		sf::Vector2f(
 			resolution.x * 0.25f, 
 			resolution.y * 0.7f), 
-		GUI::ButtonStyle::cancel));
+		GUI::ButtonStyle::CANCEL));
 
 
 	// Game Over Buttons
@@ -52,7 +52,7 @@ void DevilSpawn::initButtons() {
 		sf::Vector2f(
 			resolution.x * 0.3f, 
 			resolution.y * 0.95f), 
-		GUI::ButtonStyle::none));
+		GUI::ButtonStyle::NONE));
 
 	btnLst_gameOver.push_back(GUI::Button(
 		"Main Menu", 
@@ -60,7 +60,7 @@ void DevilSpawn::initButtons() {
 		sf::Vector2f(
 			resolution.x * 0.6f, 
 			resolution.y * 0.95f), 
-		GUI::ButtonStyle::cancel));
+		GUI::ButtonStyle::CANCEL));
 
 
 	// Level Up Buttons
@@ -70,7 +70,7 @@ void DevilSpawn::initButtons() {
 		sf::Vector2f(
 			resolution.x * 0.5f, 
 			resolution.y * 0.3f), 
-		GUI::ButtonStyle::none));
+		GUI::ButtonStyle::NONE));
 
 	btnLst_levelUp.push_back(GUI::Button(
 		"Clip Size ++", 
@@ -78,7 +78,7 @@ void DevilSpawn::initButtons() {
 		sf::Vector2f(
 			resolution.x * 0.5f, 
 			resolution.y * 0.4f), 
-		GUI::ButtonStyle::none));
+		GUI::ButtonStyle::NONE));
 
 	btnLst_levelUp.push_back(GUI::Button(
 		"Health ++", 
@@ -86,7 +86,7 @@ void DevilSpawn::initButtons() {
 		sf::Vector2f(
 			resolution.x * 0.5f, 
 			resolution.y * 0.5f), 
-		GUI::ButtonStyle::none));
+		GUI::ButtonStyle::NONE));
 
 	btnLst_levelUp.push_back(GUI::Button(
 		"Run Speed ++", 
@@ -94,7 +94,7 @@ void DevilSpawn::initButtons() {
 		sf::Vector2f(
 			resolution.x * 0.5f, 
 			resolution.y * 0.6f), 
-		GUI::ButtonStyle::none));
+		GUI::ButtonStyle::NONE));
 
 	btnLst_levelUp.push_back(GUI::Button(
 		"Health PowerUp ++", 
@@ -102,7 +102,7 @@ void DevilSpawn::initButtons() {
 		sf::Vector2f(
 			resolution.x * 0.5f, 
 			resolution.y * 0.7f), 
-		GUI::ButtonStyle::none));
+		GUI::ButtonStyle::NONE));
 
 	btnLst_levelUp.push_back(GUI::Button(
 		"Ammo PowerUp ++", 
@@ -110,7 +110,7 @@ void DevilSpawn::initButtons() {
 		sf::Vector2f(
 			resolution.x * 0.5f, 
 			resolution.y * 0.8f), 
-		GUI::ButtonStyle::none));
+		GUI::ButtonStyle::NONE));
 
 	btnLst_levelUp.push_back(GUI::Button(
 		"Back", 
@@ -118,7 +118,7 @@ void DevilSpawn::initButtons() {
 		sf::Vector2f(
 			resolution.x * 0.5f, 
 			resolution.y * 0.95f), 
-		GUI::ButtonStyle::cancel));
+		GUI::ButtonStyle::CANCEL));
 
 	
 	/***---------------------***\
@@ -131,7 +131,7 @@ void DevilSpawn::initButtons() {
 		sf::Vector2f(
 			resolution.x * 0.5f, 
 			resolution.y * 0.5f), 
-		GUI::ButtonStyle::none));
+		GUI::ButtonStyle::NONE));
 
 	btnLst_allSettings.push_back(GUI::Button(
 		"Gameplay Settings", 
@@ -139,7 +139,7 @@ void DevilSpawn::initButtons() {
 		sf::Vector2f(
 			resolution.x * 0.5f, 
 			resolution.y * 0.6f), 
-		GUI::ButtonStyle::none));
+		GUI::ButtonStyle::NONE));
 
 	btnLst_allSettings.push_back(GUI::Button(
 		"Audio Settings", 
@@ -147,7 +147,7 @@ void DevilSpawn::initButtons() {
 		sf::Vector2f(
 			resolution.x * 0.5f, 
 			resolution.y * 0.7f), 
-		GUI::ButtonStyle::none));
+		GUI::ButtonStyle::NONE));
 
 	btnLst_allSettings.push_back(GUI::Button(
 		"Back", 
@@ -155,7 +155,7 @@ void DevilSpawn::initButtons() {
 		sf::Vector2f(
 			resolution.x * 0.5f, 
 			resolution.y * 0.95f), 
-		GUI::ButtonStyle::cancel));
+		GUI::ButtonStyle::CANCEL));
 
 
 	/***-------------------------***\
@@ -168,7 +168,7 @@ void DevilSpawn::initButtons() {
 		sf::Vector2f(
 			resolution.x * 0.40, 
 			resolution.y * 0.32f), 
-		GUI::ButtonStyle::none));
+		GUI::ButtonStyle::NONE));
 
 	btnLst_graphicsSettings.push_back(GUI::Button(
 		"Windowed", 
@@ -176,7 +176,7 @@ void DevilSpawn::initButtons() {
 		sf::Vector2f(
 			resolution.x * 0.66, 
 			resolution.y * 0.32f), 
-		GUI::ButtonStyle::none));
+		GUI::ButtonStyle::NONE));
 
 	btnLst_graphicsSettings.push_back(GUI::Button(
 		"30 FPS", 
@@ -184,7 +184,7 @@ void DevilSpawn::initButtons() {
 		sf::Vector2f(
 			resolution.x * 0.40, 
 			resolution.y * 0.43f), 
-		GUI::ButtonStyle::none));
+		GUI::ButtonStyle::NONE));
 
 	btnLst_graphicsSettings.push_back(GUI::Button(
 		"60 FPS", 
@@ -192,7 +192,7 @@ void DevilSpawn::initButtons() {
 		sf::Vector2f(
 			resolution.x * 0.66, 
 			resolution.y * 0.43f), 
-		GUI::ButtonStyle::none));
+		GUI::ButtonStyle::NONE));
 
 	btnLst_graphicsSettings.push_back(GUI::Button(
 		"ON", 
@@ -200,7 +200,7 @@ void DevilSpawn::initButtons() {
 		sf::Vector2f(
 			resolution.x * 0.40, 
 			resolution.y * 0.54f), 
-		GUI::ButtonStyle::none));
+		GUI::ButtonStyle::NONE));
 
 	btnLst_graphicsSettings.push_back(GUI::Button(
 		"OFF", 
@@ -208,7 +208,7 @@ void DevilSpawn::initButtons() {
 		sf::Vector2f(
 			resolution.x * 0.66, 
 			resolution.y * 0.54f), 
-		GUI::ButtonStyle::none));
+		GUI::ButtonStyle::NONE));
 
 	btnLst_graphicsSettings.push_back(GUI::Button(
 		"Back", 
@@ -216,7 +216,7 @@ void DevilSpawn::initButtons() {
 		sf::Vector2f(
 			resolution.x * 0.5f, 
 			resolution.y * 0.95f), 
-		GUI::ButtonStyle::cancel));
+		GUI::ButtonStyle::CANCEL));
 
 
 	/***-------------------------***\
@@ -229,7 +229,7 @@ void DevilSpawn::initButtons() {
 		sf::Vector2f(
 			resolution.x * 0.5f, 
 			resolution.y * 0.95f), 
-		GUI::ButtonStyle::cancel));
+		GUI::ButtonStyle::CANCEL));
 
 
 	/***-------------------------***\
@@ -242,6 +242,6 @@ void DevilSpawn::initButtons() {
 		sf::Vector2f(
 			resolution.x * 0.5f, 
 			resolution.y * 0.95f), 
-		GUI::ButtonStyle::cancel));
+		GUI::ButtonStyle::CANCEL));
 
 }

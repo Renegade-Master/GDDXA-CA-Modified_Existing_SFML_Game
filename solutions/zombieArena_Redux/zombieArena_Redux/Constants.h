@@ -39,8 +39,8 @@ constexpr int OFFSET = 101 - MAX_VARIANCE;
 // Start value for PowerUps
 constexpr int HEALTH_START_VALUE = 50;
 constexpr int AMMO_START_VALUE = 12;
-constexpr int START_WAIT_TIME = 10;
-constexpr int START_SECONDS_TO_LIVE = 5;
+constexpr int START_WAIT_TIME = 12;
+constexpr int START_SECONDS_TO_LIVE = 7;
 
 #endif // !CONSTANTS_H
 

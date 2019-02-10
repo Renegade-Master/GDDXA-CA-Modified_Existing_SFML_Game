@@ -15,18 +15,18 @@
 namespace GUI {
 	namespace ButtonStyle {
 		enum {
-			none = 0,
-			save = 1,
-			cancel = 2,
-			clean = 3,
+			NONE = 0,
+			SAVE = 1,
+			CANCEL = 2,
+			CLEAN = 3,
 		};
 	};
 
 	namespace ButtonState {
 		enum {
-			normal = 0,
-			hovered = 1,
-			clicked = 2
+			NORMAL = 0,
+			HOVERED = 1,
+			CLICKED = 2
 		};
 	};
 
@@ -60,8 +60,6 @@ namespace GUI {
 		void update(sf::Event& e, sf::Time t, sf::RenderWindow& window);
 
 	private:
-		void init();
-
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 		
 		sf::Color m_bgNormal;
