@@ -22,7 +22,7 @@ void SoundBoard::initSounds() {
 	this->music_MainMenu.setVolume(50.0f);
 
 	//this->music_GameBuffer.loadFromFile("Audio\\music_Game.ogg");
-	this->music_GameBuffer.loadFromFile("Audio\\music_Game_001.ogg");
+	this->music_GameBuffer.loadFromFile("Audio\\music_Game_002.ogg");
 	this->music_Game.setBuffer(this->music_GameBuffer);
 	this->music_Game.setVolume(50.0f);
 
