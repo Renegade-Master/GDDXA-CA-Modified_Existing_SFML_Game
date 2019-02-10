@@ -126,8 +126,7 @@ private:
 
 	// For the home/game over screen
 	sf::Sprite spriteGameOver;
-	sf::Texture textureGameOver 
-		= TextureHolder::GetTexture("Graphics\\mtDoom_background.jpg");
+	sf::Texture textureGameOver;
 
 	// Create a Sprite for the Ammo UI Icon
 	sf::Sprite spriteAmmoIcon;

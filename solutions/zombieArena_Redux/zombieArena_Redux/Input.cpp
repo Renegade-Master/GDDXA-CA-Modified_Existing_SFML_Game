@@ -74,7 +74,9 @@ void DevilSpawn::Input() {
 		// Begin Button handling
 		if (evnt.type == sf::Event::MouseButtonPressed) {
 			int i = 0;
-			for (std::list<GUI::Button>::iterator it = btnLst_mainMenu.begin(); it != btnLst_mainMenu.end(); ++it) {
+			for (std::list<GUI::Button>::iterator it = btnLst_mainMenu.begin();
+				it != btnLst_mainMenu.end(); ++it) {
+
 				switch (i++) {
 				case 0: // Play Button
 					if (it->getState() == GUI::ButtonState::CLICKED) {

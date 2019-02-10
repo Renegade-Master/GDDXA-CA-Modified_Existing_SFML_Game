@@ -1,7 +1,14 @@
+Fonts
+	First Order - https://www.dafont.com/first-order.font
+
 Programmatic:
 	Buttons	- https://pushbuttonreceivecode.com/blog/how-to-create-simple-buttons-for-your-sfml-game
 
 Assets:
 	Pistol			- https://opengameart.org/content/pistol-1
 	Background Large	- https://wallpapercave.com/w/psyEVj8
-	Background Small	- http://awallpapershub.com/wp-content/uploads/2018/10/maxresdefault.jpg 
+	Background Small	- http://awallpapershub.com/wp-content/uploads/2018/10/maxresdefault.jpg
+
+Music:
+	Main Menu		- LeftField - Phat Planet
+	In-Game			- Transmission (Mindscape Remix) - Black Sun Empire

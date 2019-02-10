@@ -95,8 +95,6 @@ void DevilSpawn::refreshWindow() {
 	
 	// Create the Main SFML View
 	mainView = sf::View(sf::FloatRect(0, 0, resolution.x, resolution.y));
-	//mainView.reset(sf::FloatRect(0, 0, resolution.x, resolution.y));
-	//mainView.setSize(resolution);
 	mainView.setViewport(sf::FloatRect(0,0,1,1));
 
 	// Create a view for the HUD

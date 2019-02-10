@@ -67,8 +67,12 @@ void DevilSpawn::Update() {
 
 		// Collision detection
 		// Have any horde been shot?
-		for (std::vector<Bullet*>::iterator it = m_Player->m_Weapon->m_Ammo.begin(); it != m_Player->m_Weapon->m_Ammo.end(); ++it) {
-			for (std::vector<Devil*>::iterator it2 = horde.begin(); it2 != horde.end(); ++it2) {
+		for (std::vector<Bullet*>::iterator it = m_Player->m_Weapon->m_Ammo.begin();
+			it != m_Player->m_Weapon->m_Ammo.end(); ++it) {
+
+			for (std::vector<Devil*>::iterator it2 = horde.begin();
+				it2 != horde.end(); ++it2) {
+
 				if ((*it)->isInFlight() &&
 					(*it2)->isAlive()) {
 					
