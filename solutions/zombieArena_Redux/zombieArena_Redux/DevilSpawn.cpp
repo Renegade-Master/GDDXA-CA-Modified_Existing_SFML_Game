@@ -11,12 +11,12 @@ DevilSpawn::DevilSpawn() {
 	| Setting up Game Files |
 	\***-----------------***/
 
-	/*resolution.x = sf::VideoMode::getDesktopMode().width;
-	resolution.y = sf::VideoMode::getDesktopMode().height;*/
+	resolution.x = sf::VideoMode::getDesktopMode().width;
+	resolution.y = sf::VideoMode::getDesktopMode().height;
 	/*resolution.x = 1280;
 	resolution.y = 720;*/
-	resolution.x = 2560;
-	resolution.y = 1440;
+	/*resolution.x = 2560;
+	resolution.y = 1440;*/
 
 	refreshWindow();
 
